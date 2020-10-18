@@ -66,6 +66,8 @@ class UserRegisterStore
             }
             // end check if user exists
 
+            ///
+
             // add user env
             $agent = new \Jenssegers\Agent\Agent;
 
