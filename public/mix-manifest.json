@@ -1,0 +1,18 @@
+{
+  "/js/app.js": "/js/app.js",
+  "/css/app.css": "/css/app.css",
+  "/js/home.js": "/js/home.js",
+  "/js/chat.js": "/js/chat.js",
+  "/js/login.js": "/js/login.js",
+  "/js/chatUserList.js": "/js/chatUserList.js",
+  "/js/dashboard.js": "/js/dashboard.js",
+  "/js/profilePhotos.js": "/js/profilePhotos.js",
+  "/js/profileAbout.js": "/js/profileAbout.js",
+  "/js/myMatches.js": "/js/myMatches.js",
+  "/js/profileHome.js": "/js/profileHome.js",
+  "/js/messages.js": "/js/messages.js",
+  "/js/register.js": "/js/register.js",
+  "/js/forgotPassword.js": "/js/forgotPassword.js",
+  "/js/adminhome.js": "/js/adminhome.js",
+  "/js/admincreateuser.js": "/js/admincreateuser.js"
+}
