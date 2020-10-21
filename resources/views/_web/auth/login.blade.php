@@ -1,59 +1,79 @@
-@extends('_web.layouts.master')
+    @extends('_web.layouts.master')
 
-@section('title')
+        @section('title')
 
-Login
+        Login
 
-@endsection
+        @endsection
 
 
-@section('content')
+        @section('content')
 
-    <div class="container">
+            <div class="container">
 
-        <div class="card">
+                <div class="row justify-content-center">
+                    <div class="col-md-6" >
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row justify-content-center">
+                                    <img  class="logo" src="{{ asset('images/icon.png') }}" />
+                                      <br>
+                                      <p class="card-text">
+                                </div>
+                                <div class="row justify-content-center">
+                                    <h3>Login</h3>
+                                </div>
 
-            <div class="card-body">
-                <h5 class="card-title">Login</h5>
-                <p class="card-text">
+                            <form action="{{ route('login.store') }}" method="post">
 
-                    <form action="{{ route('login.store') }}" class="form-box" method="post">
+                                {{ csrf_field() }}
 
-                        {{ csrf_field() }}
+                                <div class="col-md-12 inputs">
+                                    <input id="username" name="username" placeholder="Username" type="text"
+                                    class="fadein first" required value="{{ old('email') }}" required autofocus>
+                                    @if ($errors->has('username'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('username') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="col-md-12 inputs">
+                                    <input id="password" name="password" placeholder="Password" type="password" required>
+                                    @if ($errors->has('password'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
 
-                        <div class="row">
-                            <input id="username" name="username" placeholder="Username" type="text"
-                            class="input-text" required value="{{ old('email') }}" required autofocus>
-                            @if ($errors->has('username'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('username') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                        <div class="row">
-                            <input id="password" name="password" placeholder="Password" type="password" class="input-text" required>
-                            @if ($errors->has('password'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('password') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                        <div class="form-checkbox">
+                                <div class="col-md-12 inputs">
+                                <div class="form-checkbox">
 
-                            <input id="remember" type="checkbox" name="remember"
-                                    {{ old('remember') ? 'checked' : '' }}>
+                                    <input id="remember" type="checkbox" name="remember"
+                                            {{ old('remember') ? 'checked' : '' }}>
 
-                            <label for="check">Remember Me</label>
-                        </div>
-                        <button class="btn btn-xs" type="submit">Submit</button>
+                                    <label for="check">Remember Me</label>
+                                </div>
 
-                    </form>
+                            </div>
 
-                </p>
+                                <div class="col-md-12 inputs">
+                                  <button class="btn btn-xs" type="submit">Login</button>
+                                </div>
+                                <div class="col-md-12 inputs">
+                                   <a href="#" class="reset">
+                                      Forgot Your Password?
+                                   </a>
+                                </div>
+                            </form>
+
+                        </p>
+                    </div>
+                </div>
+                </div>
+                </div>
+
             </div>
-        </div>
 
-    </div>
-
-@endsection
+        @endsection
 
