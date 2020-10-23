@@ -108,7 +108,7 @@
                     Mombasa Road<br />
                     Nairobi, Kenya
                 </div>
-                <div class="shop-menu-cnt">
+                {{-- <div class="shop-menu-cnt">
                     <i></i>
                     <div class="shop-menu">
                         <ul class="shop-cart">
@@ -139,26 +139,40 @@
                             <a href="#" class="cart-checkout">Checkout</a>
                         </p>
                     </div>
-                </div>
-                <form role="search" method="get" id="searchform" class="search-btn">
+                </div> --}}
+                {{-- <form role="search" method="get" id="searchform" class="search-btn">
                     <div class="search-box-menu">
                         <input type="text" placeholder="Search ...">
                         <i></i>
                     </div>
-                </form>
+                </form> --}}
 
                 @if (isLoggedIn())
                     <ul class="lan-menu">
                         <li class="dropdown">
-                            <a href="#"><img src="{{ asset('images/en.png') }}" alt="lang" />{{ getLoggedUser()->first_name }} </a>
+                            <a href="#"><i class="fa fa-user"></i> {{ getLoggedUser()->first_name }} </a>
                             <ul>
                                 <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
                                 <li><a href="#"><i class="fa fa-briefcase"></i> Transactions</a></li>
                                 <li><a href="#"><i class="fa fa-money"></i> Payments</a></li>
-                                <li><a href="#"><i class="fa fa-lock"></i> Logout</a></li>
+                                <li>
+                                    <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                                        <i class="fa fa-lock"></i> Logout
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+                                </li>
                             </ul>
                         </li>
                     </ul>
+                @else
+                    <p class="auth-link">
+                        <a href="{{ route('login') }}">Login</a> |
+                        <a href="{{ route('register') }}">Register</a>
+                    </p>
                 @endif
             </div>
         </div>

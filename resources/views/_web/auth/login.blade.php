@@ -16,7 +16,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row justify-content-center">
-                                    <img  class="logo" src="{{ asset('images/icon.png') }}" />
+                                    <img  class="" src="{{ asset('images/login_icon.png') }}" />
                                       <br>
                                       <p class="card-text">
                                 </div>

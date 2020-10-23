@@ -5591,14 +5591,14 @@ Inverted responsive classes
     border-radius: 2px;
     -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
     box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-    
+
   }
 
   .logo {
     width: 80px;
     height: 80px;
   }
-  
+
 .inputs input[type=email],
 .inputs input[type=Password],
 .inputs input[type=text],
@@ -5613,7 +5613,7 @@ Inverted responsive classes
     box-sizing: border-box;
 }
 
- 
+
 
 
 
@@ -5638,11 +5638,11 @@ Inverted responsive classes
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
   }
-  
+
   /* input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
     background-color: #39ace7;
   } */
-  
+
   input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
     -moz-transform: scale(0.95);
     -webkit-transform: scale(0.95);
@@ -5650,7 +5650,7 @@ Inverted responsive classes
     -ms-transform: scale(0.95);
     transform: scale(0.95);
   }
-  
+
   input[type=text], input[type=Password] {
     background-color: #f6f6f6;
     border: none;
@@ -5671,13 +5671,13 @@ Inverted responsive classes
     -webkit-border-radius: 5px 5px 5px 5px;
     border-radius: 5px 5px 5px 5px;
   }
-  
+
   input[type=text], input[type=Password]:focus {
     background-color: #fff;
     border-bottom: 2px solid #5fbae9;
-    
+
   }
-  
+
   input[type=text],  input[type=Password]:placeholder {
     color: #cccccc;
   }
@@ -5686,5 +5686,6 @@ Inverted responsive classes
       list-style: none;
       text-decoration: none;
   }
-  
-  
+
+  .auth-link a, .auth-link{ color: #ffffff; text-decoration: none; }
+  .auth-link a:hover{ color: #03BFCB; }
