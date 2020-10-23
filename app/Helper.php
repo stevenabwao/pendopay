@@ -2447,7 +2447,7 @@ function getUserSetLoanLimit($loan_limit_calculation_id, $user_deposit_payments,
 
 }
 
-//save company user account data
+// get user account data
 function getUserData($phone, $email="") {
 
 	//get user data

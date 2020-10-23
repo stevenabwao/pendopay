@@ -36,12 +36,6 @@ class UserRegisterStore
             if (array_key_exists('dob', $attributes)) {
                 $dob = $attributes['dob'];
             }
-            if (array_key_exists('county_id', $attributes)) {
-                $county_id = $attributes['county_id'];
-                $county_data = getCounties($county_id)->first();
-                $county_name = $county_data->name;
-                $attributes['county_name'] = $county_data->name;
-            }
 
             // get minimum allowed age
             /* $site_settings = getSiteSettings();
@@ -113,8 +107,10 @@ class UserRegisterStore
 
                 DB::rollback();
                 // dd($e);
-                $message['message'] = "Error creating user account. Please try again later";
-                return show_error_response($message);
+                $message = "Error creating user account. Please try again later";
+                $message .= $e;
+                //  show_error_response($message);
+                throw new \Exception($message);
 
             }
             // end create new user
@@ -143,18 +139,39 @@ class UserRegisterStore
                 $new_deposit_account = $deposit_account->create($deposit_account_attributes);
                 log_this(json_encode($new_deposit_account));
 
+            } catch(\Exception $e) {
+
+                DB::rollback();
+                // dd($e);
+                $message = "Error creating user deposit account. Please try again later";
+                $message .= $e;
+                // return show_error_response($message);
+                throw new \Exception($message);
+
+            }
+            // end create new user deposit account
+
+
+            // start sending activation sms and email
+            try {
+
                 // send account activation email/ sms
                 sendAccountActivationDetails($phone, $email);
 
             } catch(\Exception $e) {
 
                 DB::rollback();
-                dd($e);
-                $message['message'] = "Error creating user deposit account. Please try again later";
-                return show_error_response($message);
+                // dd($e);
+                /* $message['message'] = "Error sending account activation details";
+                return show_error_response($message); */
+
+                $message = "Error sending account activation details";
+                $message .= $e;
+                throw new \Exception($message);
 
             }
-            // end create new user deposit account
+            // end sending activation sms and email
+
 
         DB::commit();
 

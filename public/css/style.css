@@ -5654,13 +5654,13 @@ Inverted responsive classes
   input[type=text], input[type=Password] {
     background-color: #f6f6f6;
     border: none;
-    color: #39ace7;
+    /* color: #39ace7; */
     padding: 15px 32px;
-    text-align: center;
+    /* text-align: center; */
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 5px;
+    margin: 0;
     width: 85%;
     border: 2px solid #f6f6f6;
     -webkit-transition: all 0.5s ease-in-out;
