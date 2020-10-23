@@ -52,7 +52,7 @@ class UserRegisterStore
             $user_age = getDateDiff($dob, "", $interval);
 
             if ($user_age < $min_age) {
-                $message['message'] = "You must be above 18 to use this site";
+                $message['message'] = "You must be above $min_age to use this site";
                 return show_error_response($message);
             } */
 
