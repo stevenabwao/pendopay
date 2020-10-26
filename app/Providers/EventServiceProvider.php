@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Listeners\NotifyUserCreated;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -14,9 +15,25 @@ class EventServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $listen = [
-        Registered::class => [
+    /* protected $listen2 = [
+        UserCreated::class => [
             SendEmailVerificationNotification::class,
+            NotifyUserCreated::class,
+        ],
+    ]; */
+
+    protected $listen = [
+        'App\Events\UserCreated' => [
+            'App\Listeners\NotifyUserCreated',
+        ],
+        'App\Events\UserUpdated' => [
+            'App\Listeners\NotifyUserUpdated',
+        ],
+        'App\Events\DepositAccountCreated' => [
+            'App\Listeners\NotifyDepositAccountCreated',
+        ],
+        'App\Events\DepositAccountUpdated' => [
+            'App\Listeners\NotifyDepositAccountUpdated',
         ],
     ];
 

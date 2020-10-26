@@ -1,4 +1,4 @@
-    @extends('_web.layouts.master')
+    @extends('_web.layouts.authMaster')
 
         @section('title')
 
@@ -47,7 +47,7 @@
                                     <div>
 
                                         <div class="md-form mat-2 mx-auto">
-                                            <input type="password" name="password" class="form-control">
+                                            <input type="password" name="password" value="{{ old('password') }}" class="form-control">
                                             <label for="example">Password</label>
                                         </div>
                                         @if ($errors->has('password'))
@@ -71,13 +71,16 @@
 
                                     <hr>
 
-                                    <div class="col-md-12z inputs">
-                                    <button class="btn btn-xs" type="submit">Login</button>
+                                    <div class="inputs row">
+                                        <button class="btn btn-xs" type="submit">Login</button>
                                     </div>
-                                    <div class="col-md-12z inputs">
-                                    <a href="#" class="reset">
-                                        Forgot Your Password?
-                                    </a>
+                                    <div class="col-sm-12z inputs row">
+                                        <div class="col-sm-6">
+                                            <a href="{{ route('register') }}" class="reset">Register an Account</a>
+                                        </div>
+                                        <div class="col-sm-6 float-right">
+                                            <a href="{{ route('password.request') }}" class="reset">Forgot Your Password?</a>
+                                        </div>
                                     </div>
                                 </form>
 
@@ -99,64 +102,7 @@
 
         @section('page_css')
 
-            <style>
-                /* @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css); */
-                @import url(https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.3/css/mdb.min.css);
+            <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 
-                /* .hm-gradient {
-                    background-color: #eee;
-                }
-                .darken-grey-text {
-                    color: #2E2E2E;
-                } */
-
-
-                .md-form.mat-2 input[type=text], .md-form.mat-2 input[type=password] {
-                border-width: 1px !important;
-                border-style: solid;
-                border-color: #ced4da;
-                border-radius: 5px;
-                /* padding-top: .5rem; */
-                /* padding-left: 8px;
-                padding-right: 8px; */
-                padding-bottom: .1rem;
-                font-size: .875rem;
-                line-height: 1.5;
-                }
-
-                .md-form.mat-2 input[type=text]:focus {
-                /* border-color: #4285f4;
-                box-shadow: inset 0px 0px 0px 1px #4285f4; */
-                }
-
-                .md-form.mat-2 label {
-                top: .3rem;
-                left: 8px;
-                font-size: .875rem;
-                }
-
-                .md-form.mat-2 label.active {
-                background: #fff;
-                font-weight: 500;
-                padding-right: 5px;
-                padding-left: 5px;
-                font-size: 11px;
-                top: 1.9rem;
-                left: 8px;
-                }
-
-                input[type=text], input[type=password] { height: 1.5rem; line-height: 0; width:86%; }
-                .mx-auto{ margin-left: 0 !important; margin-right: 0 !important; }
-
-                .md-form, .md-form .btn {
-                    margin-bottom: 0;
-                    margin-top: 1rem;
-                }
-
-                .form-title{background: #ededed; padding-top:8px; margin-top:8px; margin-bottom:2rem;}
-
-                hr{margin: 20px 0 !important;}
-
-            </style>
         @endsection
 

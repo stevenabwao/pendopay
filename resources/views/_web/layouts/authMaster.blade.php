@@ -1,19 +1,12 @@
-@extends('layouts.mainMaster')
+@extends('_web.layouts.mainMaster')
 
 @section('main_content')
 
-    <div class="page-wrapper wrapper pa-0 ma-0 auth-page">
+    <main>
 
-        @include('layouts.partials.authHeader')
+        @yield('content')
 
-        <div id="wrapper">
+    </main>
 
-            @yield('content')
-
-            @include('layouts.partials.footer')
-
-        </div>
-
-    </div>
 
 @endsection

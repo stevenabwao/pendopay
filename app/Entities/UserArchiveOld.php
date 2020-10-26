@@ -32,7 +32,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 
-class UserArchive extends Model
+class UserArchiveOld extends Model
 {
 
     /**
@@ -119,7 +119,7 @@ class UserArchive extends Model
     {
         return $this->hasMany(Account::class);
     }
-    
+
     public function remindermessagesettings()
     {
         return $this->hasMany(ReminderMessageSetting::class);
@@ -258,7 +258,7 @@ class UserArchive extends Model
         //add parent id
         $attributes['parent_id'] = $attributes['id'];
 
-        //remove id and updated_by fields from array, 
+        //remove id and updated_by fields from array,
         //id will be auto populated (autoincrement field)
         unset($attributes['id']);
 
@@ -273,18 +273,18 @@ class UserArchive extends Model
      * @return \Illuminate\Database\Eloquent\Model
      */
     public static function updatedata($id, array $attributes = [])
-    { 
+    {
 
         //dd($attributes, $id);
 
         $user_id = auth()->user()->id;
         $attributes['updated_by'] = $user_id;
-        
+
 
         //item data
         $item = static::query()->findOrFail($id);
 
-        
+
 
         $model = $item->update($attributes);
 

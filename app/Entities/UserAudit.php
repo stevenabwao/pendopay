@@ -1,7 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Entities;
 
+use App\Entities\Account;
 use App\Entities\Company;
 use App\Entities\CompanyUser;
 use App\Entities\DepositAccount;
@@ -17,9 +18,8 @@ use App\Entities\ReportDataSummaryDetail;
 use App\Entities\SmsOutbox;
 use App\Entities\Status;
 use App\Entities\UserAccessToken;
-use App\Entities\UserArchive;
-use App\Entities\UserAudit;
 use App\Role;
+use App\Permission;
 use App\Events\UserCreated;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -27,9 +27,10 @@ use Laratrust\Traits\LaratrustUserTrait;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
 use App\Entities\UserLogin;
-use App\Events\UserUpdated;
 
-class User extends Authenticatable
+use Illuminate\Support\Facades\DB;
+
+class UserAudit extends Authenticatable
 {
 
     use HasApiTokens;
@@ -40,7 +41,7 @@ class User extends Authenticatable
      * The attributes that are mass assignable
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'dob', 'password', 'password2', 'gender', 'status_id', 'active',
+        'parent_id', 'first_name', 'last_name', 'email', 'dob', 'password', 'password2', 'gender', 'status_id', 'active',
         'remember_token', 'password_text', 'id_no', 'is_super_admin',
         'phone', 'phone_country', 'api_token', 'src_ip', 'user_agent', 'browser', 'browser_version', 'os', 'device',
         'dob_updated', 'dob_updated_at', 'created_by', 'created_by_name', 'updated_by', 'updated_by_name', 'is_company_user'
@@ -69,10 +70,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'password2', 'remember_token', 'api_token',
+        'password', 'password2', 'remember_token', 'api_token', 'access_token', 'refresh_token',
     ];
 
     // start roles  //////////////////////
+
+    public function user() {
+        return $this->belongsTo(User::class, 'parent_id', 'id');
+    }
 
     public function roles()
     {
@@ -90,9 +95,9 @@ class User extends Authenticatable
         return $this->hasOne(UserAccessToken::class);
     }
 
-    public function useraudits()
+    public function userarchives()
     {
-        return $this->hasMany(UserAudit::class);
+        return $this->hasMany(UserArchive::class);
     }
 
     public function userlogins()
@@ -292,6 +297,7 @@ class User extends Authenticatable
 
     }
 
+
     /**
      * @param array $attributes
      * @return \Illuminate\Database\Eloquent\Model
@@ -316,78 +322,19 @@ class User extends Authenticatable
             $attributes['gender'] = strtolower($attributes['gender']);
         }
 
+        //add parent id
+        // dd("here attrih == ", $attributes);
+        $attributes['parent_id'] = $attributes['id'];
+
+        //remove id and updated_by fields from array,
+        //id will be auto populated (autoincrement field)
+        unset($attributes['id']);
+
         $model = static::query()->create($attributes);
 
-        // start call create event
-        event(new UserCreated($model));
-        // end call update event
-
         return $model;
 
     }
-
-
-    /**
-     * @param array $attributes
-     * @return \Illuminate\Database\Eloquent\Model
-     */
-    public static function updatedata($id, array $attributes = [])
-    {
-
-        if (isLoggedIn()) {
-            $user = getLoggedUser();
-            $user_id = $user->id;
-            $user_full_names = $user->full_name;
-
-            $attributes['updated_by'] = $user_id;
-            $attributes['updated_by_name'] = $user_full_names;
-        }
-
-        // user data
-        $user = static::query()->findOrFail($id);
-
-        $model = $user->update($attributes);
-
-        // start call update event
-        event(new UserUpdated($user->fresh()));
-        // end call update event
-
-        return $model;
-
-    }
-
-    /**
-     * @param array $attributes
-     * @return \Illuminate\Database\Eloquent\Model
-     */
-    public static function updateUserPassword(array $attributes = [])
-    {
-
-        if (isLoggedIn()) {
-            $user = getLoggedUser();
-            $user_id = $user->id;
-            $user_full_names = $user->full_name;
-
-            $attributes['updated_by'] = $user_id;
-            $attributes['updated_by_name'] = $user_full_names;
-        }
-
-        $attributes['password'] = Hash::make($attributes['new_password']);
-
-        // get user
-        $user = static::query()->findOrFail($user_id);
-
-        // update password
-        $model = $user->update($attributes);
-
-        //start call update event
-        event(new UserUpdated($user->fresh()));
-        //end call update event
-
-        return $model;
-
-    }
-
 
 }
 

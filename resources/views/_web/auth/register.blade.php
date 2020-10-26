@@ -81,7 +81,7 @@ Register
                         </div>
                         <div class="col-md-12 inputs">
                             <input id="phone" name="phone" placeholder="Phone Number" type="text"
-                            class="input-text"  value="{{ old('phone', '254720111222') }}" required>
+                            class="input-text"  value="{{ old('phone', '254720743211') }}" required>
                             @if ($errors->has('phone'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('phone') }}</strong>

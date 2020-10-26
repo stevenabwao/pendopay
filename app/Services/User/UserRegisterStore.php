@@ -92,7 +92,7 @@ class UserRegisterStore
             unset($attributes['dob']);
             unset($attributes['terms']);
             unset($attributes['password_confirmation']);
-            // dd($attributes);
+            // dd("init attrib == ", $attributes);
 
             // start create new user
             try {
@@ -100,7 +100,7 @@ class UserRegisterStore
                 $user = new User();
                 $new_user = $user->create($attributes);
 
-                $message['message'] = $new_user;
+                $message['data'] = $new_user;
                 $response = show_success_response($message);
 
             } catch(\Exception $e) {
@@ -109,7 +109,6 @@ class UserRegisterStore
                 // dd($e);
                 $message = "Error creating user account. Please try again later";
                 $message .= $e;
-                //  show_error_response($message);
                 throw new \Exception($message);
 
             }
@@ -132,8 +131,8 @@ class UserRegisterStore
                 $deposit_account_attributes['created_by_name'] = $new_user->full_name;
                 $deposit_account_attributes['updated_by'] = $new_user->id;
                 $deposit_account_attributes['updated_by_name'] = $new_user->full_name;
-                $deposit_account_attributes['opened_at'] = getCurrentDate(1);
-                $deposit_account_attributes['available_at'] = getCurrentDate(1);
+                $deposit_account_attributes['opened_at'] = getUpdatedDate();
+                $deposit_account_attributes['available_at'] = getUpdatedDate();
                 $deposit_account_attributes['status_id'] = getStatusActive();
 
                 $new_deposit_account = $deposit_account->create($deposit_account_attributes);
@@ -145,32 +144,10 @@ class UserRegisterStore
                 // dd($e);
                 $message = "Error creating user deposit account. Please try again later";
                 $message .= $e;
-                // return show_error_response($message);
                 throw new \Exception($message);
 
             }
             // end create new user deposit account
-
-
-            // start sending activation sms and email
-            try {
-
-                // send account activation email/ sms
-                sendAccountActivationDetails($phone, $email);
-
-            } catch(\Exception $e) {
-
-                DB::rollback();
-                // dd($e);
-                /* $message['message'] = "Error sending account activation details";
-                return show_error_response($message); */
-
-                $message = "Error sending account activation details";
-                $message .= $e;
-                throw new \Exception($message);
-
-            }
-            // end sending activation sms and email
 
 
         DB::commit();
