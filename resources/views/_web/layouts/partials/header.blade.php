@@ -15,89 +15,44 @@
                     <a href="{{ route('home') }}">Home</a>
                 </li>
 
+                <li>
+                    <a href="{{ route('home') }}">About PendoPay</a>
+                </li>
+
                 <li class="dropdown">
-                    <a href="#">Pages</a>
+                    <a href="#">Our Services</a>
                     <ul>
-                        <li class="dropdown-submenu">
-                            <a>About</a>
-                            <ul>
-                                <li><a href="about.html">About</a></li>
-                                <li><a href="team.html">Team</a></li>
-                                <li><a href="history.html">History</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown-submenu">
-                            <a href="#">Services</a>
-                            <ul>
-                                <li><a href="service-1.html">Security audits</a></li>
-                                <li><a href="service-2.html">Artificial intelligence</a></li>
-                                <li><a href="service-3.html">Bots and support</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown-submenu">
-                            <a>Others</a>
-                            <ul>
-                                <li><a href="prices.html">Prices</a></li>
-                                <li><a href="faq.html">Faq</a></li>
-                                <li><a href="events.html">Events</a></li>
-                                <li><a href="gallery.html">Gallery</a></li>
-                                <li><a href="career.html">Career</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="elements/components/buttons.html">Elements</a>
-                        </li>
+                        <li><a href="{{ route('home') }}">Payments</a></li>
+                        <li><a href="{{ route('home') }}">Payments</a></li>
                     </ul>
                 </li>
-                <li class="dropdown">
-                    <a href="#">Projects</a>
-                    <ul>
-                        <li class="dropdown-submenu">
-                            <a>Projects list</a>
-                            <ul>
-                                <li><a href="projects-1.html">Projects one</a></li>
-                                <li><a href="projects-2.html">Projects two</a></li>
-                                <li><a href="projects-3.html">Projects three</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown-submenu">
-                            <a>Project details</a>
-                            <ul>
-                                <li><a href="project-1.html">Project details one</a></li>
-                                <li><a href="project-2.html">Project details two</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+
+                @if (isLoggedIn())
+
+                    <li>
+                        <a href="{{ route('home') }}">My Account</a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('home') }}">My Transactions</a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('home') }}">My Payments</a>
+                    </li>
+
+                @endif
+
+                <li>
+                    <a href="{{ route('home') }}">Contact Us</a>
                 </li>
-                <li class="dropdown">
-                    <a href="#">Blog</a>
-                    <ul>
-                        <li><a href="blog-1.html">Classic</a></li>
-                        <li><a href="blog-2.html">Grid</a></li>
-                        <li><a href="blog-3.html">Masonry</a></li>
-                        <li class="dropdown-submenu">
-                            <a>Posts</a>
-                            <ul>
-                                <li><a href="post-1.html">Post one</a></li>
-                                <li><a href="post-2.html">Post two</a></li>
-                                <li><a href="post-3.html">Post three</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#">Contacts</a>
-                    <ul>
-                        <li><a href="contacts-1.html">Contacts one</a></li>
-                        <li><a href="contacts-2.html">Contacts two</a></li>
-                        <li><a href="contacts-3.html">Contacts three</a></li>
-                    </ul>
-                </li>
+
                 @if (isAdminPanelAvailable())
                     <li>
                         <a href="{{ route('admin.home') }}">Admin</a>
                     </li>
                 @endif
+
                 <li class="nav-label">
                     <a href="#"><span>Call us:</span> {!! ($site_settings['contact_phone']) !!}</a>
                 </li>
@@ -105,7 +60,8 @@
             </ul>
             <div class="menu-right">
                 <div class="custom-area">
-                    {!! $site_settings['company_location'] !!}
+                    Mombasa Road<br />
+                    Nairobi, Kenya
                 </div>
                 {{-- <div class="shop-menu-cnt">
                     <i></i>
@@ -138,8 +94,8 @@
                             <a href="#" class="cart-checkout">Checkout</a>
                         </p>
                     </div>
-                </div> --}}
-                {{-- <form role="search" method="get" id="searchform" class="search-btn">
+                </div>
+                <form role="search" method="get" id="searchform" class="search-btn">
                     <div class="search-box-menu">
                         <input type="text" placeholder="Search ...">
                         <i></i>
@@ -152,8 +108,8 @@
                             <a href="#"><i class="fa fa-user"></i> {{ getLoggedUser()->first_name }} </a>
                             <ul>
                                 <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
-                                <li><a href="#"><i class="fa fa-briefcase"></i> Transactions</a></li>
-                                <li><a href="#"><i class="fa fa-money"></i> Payments</a></li>
+                                <li><a href="#"><i class="fa fa-briefcase"></i> My Transactions</a></li>
+                                <li><a href="#"><i class="fa fa-money"></i> My Payments</a></li>
                                 <li>
                                     <a href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
@@ -173,6 +129,7 @@
                         <a href="{{ route('register') }}">Register</a>
                     </p>
                 @endif
+
             </div>
         </div>
     </div>

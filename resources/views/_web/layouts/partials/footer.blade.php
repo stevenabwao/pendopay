@@ -29,7 +29,7 @@
             <div class="col-lg-4">
                 <h3>Quick Links</h3>
                 <ul class="icon-list icon-line">
-                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">About PendoPay</a></li>
                     <li><a href="#">Our Services</a></li>
                     <li><a href="#">Contact Us</a></li>
                 </ul>
@@ -48,7 +48,7 @@
             <span>
                 &copy; {{ date('Y') }} {{ config('app.name') }}
             </span>
-            <span><a href="#">Contact us</a> | <a href="#">Privacy policy</a></span>
+            <span><a href="#">Terms &amp; Conditions</a> | <a href="#">Privacy policy</a></span>
         </div>
     </div>
 
