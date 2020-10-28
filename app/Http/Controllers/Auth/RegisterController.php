@@ -39,7 +39,7 @@ class RegisterController extends BaseController
         $status_active = config('constants.status.active');
         $counties = getCounties("", $status_active);
 
-        return view('_web.auth.register', compact('counties'));
+        return view('auth.register', compact('counties'));
 
     }
 
@@ -81,7 +81,7 @@ class RegisterController extends BaseController
         } catch(\Exception $e) {
 
             // DB::rollback();
-            dd($e);
+            // dd($e);
             $error_message = json_encode($e->getMessage());
             log_this('Error creating user === ' . $error_message);
             //error occured

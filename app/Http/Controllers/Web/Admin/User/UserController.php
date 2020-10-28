@@ -6,7 +6,7 @@ use App\Entities\Company;
 use App\Events\AccountAdded;
 use App\Entities\Group;
 use App\Http\Controllers\Controller;
-use App\Services\User\UserStore; 
+use App\Services\User\UserStore;
 use App\Role;
 use App\Services\User\UserIndex;
 use App\User;
@@ -20,7 +20,7 @@ use Session;
 
 class UserController extends Controller
 {
-    
+
     use RegistersUsers;
 
     /**
@@ -52,7 +52,7 @@ class UserController extends Controller
      */
     public function index(Request $request, UserIndex $userIndex)
     {
-        
+
         /* $user = auth()->user();
 
         //if user is superadmin, show all companies, else show a user's companies
@@ -68,7 +68,7 @@ class UserController extends Controller
         //get company users
         $users = [];
 
-        if ($companies) { 
+        if ($companies) {
 
             $users = User::whereIn('company_id', $companies)
                     ->orderBy('id', 'desc')
@@ -92,14 +92,14 @@ class UserController extends Controller
             $users = $users->get();
         }
 
-        return view('admin.users.index', compact('user', 'users', 'companies'));
+        return view('_admin.users.index', compact('user', 'users', 'companies'));
 
     }
 
     /*show user create form*/
     public function create()
     {
-        
+
         $user = auth()->user();
         $userCompany = User::where('id', $user->id)
             ->with('company')
@@ -119,7 +119,7 @@ class UserController extends Controller
 
     }
 
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -161,11 +161,11 @@ class UserController extends Controller
 
                     $user->created_by = $user_id;
                     $user->updated_by = $user_id;
-                } 
+                }
 
             $user->save();
-            //end create user 
-            
+            //end create user
+
 
         } catch(\Exception $e) {
 
@@ -229,7 +229,7 @@ class UserController extends Controller
         ];
 
         $user = User::create($userData);
-        
+
         //add generated password to returned data
         //$user['password'] = $password;
 
@@ -253,7 +253,7 @@ class UserController extends Controller
         dd($bulk_sms_data);*/
 
         $user = User::where('id', $id)->with('roles')->first();
-        return view("users.show")->withUser($user);
+        return view("_admin.users.show")->withUser($user);
 
     }
 
@@ -263,7 +263,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) 
+    public function edit($id)
     {
 
         $user = User::where('id', $id)
@@ -279,11 +279,11 @@ class UserController extends Controller
         } else {
             $companies[] = $user->company;
         }
-        
+
         $groups = [];
         if ($user->company) {
             $groups = $user->company->groups;
-        } 
+        }
 
         //get all roles
         $roles = Role::all();
@@ -294,7 +294,7 @@ class UserController extends Controller
             ->withGroups($groups)
             ->withCompanies($companies);*/
 
-        return view("users.edit", compact('user', 'roles', 'groups', 'companies'));
+        return view("_admin.users.edit", compact('user', 'roles', 'groups', 'companies'));
 
     }
 
@@ -307,7 +307,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $this->validate(request(), [
             'first_name' => 'required',
             'last_name' => 'required',
@@ -359,7 +359,7 @@ class UserController extends Controller
                 $groups = explode(',', $request->groupsSelected);
                 $user->groups()->sync($groups);
             }
-            
+
             //dd($user);
 
             Session::flash('success', 'User was edited successfully');
@@ -381,7 +381,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
-        
+
         return redirect('users.index');
     }
 

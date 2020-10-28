@@ -53,7 +53,7 @@ class LoginController extends Controller
         {
             session(['url.intended' => url()->previous()]);
         }
-        return view('_web.auth.login');
+        return view('auth.login');
     }
 
     /**
