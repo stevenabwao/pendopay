@@ -23,103 +23,110 @@ Register
 
                     <p class="card-text">
                     </div>
-                        <div class="row justify-content-center">
-                            <h3 class="card-title">Register</h3>
-                        </div>
+                    <div class="row justify-content-center form-title">
+                        <h3>Please Enter Registration Details</h3>
+                    </div>
 
                     <form action="{{ route('register.storeUser') }}" class="form-box" method="post">
 
                         {{ csrf_field() }}
+                        <div class="md-form mat-2 mx-auto">
+                            <input type="text" value="{{ old('first_name') }}" name="first_name" >
+                            <label for="example">First Name</label>
+                        </div>
+                        @if ($errors->has('first_name'))
+                            <div class="help-block">
+                                <strong>{{ $errors->first('first_name') }}</strong>
+                            </div>
+                        @endif
 
-                        <div class="col-md-12 inputs">
-                            <input id="first_name" name="first_name" placeholder="first_name" type="text"
-                            class="input-text" required value="{{ old('first_name', 'Test') }}" required autofocus>
-                            @if ($errors->has('first_name'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('first_name') }}</strong>
-                                </span>
-                            @endif
+                        
+                    <div class="md-form mat-2 mx-auto">
+                        <input type="text" value="{{ old('last_name') }}" name="last_name" >
+                        <label for="example">Last Name</label>
+                    </div>
+                    @if ($errors->has('last_name'))
+                        <div class="help-block">
+                            <strong>{{ $errors->first('last_name') }}</strong>
                         </div>
-                        <div class="col-md-12 inputs">
-                            <input id="last_name" name="last_name" placeholder="last_name" type="text"
-                            class="input-text" required value="{{ old('last_name', 'User') }}" required>
-                            @if ($errors->has('last_name'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('last_name') }}</strong>
-                                </span>
-                            @endif
-                        </div>
+                    @endif
+        
 
-                        <div class="col-md-12 inputs">
-                            <input id="id_number" name="id_number" placeholder="ID No/ Passport No" type="text"
-                            class="input-text" required value="{{ old('id_number', '123456778') }}" required>
-                            @if ($errors->has('id_number'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('id_number') }}</strong>
-                                </span>
-                            @endif
+                    <div class="md-form mat-2 mx-auto">
+                        <input type="text" value="{{ old('id_number') }}" name="id_number" >
+                        <label for="example">ID No/ Passport No</label>
+                    </div>
+                    @if ($errors->has('id_number'))
+                        <div class="help-block">
+                            <strong>{{ $errors->first('id_number') }}</strong>
                         </div>
-                        <div class="col-md-12 inputs">
-                            <input id="dob" name="dob" placeholder="Date of birth" onfocus = "(this.type = 'date')"
-                            class="input-text" required value="{{ old('dob', '15/7/1999') }}" required>
-                            @if ($errors->has('dob'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('dob') }}</strong>
-                                </span>
-                            @endif
+                    @endif
+                    <div class="md-form mat-2 mx-auto">
+                        <input type="text" id="dob" value="{{ old('dob') }}" name="dob" onfocus = "(this.type = 'date')">
+                        <label class="date"for="example">Date of Birth</label>
+                    </div>
+                    @if ($errors->has('dob'))
+                        <div class="help-block">
+                            <strong>{{ $errors->first('dob') }}</strong>
                         </div>
+                    @endif
 
+                    <div class="md-form mat-2 mx-auto">
+                        <input type="text" id="email" value="{{ old('email') }}" name="email" >
+                        <label for="example">Email adress</label>
+                    </div>
+                    @if ($errors->has('email'))
+                        <div class="help-block">
+                            <strong>{{ $errors->first('email') }}</strong>
+                        </div>
+                    @endif
 
-                        <div class="col-md-12 inputs">
-                            <input id="email" name="email" placeholder="Email" type="text"
-                            class="input-text"  value="{{ old('email', 'test@test.com') }}" required>
-                            @if ($errors->has('email'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('email') }}</strong>
-                                </span>
-                            @endif
+                    <div class="md-form mat-2 mx-auto">
+                        <input type="text" id="phone" value="{{ old('phone') }}" name="phone">
+                        <label for="example">Phone Number</label>
+                    </div>
+                    @if ($errors->has('phone'))
+                        <div class="help-block">
+                            <strong>{{ $errors->first('phone') }}</strong>
                         </div>
-                        <div class="col-md-12 inputs">
-                            <input id="phone" name="phone" placeholder="Phone Number" type="text"
-                            class="input-text"  value="{{ old('phone', '254720743211') }}" required>
-                            @if ($errors->has('phone'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('phone') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                        <div class="col-md-12 inputs">
-                            <input id="password" name="password" placeholder="Password"
-                             type="password" class="input-text"  value="{{ old('password', '123456') }}" required>
-                            @if ($errors->has('password'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('password') }}</strong>
-                                </span>
-                            @endif
-                        </div>
+                    @endif
 
-                        <div class="col-md-12 inputs">
-                            <input id="password_confirmation" name="password_confirmation"
-                            placeholder="Confirm Password"  value="{{ old('password_confirmation', '123456') }}"
-                            type="password" class="input-text" required>
-                            @if ($errors->has('password_confirmation'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                </span>
-                            @endif
+                    <div class="md-form mat-2 mx-auto">
+                        <input type="text" id="password" value="{{ old('password') }}" name="password" >
+                        <label for="example">Password</label>
+                    </div>
+                    @if ($errors->has('password'))
+                        <div class="help-block">
+                            <strong>{{ $errors->first('password') }}</strong>
                         </div>
-                    <div class="col-md-12 inputs">
+                    @endif
+
+                    <div class="md-form mat-2 mx-auto">
+                        <input type="text" id="password_confirmation" value="{{ old('password_confirmation') }}" name="password_confirmation" class="active" >
+                        <label for="example">Confirm Password</label>
+                    </div>
+                    @if ($errors->has('password_confirmation'))
+                        <div class="help-block">
+                            <strong>{{ $errors->first('password_confirmation') }}</strong>
+                        </div>
+                    @endif
+
+                    <div class="inputs mt-2">
                         <div class="form-checkbox">
 
-                            <input id="terms" type="checkbox" name="terms"
-                                    {{ old('terms') ? 'checked' : 'checked' }}>
+                            <input id="remember" type="checkbox" name="remember"
+                                    {{ old('remember') ? 'checked' : '' }}>
 
                             <label for="check">I accept terms and coditions</label>
                         </div>
+
                     </div>
-                        <div class="col-md-12 inputs">
-                        <button class="btn btn-xs" type="submit">Submit</button>
-                        </div>
+
+                    <hr>
+
+                    <div class="inputs row">
+                        <button class="btn btn-xs" type="submit">Register</button>
+                    </div>
                     </form>
 
                 </p>
@@ -132,3 +139,16 @@ Register
 
 @endsection
 
+@section('page_scripts')
+
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/js/mdb.min.js"></script>
+
+@endsection
+
+@section('page_css')
+
+
+<link rel="stylesheet" href="{{ asset('css/login.css') }}">
+
+@endsection

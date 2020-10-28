@@ -34,7 +34,7 @@
                                     <div>
 
                                         <div class="md-form mat-2 mx-auto">
-                                            <input type="text" value="{{ old('username') }}" name="username" class="form-control">
+                                            <input type="text" value="{{ old('username') }}" name="username" class="active">
                                             <label for="example">Phone/ Email</label>
                                         </div>
                                         @if ($errors->has('username'))
@@ -47,7 +47,7 @@
                                     <div>
 
                                         <div class="md-form mat-2 mx-auto">
-                                            <input type="password" name="password" value="{{ old('password') }}" class="form-control">
+                                            <input type="password" name="password" value="{{ old('password') }}" class="active">
                                             <label for="example">Password</label>
                                         </div>
                                         @if ($errors->has('password'))
@@ -58,7 +58,7 @@
 
                                     </div>
 
-                                    <div class="col-md-12z inputs mt-2">
+                                    <div class="inputs mt-2">
                                         <div class="form-checkbox">
 
                                             <input id="remember" type="checkbox" name="remember"
