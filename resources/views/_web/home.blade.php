@@ -40,7 +40,7 @@ Home
                     </div>
                     <div class="col-lg-5 hidden-md">
                         <hr class="space-sm" />
-                        <img data-anima="fade-bottom" data-time="1000" class="slide-image" src="{{ asset('images/man-3.png') }}" alt="" />
+                        <img data-anima="fade-bottom" data-time="1000" class="slide-image" src="{{ asset('images/main-slider.png') }}" alt="" />
                     </div>
                 </div>
             </div>

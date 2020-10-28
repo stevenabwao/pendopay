@@ -57,7 +57,7 @@ class RegisterController extends BaseController
             'terms' => 'required',
             // 'gender' => 'required',
         ]);
-        
+
         //create item
         try {
 
@@ -80,7 +80,8 @@ class RegisterController extends BaseController
 
         } catch(\Exception $e) {
 
-            DB::rollback();
+            // DB::rollback();
+            dd($e);
             $error_message = json_encode($e->getMessage());
             log_this('Error creating user === ' . $error_message);
             //error occured

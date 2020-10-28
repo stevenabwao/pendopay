@@ -85,6 +85,21 @@ function getCurrentDate($datetime=false) {
 
 }
 
+// created date and time
+function getCreatedDate() {
+
+    // for record updates
+    return getCurrentDate(1);
+
+}
+
+// updated date and time
+function getUpdatedDate() {
+
+    return getCurrentDateObj();
+
+}
+
 //handle form date and time
 function handleFormDate($date) {
 
@@ -2447,7 +2462,7 @@ function getUserSetLoanLimit($loan_limit_calculation_id, $user_deposit_payments,
 
 }
 
-//save company user account data
+// get user account data
 function getUserData($phone, $email="") {
 
 	//get user data
@@ -6749,8 +6764,12 @@ function getDatabasePhoneNumber2($phone_number, $country_code='KE') {
 }
 
 function getDatabasePhoneNumber($phone_number, $country_code='KE') {
-    $phone_number = PhoneNumber::make($phone_number, $country_code)->formatE164();
-    return str_replace("+", "", $phone_number);
+    try {
+        $phone_number = PhoneNumber::make($phone_number, $country_code)->formatE164();
+        return str_replace("+", "", $phone_number);
+    } catch(\Exception $e) {
+        throw new \Exception($e->getMessage());
+    }
 }
 
 //format for dialling in country

@@ -29,49 +29,49 @@ section .cnt-box.boxed.light .caption, .img-box-caption span, .cnt-box-badge .ba
 main > section.section-base.section-color.light, .section-color.light .input-text, .section-color.light .input-select, .section-color.light .input-textarea, .counter i,
 .cnt-box-side-icon.boxed.light > i, .cnt-box-top-icon.boxed.light > i, .media-box-half, .album-box .caption, .album-box .img-box, .icon-box i, .media-box.media-box-reveal .caption,
 .media-box-full:before, .list-nav a.list-archive:hover, .header-base h2, .list-tags a, .img-box:before, .menu-mini, .menu-side, .btn-video:empty:hover, .tweets_txt {
-    background-color: rgb(0, 71, 103);
+    background-color: rgb(50, 91, 146);
 }
 
 .boxed-area.light, .media-box-full .caption {
-    background-color: rgb(0, 71, 103) !important;
+    background-color: rgb(50, 91, 146) !important;
 }
 
 h1, h2, h3, h4, h5, h6, .cnt-call .caption .btn-text, .section-color .icon-box i, .counter .value span, .breadcrumb li a, .step-item > span, .cnt-pricing-table .price span, .cnt-pricing-table .top-area p,
 .album-title span, .text-list-bold li > b:first-child, .text-list-line li b, .list-nav a, .menu-inner-image li a span, .controls-bottom-right .glide__arrow, .icon-list-blog a, .quote, .table-time th,
 .form-box p, .countdown-vertical [data-time] > div > span, .countdown-horizontal [data-time] > div > span:last-child, .media-box.media-box-down .caption h2, .menu-inner .menu-btn, .menu-inner > div > span {
-    color: rgb(0, 71, 103);
+    color: rgb(50, 91, 146);
 }
 
 .light .dropdown ul li:not(:hover) > a, .text-color-1 {
-    color: rgb(0, 71, 103) !important;
+    color: rgb(50, 91, 146) !important;
 }
 
 .btn:hover, .input-text:focus, .input-select:focus, .input-textarea:focus, .search-bar input[type=text]:focus, .glide__bullets > button, .accordion-list > li, .table-time td, .table-time th {
-    border-color: rgb(0, 71, 103);
+    border-color: rgb(50, 91, 146);
 }
 
 .tab-nav li:not(.active):not(:hover) a, .btn.btn-border:hover, .btn.btn-border.active {
-    color: rgb(0, 71, 103);
-    border-color: rgb(0, 71, 103);
+    color: rgb(50, 91, 146);
+    border-color: rgb(50, 91, 146);
 }
 
 .tab-nav li.active a, .tab-nav li:hover a, .btn:not(.btn-border).active, .icon-links-button:not(.social-colors):not(.social-colors-hover) a:hover {
-    background-color: rgb(0, 71, 103);
-    border-color: rgb(0, 71, 103);
+    background-color: rgb(50, 91, 146);
+    border-color: rgb(50, 91, 146);
 }
 
 @media (max-width: 991.98px) {
     nav .menu-cnt > ul > li > a, nav .menu-cnt > ul > li.nav-label > a span, .menu-cnt .menu-right, body nav .lan-menu > li > a, .lan-menu li a, .lan-menu .dropdown > ul > li > a, body .lan-menu > li:hover > a,
     body nav:not(.menu-transparent) .lan-menu > li:hover > a {
-        color: rgb(0, 71, 103);
+        color: rgb(50, 91, 146);
     }
 
     nav.light .menu-cnt a {
-        color: rgb(0, 71, 103) !important;
+        color: rgb(50, 91, 146) !important;
     }
 
     .search-box-menu {
-        border-color: rgb(0, 71, 103);
+        border-color: rgb(50, 91, 146);
     }
 }
 

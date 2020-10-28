@@ -315,7 +315,6 @@ LIGHT COLOR
     font-weight: normal;
     font-variant: normal;
     text-transform: none;
-    speak: none;
     text-transform: none;
 }
 
@@ -5575,3 +5574,118 @@ Inverted responsive classes
 
 
 .help-block{color:red;}
+
+
+/* styling the forms*/
+
+.card {
+    background-color: #fff;;
+    /* just in case there no content*/
+    padding: 20px 25px 30px;
+    margin: 0 auto 25px;
+    margin-top: 25px;
+    min-height: 250px;
+    /* shadows and rounded borders */
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+
+  }
+
+  .logo {
+    width: 80px;
+    height: 80px;
+  }
+
+.inputs input[type=email],
+.inputs input[type=Password],
+.inputs input[type=text],
+.inputs button {
+    width: 100%;
+    display: block;
+    margin-bottom: 15px;
+    z-index: 1;
+    position: relative;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+
+
+
+  input[type=button], input[type=submit], input[type=reset]  {
+    background-color: #56baed;
+    border: none;
+    color: white;
+    padding: 15px 80px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 13px;
+    -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+    box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+    margin: 5px 20px 40px 20px;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+  }
+
+  /* input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
+    background-color: #39ace7;
+  } */
+
+  input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
+    -moz-transform: scale(0.95);
+    -webkit-transform: scale(0.95);
+    -o-transform: scale(0.95);
+    -ms-transform: scale(0.95);
+    transform: scale(0.95);
+  }
+
+  input[type=text], input[type=Password] {
+    background-color: #f6f6f6;
+    border: none;
+    /* color: #39ace7; */
+    padding: 15px 32px;
+    /* text-align: center; */
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 0;
+    width: 85%;
+    border: 2px solid #f6f6f6;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+  }
+
+  input[type=text], input[type=Password]:focus {
+    background-color: #fff;
+    border-bottom: 2px solid #5fbae9;
+
+  }
+
+  input[type=text],  input[type=Password]:placeholder {
+    color: #cccccc;
+  }
+
+  .reset{
+      list-style: none;
+      text-decoration: none;
+  }
+
+  .auth-link a, .auth-link{ color: #ffffff; text-decoration: none; }
+  .auth-link a:hover{ color: #03BFCB; }

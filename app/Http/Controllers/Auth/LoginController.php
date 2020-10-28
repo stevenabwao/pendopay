@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 use Illuminate\Http\Request;
 
@@ -66,64 +67,70 @@ class LoginController extends Controller
 
         // dd("request == ", $request->all());
 
-        $this->validateLogin($request);
+        try {
+            $this->validateLogin($request);
 
-        // If the class is using the ThrottlesLogins trait, we can automatically throttle
-        // the login attempts for this application. We'll key this by the username and
-        // the IP address of the client making these requests into this application.
-        if ($this->hasTooManyLoginAttempts($request)) {
+            // If the class is using the ThrottlesLogins trait, we can automatically throttle
+            // the login attempts for this application. We'll key this by the username and
+            // the IP address of the client making these requests into this application.
+            if ($this->hasTooManyLoginAttempts($request)) {
 
             //start save user details if login locked
-            $request->merge([
+                $request->merge([
                 'status' => 'locked',
                 'action' => 'login',
             ]);
-            $userlogin = new UserLogin();
-            $userlogin = $userlogin->create($request->toArray());
-            //end save user details if login locked
+                $userlogin = new UserLogin();
+                $userlogin = $userlogin->create($request->toArray());
+                //end save user details if login locked
 
-            $this->fireLockoutEvent($request);
+                $this->fireLockoutEvent($request);
 
-            return $this->sendLockoutResponse($request);
+                return $this->sendLockoutResponse($request);
+            }
+            //dd($request);
 
-        }
-        //dd($request);
-
-        // was login successful
-        if ($this->attemptLogin($request)) {
+            // was login successful
+            if ($this->attemptLogin($request)) {
 
             // logout other devices
-            Auth::logoutOtherDevices($request->password);
+                Auth::logoutOtherDevices($request->password);
 
-            //start save user details if login succeeded
-            $request->merge([
+                //start save user details if login succeeded
+                $request->merge([
                 'status' => 'success',
                 'action' => 'login',
             ]);
-            //dd($request);
-            $userlogin = new UserLogin();
-            $userlogin = $userlogin->create($request->toArray());
-            //end save user details if login succeeded
+                //dd($request);
+                $userlogin = new UserLogin();
+                $userlogin = $userlogin->create($request->toArray());
+                //end save user details if login succeeded
 
-            return $this->sendLoginResponse($request);
+                return $this->sendLoginResponse($request);
+            }
 
-        }
+            // If the login attempt was unsuccessful we will increment the number of attempts
+            // to login and redirect the user back to the login form. Of course, when this
+            // user surpasses their maximum number of attempts they will get locked out.
+            $this->incrementLoginAttempts($request);
 
-        // If the login attempt was unsuccessful we will increment the number of attempts
-        // to login and redirect the user back to the login form. Of course, when this
-        // user surpasses their maximum number of attempts they will get locked out.
-        $this->incrementLoginAttempts($request);
-
-        //start save user details if login failed
-        $request->merge([
+            //start save user details if login failed
+            $request->merge([
             'status' => 'failed',
             'action' => 'login',
         ]);
-        $userlogin = new UserLogin();
-        $userlogin = $userlogin->create($request->toArray());
-        //end save user details if login failed
+            $userlogin = new UserLogin();
+            $userlogin = $userlogin->create($request->toArray());
+            //end save user details if login failed
 
-        return $this->sendFailedLoginResponse($request);
+            return $this->sendFailedLoginResponse($request);
+
+        } catch(\Exception $e) {
+            // dd("here");
+            $message =$e->getMessage();
+            Session::flash('error', $message);
+            return redirect()->back()->withInput()->withErrors($message);
+        }
 
     }
 

@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Entities\Account;
 use App\Entities\Company;
 use App\Entities\CompanyUser;
 use App\Entities\DepositAccount;
@@ -19,39 +18,32 @@ use App\Entities\SmsOutbox;
 use App\Entities\Status;
 use App\Entities\UserAccessToken;
 use App\Entities\UserArchive;
+use App\Entities\UserAudit;
 use App\Role;
-use App\Permission;
 use App\Events\UserCreated;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-// use Laratrust\Traits\LaratrustUserTrait;
+use Laratrust\Traits\LaratrustUserTrait;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
 use App\Entities\UserLogin;
-
-use Illuminate\Support\Facades\DB;
+use App\Events\UserUpdated;
 
 class User extends Authenticatable
 {
 
     use HasApiTokens;
     use Notifiable;
+    // use LaratrustUserTrait;
 
     /**
      * The attributes that are mass assignable
      */
     protected $fillable = [
-        'id', 'first_name', 'uuid', 'last_name', 'email', 'dob', 'password', 'password2', 'gender', 'status_id', 'company_id', 'active',
-        'county_id', 'county_name', 'city_id', 'constituency_id', 'ward_id', 'remember_token', 'password_text',
+        'first_name', 'last_name', 'email', 'dob', 'password', 'password2', 'gender', 'status_id', 'active',
+        'remember_token', 'password_text', 'id_no', 'is_super_admin',
         'phone', 'phone_country', 'api_token', 'src_ip', 'user_agent', 'browser', 'browser_version', 'os', 'device',
-        'dob_updated', 'dob_updated_at', 'created_by', 'created_by_name', 'updated_by', 'updated_by_name', 'is_company_user',
-        'id_no', 'constituency_name', 'registration_paid', 'is_super_admin'
-
-    ];
-
-    /*object events*/
-    protected $events = [
-        'created' => UserCreated::class,
+        'dob_updated', 'dob_updated_at', 'created_by', 'created_by_name', 'updated_by', 'updated_by_name', 'is_company_user'
     ];
 
     /**
@@ -61,8 +53,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'dob' => 'datetime',
-        'dob_updated_at' => 'datetime',
-        'email_verified_at' => 'datetime',
+        'dob_updated_at' => 'datetime'
     ];
 
     /**
@@ -78,122 +69,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'password2', 'remember_token', 'api_token', 'access_token', 'refresh_token',
+        'password', 'password2', 'remember_token', 'api_token',
     ];
 
     // start roles  //////////////////////
 
-    /**
-     * check if user has this role
-     *
-     */
-    public function hasRole($role)
-    {
-
-        if ($this->roles()->where('name', $role)->first()) {
-            return true;
-        }
-
-        // no role exists
-        return false;
-
-    }
-
-    /**
-     * check if user has any of these roles
-     *
-     */
-    public function hasAnyRole($roles)
-    {
-
-        if (is_array($roles)) {
-            foreach ($roles as $role) {
-                if ($this->hasRole($role)) {
-                    return true;
-                }
-            }
-        } else {
-            // one role passed in (not array)
-            if ($this->hasRole($roles)) {
-                return true;
-            }
-        }
-        // no role exists
-        return false;
-
-    }
-
-    /**
-     * check if user has this permission
-     *
-     */
-    public function hasPermission($permission)
-    {
-
-        // superadmin has access to everything
-        if (isSuperadmin()) {
-            return true;
-        }
-
-        // get all user permissions
-        $user_permissions = getUserPermissions();
-
-        // check through permission name
-        if ($user_permissions->pluck('name')->contains($permission)) {
-            return true;
-        }
-        // no permission exists
-        return false;
-
-    }
-
-    /**
-     * check if user has any of these permissions
-     *
-     */
-    public function hasAnyPermission($permissions)
-    {
-
-        if (is_array($permissions)) {
-            foreach ($permissions as $permission) {
-                if ($this->hasPermission($permission)) {
-                    return true;
-                }
-            }
-        } else {
-            // one permission passed in (not array)
-            if ($this->hasPermission($permissions)) {
-                return true;
-            }
-        }
-        // no permission exists
-        return false;
-
-    }
-
     public function roles()
     {
         return $this->belongsToMany(Role::class);
-    }
-
-    public function permissions()
-    {
-        /* $permissions = $this->morphToMany(
-            Config::get('laratrust.models.permission'),
-            'user',
-            Config::get('laratrust.tables.permission_user'),
-            Config::get('laratrust.foreign_keys.user'),
-            Config::get('laratrust.foreign_keys.permission')
-        ); */
-        $permissions = $this->morphToMany(
-            Permission::class,
-            'user',
-            'permission_user',
-            'id',
-            'id'
-        );
-
-        return $permissions;
     }
 
     // end //////////////////////
@@ -207,10 +90,9 @@ class User extends Authenticatable
         return $this->hasOne(UserAccessToken::class);
     }
 
-
-    public function userarchives()
+    public function useraudits()
     {
-        return $this->hasMany(UserArchive::class);
+        return $this->hasMany(UserAudit::class);
     }
 
     public function userlogins()
@@ -238,11 +120,6 @@ class User extends Authenticatable
         return $this->hasMany(DepositAccountSummary::class);
     }
 
-    public function accounts()
-    {
-        return $this->hasMany(Account::class);
-    }
-
     public function remindermessagesettings()
     {
         return $this->hasMany(ReminderMessageSetting::class);
@@ -257,11 +134,6 @@ class User extends Authenticatable
     /* polymorphic relationship \'*/
     public function images() {
         return $this->morphMany(Image::class, 'imagetable');
-    }
-
-    public function company()
-    {
-        return $this->belongsTo(Company::class);
     }
 
     /*many to many relationship*/
@@ -326,22 +198,6 @@ class User extends Authenticatable
     }
 
     // start mutators/ setters
-    public function setCreatedAtAttribute($date)
-    {
-        $this->attributes['created_at'] = formatUTCDate($date);
-    }
-    public function setUpdatedAtAttribute($date)
-    {
-        $this->attributes['updated_at'] = formatUTCDate($date);
-    }
-    public function setDobAttribute($date)
-    {
-        $this->attributes['dob'] = formatUTCDate($date);
-    }
-    public function setDobUpdatedAtAttribute($date)
-    {
-        $this->attributes['dob_updated_at'] = formatUTCDate($date);
-    }
     public function setPhoneAttribute($value)
     {
         $this->attributes['phone'] = getDatabasePhoneNumber($value);
@@ -436,7 +292,6 @@ class User extends Authenticatable
 
     }
 
-
     /**
      * @param array $attributes
      * @return \Illuminate\Database\Eloquent\Model
@@ -444,11 +299,17 @@ class User extends Authenticatable
     public static function create(array $attributes = [])
     {
 
-        if (auth()->user()) {
-            $user_id = auth()->user()->id;
+        // dd($attributes);
+
+        if (isLoggedIn()) {
+            $user = getLoggedUser();
+            $user_id = $user->id;
+            $user_full_names = $user->full_name;
 
             $attributes['created_by'] = $user_id;
+            $attributes['created_by_name'] = $user_full_names;
             $attributes['updated_by'] = $user_id;
+            $attributes['updated_by_name'] = $user_full_names;
         }
 
         if (array_key_exists('gender', $attributes)) {
@@ -456,6 +317,10 @@ class User extends Authenticatable
         }
 
         $model = static::query()->create($attributes);
+
+        // start call create event
+        event(new UserCreated($model));
+        // end call update event
 
         return $model;
 
@@ -469,13 +334,23 @@ class User extends Authenticatable
     public static function updatedata($id, array $attributes = [])
     {
 
-        $user_id = auth()->user()->id;
-        $attributes['updated_by'] = $user_id;
+        if (isLoggedIn()) {
+            $user = getLoggedUser();
+            $user_id = $user->id;
+            $user_full_names = $user->full_name;
 
-        //user data
+            $attributes['updated_by'] = $user_id;
+            $attributes['updated_by_name'] = $user_full_names;
+        }
+
+        // user data
         $user = static::query()->findOrFail($id);
 
         $model = $user->update($attributes);
+
+        // start call update event
+        event(new UserUpdated($user->fresh()));
+        // end call update event
 
         return $model;
 
@@ -488,14 +363,26 @@ class User extends Authenticatable
     public static function updateUserPassword(array $attributes = [])
     {
 
-        $user_id = auth()->user()->id;
+        if (isLoggedIn()) {
+            $user = getLoggedUser();
+            $user_id = $user->id;
+            $user_full_names = $user->full_name;
 
-        $attributes['updated_by'] = $user_id;
+            $attributes['updated_by'] = $user_id;
+            $attributes['updated_by_name'] = $user_full_names;
+        }
+
         $attributes['password'] = Hash::make($attributes['new_password']);
 
-        //update password
+        // get user
         $user = static::query()->findOrFail($user_id);
+
+        // update password
         $model = $user->update($attributes);
+
+        //start call update event
+        event(new UserUpdated($user->fresh()));
+        //end call update event
 
         return $model;
 

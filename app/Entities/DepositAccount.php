@@ -6,21 +6,28 @@ use App\BaseModel;
 use App\Entities\DepositAccountSummary;
 use App\Entities\DepositAccountHistory;
 use App\Entities\Status;
+use App\Events\DepositAccountCreated;
+use App\Events\DepositAccountUpdated;
 use App\User;
-use Carbon\Carbon;
 
 class DepositAccount extends BaseModel
 {
 
     protected $dates = ['opened_at', 'available_at', 'closed_at'];
 
+    protected $casts = [
+        'opened_at' => 'datetime',
+        'available_at' => 'datetime',
+        'closed_at' => 'datetime'
+    ];
+
     /**
      * The attributes that are mass assignable
     **/
     protected $fillable = [
-         'id', 'account_name', 'account_no', 'currency_id', 'phone', 'opened_at', 'status_id', 'company_user_id',
-         'available_at', 'closed_at', 'user_id', 'created_at', 'created_by', 'created_by_name',
-         'updated_at', 'updated_by', 'updated_by_name'
+         'account_name', 'account_no', 'currency_id', 'phone', 'opened_at', 'status_id', 'company_user_id',
+         'available_at', 'closed_at', 'user_id', 'created_by', 'created_by_name',
+         'updated_by', 'updated_by_name'
     ];
 
 
@@ -29,9 +36,14 @@ class DepositAccount extends BaseModel
         return $this->belongsTo(DepositAccountSummary::class, 'account_no', 'account_no');
     }
 
-    public function depositaccounthistory()
+    public function depositaccounthistories()
     {
         return $this->hasMany(DepositAccountHistory::class);
+    }
+
+    public function depositaccountaudits()
+    {
+        return $this->hasMany(DepositAccountAudit::class);
     }
 
     public function currency()
@@ -75,22 +87,6 @@ class DepositAccount extends BaseModel
     }
     // end getters
 
-    // start setters/ mutators
-    /* public function setOpenedAtAttribute($date)
-    {
-        $this->attributes['opened_at'] = formatUTCDate($date);
-    }
-    public function setAvailableAtAttribute($date)
-    {
-        $this->attributes['available_at'] = formatUTCDate($date);
-    }
-    public function setClosedAtAttribute($date)
-    {
-        $this->attributes['closed_at'] = formatUTCDate($date);
-    } */
-    // end setters/ mutators
-
-
     /**
      * @param array $attributes
      * @return \Illuminate\Database\Eloquent\Model
@@ -99,6 +95,10 @@ class DepositAccount extends BaseModel
     {
 
         $model = static::query()->create($attributes);
+
+        // start call create event
+        event(new DepositAccountCreated($model));
+        // end call update event
 
         return $model;
 
@@ -111,18 +111,14 @@ class DepositAccount extends BaseModel
     public static function updatedata($id, array $attributes = [])
     {
 
-        if (auth()->user()) {
-            $user_id = auth()->user()->id;
-
-            $attributes['updated_by'] = $user_id;
-        }
-
         //item data
         $item = static::query()->findOrFail($id);
 
-        //do any extra processing here
-
         $model = $item->update($attributes);
+
+        // start call update event
+        event(new DepositAccountUpdated($item->fresh()));
+        // end call update event
 
         return $model;
 

@@ -36,12 +36,6 @@ class UserRegisterStore
             if (array_key_exists('dob', $attributes)) {
                 $dob = $attributes['dob'];
             }
-            if (array_key_exists('county_id', $attributes)) {
-                $county_id = $attributes['county_id'];
-                $county_data = getCounties($county_id)->first();
-                $county_name = $county_data->name;
-                $attributes['county_name'] = $county_data->name;
-            }
 
             // get minimum allowed age
             /* $site_settings = getSiteSettings();
@@ -100,7 +94,7 @@ class UserRegisterStore
             unset($attributes['dob']);
             unset($attributes['terms']);
             unset($attributes['password_confirmation']);
-            // dd($attributes);
+            // dd("init attrib == ", $attributes);
 
             // start create new user
             try {
@@ -108,15 +102,16 @@ class UserRegisterStore
                 $user = new User();
                 $new_user = $user->create($attributes);
 
-                $message['message'] = $new_user;
+                $message['data'] = $new_user;
                 $response = show_success_response($message);
 
             } catch(\Exception $e) {
 
                 DB::rollback();
                 // dd($e);
-                $message['message'] = "Error creating user account. Please try again later";
-                return show_error_response($message);
+                $message = "Error creating user account. Please try again later";
+                $message .= $e;
+                throw new \Exception($message);
 
             }
             // end create new user
@@ -138,25 +133,24 @@ class UserRegisterStore
                 $deposit_account_attributes['created_by_name'] = $new_user->full_name;
                 $deposit_account_attributes['updated_by'] = $new_user->id;
                 $deposit_account_attributes['updated_by_name'] = $new_user->full_name;
-                $deposit_account_attributes['opened_at'] = getCurrentDate(1);
-                $deposit_account_attributes['available_at'] = getCurrentDate(1);
+                $deposit_account_attributes['opened_at'] = getUpdatedDate();
+                $deposit_account_attributes['available_at'] = getUpdatedDate();
                 $deposit_account_attributes['status_id'] = getStatusActive();
 
                 $new_deposit_account = $deposit_account->create($deposit_account_attributes);
                 log_this(json_encode($new_deposit_account));
 
-                // send account activation email/ sms
-                sendAccountActivationDetails($phone, $email);
-
             } catch(\Exception $e) {
 
                 DB::rollback();
-                dd($e);
-                $message['message'] = "Error creating user deposit account. Please try again later";
-                return show_error_response($message);
+                // dd($e);
+                $message = "Error creating user deposit account. Please try again later";
+                $message .= $e;
+                throw new \Exception($message);
 
             }
             // end create new user deposit account
+
 
         DB::commit();
 

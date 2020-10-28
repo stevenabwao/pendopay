@@ -27,6 +27,7 @@
         <link rel="stylesheet" href="{{ asset('css/contact-form.css') }}">
         <link rel="stylesheet" href="{{ asset('css/media-box.css') }}">
         <link rel="stylesheet" href="{{ asset('css/skin.css') }}">
+        <link rel="stylesheet" href="{{ asset('mycss/jquery.toast.min.css') }}">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
         <link rel="stylesheet" href="{{ asset('icons/iconsmind/line-icons.min.css') }}">
@@ -54,7 +55,7 @@
 
         @yield('page_scripts')
 
-        {{-- @include('_web.layouts.partials.error_messages') --}}
+        @include('_admin.layouts.partials.error_messages')
 
     </body>
 
