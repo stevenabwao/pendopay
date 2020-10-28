@@ -34,7 +34,7 @@ class User extends Authenticatable
 
     use HasApiTokens;
     use Notifiable;
-    // use LaratrustUserTrait;
+    use LaratrustUserTrait;
 
     /**
      * The attributes that are mass assignable
