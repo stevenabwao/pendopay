@@ -63,7 +63,7 @@ Register
                     @endif
                     <div class="md-form mat-2 mx-auto">
                         <input type="text" id="dob" value="{{ old('dob') }}" name="dob" onfocus = "(this.type = 'date')">
-                        <label for="example">Date of Birth</label>
+                        <label class="date"for="example">Date of Birth</label>
                     </div>
                     @if ($errors->has('dob'))
                         <div class="help-block">
@@ -102,7 +102,7 @@ Register
                     @endif
 
                     <div class="md-form mat-2 mx-auto">
-                        <input type="text" id="password_confirmation" value="{{ old('password_confirmation') }}" name="password_confirmation" class="active" onfocus = "(this.type = 'date')">
+                        <input type="text" id="password_confirmation" value="{{ old('password_confirmation') }}" name="password_confirmation" class="active" >
                         <label for="example">Confirm Password</label>
                     </div>
                     @if ($errors->has('password_confirmation'))
