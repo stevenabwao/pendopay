@@ -17,8 +17,8 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <!-- Favicon -->
-        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
-        <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+        <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}">
+        <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
 
         <link rel="stylesheet" href="{{ asset('_admin/css/app.css?x=7688665') }}">
 

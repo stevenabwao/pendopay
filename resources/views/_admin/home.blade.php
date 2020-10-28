@@ -107,7 +107,7 @@
                                       </span>
                                     </span>
                                     <span class="weight-500 uppercase-font txt-light block">
-                                       Pending Orders
+                                       Clients
                                     </span>
                                 </div>
                                 <div class="col-xs-4 text-center  pl-0 pr-0 data-wrap-right">
