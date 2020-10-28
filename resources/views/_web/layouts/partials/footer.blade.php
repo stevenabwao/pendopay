@@ -32,6 +32,9 @@
                     <li><a href="#">About PendoPay</a></li>
                     <li><a href="#">Our Services</a></li>
                     <li><a href="#">Contact Us</a></li>
+                    @if (isLoggedIn())
+                        <li><a href="#">My Account</a></li>
+                    @endif
                 </ul>
             </div>
             <div class="col-lg-4">

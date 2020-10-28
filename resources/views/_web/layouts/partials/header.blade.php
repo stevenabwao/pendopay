@@ -29,16 +29,12 @@
 
                 @if (isLoggedIn())
 
-                    <li>
-                        <a href="{{ route('home') }}">My Account</a>
-                    </li>
-
-                    <li>
-                        <a href="{{ route('home') }}">My Transactions</a>
-                    </li>
-
-                    <li>
-                        <a href="{{ route('home') }}">My Payments</a>
+                    <li class="dropdown">
+                        <a href="#">My Account</a>
+                        <ul>
+                            <li><a href="{{ route('home') }}">My Transactions</a></li>
+                            <li><a href="{{ route('home') }}">My Payments</a></li>
+                        </ul>
                     </li>
 
                 @endif

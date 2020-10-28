@@ -19,13 +19,13 @@ Home
                         </h3>
                         <ul class="slider" data-options="arrows:false,nav:false,autoplay:3000,controls:out">
                             <li>
-                                <h1 class="text-uppercase">Safe Payments to power your business</h1>
+                                <h1 class="text-uppercase">Safe Payments to give you a peace of mind</h1>
                             </li>
                             <li>
-                                <h1 class="text-uppercase">Safe Payments to power your business</h1>
+                                <h1 class="text-uppercase">Safe Payments to give you a peace of mind</h1>
                             </li>
                             <li>
-                                <h1 class="text-uppercase">Safe Payments to power your business</h1>
+                                <h1 class="text-uppercase">Safe Payments to give you a peace of mind</h1>
                             </li>
                         </ul>
                         <p>
@@ -53,7 +53,7 @@ Home
                             <div class="cnt-box cnt-box-top-icon boxed">
                                 <i class="im-monitor-phone"></i>
                                 <div class="caption">
-                                    <h2>Smart softwares</h2>
+                                    <h2>Secured</h2>
                                     <p>
                                         Duis aute irure dolor in repreherita ineto.
                                     </p>
@@ -64,7 +64,7 @@ Home
                             <div class="cnt-box cnt-box-top-icon boxed">
                                 <i class="im-bar-chart2"></i>
                                 <div class="caption">
-                                    <h2>Trusted security</h2>
+                                    <h2>Safe</h2>
                                     <p>
                                         Lorem consectetur adipi elitsed tempono.
                                     </p>
@@ -75,7 +75,7 @@ Home
                             <div class="cnt-box cnt-box-top-icon boxed">
                                 <i class=" im-medal"></i>
                                 <div class="caption">
-                                    <h2>Awards winners</h2>
+                                    <h2>Prompt</h2>
                                     <p>
                                         Ariento mesfato prodo arte e eli manifesto.
                                     </p>
@@ -86,7 +86,7 @@ Home
                             <div class="cnt-box cnt-box-top-icon boxed">
                                 <i class="im-business-man"></i>
                                 <div class="caption">
-                                    <h2>Great experience</h2>
+                                    <h2>Trusted</h2>
                                     <p>
                                         Lorem consectetur adipiscing elitsed pro.
                                     </p>
@@ -118,7 +118,8 @@ Home
                             <p>About us</p>
                         </div>
                         <p>
-                            Lorem ipsum dolor sit amet consectetur adipiscing elitsed do eiusmod tempor incididunt utlabore et dolore magna aliqua.
+                            Our primary goal is to make doing business more safe and secure
+                            eiusmod tempor incididunt utlabore et dolore magna aliqua.
                             Utenim ad minim veniam quis nostrud exercitation ullamco laboris.
                         </p>
                         <div class="box-sign">
@@ -135,7 +136,7 @@ Home
                 <div class="row" data-anima="fade-bottom" data-time="1000">
                     <div class="col-lg-6">
                         <div class="title">
-                            <h2>Core Technology services</h2>
+                            <h2>Core services</h2>
                             <p>Our services</p>
                         </div>
                     </div>
@@ -195,61 +196,11 @@ Home
                                 </div>
                             </div>
                         </div>
-                        <div class="grid-item">
-                            <div class="cnt-box cnt-box-info boxed" data-href="#">
-                                <a href="#" class="img-box"><img src="{{ asset('images/image-5.jpg') }}" alt="" /></a>
-                                <div class="caption">
-                                    <h2>Web development</h2>
-                                    <div class="cnt-info">
-                                        <div><span>Price</span><span>$30</span></div>
-                                        <div><span>Type</span><span>Saas</span></div>
-                                        <div><span>Client</span><span>Business</span></div>
-                                    </div>
-                                    <p>
-                                        Excepteur sint occaecat cupidatat non proidento in culpa qui officia deserunt mollit anim id est laborum.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="grid-item">
-                            <div class="cnt-box cnt-box-info boxed" data-href="#">
-                                <div class="extra-field">30% discount today</div>
-                                <a href="#" class="img-box"><img src="{{ asset('images/image-11.jpg') }}" alt="" /></a>
-                                <div class="caption">
-                                    <h2>Legal contracts</h2>
-                                    <div class="cnt-info">
-                                        <div><span>Price</span><span>$100</span></div>
-                                        <div><span>Type</span><span>Software</span></div>
-                                        <div><span>Client</span><span>Business</span></div>
-                                    </div>
-                                    <p>
-                                        Excepteur sint occaecat cupidatat non proidento in culpa qui officia deserunt mollit anim id est laborum.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="grid-item">
-                            <div class="cnt-box cnt-box-info boxed" data-href="#">
-                                <div class="extra-field">30% discount today</div>
-                                <a href="#" class="img-box"><img src="{{ asset('images/image-12.jpg') }}" alt="" /></a>
-                                <div class="caption">
-                                    <h2>Strategic planning</h2>
-                                    <div class="cnt-info">
-                                        <div><span>Price</span><span>$100</span></div>
-                                        <div><span>Type</span><span>Consulting</span></div>
-                                        <div><span>Client</span><span>Business</span></div>
-                                    </div>
-                                    <p>
-                                        Excepteur sint occaecat cupidatat non proidento in culpa qui officia deserunt mollit anim id est laborum.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </section>
-        <section class="section-base">
+        {{-- <section class="section-base">
             <div class="container">
                 <div class="row" data-anima="fade-bottom" data-time="1000">
                     <div class="col-lg-6">
@@ -289,7 +240,7 @@ Home
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
         <section class="section-image light align-center ken-burn-center" data-parallax="scroll" data-image-src="{{ asset('images/hd-4.jpg') }}">
             <div class="container" data-anima="fade-bottom" data-time="1000">
                 <a href="https://www.youtube.com/watch?v=Lb4IcGF5iTQ" class="btn-video lightbox" data-lightbox-anima="fade-top"></a>
@@ -393,7 +344,8 @@ Home
                 </div>
             </div>
         </section>
-        <section class="section-base">
+
+        {{-- <section class="section-base">
             <div class="container">
                 <div class="row align-items-center" data-anima="fade-bottom" data-time="1000">
                     <div class="col-lg-6">
@@ -493,8 +445,8 @@ Home
                 <hr class="space" />
                 <hr class="space-xs" />
             </div>
-        </section>
-        <section class="section-base section-overflow-top">
+        </section> --}}
+        {{-- <section class="section-base section-overflow-top">
             <div class="container">
                 <table class="table table-grid table-border align-left boxed-area table-6-md">
                     <tbody>
@@ -620,7 +572,7 @@ Home
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
 
 @endsection
 

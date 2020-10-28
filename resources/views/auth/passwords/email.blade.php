@@ -2,7 +2,7 @@
 
 @section('title')
 
-Reset Password
+Forgot Password
 
 @endsection
 
@@ -22,7 +22,7 @@ Reset Password
                               <p class="card-text">
                         </div>
                         <div class="row justify-content-center form-title">
-                            <h3>Reset Password</h3>
+                            <h3>Forgot Password</h3>
                         </div>
 
                         {{-- <hr> --}}
