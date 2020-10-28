@@ -29,18 +29,16 @@
             <div class="col-lg-4">
                 <h3>Quick Links</h3>
                 <ul class="icon-list icon-line">
-                    <li><a href="#">Partners and advertising</a></li>
-                    <li><a href="#">About us and the company</a></li>
-                    <li><a href="#">Services and projects</a></li>
-                    <li><a href="#">Contact us online</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Our Services</a></li>
+                    <li><a href="#">Contact Us</a></li>
                 </ul>
             </div>
             <div class="col-lg-4">
                 <ul class="text-list text-list-line">
-                    <li><b>Address</b><hr /><p>139 Baker St, E1 7PT, London</p></li>
+                    <li><b>Address</b><hr /><p>{!! $site_settings['company_location_plain'] !!}</p></li>
                     <li><b>Email</b><hr /><p>{!! ($site_settings['contact_email']) !!}</p></li>
                     <li><b>Phone</b><hr /><p>{!! ($site_settings['contact_phone']) !!}</p></li>
-                    <li><b>Opening hours</b><hr /><p>8am-5pm Mon - Fri</p></li>
                 </ul>
             </div>
         </div>
