@@ -39,7 +39,7 @@
             </div>
             <div class="col-lg-4">
                 <ul class="text-list text-list-line">
-                    <li><b>Address</b><hr /><p>{!! $site_settings['company_location_plain'] !!}</p></li>
+                    <li><b>Address</b><hr /><p>{!! $site_settings['company_name_title'] !!}</p></li>
                     <li><b>Email</b><hr /><p>{!! ($site_settings['contact_email']) !!}</p></li>
                     <li><b>Phone</b><hr /><p>{!! ($site_settings['contact_phone']) !!}</p></li>
                 </ul>
