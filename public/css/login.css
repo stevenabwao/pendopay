@@ -12,7 +12,9 @@ padding-right: 8px; */
 padding-bottom: .1rem;
 font-size: .875rem;
 line-height: 1.5;
+
 }
+
 
 .md-form.mat-2 label {
 top: .3rem;
@@ -30,6 +32,10 @@ top: 1.9rem;
 left: 8px;
 }
 
+.md-form.mat-2 .date.active {
+ background: transparent ;
+}
+
 input[type=text], input[type=password] { height: 1.5rem; line-height: 0; width:86%; }
 .mx-auto{ margin-left: 0 !important; margin-right: 0 !important; }
 
@@ -41,4 +47,5 @@ input[type=text], input[type=password] { height: 1.5rem; line-height: 0; width:8
 .form-title{background: #ededed; padding-top:8px; margin-top:8px; margin-bottom:2rem;}
 
 hr{margin: 20px 0 !important;}
+
 
