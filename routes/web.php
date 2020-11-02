@@ -459,4 +459,5 @@ Route::group(['middleware' => 'guest'], function() {
 	Route::get('auth/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
 
 });
-
+//transacction routes
+Route::get('/my-transactions', 'TransactionController@index');
