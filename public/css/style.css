@@ -5652,7 +5652,7 @@ Inverted responsive classes
   }
 
   input[type=text], input[type=Password] {
-    background-color: #f6f6f6;
+   
     border: none;
     /* color: #39ace7; */
     padding: 15px 32px;
@@ -5678,11 +5678,8 @@ Inverted responsive classes
 
   }
 
-  input[type=text],  input[type=Password]:placeholder {
-    color: #cccccc;
-  }
 
-  .reset{
+ .reset{
       list-style: none;
       text-decoration: none;
   }
