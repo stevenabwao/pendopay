@@ -1,6 +1,6 @@
 
 @if (session('success'))
-	
+
 	<script>
 
 		$(document).ready(function() {
@@ -10,11 +10,11 @@
 				$("body").removeAttr('class');
 				$.toast({
 		            heading: 'Success',
-		            text: "{!! session('success') !!}",
+		            text: {!! session('success') !!},
 		            position: 'bottom-right',
 		            loaderBg:'#fec107',
 		            icon: 'success',
-		            hideAfter: 15500, 
+		            hideAfter: 15500,
 		            stack: 6
 		        });
 				return false;
@@ -36,11 +36,11 @@
 				$("body").removeAttr('class');
 				$.toast({
 		            heading: 'An Error Occured',
-		            text: "{!! session('error') !!}",
+		            text: {!! session('error') !!},
 		            position: 'bottom-right',
 		            loaderBg:'#fec107',
 		            icon: 'error',
-		            hideAfter: 15500, 
+		            hideAfter: 15500,
 		            stack: 6
 		        });
 				return false;
@@ -48,5 +48,5 @@
 		});
 
 	</script>
-	
+
 @endif
