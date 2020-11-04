@@ -11,4 +11,8 @@ class TransactionController extends Controller
     {  
         return view('_web.my-transactions');
     }
+    public function create()
+    {  
+        return view('_web.new-transaction');
+    }
 }

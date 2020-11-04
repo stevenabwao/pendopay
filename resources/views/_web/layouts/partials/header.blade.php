@@ -33,7 +33,7 @@
                         <a href="#">My Account</a>
                         <ul>
                             <li><a href="/my-transactions">My Transactions</a></li>
-                            <li><a href="{{ route('home') }}">My Payments</a></li>
+                            <li><a href="{{ route('payments') }}">My Payments</a></li>
                         </ul>
                     </li>
 
@@ -105,7 +105,7 @@
                             <ul>
                                 <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
                                 <li><a href="/my-transactions"><i class="fa fa-briefcase"></i> My Transactions</a></li>
-                                <li><a href="#"><i class="fa fa-money"></i> My Payments</a></li>
+                                <li><a href="/payments"><i class="fa fa-money"></i> My Payments</a></li>
                                 <li>
                                     <a href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
