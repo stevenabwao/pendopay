@@ -36,6 +36,7 @@ class UserRegisterStore
             if (array_key_exists('dob', $attributes)) {
                 $dob = $attributes['dob'];
             }
+            // dd($attributes);
 
             // get minimum allowed age
             /* $site_settings = getSiteSettings();
@@ -46,21 +47,30 @@ class UserRegisterStore
             $user_age = getDateDiff($dob, "", $interval);
 
             if ($user_age < $min_age) {
-                $message['message'] = "You must be above $min_age to use this site";
+                $message = "You must be above $min_age to use this site";
                 return show_error_response($message);
             } */
 
             //start check if user exists
-            $user_data = getUserData($phone, $email);
+            $user_data = "";
+            try {
+                $user_data = getUserData($phone, $email);
+            } catch(\Exception $e) {
+                log_this(formatErrorJson($e));
+                $message = "Could not create user";
+                throw new \Exception($message);
+            }
 
-            //if user data already exists, throw an error
+            // if user data already exists, throw an error
             if ($user_data) {
-                $message['message'] = "User data already exists. Please try again, or login.";
-                return show_error_response($message);
+                $message = "User data already exists";
+                log_this($message . " - " . formatErrorJson($user_data));
+                throw new \Exception($message);
             }
             // end check if user exists
 
             ///
+            // dd("ccc", $attributes);
 
             // add user env
             $agent = new \Jenssegers\Agent\Agent;
@@ -83,15 +93,17 @@ class UserRegisterStore
             }
 
             // re arrange dob
-            /* $attributes['dob'] = reArrangeSubmittedDate($dob) . ' 00:00:00';
-            $attributes['phone_country'] = 'KE'; */
+            $attributes['dob'] = reArrangeSubmittedDate($dob) . ' 00:00:00';
+
+            // add country initials
+            $attributes['phone_country'] = 'KE';
 
             // set inactive status
             $attributes['status_id'] = getStatusInactive();
             $attributes['active'] = getStatusInactive();
 
             // unset terms
-            unset($attributes['dob']);
+            // unset($attributes['dob']);
             unset($attributes['terms']);
             unset($attributes['password_confirmation']);
             // dd("init attrib == ", $attributes);
@@ -108,9 +120,8 @@ class UserRegisterStore
             } catch(\Exception $e) {
 
                 DB::rollback();
-                // dd($e);
+                log_this($e->getMessage());
                 $message = "Error creating user account. Please try again later";
-                $message .= $e;
                 throw new \Exception($message);
 
             }
@@ -143,9 +154,8 @@ class UserRegisterStore
             } catch(\Exception $e) {
 
                 DB::rollback();
-                // dd($e);
                 $message = "Error creating user deposit account. Please try again later";
-                $message .= $e;
+                log_this($message . " - " . $e->getMessage());
                 throw new \Exception($message);
 
             }

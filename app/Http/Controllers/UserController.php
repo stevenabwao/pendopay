@@ -115,30 +115,28 @@ class UserController extends Controller
     public function store(Request $request, UserStore $userStore)
     {
 
-        //dd($request);
         $this->validate($request, [
             'first_name' => 'required',
             'last_name' => 'required',
-            // 'phone_country' => 'required_with:phone',
-            // 'phone' => 'required|phone:KE',
-            // 'password' => 'required|min:8|confirmed',
-            // 'company_id' => 'required|integer',
+            'dob' => 'required'
         ]);
-        //dd($request);
 
         //create item
-        $result = $userStore->createItem($request->all());
-        $result = json_decode($result);
-        $result_message = $result->message;
+        try {
 
-        if (!$result->error) {
+            $result = $userStore->createItem($request->all());
+            log_this("successfully created user \n " . formatErrorJson($result));
+
             //success
-            session()->flash("success", "User successfully created");
-            return redirect()->route('users.index');
-        } else {
+            session()->flash("success", "User successfully created. Please login.");
+            return redirect()->route('login');
+
+        } catch (\Exception $e) {
+
             //error occured
-            session()->flash("error", $result_message);
+            session()->flash("error", $e->getMessage());
             return redirect()->back()->withInput();
+
         }
 
     }

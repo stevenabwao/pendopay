@@ -85,8 +85,8 @@ class RegisterController extends BaseController
             $error_message = json_encode($e->getMessage());
             log_this('Error creating user === ' . $error_message);
             //error occured
-            session()->flash("error", "An error occured\n" . $error_message);
-            return redirect()->back()->withInput()->withErrors($e);
+            session()->flash("error", $error_message);
+            return redirect()->back()->withInput()->withErrors($e->getMessage());
 
         }
 

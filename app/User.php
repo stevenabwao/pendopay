@@ -17,16 +17,15 @@ use App\Entities\ReportDataSummaryDetail;
 use App\Entities\SmsOutbox;
 use App\Entities\Status;
 use App\Entities\UserAccessToken;
-use App\Entities\UserArchive;
 use App\Entities\UserAudit;
 use App\Role;
-use App\Events\UserCreated;
+use App\Entities\UserLogin;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
-use App\Entities\UserLogin;
+use App\Events\UserCreated;
 use App\Events\UserUpdated;
 
 class User extends Authenticatable
