@@ -5607,7 +5607,7 @@ Inverted responsive classes
 .inputs button {
     width: 100%;
     display: block;
-    margin-bottom: 15px;
+    margin-bottom: 8px;
     z-index: 1;
     position: relative;
     -moz-box-sizing: border-box;

@@ -59,44 +59,6 @@
                     Mombasa Road<br />
                     Nairobi, Kenya
                 </div>
-                {{-- <div class="shop-menu-cnt">
-                    <i></i>
-                    <div class="shop-menu">
-                        <ul class="shop-cart">
-                            <li class="cart-item">
-                                <img src="{{ asset('images/shop/shop-2.png') }}" alt="">
-                                <div class="cart-content">
-                                    <h5>Adobe XD Tutorial</h5>
-                                    <span class="cart-quantity">
-                                        1 x $99.00
-                                    </span>
-                                </div>
-                            </li>
-                            <li class="cart-item">
-                                <img src="{{ asset('images/shop/shop-6.png') }}" alt="">
-                                <div class="cart-content">
-                                    <h5>Professional Adobe XD</h5>
-                                    <span class="cart-quantity">
-                                        1 x $99.00
-                                    </span>
-                                </div>
-                            </li>
-                        </ul>
-                        <p class="cart-total">
-                            Subtotal: <span>$299.00</span>
-                        </p>
-                        <p class="cart-buttons">
-                            <a href="#" class="cart-view">View Cart</a>
-                            <a href="#" class="cart-checkout">Checkout</a>
-                        </p>
-                    </div>
-                </div>
-                <form role="search" method="get" id="searchform" class="search-btn">
-                    <div class="search-box-menu">
-                        <input type="text" placeholder="Search ...">
-                        <i></i>
-                    </div>
-                </form> --}}
 
                 @if (isLoggedIn())
                     <ul class="lan-menu">
@@ -104,8 +66,8 @@
                             <a href="#"><i class="fa fa-user"></i> {{ getLoggedUser()->first_name }} </a>
                             <ul>
                                 <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
-                                <li><a href="#"><i class="fa fa-briefcase"></i> My Transactions</a></li>
-                                <li><a href="#"><i class="fa fa-money"></i> My Payments</a></li>
+                                <li><a href="/my-transactions"><i class="fa fa-briefcase"></i> My Transactions</a></li>
+                                <li><a href="/payments"><i class="fa fa-money"></i> My Payments</a></li>
                                 <li>
                                     <a href="{{ route('logout') }}"
                                         onclick="event.preventDefault();

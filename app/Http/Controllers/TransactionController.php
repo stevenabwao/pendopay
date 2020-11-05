@@ -7,9 +7,12 @@ use Illuminate\Http\Request;
 class TransactionController extends Controller
 {
     //
-    public function index(){
-        $title = 'welcome to my transactions';
-        // return view('pages.index', compact('title','subTitle'));
-        return view('_web.my-transactions') -> with('title', $title);
+    public function index()
+    {  
+        return view('_web.my-transactions');
+    }
+    public function create()
+    {  
+        return view('_web.new-transaction');
     }
 }
