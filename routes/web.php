@@ -171,6 +171,9 @@ Route::group(['middleware' => 'auth'], function() {
     // shopping cart item controller
     Route::delete('/my-shopping-cart-item/{id}', 'Web\ShoppingCartItem\ShoppingCartItemController@destroy')->name('my-shopping-cart-item.destroy');
 
+    // my transactions controller
+    Route::get('/my-transactions', 'Web\MyTransaction\MyTransactionController@index')->name('my-transactions');
+
 	Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 	// orders routes...

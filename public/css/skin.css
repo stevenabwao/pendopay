@@ -1062,14 +1062,19 @@ body > header.header-base h1 {
 }
 
 body > header {
-    height: 250px;
+    /* height: 250px; */
+    height: 70px;
+    background-color: #dedede;
+    /* background-color: #03BFCB; */
 }
 
 body > header h1 {
     text-transform: uppercase;
-    font-size: 45px;
-    line-height: 55px;
-    margin-bottom: 10px;
+    /* font-size: 45px; */
+    font-size: 20px;
+    line-height: 25px;
+    /* line-height: 55px; */
+    /* margin-bottom: 10px; */
     font-weight: 900;
 }
 

@@ -385,8 +385,10 @@ main > section.section-base {
 }
 
 main > section > .container {
-    padding-top: 100px;
-    padding-bottom: 100px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    /* padding-top: 100px;
+    padding-bottom: 100px; */
 }
 
 .section-video > video, .section-map > .google-map, .section-slider > .background-slider, .section-slider > .background-slider > div {
@@ -5652,7 +5654,7 @@ Inverted responsive classes
   }
 
   input[type=text], input[type=Password] {
-   
+
     border: none;
     /* color: #39ace7; */
     padding: 15px 32px;
