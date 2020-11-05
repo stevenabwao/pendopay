@@ -65,7 +65,7 @@ My-Payments
   @endif
   <div class="md-form mat-2 mx-auto">
         
-        <button class="btn-default">Request Funds</button>
+        <button class="btn-default">Make payment</button>
   
       </div>
   
@@ -75,7 +75,7 @@ My-Payments
 <div class="col-md-7" >
 
 
-        <div class="card">
+        <div class="card1">
                   
               <div class="row justify-content-center">
                      <div class="col-md-12" >
@@ -87,19 +87,26 @@ My-Payments
                                <div class="row">
 
                                 
-                                   <div class="col-md-4">
-                                    <strong>Payment received</strong>
+                                   <div class="col-md-2">
+                                    <strong>Date</strong>
+                                    <p>payment date</p>
+                                   </div>
+                                   <div class="col-md-2">
+                                    <strong>Type</strong>
+                                    <p>received/sent</p>
+                                   </div>
+                                   <div class="col-md-2">
+                                    <strong>Purpose</strong>
                                     <p>payment date</p>
                                    </div>
 
-                                   <div class="col-md-4">
-                                    <strong>Purpose of payment</strong>
-                                    <p>payment date</p>
-                                   </div>
-
-                                   <div class="col-md-4">
-                                    <strong>Amount received</strong>
+                                   <div class="col-md-2">
+                                    <strong>Amount</strong>
                                     <p>15,000</p>
+                                   </div>
+                                   <div class="col-md-2">
+                                    <strong>status</strong>
+                                    <p>active/canceled/completed</p>
                                    </div>
 
                                </div>
