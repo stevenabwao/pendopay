@@ -9,7 +9,7 @@
 @endsection
 
 @section('page_breadcrumbs')
-   {!! Breadcrumbs::render('admin.establishments') !!}
+   {!! Breadcrumbs::render('my-transactions.index') !!}
 @endsection
 
 
@@ -47,17 +47,23 @@
                 </div>
                 <div class="col-lg-7 no-guttersz">
 
-                    <div class="row">
-                        <div class="col-lg-6"><h3>RECENT TRANSACTIONS</h3></div>
-                        <div class="col-lg-6 no-gutters">
-                            <a href="#" class="btn btn-sm btn-icon full-width-sm"><i class="fa fa-plus"></i>Create New Transaction</a>
-                        </div>
-                    </div>
 
-                    <hr>
 
                     <div class="grid-list equalheight" data-columns="1">
+
+                        <div class="row">
+                            <div class="col-lg-6"><h3>RECENT TRANSACTIONS</h3></div>
+                            <div class="col-lg-6 no-gutters">
+                                <a href="{{ route('my-transactions.create') }}" class="btn btn-sm btn-icon full-width-sm">
+                                    <i class="fa fa-plus"></i>Create New Transaction
+                                </a>
+                            </div>
+                        </div>
+
+                        <hr>
+
                         <div class="grid-box">
+
                             <div class="grid-item">
                                 <div class="cnt-boxz cnt-box-blog-side boxedz" data-href="#">
                                     <div class="caption2">
@@ -101,7 +107,7 @@
                             </div>
                             <hr>
 
-                            <a href="#" class="btn btn-sm btn-border full-width-sm btn-block"><i class="fa fa-plus"></i> View All</a>
+                            <a href="#" class="btn btn-sm btn-border full-width-sm btn-block"><i class="fa fa-plus"></i> View All Transactions</a>
 
                         </div>
 

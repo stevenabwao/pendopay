@@ -10,6 +10,7 @@ use App\Entities\CompanyUser;
 use App\Entities\Offer;
 use App\Entities\OfferProduct;
 use App\Entities\Till;
+use App\Entities\Transaction;
 use App\Permission;
 use App\Role;
 use App\User;
@@ -162,6 +163,40 @@ Breadcrumbs::register('companies.edit', function($breadcrumbs, $id)
 });
 
 /******** END COMPANIES ROUTES ********/
+
+/******** MY TRANSACTIONS ROUTES ********/
+
+// Home > Companies
+Breadcrumbs::register('my-transactions.index', function($breadcrumbs)
+{
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('My Transactions', route('my-transactions.index'));
+});
+
+// Home > Companies > Create New Transaction
+Breadcrumbs::register('my-transactions.create', function($breadcrumbs)
+{
+    $breadcrumbs->parent('my-transactions');
+    $breadcrumbs->push('Create New Transaction', route('my-transactions.create'));
+});
+
+// Home > Companies > Show Transaction
+Breadcrumbs::register('my-transactions.show', function($breadcrumbs, $id)
+{
+    $transaction = Transaction::findOrFail($id);
+    $breadcrumbs->parent('my-transactions');
+    $breadcrumbs->push($transaction->name, route('my-transactions.show', $transaction->id));
+});
+
+// Home > Companies > Edit Transaction
+Breadcrumbs::register('my-transactions.edit', function($breadcrumbs, $id)
+{
+    $transaction = Transaction::findOrFail($id);
+    $breadcrumbs->parent('my-transactions');
+    $breadcrumbs->push("Edit transaction - " . $transaction->name, route('my-transactions.edit', $transaction->id));
+});
+
+/******** END MY TRANSACTIONS ROUTES ********/
 
 
 /******** ADMIN OFFERS ROUTES ********/

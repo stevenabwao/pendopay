@@ -2,19 +2,10 @@
 
 namespace App\Http\Controllers\Web\MyTransaction;
 
-use App\Entities\ShoppingCart;
-use App\Entities\Product;
-use App\Entities\Company;
 use App\Entities\ShoppingCartItem;
 use App\Entities\Status;
-use App\Services\ShoppingCart\ShoppingCartIndex;
-use App\Services\ShoppingCart\ShoppingCartStore;
 use App\Http\Controllers\Controller;
-use App\Services\Payment\PaymentRequestStore;
-use App\Services\Payment\PaymentStore;
-use App\Services\ShoppingCartItem\ShoppingCartItemUpdate;
 use Illuminate\Http\Request;
-use Session;
 
 class MyTransactionController extends Controller
 {
@@ -50,30 +41,22 @@ class MyTransactionController extends Controller
 
     }
 
-    /**
-     * @param Request $request
-     * @param $id
-     * @return mixed
-    */
-    public function destroy(Request $request, $id)
+    public function index2(Request $request)
     {
 
-        $user_id = auth()->user()->id;
+        // get trans data
+        $my_transactions = "";
 
-        $item = $this->model->findOrFail($id);
-        $shopping_cart_id = $item->shopping_cart_id;
-        // dd($shopping_cart_id);
+        return view('_web.my-transactions', [
+            'my_transactions' => $my_transactions
+        ]);
 
-        if ($item) {
-            // update deleted by field
-            // $item->update(['deleted_by' => $user_id]);
-            $result = $item->delete();
-        }
+    }
 
-        // update shopping cart totals
-        synchronizeSumTotalInCart($shopping_cart_id);
+    public function create(Request $request)
+    {
 
-        return redirect()->back();
+        return view('_web.my-transactions.create');
 
     }
 
