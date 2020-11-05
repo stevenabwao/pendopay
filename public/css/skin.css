@@ -1063,8 +1063,8 @@ body > header.header-base h1 {
 
 body > header {
     /* height: 250px; */
-    height: 70px;
-    background-color: #dedede;
+    height: 60px;
+    background-color: #03BFCB;
     /* background-color: #03BFCB; */
 }
 
@@ -1693,9 +1693,9 @@ footer .col-lg-4:last-child {
 .cnt-box-blog-side .icon-list, .cnt-box-blog-top .icon-list {
     margin-left: -30px;
     padding-left: 27px;
-    padding-bottom: 10px;
+    /* padding-bottom: 10px; */
     margin-top: 15px;
-    border-bottom: 1px solid rgba(10, 70, 103, 0.18);
+    /* border-bottom: 1px solid rgba(10, 70, 103, 0.18); */
 }
 
 .cnt-box .btn-text:after, .cnt-box .btn-text:after {

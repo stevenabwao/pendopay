@@ -307,6 +307,11 @@ Table of contents
     padding-left: 30px;
 }
 
+.cnt-box-blog-side > .caption2 {
+    width: 100%;
+    /* padding-left: 30px; */
+}
+
 
 .cnt-box-blog-side .icon-list, .cnt-box-blog-top .icon-list {
     font-size: 14px;

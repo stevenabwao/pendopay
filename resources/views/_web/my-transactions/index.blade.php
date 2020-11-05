@@ -5,7 +5,7 @@
 @endsection
 
 @section('page_title')
-    My Transactions
+    {!! getLoggedUser()->first_name !!}
 @endsection
 
 @section('page_breadcrumbs')
@@ -18,69 +18,93 @@
     <section class="section-base section-color">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-5">
+
                     <div class="fixed-area" data-offset="80">
-                        <div class="menu-inner menu-inner-vertical boxed-area">
-                            <ul>
-                                <li class="active"><a href="service-1.html">Security audits</a></li>
-                                <li><a href="service-2.html">Artificial intelligence</a></li>
-                                <li><a href="service-3.html">Bots and support</a></li>
-                                <li><a href="#">Financial advises</a></li>
-                            </ul>
+                        <div class="menu-innerz menu-inner-vertical boxed-area text-center equalheight">
+
+                            <h3 style="margin-bottom: 1rem;">MY WALLET </h3>
+                            <hr>
+
+                            <div class="row">
+                                {{-- <div class="col-lg-3">
+                                    <i class="im-coins text-lg"></i>
+                                </div> --}}
+                                <div class="col-lg-12">
+                                    <div class="text-lg">Ksh 9,999</div>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <a href="#" class="btn btn-sm btn-border full-width-sm btn-block"><i class="fa fa-money"></i> Transfer Funds</a>
+
                         </div>
                         <hr class="space-sm" />
-                        <div class="boxed-area light">
-                            <ul class="text-list text-list-bold">
-                                <li><b>Address:</b><p>139 Baker St, E17PT, London</p></li>
-                                <li><b>Email:</b><p>support@example.com</p></li>
-                                <li><b>Phone line:</b><p>(02) 123 333 444</p></li>
-                                <li><b>Opening hours</b><p>8am-5pm Mon - Fri</p></li>
-                            </ul>
-                        </div>
+
                     </div>
+
                 </div>
-                <div class="col-lg-8">
-                    <hr class="space visible-md" />
+                <div class="col-lg-7 no-guttersz">
 
                     <div class="row">
-                        <div class="col-sm-6"><h3>Recent Activity</h3></div>
-                        <div class="col-sm-6">
+                        <div class="col-lg-6"><h3>RECENT TRANSACTIONS</h3></div>
+                        <div class="col-lg-6 no-gutters">
                             <a href="#" class="btn btn-sm btn-icon full-width-sm"><i class="fa fa-plus"></i>Create New Transaction</a>
                         </div>
                     </div>
 
-                    <hr class="space-sm" />
-                    <div class="menu-inner menu-inner-vertical menu-inner-image">
-                        <ul>
-                            <li>
-                                <a href="#">
-                                    <img src="media/square-1.jpg" alt="" />
-                                    <span>Feb 12, 2020</span>
-                                    Sale of Lexus motor vehicle KDA 001B
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="media/square-2.jpg" alt="" />
-                                    <span>February 25, 2020</span>
-                                    Six best practices for using artificial intelligence data
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="media/square-3.jpg" alt="" />
-                                    <span>April 19, 2020</span>
-                                    Machine learning and AI are raising concerns
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="media/square-4.jpg" alt="" />
-                                    <span>April 20, 2020</span>
-                                    Commodity traders turn to long as big oil fail more then expected
-                                </a>
-                            </li>
-                        </ul>
+                    <hr>
+
+                    <div class="grid-list equalheight" data-columns="1">
+                        <div class="grid-box">
+                            <div class="grid-item">
+                                <div class="cnt-boxz cnt-box-blog-side boxedz" data-href="#">
+                                    <div class="caption2">
+                                        <h3>Sale of Lexus motor vehicle KDA 001B motor vehicle KDA 001B</h3>
+                                        <ul class="icon-list icon-list-horizontal">
+                                            <li><i class="icon-calendar"></i><a href="#">15-Dec-2020</a></li>
+                                            <li><i class="icon-bookmark"></i><a href="#">SELLER</a></li>
+                                            <li><i class="icon-user"></i><a href="#">KES 2,000,000</a></li>
+                                            <li class="text-success"><i class="fa fa-thumbs-up"></i> COMPLETED</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="grid-item">
+                                <div class="cnt-boxz cnt-box-blog-side boxedz" data-href="#">
+                                    <div class="caption2">
+                                        <h3>Sale of Lexus motor vehicle KDA 001B motor vehicle KDA 001B</h3>
+                                        <ul class="icon-list icon-list-horizontal">
+                                            <li><i class="icon-calendar"></i><a href="#">15-Dec-2020</a></li>
+                                            <li><i class="icon-bookmark"></i><a href="#">BUYER</a></li>
+                                            <li><i class="icon-user"></i><a href="#">KES 2,000,000</a></li>
+                                            <li class="text-danger"><i class="fa fa-thumbs-up"></i> PENDING</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="grid-item">
+                                <div class="cnt-boxz cnt-box-blog-side boxedz" data-href="#">
+                                    <div class="caption2">
+                                        <h3>Sale of Lexus motor vehicle KDA 001B motor vehicle KDA 001B</h3>
+                                        <ul class="icon-list icon-list-horizontal">
+                                            <li><i class="icon-calendar"></i><a href="#">15-Dec-2020</a></li>
+                                            <li><i class="icon-bookmark"></i><a href="#">SELLER</a></li>
+                                            <li><i class="icon-user"></i><a href="#">KES 2,000,000</a></li>
+                                            <li class="text-danger"><i class="fa fa-thumbs-up"></i> PENDING</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <a href="#" class="btn btn-sm btn-border full-width-sm btn-block"><i class="fa fa-plus"></i> View All</a>
+
+                        </div>
+
                     </div>
 
                 </div>

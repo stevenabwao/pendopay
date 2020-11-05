@@ -3818,7 +3818,7 @@ GRID LIST AND MOSONRY LIST - CONTAINER
 
 .grid-box {
     display: grid;
-    grid-gap: 30px;
+    /* grid-gap: 30px; */
 }
 
 .no-gap > div {
@@ -5688,3 +5688,9 @@ Inverted responsive classes
 
   .auth-link a, .auth-link{ color: #ffffff; text-decoration: none; }
   .auth-link a:hover{ color: #03BFCB; }
+  .no-padding-right{ padding-right: 0 !important; }
+  .text-danger, .text-danger .fa{ color: #cc181e !important; }
+  .text-success, .text-success .fa{ color: #03BFCB !important; }
+  .light .breadcrumb li a:after {
+    background-color: #FFF !important;
+  }
