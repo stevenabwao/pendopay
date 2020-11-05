@@ -255,10 +255,10 @@ th {
 @font-face {
   font-family: 'Glyphicons Halflings';
   src: url(/fonts/glyphicons-halflings-regular.eot?f4769f9bdb7466be65088239c12046d1);
-  src: url(/fonts/glyphicons-halflings-regular.eot?f4769f9bdb7466be65088239c12046d1?#iefix) format('embedded-opentype'), 
-      url(/fonts/glyphicons-halflings-regular.woff2?448c34a56d699c29117adc64c43affeb) format('woff2'), 
-      url(/fonts/glyphicons-halflings-regular.woff?fa2772327f55d8198301fdb8bcfc8158) format('woff'), 
-      url(/fonts/glyphicons-halflings-regular.ttf?e18bbf611f2a2e43afc071aa2f4e1512) format('truetype'), 
+  src: url(/fonts/glyphicons-halflings-regular.eot?f4769f9bdb7466be65088239c12046d1?#iefix) format('embedded-opentype'),
+      url(/fonts/glyphicons-halflings-regular.woff2?448c34a56d699c29117adc64c43affeb) format('woff2'),
+      url(/fonts/glyphicons-halflings-regular.woff?fa2772327f55d8198301fdb8bcfc8158) format('woff'),
+      url(/fonts/glyphicons-halflings-regular.ttf?e18bbf611f2a2e43afc071aa2f4e1512) format('truetype'),
       url(/fonts/glyphicons-halflings-regular.svg?1c41ecd622239ba9588b9b991211d2bc#glyphicons_halflingsregular) format('svg');
 }
 .glyphicon {
@@ -10981,10 +10981,10 @@ Copyright (c) 2014 Daniel Eden
 @font-face {
   font-family: 'simple-line-icons';
   src: url(/fonts/Simple-Line-Icons.eot?f33df365d6d0255b586f2920355e94d7);
-  src: url(/fonts/Simple-Line-Icons.eot?f33df365d6d0255b586f2920355e94d7#iefix) format('embedded-opentype'), 
-      url(/fonts/Simple-Line-Icons.woff2?0cb0b9c589c0624c9c78dd3d83e946f6) format('woff2'), 
-      url(/fonts/Simple-Line-Icons.ttf?d2285965fe34b05465047401b8595dd0) format('truetype'), 
-      url(/fonts/Simple-Line-Icons.woff?78f07e2c2a535c26ef21d95e41bd7175) format('woff'), 
+  src: url(/fonts/Simple-Line-Icons.eot?f33df365d6d0255b586f2920355e94d7#iefix) format('embedded-opentype'),
+      url(/fonts/Simple-Line-Icons.woff2?0cb0b9c589c0624c9c78dd3d83e946f6) format('woff2'),
+      url(/fonts/Simple-Line-Icons.ttf?d2285965fe34b05465047401b8595dd0) format('truetype'),
+      url(/fonts/Simple-Line-Icons.woff?78f07e2c2a535c26ef21d95e41bd7175) format('woff'),
       url(/fonts/Simple-Line-Icons.svg?c2e7471e92ab34e7bd8dd1eb8b94ab8c#simple-line-icons) format('svg');
   font-weight: normal;
   font-style: normal;
@@ -11794,9 +11794,9 @@ Copyright (c) 2014 Daniel Eden
 @font-face {
   font-family: "linea-arrows-10";
   src: url(/fonts/linea-arrows-10.eot?9b287297a8d930c35c32a62fed4eba68);
-  src: url(/fonts/linea-arrows-10.eot?9b287297a8d930c35c32a62fed4eba68?#iefix) format("embedded-opentype"), 
-      url(/fonts/linea-arrows-10.woff?e9c2f96041f9aa6fa05699a7e361d5cf) format("woff"), 
-      url(/fonts/linea-arrows-10.ttf?4e2921ae2aa6ab286dca55f6d6822395) format("truetype"), 
+  src: url(/fonts/linea-arrows-10.eot?9b287297a8d930c35c32a62fed4eba68?#iefix) format("embedded-opentype"),
+      url(/fonts/linea-arrows-10.woff?e9c2f96041f9aa6fa05699a7e361d5cf) format("woff"),
+      url(/fonts/linea-arrows-10.ttf?4e2921ae2aa6ab286dca55f6d6822395) format("truetype"),
       url(/fonts/linea-arrows-10.svg?8f14c08a082badb1b14d823a20be87b6#linea-arrows-10) format("svg");
   font-weight: normal;
   font-style: normal;
@@ -12237,9 +12237,9 @@ Copyright (c) 2014 Daniel Eden
 @font-face {
   font-family: "linea-basic-10";
   src: url(/fonts/linea-basic-10.eot?e4de528c00da0c081906c3caea289f0f);
-  src: url(/fonts/linea-basic-10d41d.eot?e4de528c00da0c081906c3caea289f0f?#iefix) format("embedded-opentype"), 
-      url(/fonts/linea-basic-10.woff?61f3a8a387a64abfc0535cd0813cd71a) format("woff"), 
-      url(/fonts/linea-basic-10.ttf?e6763f008205c55db623cdf68bbd581f) format("truetype"), 
+  src: url(/fonts/linea-basic-10d41d.eot?e4de528c00da0c081906c3caea289f0f?#iefix) format("embedded-opentype"),
+      url(/fonts/linea-basic-10.woff?61f3a8a387a64abfc0535cd0813cd71a) format("woff"),
+      url(/fonts/linea-basic-10.ttf?e6763f008205c55db623cdf68bbd581f) format("truetype"),
       url(/fonts/linea-basic-10.svg?80ff7c4bb7ffa7dccb45d7eecc974ae9#linea-basic-10) format("svg");
   font-weight: normal;
   font-style: normal;
@@ -12677,9 +12677,9 @@ Copyright (c) 2014 Daniel Eden
 @font-face {
   font-family: "linea-basic-elaboration-10";
   src: url(/fonts/linea-basic-elaboration-10.eot?7193d8c51aea93b5f5751bdb676a7b31);
-  src: url(/fonts/linea-basic-elaboration-10d41d.eot?7193d8c51aea93b5f5751bdb676a7b31?#iefix) format("embedded-opentype"), 
-  url(/fonts/linea-basic-elaboration-10.woff?0ce002fd728a1b688e7ce4d82cdb0369) format("woff"), 
-  url(/fonts/linea-basic-elaboration-10.ttf?3759629be32bb8b55b2119af8cf5122d) format("truetype"), 
+  src: url(/fonts/linea-basic-elaboration-10d41d.eot?7193d8c51aea93b5f5751bdb676a7b31?#iefix) format("embedded-opentype"),
+  url(/fonts/linea-basic-elaboration-10.woff?0ce002fd728a1b688e7ce4d82cdb0369) format("woff"),
+  url(/fonts/linea-basic-elaboration-10.ttf?3759629be32bb8b55b2119af8cf5122d) format("truetype"),
   url(/fonts/linea-basic-elaboration-10.svg?244f1960e5c3927f71df8784cd7e21c4#linea-basic-elaboration-10) format("svg");
   font-weight: normal;
   font-style: normal;
@@ -13147,9 +13147,9 @@ Copyright (c) 2014 Daniel Eden
 @font-face {
   font-family: "linea-ecommerce-10";
   src: url(/fonts/linea-ecommerce-10.eot?ffd2088eabba9bda4af6b6e98787e789);
-  src: url(/fonts/linea-ecommerce-10d41d.eot?ffd2088eabba9bda4af6b6e98787e789?#iefix) format("embedded-opentype"), 
-  url(/fonts/linea-ecommerce-10.woff?9341e6c26dba68b0226832f4623833be) format("woff"), 
-  url(/fonts/linea-ecommerce-10.ttf?e8892174d7f87530f38e6a0bd5358cac) format("truetype"), 
+  src: url(/fonts/linea-ecommerce-10d41d.eot?ffd2088eabba9bda4af6b6e98787e789?#iefix) format("embedded-opentype"),
+  url(/fonts/linea-ecommerce-10.woff?9341e6c26dba68b0226832f4623833be) format("woff"),
+  url(/fonts/linea-ecommerce-10.ttf?e8892174d7f87530f38e6a0bd5358cac) format("truetype"),
   url(/fonts/linea-ecommerce-10.svg?b072def0265a27a28538989dac136943#linea-ecommerce-10) format("svg");
   font-weight: normal;
   font-style: normal;
@@ -13437,9 +13437,9 @@ Copyright (c) 2014 Daniel Eden
 @font-face {
   font-family: "linea-music-10";
   src: url(/fonts/linea-music-10.eot?a7dcedf1c8fb3ca799445dcfe7f5e875);
-  src: url(/fonts/linea-music-10d41d.eot?a7dcedf1c8fb3ca799445dcfe7f5e875?#iefix) format("embedded-opentype"), 
-  url(/fonts/linea-music-10.woff?7fe2deb0e63326e5d93de9c6e36f2465) format("woff"), 
-  url(/fonts/linea-music-10.ttf?41575b6f5ffd293becbb140ff87328c8) format("truetype"), 
+  src: url(/fonts/linea-music-10d41d.eot?a7dcedf1c8fb3ca799445dcfe7f5e875?#iefix) format("embedded-opentype"),
+  url(/fonts/linea-music-10.woff?7fe2deb0e63326e5d93de9c6e36f2465) format("woff"),
+  url(/fonts/linea-music-10.ttf?41575b6f5ffd293becbb140ff87328c8) format("truetype"),
   url(/fonts/linea-music-10.svg?717d69661efc8eaf5293c9cffe9e28ff#linea-music-10) format("svg");
   font-weight: normal;
   font-style: normal;
@@ -13562,9 +13562,9 @@ Copyright (c) 2014 Daniel Eden
 @font-face {
   font-family: "linea-software-10";
   src: url(/fonts/linea-software-10.eot?b5b4a545328f3eee27895cc001cbadd3);
-  src: url(/fonts/linea-software-10d41d.eot?b5b4a545328f3eee27895cc001cbadd3?#iefix) format("embedded-opentype"), 
-  url(/fonts/linea-software-10.woff?602d0d4d6fbd5993dbc867749d2e9a5e) format("woff"), 
-  url(/fonts/linea-software-10.ttf?8fe30102fca386ab297caed9dfa59314) format("truetype"), 
+  src: url(/fonts/linea-software-10d41d.eot?b5b4a545328f3eee27895cc001cbadd3?#iefix) format("embedded-opentype"),
+  url(/fonts/linea-software-10.woff?602d0d4d6fbd5993dbc867749d2e9a5e) format("woff"),
+  url(/fonts/linea-software-10.ttf?8fe30102fca386ab297caed9dfa59314) format("truetype"),
   url(/fonts/linea-software-10.svg?8e00ba244c0bc3137eff064ccb9628e2#linea-software-10) format("svg");
   font-weight: normal;
   font-style: normal;
@@ -13897,9 +13897,9 @@ Copyright (c) 2014 Daniel Eden
 @font-face {
   font-family: "linea-weather-10";
   src: url(/fonts/linea-weather-10.eot?7129dca4faddeb4beaf9c0dbf91ebd2b);
-  src: url(/fonts/linea-weather-10d41d.eot?7129dca4faddeb4beaf9c0dbf91ebd2b?#iefix) format("embedded-opentype"), 
-  url(/fonts/linea-weather-10.woff?03b5db0c4288ae4be02702441ab535cf) format("woff"), 
-  url(/fonts/linea-weather-10.ttf?eef9b7d7918436513becfdbd6107327e) format("truetype"), 
+  src: url(/fonts/linea-weather-10d41d.eot?7129dca4faddeb4beaf9c0dbf91ebd2b?#iefix) format("embedded-opentype"),
+  url(/fonts/linea-weather-10.woff?03b5db0c4288ae4be02702441ab535cf) format("woff"),
+  url(/fonts/linea-weather-10.ttf?eef9b7d7918436513becfdbd6107327e) format("truetype"),
   url(/fonts/linea-weather-10.svg?50cfe65efed8bb23e1f3cd0c9234dfee#linea-weather-10) format("svg");
   font-weight: normal;
   font-style: normal;
@@ -14825,8 +14825,8 @@ Copyright (c) 2014 Daniel Eden
   font-family: 'lg';
   /*src: url("../fonts/lg.eot");
   src: url("../fonts/lg.eot") format("embedded-opentype"), */
-  src: url(/fonts/lg.woff?47aae6af0370e6acb0805e359db12687) format("woff"), 
-      url(/fonts/lg.ttf?54d58ad47ad02fc0f30c926645110b60) format("truetype"), 
+  src: url(/fonts/lg.woff?47aae6af0370e6acb0805e359db12687) format("woff"),
+      url(/fonts/lg.ttf?54d58ad47ad02fc0f30c926645110b60) format("truetype"),
       url(/fonts/lg.svg?988e3b3403612a51d9f5e0faa52cdc4d) format("svg");
   font-weight: normal;
   font-style: normal;
@@ -15208,8 +15208,8 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
     font-style: normal;
     font-weight: normal;
     /*url("../fonts/lg.eot?#iefixn1z373") format("embedded-opentype"), */
-    src: url(/fonts/lg.woff?47aae6af0370e6acb0805e359db12687) format("woff"), 
-    url(/fonts/lg.ttf?54d58ad47ad02fc0f30c926645110b60) format("truetype"), 
+    src: url(/fonts/lg.woff?47aae6af0370e6acb0805e359db12687) format("woff"),
+    url(/fonts/lg.ttf?54d58ad47ad02fc0f30c926645110b60) format("truetype"),
     url(/fonts/lg.svg?988e3b3403612a51d9f5e0faa52cdc4d#lg) format("svg");
 }
 .lg-icon {
@@ -16313,12 +16313,12 @@ body.dark {
 
 #portfolio-wrap {
 	width:100%;
-	margin:0 auto;		
+	margin:0 auto;
 }
 
 #portfolio-wrap.no-gutter {
 	width:1280px;
-	margin:0 auto;		
+	margin:0 auto;
 }
 
 #portfolio {
@@ -16359,12 +16359,12 @@ body.dark {
 	background:rgba(0,0,0,0);
 	position:absolute;
 	opacity:0;
-	box-sizing:border-box;	
+	box-sizing:border-box;
 	-webkit-transition: all 0.6s ease-in-out;
 	-moz-transition: all 0.6s ease-in-out;
 	-o-transition: all 0.6s ease-in-out;
 	-ms-transition: all 0.6s ease-in-out;
-	transition: all 0.6s ease-in-out;		
+	transition: all 0.6s ease-in-out;
 }
 
 .padding-overlay {
@@ -16443,7 +16443,7 @@ body.dark {
 	letter-spacing:1px;
 	margin-left:-100%;
 	margin-top:30px;
-	color:#999;		
+	color:#999;
 	-webkit-transition: all 0.3s ease-in-out;
 	-moz-transition: all 0.3s ease-in-out;
 	-o-transition: all 0.3s ease-in-out;
@@ -17003,7 +17003,7 @@ input[type="radio"] .styled:checked + label::after {
 	++Form++
 	++Form-Wizard++
 	++Product Deatails*++
-	++Product Cart++	
+	++Product Cart++
 	++Popover++
 	++Typerhead++
 	++Editors++
@@ -17043,7 +17043,7 @@ input[type="radio"] .styled:checked + label::after {
 	++Vecotor Map++
 	++Progressbar++
 	++Search Bar++
-	++Chat UI++	
+	++Chat UI++
 	++Widgets++
 	++Profile++
 	++Followers++
@@ -17051,7 +17051,7 @@ input[type="radio"] .styled:checked + label::after {
 	++Timeline++
 	++Caledar++
 	++Todo List++
-	++Activity++  
+	++Activity++
 	++Message Box++
 	++Inbox++
 	++Contact Cards++
@@ -17089,7 +17089,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, .error-comment, h4, h
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 100%; 
+  font-size: 100%;
   font: inherit;
   vertical-align: baseline; }
 
@@ -17118,13 +17118,13 @@ ul {
 a {
   text-decoration: none;
   /*color: #212121; */
-  color: #b9af82;
+  color: #325B92;
 }
 
 a:hover {
   text-decoration: none;
   /*color: #212121;*/
-  color: #b9af82; }
+  color: #325B92; }
 
 a:focus {
   text-decoration: none;
@@ -17603,7 +17603,7 @@ code {
   background: #ff2a00 !important; }
 
 .bg-blue {
-  background: #b9af82 !important; }
+  background: #325B92 !important; }
 
 .bg-pink {
   background: #e91e63 !important; }
@@ -17636,7 +17636,7 @@ code {
 
 .txt-primary,
 .text-primary {
-  color: #b9af82 !important; }
+  color: #325B92 !important; }
 
 .txt-success,
 .text-success {
@@ -17816,14 +17816,14 @@ address .address-head {
 
 .mark, mark {
   padding: 3px;
-  background-color: #b9af82;
+  background-color: #325B92;
   color: #fff; }
 
 blockquote {
   padding: 15px 20px;
   margin: 0 0 20px;
   font-size: 16px;
-  border-left: 4px solid #b9af82;
+  border-left: 4px solid #325B92;
   background: #f7f7f9;
   color: #212121; }
   blockquote small {
@@ -17903,8 +17903,8 @@ button.fc-agendaWeek-button, .fc-prev-button, .fc-next-button, .fc-today-button 
   button.btn-primary.fc-month-button.fc-state-default.fc-corner-left,
   .dt-buttons button.fc-month-button.fc-state-default.fc-corner-left.dt-button,
   button.btn-primary.fc-agendaWeek-button, .btn-primary.fc-prev-button, .btn-primary.fc-next-button, .btn-primary.fc-today-button {
-    background: #b9af82;
-    border: solid 1px #b9af82; }
+    background: #325B92;
+    border: solid 1px #325B92; }
     .btn.btn-primary:hover, .wizard > .actions a:hover, .dt-buttons .dt-button:hover, .tablesaw-sortable th.tablesaw-sortable-head button.btn-primary:hover, .sweet-alert button.btn-primary:hover, .owl-theme .owl-nav .btn-primary[class*="owl-"]:hover, button.btn-primary.fc-agendaDay-button.fc-state-default.fc-corner-right:hover, .dt-buttons button.fc-agendaDay-button.fc-state-default.fc-corner-right.dt-button:hover,
     button.btn-primary.fc-month-button.fc-state-default.fc-corner-left:hover,
     .dt-buttons button.fc-month-button.fc-state-default.fc-corner-left.dt-button:hover,
@@ -18179,7 +18179,7 @@ button.fc-agendaWeek-button, .fc-prev-button, .fc-next-button, .fc-today-button 
     button.btn-primary.fc-today-button.fc-month-button.fc-state-default.fc-corner-left,
     button.btn-primary.fc-today-button.fc-agendaWeek-button {
       border: solid 1px rgba(40, 121, 255, 0.5);
-      color: #b9af82; }
+      color: #325B92; }
       .btn.btn-outline.btn-primary:hover, .wizard > .actions .disabled a.btn-outline:hover, ul.wysihtml5-toolbar .wizard > .actions .disabled a:hover, .wizard > .actions .disabled ul.wysihtml5-toolbar a:hover, .wizard > .actions ul.wysihtml5-toolbar .disabled a:hover, .wizard > .actions .disabled .note-editor a.note-btn.btn-sm:hover, .note-editor .wizard > .actions .disabled a.note-btn.btn-sm:hover, .wizard > .actions .disabled a.btn-outline:hover:active, ul.wysihtml5-toolbar .wizard > .actions .disabled a:hover:active, .wizard > .actions .disabled ul.wysihtml5-toolbar a:hover:active, .wizard > .actions ul.wysihtml5-toolbar .disabled a:hover:active, .wizard > .actions .disabled .note-editor a.note-btn.btn-sm:hover:active, .note-editor .wizard > .actions .disabled a.note-btn.btn-sm:hover:active, .wizard > .actions a.btn-outline:hover, ul.wysihtml5-toolbar .wizard > .actions a:hover, .wizard > .actions ul.wysihtml5-toolbar a:hover, .wizard > .actions .note-editor a.note-btn.btn-sm:hover, .note-editor .wizard > .actions a.note-btn.btn-sm:hover, .wizard > .actions a.btn-outline:hover:active, ul.wysihtml5-toolbar .wizard > .actions a:hover:active, .wizard > .actions ul.wysihtml5-toolbar a:hover:active, .wizard > .actions .note-editor a.note-btn.btn-sm:hover:active, .note-editor .wizard > .actions a.note-btn.btn-sm:hover:active, ul.wysihtml5-toolbar a.btn.btn-primary:hover, ul.wysihtml5-toolbar .dt-buttons a.dt-button:hover, .dt-buttons ul.wysihtml5-toolbar a.dt-button:hover, ul.wysihtml5-toolbar .owl-theme .owl-nav a.btn-primary[class*="owl-"]:hover, .owl-theme .owl-nav ul.wysihtml5-toolbar a.btn-primary[class*="owl-"]:hover, ul.wysihtml5-toolbar a.btn-primary.fc-prev-button:hover, ul.wysihtml5-toolbar a.btn-primary.fc-next-button:hover, ul.wysihtml5-toolbar a.btn-primary.fc-today-button:hover, .note-editor .btn.btn-primary.note-btn.btn-sm:hover, .note-editor .dt-buttons .note-btn.btn-sm.dt-button:hover, .dt-buttons .note-editor .note-btn.btn-sm.dt-button:hover, .note-editor .tablesaw-sortable th.tablesaw-sortable-head button.btn-primary.note-btn.btn-sm:hover, .tablesaw-sortable th.tablesaw-sortable-head .note-editor button.btn-primary.note-btn.btn-sm:hover, .note-editor .sweet-alert button.btn-primary.note-btn.btn-sm:hover, .sweet-alert .note-editor button.btn-primary.note-btn.btn-sm:hover, .note-editor .owl-theme .owl-nav .btn-primary.note-btn.btn-sm[class*="owl-"]:hover, .owl-theme .owl-nav .note-editor .btn-primary.note-btn.btn-sm[class*="owl-"]:hover, .note-editor button.btn-primary.note-btn.btn-sm.fc-agendaDay-button.fc-state-default.fc-corner-right:hover,
       .note-editor button.btn-primary.note-btn.btn-sm.fc-month-button.fc-state-default.fc-corner-left:hover,
       .note-editor button.btn-primary.note-btn.btn-sm.fc-agendaWeek-button:hover, .note-editor .btn-primary.note-btn.btn-sm.fc-prev-button:hover, .note-editor .btn-primary.note-btn.btn-sm.fc-next-button:hover, .note-editor .btn-primary.note-btn.btn-sm.fc-today-button:hover, .dt-buttons .btn-outline.dt-button:hover, .dt-buttons .tablesaw-sortable th.tablesaw-sortable-head button.dt-button:hover, .tablesaw-sortable th.tablesaw-sortable-head .dt-buttons button.dt-button:hover, .dt-buttons button.dt-button.fc-agendaDay-button.fc-state-default.fc-corner-right:hover,
@@ -18271,7 +18271,7 @@ button.fc-agendaWeek-button, .fc-prev-button, .fc-next-button, .fc-today-button 
       .dt-buttons button.fc-today-button.dt-button.fc-agendaWeek-button:active, .tablesaw-sortable th.tablesaw-sortable-head button.btn-primary.fc-today-button:active, button.btn-primary.fc-today-button.fc-agendaDay-button.fc-state-default.fc-corner-right:active,
       button.btn-primary.fc-today-button.fc-month-button.fc-state-default.fc-corner-left:active,
       button.btn-primary.fc-today-button.fc-agendaWeek-button:active {
-        border: solid 1px #b9af82; }
+        border: solid 1px #325B92; }
     .btn.btn-outline.btn-success, .wizard > .actions .disabled a.btn-outline.btn-success, .wizard > .actions .disabled ul.wysihtml5-toolbar a.btn-success.btn, ul.wysihtml5-toolbar .wizard > .actions .disabled a.btn-success.btn, .wizard > .actions .disabled ul.wysihtml5-toolbar a.fc-prev-button, ul.wysihtml5-toolbar .wizard > .actions .disabled a.fc-prev-button, .wizard > .actions .disabled ul.wysihtml5-toolbar a.fc-next-button, ul.wysihtml5-toolbar .wizard > .actions .disabled a.fc-next-button, .wizard > .actions .disabled ul.wysihtml5-toolbar a.fc-today-button, ul.wysihtml5-toolbar .wizard > .actions .disabled a.fc-today-button, .wizard > .actions .disabled .note-editor a.btn-success.note-btn.btn-sm, .note-editor .wizard > .actions .disabled a.btn-success.note-btn.btn-sm, .wizard > .actions .disabled .note-editor a.note-btn.btn-sm.fc-prev-button, .note-editor .wizard > .actions .disabled a.note-btn.btn-sm.fc-prev-button, .wizard > .actions .disabled .note-editor a.note-btn.btn-sm.fc-next-button, .note-editor .wizard > .actions .disabled a.note-btn.btn-sm.fc-next-button, .wizard > .actions .disabled .note-editor a.note-btn.btn-sm.fc-today-button, .note-editor .wizard > .actions .disabled a.note-btn.btn-sm.fc-today-button, .wizard > .actions .disabled a.btn-outline.fc-prev-button, .wizard > .actions .disabled a.btn-outline.fc-next-button, .wizard > .actions .disabled a.btn-outline.fc-today-button, .wizard > .actions .disabled a.btn-outline.btn-success:hover, .wizard > .actions .disabled ul.wysihtml5-toolbar a.btn-success.btn:hover, ul.wysihtml5-toolbar .wizard > .actions .disabled a.btn-success.btn:hover, .wizard > .actions .disabled ul.wysihtml5-toolbar a.fc-prev-button:hover, ul.wysihtml5-toolbar .wizard > .actions .disabled a.fc-prev-button:hover, .wizard > .actions .disabled ul.wysihtml5-toolbar a.fc-next-button:hover, ul.wysihtml5-toolbar .wizard > .actions .disabled a.fc-next-button:hover, .wizard > .actions .disabled ul.wysihtml5-toolbar a.fc-today-button:hover, ul.wysihtml5-toolbar .wizard > .actions .disabled a.fc-today-button:hover, .wizard > .actions .disabled .note-editor a.btn-success.note-btn.btn-sm:hover, .note-editor .wizard > .actions .disabled a.btn-success.note-btn.btn-sm:hover, .wizard > .actions .disabled .note-editor a.note-btn.btn-sm.fc-prev-button:hover, .note-editor .wizard > .actions .disabled a.note-btn.btn-sm.fc-prev-button:hover, .wizard > .actions .disabled .note-editor a.note-btn.btn-sm.fc-next-button:hover, .note-editor .wizard > .actions .disabled a.note-btn.btn-sm.fc-next-button:hover, .wizard > .actions .disabled .note-editor a.note-btn.btn-sm.fc-today-button:hover, .note-editor .wizard > .actions .disabled a.note-btn.btn-sm.fc-today-button:hover, .wizard > .actions .disabled a.btn-outline.fc-prev-button:hover, .wizard > .actions .disabled a.btn-outline.fc-next-button:hover, .wizard > .actions .disabled a.btn-outline.fc-today-button:hover, .wizard > .actions .disabled a.btn-outline.btn-success:active, .wizard > .actions .disabled ul.wysihtml5-toolbar a.btn-success.btn:active, ul.wysihtml5-toolbar .wizard > .actions .disabled a.btn-success.btn:active, .wizard > .actions .disabled ul.wysihtml5-toolbar a.fc-prev-button:active, ul.wysihtml5-toolbar .wizard > .actions .disabled a.fc-prev-button:active, .wizard > .actions .disabled ul.wysihtml5-toolbar a.fc-next-button:active, ul.wysihtml5-toolbar .wizard > .actions .disabled a.fc-next-button:active, .wizard > .actions .disabled ul.wysihtml5-toolbar a.fc-today-button:active, ul.wysihtml5-toolbar .wizard > .actions .disabled a.fc-today-button:active, .wizard > .actions .disabled .note-editor a.btn-success.note-btn.btn-sm:active, .note-editor .wizard > .actions .disabled a.btn-success.note-btn.btn-sm:active, .wizard > .actions .disabled .note-editor a.note-btn.btn-sm.fc-prev-button:active, .note-editor .wizard > .actions .disabled a.note-btn.btn-sm.fc-prev-button:active, .wizard > .actions .disabled .note-editor a.note-btn.btn-sm.fc-next-button:active, .note-editor .wizard > .actions .disabled a.note-btn.btn-sm.fc-next-button:active, .wizard > .actions .disabled .note-editor a.note-btn.btn-sm.fc-today-button:active, .note-editor .wizard > .actions .disabled a.note-btn.btn-sm.fc-today-button:active, .wizard > .actions .disabled a.btn-outline.fc-prev-button:active, .wizard > .actions .disabled a.btn-outline.fc-next-button:active, .wizard > .actions .disabled a.btn-outline.fc-today-button:active, .wizard > .actions a.btn-outline.btn-success, .wizard > .actions ul.wysihtml5-toolbar a.btn-success.btn, ul.wysihtml5-toolbar .wizard > .actions a.btn-success.btn, .wizard > .actions ul.wysihtml5-toolbar a.fc-prev-button, ul.wysihtml5-toolbar .wizard > .actions a.fc-prev-button, .wizard > .actions ul.wysihtml5-toolbar a.fc-next-button, ul.wysihtml5-toolbar .wizard > .actions a.fc-next-button, .wizard > .actions ul.wysihtml5-toolbar a.fc-today-button, ul.wysihtml5-toolbar .wizard > .actions a.fc-today-button, .wizard > .actions .note-editor a.btn-success.note-btn.btn-sm, .note-editor .wizard > .actions a.btn-success.note-btn.btn-sm, .wizard > .actions .note-editor a.note-btn.btn-sm.fc-prev-button, .note-editor .wizard > .actions a.note-btn.btn-sm.fc-prev-button, .wizard > .actions .note-editor a.note-btn.btn-sm.fc-next-button, .note-editor .wizard > .actions a.note-btn.btn-sm.fc-next-button, .wizard > .actions .note-editor a.note-btn.btn-sm.fc-today-button, .note-editor .wizard > .actions a.note-btn.btn-sm.fc-today-button, .wizard > .actions a.btn-outline.fc-prev-button, .wizard > .actions a.btn-outline.fc-next-button, .wizard > .actions a.btn-outline.fc-today-button, .wizard > .actions a.btn-outline.btn-success:hover, .wizard > .actions ul.wysihtml5-toolbar a.btn-success.btn:hover, ul.wysihtml5-toolbar .wizard > .actions a.btn-success.btn:hover, .wizard > .actions ul.wysihtml5-toolbar a.fc-prev-button:hover, ul.wysihtml5-toolbar .wizard > .actions a.fc-prev-button:hover, .wizard > .actions ul.wysihtml5-toolbar a.fc-next-button:hover, ul.wysihtml5-toolbar .wizard > .actions a.fc-next-button:hover, .wizard > .actions ul.wysihtml5-toolbar a.fc-today-button:hover, ul.wysihtml5-toolbar .wizard > .actions a.fc-today-button:hover, .wizard > .actions .note-editor a.btn-success.note-btn.btn-sm:hover, .note-editor .wizard > .actions a.btn-success.note-btn.btn-sm:hover, .wizard > .actions .note-editor a.note-btn.btn-sm.fc-prev-button:hover, .note-editor .wizard > .actions a.note-btn.btn-sm.fc-prev-button:hover, .wizard > .actions .note-editor a.note-btn.btn-sm.fc-next-button:hover, .note-editor .wizard > .actions a.note-btn.btn-sm.fc-next-button:hover, .wizard > .actions .note-editor a.note-btn.btn-sm.fc-today-button:hover, .note-editor .wizard > .actions a.note-btn.btn-sm.fc-today-button:hover, .wizard > .actions a.btn-outline.fc-prev-button:hover, .wizard > .actions a.btn-outline.fc-next-button:hover, .wizard > .actions a.btn-outline.fc-today-button:hover, .wizard > .actions a.btn-outline.btn-success:active, .wizard > .actions ul.wysihtml5-toolbar a.btn-success.btn:active, ul.wysihtml5-toolbar .wizard > .actions a.btn-success.btn:active, .wizard > .actions ul.wysihtml5-toolbar a.fc-prev-button:active, ul.wysihtml5-toolbar .wizard > .actions a.fc-prev-button:active, .wizard > .actions ul.wysihtml5-toolbar a.fc-next-button:active, ul.wysihtml5-toolbar .wizard > .actions a.fc-next-button:active, .wizard > .actions ul.wysihtml5-toolbar a.fc-today-button:active, ul.wysihtml5-toolbar .wizard > .actions a.fc-today-button:active, .wizard > .actions .note-editor a.btn-success.note-btn.btn-sm:active, .note-editor .wizard > .actions a.btn-success.note-btn.btn-sm:active, .wizard > .actions .note-editor a.note-btn.btn-sm.fc-prev-button:active, .note-editor .wizard > .actions a.note-btn.btn-sm.fc-prev-button:active, .wizard > .actions .note-editor a.note-btn.btn-sm.fc-next-button:active, .note-editor .wizard > .actions a.note-btn.btn-sm.fc-next-button:active, .wizard > .actions .note-editor a.note-btn.btn-sm.fc-today-button:active, .note-editor .wizard > .actions a.note-btn.btn-sm.fc-today-button:active, .wizard > .actions a.btn-outline.fc-prev-button:active, .wizard > .actions a.btn-outline.fc-next-button:active, .wizard > .actions a.btn-outline.fc-today-button:active, ul.wysihtml5-toolbar a.btn.btn-success, ul.wysihtml5-toolbar .wizard > .actions a.btn-success, .wizard > .actions ul.wysihtml5-toolbar a.btn-success, ul.wysihtml5-toolbar .dt-buttons a.btn-success.dt-button, .dt-buttons ul.wysihtml5-toolbar a.btn-success.dt-button, ul.wysihtml5-toolbar .owl-theme .owl-nav a.btn-success[class*="owl-"], .owl-theme .owl-nav ul.wysihtml5-toolbar a.btn-success[class*="owl-"], ul.wysihtml5-toolbar .owl-theme .owl-nav a[class*="owl-"].fc-prev-button, .owl-theme .owl-nav ul.wysihtml5-toolbar a[class*="owl-"].fc-prev-button, ul.wysihtml5-toolbar .owl-theme .owl-nav a[class*="owl-"].fc-next-button, .owl-theme .owl-nav ul.wysihtml5-toolbar a[class*="owl-"].fc-next-button, ul.wysihtml5-toolbar .owl-theme .owl-nav a[class*="owl-"].fc-today-button, .owl-theme .owl-nav ul.wysihtml5-toolbar a[class*="owl-"].fc-today-button, ul.wysihtml5-toolbar a.fc-prev-button, ul.wysihtml5-toolbar a.fc-next-button, ul.wysihtml5-toolbar a.fc-today-button, .note-editor .btn.btn-success.note-btn.btn-sm, .note-editor .dt-buttons .btn-success.note-btn.btn-sm.dt-button, .dt-buttons .note-editor .btn-success.note-btn.btn-sm.dt-button, .note-editor .tablesaw-sortable th.tablesaw-sortable-head button.btn-success.note-btn.btn-sm, .tablesaw-sortable th.tablesaw-sortable-head .note-editor button.btn-success.note-btn.btn-sm, .note-editor .sweet-alert button.btn-success.note-btn.btn-sm, .sweet-alert .note-editor button.btn-success.note-btn.btn-sm, .note-editor .owl-theme .owl-nav .btn-success.note-btn.btn-sm[class*="owl-"], .owl-theme .owl-nav .note-editor .btn-success.note-btn.btn-sm[class*="owl-"], .note-editor button.note-btn.btn-sm.fc-agendaDay-button.fc-state-default.fc-corner-right,
     .note-editor button.note-btn.btn-sm.fc-month-button.fc-state-default.fc-corner-left,
     .note-editor button.note-btn.btn-sm.fc-agendaWeek-button, .note-editor .note-btn.btn-sm.fc-prev-button, .note-editor .note-btn.btn-sm.fc-next-button, .note-editor .note-btn.btn-sm.fc-today-button, .dt-buttons .btn-outline.btn-success.dt-button, .dt-buttons ul.wysihtml5-toolbar a.btn-success.dt-button.btn, ul.wysihtml5-toolbar .dt-buttons a.btn-success.dt-button.btn, .dt-buttons ul.wysihtml5-toolbar a.dt-button.fc-prev-button, ul.wysihtml5-toolbar .dt-buttons a.dt-button.fc-prev-button, .dt-buttons ul.wysihtml5-toolbar a.dt-button.fc-next-button, ul.wysihtml5-toolbar .dt-buttons a.dt-button.fc-next-button, .dt-buttons ul.wysihtml5-toolbar a.dt-button.fc-today-button, ul.wysihtml5-toolbar .dt-buttons a.dt-button.fc-today-button, .dt-buttons .note-editor .dt-button.note-btn.btn-sm.fc-prev-button, .note-editor .dt-buttons .dt-button.note-btn.btn-sm.fc-prev-button, .dt-buttons .note-editor .dt-button.note-btn.btn-sm.fc-next-button, .note-editor .dt-buttons .dt-button.note-btn.btn-sm.fc-next-button, .dt-buttons .note-editor .dt-button.note-btn.btn-sm.fc-today-button, .note-editor .dt-buttons .dt-button.note-btn.btn-sm.fc-today-button, .dt-buttons .tablesaw-sortable th.tablesaw-sortable-head button.btn-success.dt-button, .tablesaw-sortable th.tablesaw-sortable-head .dt-buttons button.btn-success.dt-button, .dt-buttons .tablesaw-sortable th.tablesaw-sortable-head button.dt-button.fc-prev-button, .tablesaw-sortable th.tablesaw-sortable-head .dt-buttons button.dt-button.fc-prev-button, .dt-buttons .tablesaw-sortable th.tablesaw-sortable-head button.dt-button.fc-next-button, .tablesaw-sortable th.tablesaw-sortable-head .dt-buttons button.dt-button.fc-next-button, .dt-buttons .tablesaw-sortable th.tablesaw-sortable-head button.dt-button.fc-today-button, .tablesaw-sortable th.tablesaw-sortable-head .dt-buttons button.dt-button.fc-today-button, .dt-buttons button.dt-button.fc-agendaDay-button.fc-state-default.fc-corner-right,
@@ -18590,15 +18590,15 @@ button.fc-agendaWeek-button, .fc-prev-button, .fc-next-button, .fc-today-button 
     .btn.btn-icon-anim.btn-primary:before, .wizard > .actions a.btn-icon-anim:before, .dt-buttons .btn-icon-anim.dt-button:before, .tablesaw-sortable th.tablesaw-sortable-head button.btn-icon-anim.btn-primary:before, .sweet-alert button.btn-icon-anim.btn-primary:before, .owl-theme .owl-nav .btn-icon-anim.btn-primary[class*="owl-"]:before, button.btn-icon-anim.btn-primary.fc-agendaDay-button.fc-state-default.fc-corner-right:before,
     button.btn-icon-anim.btn-primary.fc-month-button.fc-state-default.fc-corner-left:before,
     button.btn-icon-anim.btn-primary.fc-agendaWeek-button:before, .btn-icon-anim.btn-primary.fc-prev-button:before, .btn-icon-anim.btn-primary.fc-next-button:before, .btn-icon-anim.btn-primary.fc-today-button:before {
-      box-shadow: 0 0 0 35px #b9af82 inset; }
+      box-shadow: 0 0 0 35px #325B92 inset; }
     .btn.btn-icon-anim.btn-primary:hover, .wizard > .actions a.btn-icon-anim:hover, .dt-buttons .btn-icon-anim.dt-button:hover, .tablesaw-sortable th.tablesaw-sortable-head button.btn-icon-anim.btn-primary:hover, .sweet-alert button.btn-icon-anim.btn-primary:hover, .owl-theme .owl-nav .btn-icon-anim.btn-primary[class*="owl-"]:hover, button.btn-icon-anim.btn-primary.fc-agendaDay-button.fc-state-default.fc-corner-right:hover,
     button.btn-icon-anim.btn-primary.fc-month-button.fc-state-default.fc-corner-left:hover,
     button.btn-icon-anim.btn-primary.fc-agendaWeek-button:hover, .btn-icon-anim.btn-primary.fc-prev-button:hover, .btn-icon-anim.btn-primary.fc-next-button:hover, .btn-icon-anim.btn-primary.fc-today-button:hover {
-      color: #b9af82 !important; }
+      color: #325B92 !important; }
       .btn.btn-icon-anim.btn-primary:hover:before, .wizard > .actions a.btn-icon-anim:hover:before, .dt-buttons .btn-icon-anim.dt-button:hover:before, .tablesaw-sortable th.tablesaw-sortable-head button.btn-icon-anim.btn-primary:hover:before, .sweet-alert button.btn-icon-anim.btn-primary:hover:before, .owl-theme .owl-nav .btn-icon-anim.btn-primary[class*="owl-"]:hover:before, button.btn-icon-anim.btn-primary.fc-agendaDay-button.fc-state-default.fc-corner-right:hover:before,
       button.btn-icon-anim.btn-primary.fc-month-button.fc-state-default.fc-corner-left:hover:before,
       button.btn-icon-anim.btn-primary.fc-agendaWeek-button:hover:before, .btn-icon-anim.btn-primary.fc-prev-button:hover:before, .btn-icon-anim.btn-primary.fc-next-button:hover:before, .btn-icon-anim.btn-primary.fc-today-button:hover:before {
-        box-shadow: 0 0 0 1px #b9af82 inset; }
+        box-shadow: 0 0 0 1px #325B92 inset; }
     .btn.btn-icon-anim.btn-success:before, .wizard > .actions a.btn-icon-anim.btn-success:before, .wizard > .actions a.btn-icon-anim.fc-prev-button:hover:before, .wizard > .actions a.btn-icon-anim.fc-next-button:hover:before, .wizard > .actions a.btn-icon-anim.fc-today-button:hover:before, .wizard > .actions a.btn-icon-anim.fc-prev-button:active:before, .wizard > .actions a.btn-icon-anim.fc-next-button:active:before, .wizard > .actions a.btn-icon-anim.fc-today-button:active:before, .dt-buttons .btn-icon-anim.btn-success.dt-button:before, .tablesaw-sortable th.tablesaw-sortable-head button.btn-icon-anim.btn-success:before, .tablesaw-sortable th.tablesaw-sortable-head button.btn-icon-anim.fc-prev-button:before, .tablesaw-sortable th.tablesaw-sortable-head button.btn-icon-anim.fc-next-button:before, .tablesaw-sortable th.tablesaw-sortable-head button.btn-icon-anim.fc-today-button:before, .sweet-alert button.btn-icon-anim.btn-success:before, .owl-theme .owl-nav .btn-icon-anim.btn-success[class*="owl-"]:before,
     .owl-theme .owl-nav button.btn-icon-anim[class*="owl-"].fc-agendaWeek-button:before, .owl-theme .owl-nav .btn-icon-anim[class*="owl-"].fc-prev-button:before, .owl-theme .owl-nav .btn-icon-anim[class*="owl-"].fc-next-button:before, .owl-theme .owl-nav .btn-icon-anim[class*="owl-"].fc-today-button:before, button.btn-icon-anim.fc-agendaDay-button.fc-state-default.fc-corner-right:before,
     button.btn-icon-anim.fc-month-button.fc-state-default.fc-corner-left:before,
@@ -18850,7 +18850,7 @@ button.fc-agendaWeek-button, .fc-prev-button, .fc-next-button, .fc-today-button 
   .btn.fancy-button.btn-primary.btn-0:before, .wizard > .actions a.fancy-button.btn-0:before, .dt-buttons .fancy-button.btn-0.dt-button:before, .tablesaw-sortable th.tablesaw-sortable-head button.fancy-button.btn-primary.btn-0:before, .sweet-alert button.fancy-button.btn-primary.btn-0:before, .owl-theme .owl-nav .fancy-button.btn-primary.btn-0[class*="owl-"]:before, button.fancy-button.btn-primary.btn-0.fc-agendaDay-button.fc-state-default.fc-corner-right:before,
   button.fancy-button.btn-primary.btn-0.fc-month-button.fc-state-default.fc-corner-left:before,
   button.fancy-button.btn-primary.btn-0.fc-agendaWeek-button:before, .fancy-button.btn-primary.btn-0.fc-prev-button:before, .fancy-button.btn-primary.btn-0.fc-next-button:before, .fancy-button.btn-primary.btn-0.fc-today-button:before {
-    background: #b9af82; }
+    background: #325B92; }
   .btn.fancy-button.btn-primary.btn-0:hover, .wizard > .actions a.fancy-button.btn-0:hover, .dt-buttons .fancy-button.btn-0.dt-button:hover, .tablesaw-sortable th.tablesaw-sortable-head button.fancy-button.btn-primary.btn-0:hover, .sweet-alert button.fancy-button.btn-primary.btn-0:hover, .owl-theme .owl-nav .fancy-button.btn-primary.btn-0[class*="owl-"]:hover, button.fancy-button.btn-primary.btn-0.fc-agendaDay-button.fc-state-default.fc-corner-right:hover,
   button.fancy-button.btn-primary.btn-0.fc-month-button.fc-state-default.fc-corner-left:hover,
   button.fancy-button.btn-primary.btn-0.fc-agendaWeek-button:hover, .fancy-button.btn-primary.btn-0.fc-prev-button:hover, .fancy-button.btn-primary.btn-0.fc-next-button:hover, .fancy-button.btn-primary.btn-0.fc-today-button:hover {
@@ -18915,8 +18915,8 @@ button.fc-agendaWeek-button, .fc-prev-button, .fc-next-button, .fc-today-button 
 .open .dropdown-toggle.btn.btn-primary, .open .wizard > .actions a.dropdown-toggle, .wizard > .actions .open a.dropdown-toggle, .open .dt-buttons .dropdown-toggle.dt-button, .dt-buttons .open .dropdown-toggle.dt-button, .open .tablesaw-sortable th.tablesaw-sortable-head button.dropdown-toggle.btn-primary, .tablesaw-sortable th.tablesaw-sortable-head .open button.dropdown-toggle.btn-primary, .open .sweet-alert button.dropdown-toggle.btn-primary, .sweet-alert .open button.dropdown-toggle.btn-primary, .open .owl-theme .owl-nav .dropdown-toggle.btn-primary[class*="owl-"], .owl-theme .owl-nav .open .dropdown-toggle.btn-primary[class*="owl-"], .open button.dropdown-toggle.btn-primary.fc-agendaDay-button.fc-state-default.fc-corner-right,
 .open button.dropdown-toggle.btn-primary.fc-month-button.fc-state-default.fc-corner-left,
 .open button.dropdown-toggle.btn-primary.fc-agendaWeek-button, .open .dropdown-toggle.btn-primary.fc-prev-button, .open .dropdown-toggle.btn-primary.fc-next-button, .open .dropdown-toggle.btn-primary.fc-today-button {
-  background: #b9af82;
-  border: solid 1px #b9af82; }
+  background: #325B92;
+  border: solid 1px #325B92; }
   .open .dropdown-toggle.btn.btn-primary:hover, .open .wizard > .actions a.dropdown-toggle:hover, .wizard > .actions .open a.dropdown-toggle:hover, .open .dt-buttons .dropdown-toggle.dt-button:hover, .dt-buttons .open .dropdown-toggle.dt-button:hover, .open .tablesaw-sortable th.tablesaw-sortable-head button.dropdown-toggle.btn-primary:hover, .tablesaw-sortable th.tablesaw-sortable-head .open button.dropdown-toggle.btn-primary:hover, .open .sweet-alert button.dropdown-toggle.btn-primary:hover, .sweet-alert .open button.dropdown-toggle.btn-primary:hover, .open .owl-theme .owl-nav .dropdown-toggle.btn-primary[class*="owl-"]:hover, .owl-theme .owl-nav .open .dropdown-toggle.btn-primary[class*="owl-"]:hover, .open button.dropdown-toggle.btn-primary.fc-agendaDay-button.fc-state-default.fc-corner-right:hover,
   .open button.dropdown-toggle.btn-primary.fc-month-button.fc-state-default.fc-corner-left:hover,
   .open button.dropdown-toggle.btn-primary.fc-agendaWeek-button:hover, .open .dropdown-toggle.btn-primary.fc-prev-button:hover, .open .dropdown-toggle.btn-primary.fc-next-button:hover, .open .dropdown-toggle.btn-primary.fc-today-button:hover, .open .dropdown-toggle.btn.btn-primary:active, .open .wizard > .actions a.dropdown-toggle:active, .wizard > .actions .open a.dropdown-toggle:active, .open .dt-buttons .dropdown-toggle.dt-button:active, .dt-buttons .open .dropdown-toggle.dt-button:active, .open .tablesaw-sortable th.tablesaw-sortable-head button.dropdown-toggle.btn-primary:active, .tablesaw-sortable th.tablesaw-sortable-head .open button.dropdown-toggle.btn-primary:active, .open .sweet-alert button.dropdown-toggle.btn-primary:active, .sweet-alert .open button.dropdown-toggle.btn-primary:active, .open .owl-theme .owl-nav .dropdown-toggle.btn-primary[class*="owl-"]:active, .owl-theme .owl-nav .open .dropdown-toggle.btn-primary[class*="owl-"]:active, .open button.dropdown-toggle.btn-primary.fc-agendaDay-button.fc-state-default.fc-corner-right:active,
@@ -19189,8 +19189,8 @@ button.fc-agendaWeek-button, .fc-prev-button, .fc-next-button, .fc-today-button 
   .dt-buttons .open button.dropdown-toggle.fc-today-button.dt-button.fc-agendaWeek-button, .open .tablesaw-sortable th.tablesaw-sortable-head button.dropdown-toggle.btn-primary.fc-today-button, .tablesaw-sortable th.tablesaw-sortable-head .open button.dropdown-toggle.btn-primary.fc-today-button, .open button.dropdown-toggle.btn-primary.fc-today-button.fc-agendaDay-button.fc-state-default.fc-corner-right,
   .open button.dropdown-toggle.btn-primary.fc-today-button.fc-month-button.fc-state-default.fc-corner-left,
   .open button.dropdown-toggle.btn-primary.fc-today-button.fc-agendaWeek-button {
-    color: #b9af82;
-    border: solid 1px #b9af82; }
+    color: #325B92;
+    border: solid 1px #325B92; }
 
 .button-list .btn, .button-list .wizard > .actions a, .wizard > .actions .button-list a, .button-list .dt-buttons .dt-button, .dt-buttons .button-list .dt-button, .button-list .tablesaw-sortable th.tablesaw-sortable-head button, .tablesaw-sortable th.tablesaw-sortable-head .button-list button, .button-list .sweet-alert button, .sweet-alert .button-list button, .button-list .owl-theme .owl-nav [class*="owl-"], .owl-theme .owl-nav .button-list [class*="owl-"], .button-list button.fc-agendaDay-button.fc-state-default.fc-corner-right,
 .button-list button.fc-month-button.fc-state-default.fc-corner-left,
@@ -19251,7 +19251,7 @@ button.fc-agendaWeek-button, .fc-prev-button, .fc-next-button, .fc-today-button 
         display: block;
         text-transform: uppercase;
         font-weight: 500;
-        color: #b9af82; }
+        color: #325B92; }
       .fixed-sidebar-left .side-nav li.navigation-header > i {
         display: none;
         font-size: 16px; }
@@ -19297,7 +19297,7 @@ button.fc-agendaWeek-button, .fc-prev-button, .fc-next-button, .fc-today-button 
       .fixed-sidebar-left .side-nav > li > ul > li > ul > li a:hover, .fixed-sidebar-left .side-nav > li > ul > li > ul > li a:focus, .fixed-sidebar-left .side-nav > li > ul > li > ul > li a:active {
         color: #878787; }
     .fixed-sidebar-left .side-nav > li > a.active {
-      background: #b9af82;
+      background: #325B92;
       color: #fff; }
       .fixed-sidebar-left .side-nav > li > a.active > i {
         color: #fff; }
@@ -19449,7 +19449,7 @@ a#toggle_mobile_nav {
       font-size: 25px;
       padding-top: 9px;
       padding-left: 15px;
-      color: #b9af82;
+      color: #325B92;
       opacity: 0; }
     .setting-panel .theme-option-wrap > li.active-theme i {
       opacity: 1; }
@@ -19651,14 +19651,14 @@ sidebar-left .side-nav li.navigation-header > span, .wrapper.theme-3-active
 .navigation-header > span, .wrapper.theme-5-active.pimary-color-red .fixed-
 sidebar-left .side-nav li.navigation-header > span, .wrapper.theme-6-active
 .pimary-color-red .fixed-sidebar-left .side-nav li.navigation-header > span {
-color: #b9af82; }   .wrapper.theme-1-active.pimary-color-red .fixed-sidebar-
+color: #325B92; }   .wrapper.theme-1-active.pimary-color-red .fixed-sidebar-
 left .side-nav > li > a.active, .wrapper.theme-2-active.pimary-color-red
 .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-3-active.pimary-
 color-red .fixed-sidebar-left .side-nav > li > a.active,
 .wrapper.theme-4-active.pimary-color-red .fixed-sidebar-left .side-nav > li >
 a.active, .wrapper.theme-5-active.pimary-color-red .fixed-sidebar-left .side-
 nav > li > a.active, .wrapper.theme-6-active.pimary-color-red .fixed-sidebar-
-left .side-nav > li > a.active {     background: #b9af82; }
+left .side-nav > li > a.active {     background: #325B92; }
 .wrapper.theme-1-active.pimary-color-blue .fixed-sidebar-left .side-nav li
 .navigation-header > span, .wrapper.theme-2-active.pimary-color-blue .fixed-
 sidebar-left .side-nav li.navigation-header > span, .wrapper.theme-3-active
@@ -19667,14 +19667,14 @@ sidebar-left .side-nav li.navigation-header > span, .wrapper.theme-3-active
 .navigation-header > span, .wrapper.theme-5-active.pimary-color-blue .fixed-
 sidebar-left .side-nav li.navigation-header > span, .wrapper.theme-6-active
 .pimary-color-blue .fixed-sidebar-left .side-nav li.navigation-header > span {
-color: #b9af82; }   .wrapper.theme-1-active.pimary-color-blue .fixed-sidebar-
+color: #325B92; }   .wrapper.theme-1-active.pimary-color-blue .fixed-sidebar-
 left .side-nav > li > a.active, .wrapper.theme-2-active.pimary-color-blue
 .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-3-active.pimary-
 color-blue .fixed-sidebar-left .side-nav > li > a.active,
 .wrapper.theme-4-active.pimary-color-blue .fixed-sidebar-left .side-nav > li >
 a.active, .wrapper.theme-5-active.pimary-color-blue .fixed-sidebar-left .side-
 nav > li > a.active, .wrapper.theme-6-active.pimary-color-blue .fixed-sidebar-
-left .side-nav > li > a.active {     background: #b9af82; }
+left .side-nav > li > a.active {     background: #325B92; }
 .wrapper.theme-1-active.pimary-color-green .fixed-sidebar-left .side-nav li
 .navigation-header > span, .wrapper.theme-2-active.pimary-color-green .fixed-
 sidebar-left .side-nav li.navigation-header > span, .wrapper.theme-3-active
@@ -20153,7 +20153,7 @@ silver .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-4-active
   background-color: #f1f1f1;
   margin: 0 -39px;
   padding: 10px 15px; }
-  .heading-bg h5 { 
+  .heading-bg h5 {
     padding-top: 6px; }
 
 .card-view.panel.panel-default .panel-heading.panel-heading-dark{
@@ -20299,7 +20299,7 @@ footer {
   height: 42px; }
 
 .help-block {
-  color: #ff2a00 !important; }  
+  color: #ff2a00 !important; }
 
 .has-success .form-control, .has-success .select2-container--default .select2-selection--single .select2-selection__rendered, .select2-container--default .select2-selection--single .has-success .select2-selection__rendered,
 .has-success .select2-container--default .select2-selection--single,
@@ -20378,10 +20378,10 @@ div.colorpicker {
     color: #212121; }
   .daterangepicker .input-mini:focus {
     border-color: #878787;
-    box-shadow: none !important; 
+    box-shadow: none !important;
     outline: 0 none; }
 .daterangepicker td {
-  border-radius: 0 !important; } 
+  border-radius: 0 !important; }
 
 .daterangepicker td.active, .daterangepicker td.active:hover,
 .bootstrap-datetimepicker-widget table td.active, .bootstrap-datetimepicker-widget table td.active:hover {
@@ -20687,7 +20687,7 @@ div.colorpicker {
   width: 70px; }
 
 .product-rating a {
-  color: #b9af82;
+  color: #325B92;
   margin-right: 5px; }
 
 /*Product Cart*/
@@ -20809,9 +20809,9 @@ ul.wysihtml5-toolbar a.btn.wysihtml5-command-active, ul.wysihtml5-toolbar .wizar
   background-color: #01c853; }
 
 .mce-foot button {
-  background: #b9af82;
+  background: #325B92;
   color: #fff !important;
-  border: solid 2px #b9af82; }
+  border: solid 2px #325B92; }
   .mce-foot button:hover, .mce-foot button:active, .mce-foot button:focus {
     background: rgba(255, 42, 0, 0.85);
     border: solid 2px rgba(255, 42, 0, 0.1); }
@@ -21276,7 +21276,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child::before, tabl
   box-shadow: none; }
 
 table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td:first-child::before, table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th:first-child::before {
-  background-color: #b9af82;
+  background-color: #325B92;
   box-shadow: none; }
 
 table.footable > tbody > tr > td.footable-sortable, table.footable > tbody > tr > th.footable-sortable, table.footable > tfoot > tr > td.footable-sortable, table.footable > tfoot > tr > th.footable-sortable, table.footable > thead > tr > td.footable-sortable, table.footable > thead > tr > th.footable-sortable {
@@ -21311,7 +21311,7 @@ tr.footable-header > th {
   .footable-editing button.footable-edit.fc-agendaWeek-button .fooicon.fooicon-trash, .footable-editing .footable-edit.fc-prev-button .fooicon.fooicon-trash, .footable-editing .footable-edit.fc-next-button .fooicon.fooicon-trash, .footable-editing .footable-edit.fc-today-button .fooicon.fooicon-trash, .footable-editing .btn.footable-delete .fooicon.fooicon-trash, .footable-editing .wizard > .actions a.footable-delete .fooicon.fooicon-trash, .wizard > .actions .footable-editing a.footable-delete .fooicon.fooicon-trash, .footable-editing .dt-buttons .footable-delete.dt-button .fooicon.fooicon-trash, .dt-buttons .footable-editing .footable-delete.dt-button .fooicon.fooicon-trash, .footable-editing .tablesaw-sortable th.tablesaw-sortable-head button.footable-delete .fooicon.fooicon-trash, .tablesaw-sortable th.tablesaw-sortable-head .footable-editing button.footable-delete .fooicon.fooicon-trash, .footable-editing .sweet-alert button.footable-delete .fooicon.fooicon-trash, .sweet-alert .footable-editing button.footable-delete .fooicon.fooicon-trash, .footable-editing .owl-theme .owl-nav .footable-delete[class*="owl-"] .fooicon.fooicon-trash, .owl-theme .owl-nav .footable-editing .footable-delete[class*="owl-"] .fooicon.fooicon-trash, .footable-editing button.footable-delete.fc-agendaDay-button.fc-state-default.fc-corner-right .fooicon.fooicon-trash,
   .footable-editing button.footable-delete.fc-month-button.fc-state-default.fc-corner-left .fooicon.fooicon-trash,
   .footable-editing button.footable-delete.fc-agendaWeek-button .fooicon.fooicon-trash, .footable-editing .footable-delete.fc-prev-button .fooicon.fooicon-trash, .footable-editing .footable-delete.fc-next-button .fooicon.fooicon-trash, .footable-editing .footable-delete.fc-today-button .fooicon.fooicon-trash {
-    color: #b9af82; }
+    color: #325B92; }
 
 .footable-show .fooicon.fooicon-pencil {
   padding-right: 6px; }
@@ -21545,7 +21545,7 @@ button.btn-small.btn-select.fc-agendaWeek-button, .btn-small.btn-select.fc-prev-
   stroke: #01c853; }
 
 .ct-series-c .ct-bar, .ct-series-c .ct-line, .ct-series-c .ct-point, .ct-series-c .ct-slice-donut {
-  stroke: #b9af82; }
+  stroke: #325B92; }
 
 .ct-series-d .ct-bar, .ct-series-d .ct-line, .ct-series-d .ct-point, .ct-series-d .ct-slice-donut {
   stroke: #e91e63; }
@@ -21554,13 +21554,13 @@ button.btn-small.btn-select.fc-agendaWeek-button, .btn-small.btn-select.fc-prev-
   fill: #01c853; }
 
 .ct-series-a .ct-area, .ct-series-a .ct-slice-pie {
-  fill: #b9af82; }
+  fill: #325B92; }
 
 .ct-series-b .ct-area, .ct-series-b .ct-slice-pie {
   fill: #FF9A29; }
 
 .ct-series-d .ct-area, .ct-series-d .ct-slice-pie {
-  fill: #b9af82; }
+  fill: #325B92; }
 
 .ct-area {
   fill-opacity: .8; }
@@ -21708,7 +21708,7 @@ button.btn-small.btn-select.fc-agendaWeek-button, .btn-small.btn-select.fc-prev-
     height: 42px;
     padding: 10px 12px; }
     .treeview .list-group .list-group-item.node-selected {
-      background: #b9af82 !important; }
+      background: #325B92 !important; }
     .treeview .list-group .list-group-item:hover {
       background: #f7f7f9; }
     .treeview .list-group .list-group-item:first-child, .treeview .list-group .list-group-item:last-child {
@@ -21886,8 +21886,8 @@ button.btn-small.btn-select.fc-agendaWeek-button, .btn-small.btn-select.fc-prev-
 
 .checkbox-primary input[type="checkbox"]:checked + label::before,
 .checkbox-primary input[type="radio"]:checked + label::before {
-  background-color: #b9af82;
-  border-color: #b9af82; }
+  background-color: #325B92;
+  border-color: #325B92; }
 
 .checkbox-danger input[type="checkbox"]:checked + label::before,
 .checkbox-danger input[type="radio"]:checked + label::before {
@@ -21911,8 +21911,8 @@ button.btn-small.btn-select.fc-agendaWeek-button, .btn-small.btn-select.fc-prev-
 
 .checkbox-primary input[type="checkbox"]:indeterminate + label::before,
 .checkbox-primary input[type="radio"]:indeterminate + label::before {
-  background-color: #b9af82;
-  border-color: #b9af82; }
+  background-color: #325B92;
+  border-color: #325B92; }
 
 .checkbox-danger input[type="checkbox"]:indeterminate + label::before,
 .checkbox-danger input[type="radio"]:indeterminate + label::before {
@@ -21935,13 +21935,13 @@ button.btn-small.btn-select.fc-agendaWeek-button, .btn-small.btn-select.fc-prev-
   border-color: #01c853; }
 
 .radio-primary input[type="radio"] + label::after {
-  background-color: #b9af82; }
+  background-color: #325B92; }
 
 .radio-primary input[type="radio"]:checked + label::before {
-  border-color: #b9af82; }
+  border-color: #325B92; }
 
 .radio-primary input[type="radio"]:checked + label::after {
-  background-color: #b9af82; }
+  background-color: #325B92; }
 
 .radio-danger input[type="radio"] + label::after {
   background-color: #ff2a00; }
@@ -22071,7 +22071,7 @@ button.btn-small.btn-select.fc-agendaWeek-button, .btn-small.btn-select.fc-prev-
     width: 100%;
     text-align: center; }
   .file .icon i {
-    color: #b9af82;
+    color: #325B92;
     display: table-cell;
     font-size: 30px;
     vertical-align: middle; }
@@ -22088,7 +22088,7 @@ button.btn-small.btn-select.fc-agendaWeek-button, .btn-small.btn-select.fc-prev-
   margin-right: 10px;
   text-transform: uppercase; }
   .file-control.active {
-    color: #b9af82; }
+    color: #325B92; }
 
 .file-name small {
   color: #878787; }
@@ -22425,7 +22425,7 @@ a.compose-mail {
   background-color: #01c853; }
 
 .panel-primary > .panel-heading {
-  background-color: #b9af82; }
+  background-color: #325B92; }
 
 .panel-inverse > .panel-heading {
   background-color: rgba(33, 33, 33, 0.1);
@@ -22559,7 +22559,7 @@ a.compose-mail {
   .forcast-days > li:last-child {
     margin-right: 0; }
   .forcast-days > li span.forcast-high-deg {
-    color: #b9af82; }
+    color: #325B92; }
   .forcast-days > li img {
     width: 50px;
     margin: 0 auto; }
@@ -22679,7 +22679,7 @@ a.compose-mail {
   .label.label-info, .label-info.jvectormap-tip {
     background: #e91e63; }
   .label.label-primary, .label-primary.jvectormap-tip {
-    background: #b9af82; }
+    background: #325B92; }
   .label.label-success, .label-success.jvectormap-tip {
     background: #01c853; }
   .label.label-danger, .label-danger.jvectormap-tip {
@@ -22697,7 +22697,7 @@ a.compose-mail {
     background: #e91e63;
     color: #fff; }
   .badge.badge-primary {
-    background: #b9af82;
+    background: #325B92;
     color: #fff; }
   .badge.badge-success {
     background: #01c853;
@@ -22715,7 +22715,7 @@ a.compose-mail {
     .badge.transparent-badge.badge-info {
       color: #e91e63; }
     .badge.transparent-badge.badge-primary {
-      color: #b9af82; }
+      color: #325B92; }
     .badge.transparent-badge.badge-success {
       color: #01c853; }
     .badge.transparent-badge.badge-danger {
@@ -22783,7 +22783,7 @@ a.compose-mail {
   background: #e91e63; }
 
 .progress-bar-primary {
-  background: #b9af82; }
+  background: #325B92; }
 
 .progress-bar-success {
   background: #01c853; }
@@ -23288,7 +23288,7 @@ a.compose-mail {
       .timeline > li > .timeline-panel.bg-red:after {
         border-left-color: #ff2a00; }
       .timeline > li > .timeline-panel.bg-blue:after {
-        border-left-color: #b9af82; }
+        border-left-color: #325B92; }
       .timeline > li > .timeline-panel.bg-green:after {
         border-left-color: #01c853; }
     .timeline > li > .timeline-badge {
@@ -23325,7 +23325,7 @@ a.compose-mail {
         border-right-color: #ff2a00; }
       .timeline > li.timeline-inverted
       > .timeline-panel.bg-blue:after {
-        border-right-color: #b9af82; }
+        border-right-color: #325B92; }
       .timeline > li.timeline-inverted
       > .timeline-panel.bg-green:after {
         border-right-color: #01c853; }
@@ -23676,7 +23676,7 @@ ul.inbox-nav li a:hover, ul.inbox-nav li.active a, ul.inbox-nav li a:focus {
 
 .table-inbox tr td .zmdi-star.inbox-started,
 .table-inbox tr td .zmdi-star:hover {
-  color: #b9af82; }
+  color: #325B92; }
 
 .table-inbox tr.unread td {
   color: #212121;
@@ -24300,7 +24300,7 @@ ul.inbox-nav li a:hover, ul.inbox-nav li.active a, ul.inbox-nav li a:focus {
       ul.timeline > li > .timeline-panel.bg-red:after {
         border-right-color: #ff2a00; }
       ul.timeline > li > .timeline-panel.bg-blue:after {
-        border-right-color: #b9af82; }
+        border-right-color: #325B92; }
       ul.timeline > li > .timeline-panel.bg-green:after {
         border-right-color: #01c853; }
 
@@ -24443,11 +24443,11 @@ em{ font-style: italic; }
 
 .heading-bg .breadcrumb {
   padding: 8px 5px 0;
-  margin-bottom: 0; 
+  margin-bottom: 0;
   background: none !important;
 }
 .panel-heading  .table {
-  margin-bottom: 0; 
+  margin-bottom: 0;
 }
 
 .heading-bg h5, .heading-bg .h5, .heading-bg h6, .heading-bg .h6 {
@@ -24455,11 +24455,11 @@ em{ font-style: italic; }
     margin-bottom: 0;
     font-size: 18px;
     line-height: 26px;
-    text-transform: capitalize; 
+    text-transform: capitalize;
 }
 
 .alert {
-    color: #fff !important;  
+    color: #fff !important;
 }
 
 .form-wrap input.readonly{border:none; border-color: none;}
@@ -24479,8 +24479,8 @@ em{ font-style: italic; }
 }
 
 .radio.no-margin, .checkbox.no-margin {
-   margin-top: 0; 
-   margin-bottom: 0; 
+   margin-top: 0;
+   margin-bottom: 0;
 }@charset "UTF-8";
 
 /*!
