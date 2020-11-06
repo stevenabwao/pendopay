@@ -41,7 +41,7 @@
                 @endif
 
                 <li>
-                    <a href="{{ route('home') }}">Contact Us</a>
+                    <a href="{{ route('contacts') }}">Contact Us</a>
                 </li>
 
                 @if (isAdminPanelAvailable())

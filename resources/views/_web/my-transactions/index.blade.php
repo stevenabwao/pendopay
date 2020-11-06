@@ -31,13 +31,13 @@
                                     <i class="im-coins text-lg"></i>
                                 </div> --}}
                                 <div class="col-lg-12">
-                                    <div class="text-lg">Ksh 9,999</div>
+                                    <div class="text-lg text-amount-big">Ksh 9,999</div>
                                 </div>
                             </div>
 
                             <hr>
 
-                            <a href="#" class="btn btn-sm btn-border full-width-sm btn-block"><i class="fa fa-money"></i> Transfer Funds</a>
+                            <a href="#" class="btn btn-sm btn-border full-width-sm btn-block"><i class="fa fa-dollar"></i> Transfer Funds</a>
 
                         </div>
                         <hr class="space-sm" />

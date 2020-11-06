@@ -166,33 +166,33 @@ Breadcrumbs::register('companies.edit', function($breadcrumbs, $id)
 
 /******** MY TRANSACTIONS ROUTES ********/
 
-// Home > Companies
+// Home > My Transactions
 Breadcrumbs::register('my-transactions.index', function($breadcrumbs)
 {
     $breadcrumbs->parent('home');
     $breadcrumbs->push('My Transactions', route('my-transactions.index'));
 });
 
-// Home > Companies > Create New Transaction
+// Home > My Transactions > Create New Transaction
 Breadcrumbs::register('my-transactions.create', function($breadcrumbs)
 {
-    $breadcrumbs->parent('my-transactions');
+    $breadcrumbs->parent('my-transactions.index');
     $breadcrumbs->push('Create New Transaction', route('my-transactions.create'));
 });
 
-// Home > Companies > Show Transaction
+// Home > My Transactions > Show Transaction
 Breadcrumbs::register('my-transactions.show', function($breadcrumbs, $id)
 {
     $transaction = Transaction::findOrFail($id);
-    $breadcrumbs->parent('my-transactions');
+    $breadcrumbs->parent('my-transactions.index');
     $breadcrumbs->push($transaction->name, route('my-transactions.show', $transaction->id));
 });
 
-// Home > Companies > Edit Transaction
+// Home > My Transactions > Edit Transaction
 Breadcrumbs::register('my-transactions.edit', function($breadcrumbs, $id)
 {
     $transaction = Transaction::findOrFail($id);
-    $breadcrumbs->parent('my-transactions');
+    $breadcrumbs->parent('my-transactions.index');
     $breadcrumbs->push("Edit transaction - " . $transaction->name, route('my-transactions.edit', $transaction->id));
 });
 

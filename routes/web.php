@@ -83,7 +83,8 @@ Route::get('/', 'Web\HomeController@index')->name('home');
 
 Route::get('/register', 'Web\HomeController@index')->name('register');
 Route::get('/aboutus', 'Web\HomeController@index')->name('aboutus');
-Route::get('/contacts', 'Web\HomeController@index')->name('contacts');
+Route::get('/contact-us', 'Web\HomeController@contacts')->name('contacts');
+Route::post('/contact-us', 'Web\HomeController@contactsStore')->name('contacts.store');
 
 Route::get('/events', 'Web\HomeController@index')->name('events');
 Route::get('/restaurants', 'Web\HomeController@index')->name('restaurants');

@@ -2,7 +2,7 @@
 
 @section('title')
 
-Register
+Contact Us
 
 @endsection
 

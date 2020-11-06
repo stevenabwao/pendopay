@@ -1,15 +1,18 @@
 @extends('_web.layouts.master')
 
 @section('title')
-
-New-transaction
-
+    New Transaction
 @endsection
 
+@section('page_title')
+    {!! getLoggedUser()->first_name !!}
+@endsection
+
+@section('page_breadcrumbs')
+   {!! Breadcrumbs::render('my-transactions.create') !!}
+@endsection
 
 @section('content')
-
-
 
 <div class="row justify-content-center">
  <div class="col-md-6" >
@@ -38,14 +41,14 @@ New-transaction
   <div>
     <h3>
       Transaction category
-     </h3> 
+     </h3>
    </div>
    <div class="row justify-content-center">
     <div class="form-check form-check-inline">
       <input type="radio" class="form-check-input"  name="seller">
       <label class="form-check-label" for="materialInline1">Seller</label>
     </div>
-    
+
     <div class="form-check form-check-inline">
       <input type="radio" class="form-check-input"  name="buyer">
       <label class="form-check-label" for="materialInline2">Buyer</label>
@@ -72,7 +75,7 @@ New-transaction
 <div>
   <h3>
     Details of transactio patner
-   </h3> 
+   </h3>
  </div>
  <div class="md-form mat-2 mx-auto">
   <input type="text" id="phone" value="{{ old('phone') }}" name="phone">
@@ -109,7 +112,7 @@ New-transaction
 
     </div>
 
-  
+
   </div>
 
 </div>
