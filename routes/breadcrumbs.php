@@ -164,6 +164,7 @@ Breadcrumbs::register('companies.edit', function($breadcrumbs, $id)
 
 /******** END COMPANIES ROUTES ********/
 
+
 /******** MY TRANSACTIONS ROUTES ********/
 
 // Home > My Transactions
@@ -1576,32 +1577,32 @@ Breadcrumbs::register('ussd-recommends.edit', function($breadcrumbs, $id)
 
 /******** USSD CONTACTUS ROUTES ********/
 
-// Home > USSD Contact Us
-Breadcrumbs::register('ussd-contactus', function($breadcrumbs)
+// Home > Contact Us
+Breadcrumbs::register('contacts.index', function($breadcrumbs)
 {
     $breadcrumbs->parent('home');
-    $breadcrumbs->push('USSD Contact Us', route('ussd-contactus.index'));
+    $breadcrumbs->push('Contact Us', route('contacts'));
 });
 
-// Home > USSD Contact Us > Create USSD Contact Us
-Breadcrumbs::register('ussd-contactus.create', function($breadcrumbs)
+// Home > Contact Us > Create Contact Us
+Breadcrumbs::register('contacts.create', function($breadcrumbs)
 {
-    $breadcrumbs->parent('ussd-contactus');
-    $breadcrumbs->push('Create USSD Contact Us', route('ussd-contactus.create'));
+    $breadcrumbs->parent('contacts.index');
+    $breadcrumbs->push('Contact Us', route('contacts.create'));
 });
 
-// Home > USSD Contact Us > Show USSD Contact Us
-Breadcrumbs::register('ussd-contactus.show', function($breadcrumbs, $id)
+// Home > Contact Us > Show Contact Us
+Breadcrumbs::register('contacts.show', function($breadcrumbs, $id)
 {
-    $breadcrumbs->parent('ussd-contactus');
-    $breadcrumbs->push("Showing USSD Contact Us - " . $id, route('ussd-contactus.show', $id));
+    $breadcrumbs->parent('contacts.index');
+    $breadcrumbs->push("Showing Contact Us - " . $id, route('contacts.show', $id));
 });
 
-// Home > USSD Contact Us > Edit USSD Contact Us
-Breadcrumbs::register('ussd-contactus.edit', function($breadcrumbs, $id)
+// Home > Contact Us > Edit Contact Us
+Breadcrumbs::register('contacts.edit', function($breadcrumbs, $id)
 {
-    $breadcrumbs->parent('ussd-contactus');
-    $breadcrumbs->push("Edit USSD Contact Us - " . $id, route('ussd-contactus.edit', $id));
+    $breadcrumbs->parent('contacts.index');
+    $breadcrumbs->push("Edit Contact Us - " . $id, route('contacts.edit', $id));
 });
 
 /******** END USSD CONTACTUS ROUTES ********/

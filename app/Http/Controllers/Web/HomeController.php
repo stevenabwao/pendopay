@@ -116,12 +116,12 @@ class HomeController extends BaseController
 
     }
 
-    public function contactus()
+    public function contacts()
     {
 
         $countries = Country::all();
 
-        return view('contacts', compact('countries'));
+        return view('_web.contacts', compact('countries'));
 
     }
 
