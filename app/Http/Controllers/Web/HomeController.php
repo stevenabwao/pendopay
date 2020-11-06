@@ -116,58 +116,12 @@ class HomeController extends BaseController
 
     }
 
-    // shpow board of directors page
-    public function directors(Request $request, SiteContentIndex $siteContentIndex)
-    {
-
-        $status_active = config('constants.status.active');
-        $category = config('constants.site_category.board_of_directors');
-
-        // merge set record data into request object
-        $request->merge([
-            'report' => '1',
-            'status' => $status_active,
-            'category' => $category,
-            'order_by' => 'order_id',
-            'order_style' => 'asc'
-        ]);
-
-        // fetch the data
-        $directorsData = $siteContentIndex->getData($request);
-
-        $directorsData = $directorsData->get();
-
-        return view('directors', compact('directorsData'));
-
-    }
-
-
-    // show a single director item
-    public function showDirectors($id)
-    {
-
-        $status_active = config('constants.status.active');
-        $category = config('constants.site_category.board_of_directors');
-
-        //get item
-        $directorItemDataArray = getSiteContentItem($category, $id);
-        $directorDataArray = getSiteContent($category, 0, "site_content.id", "desc", $status_active);
-
-        $directorItemData = $directorItemDataArray['content'];
-        $directorItemImage = $directorItemDataArray['images'][0];
-
-        $directorData = $directorDataArray['content'];
-
-        return view('director_show', compact('directorItemData', 'directorItemImage', 'directorData'));
-
-    }
-
-    public function contactus()
+    public function contacts()
     {
 
         $countries = Country::all();
 
-        return view('contacts', compact('countries'));
+        return view('_web.contacts', compact('countries'));
 
     }
 
@@ -177,14 +131,11 @@ class HomeController extends BaseController
         $rules = [
             'name' => 'required',
             'subject' => 'required',
-            'phone_country' => 'required_with:phone',
             'phone' => 'required|phone',
             'message' => 'required',
         ];
 
-        //dd($request);
-
-        $payload = app('request')->only('name', 'subject', 'phone', 'phone_country', 'message');
+        $payload = app('request')->only('name', 'subject', 'phone', 'message');
 
         $validator = app('validator')->make($payload, $rules);
 

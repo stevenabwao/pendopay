@@ -1,15 +1,15 @@
 @extends('_web.layouts.master')
 
 @section('title')
-    New Transaction
+    Contact Us
 @endsection
 
 @section('page_title')
-    {!! getLoggedUser()->first_name !!}
+    Contact Us
 @endsection
 
 @section('page_breadcrumbs')
-   {!! Breadcrumbs::render('my-transactions.create') !!}
+   {!! Breadcrumbs::render('contacts.index') !!}
 @endsection
 
 @section('content')
@@ -24,13 +24,13 @@
           <p class="card-text">
     </div>
     <div class="row justify-content-center form-title">
-        <h3>Create new transaction</h3>
+        <h3>Contact Us</h3>
     </div>
 
     <hr>
     <div class="md-form mat-2 mx-auto">
       <input type="text" value="{{ old('transaction-title') }}" name="transaction-title" >
-      <label for="example">Title of transaction</label>
+      <label for="example">Subject</label>
   </div>
   @if ($errors->has('transaction-title'))
       <div class="help-block">
