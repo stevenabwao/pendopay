@@ -385,8 +385,10 @@ main > section.section-base {
 }
 
 main > section > .container {
-    padding-top: 100px;
-    padding-bottom: 100px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    /* padding-top: 100px;
+    padding-bottom: 100px; */
 }
 
 .section-video > video, .section-map > .google-map, .section-slider > .background-slider, .section-slider > .background-slider > div {
@@ -3816,7 +3818,7 @@ GRID LIST AND MOSONRY LIST - CONTAINER
 
 .grid-box {
     display: grid;
-    grid-gap: 30px;
+    /* grid-gap: 30px; */
 }
 
 .no-gap > div {
@@ -5652,7 +5654,7 @@ Inverted responsive classes
   }
 
   input[type=text], input[type=Password] {
-   
+
     border: none;
     /* color: #39ace7; */
     padding: 15px 32px;
@@ -5686,3 +5688,12 @@ Inverted responsive classes
 
   .auth-link a, .auth-link{ color: #ffffff; text-decoration: none; }
   .auth-link a:hover{ color: #03BFCB; }
+  .no-padding-right{ padding-right: 0 !important; }
+  .text-danger, .text-danger .fa{ color: #cc181e !important; }
+  .text-success, .text-success .fa{ color: #03BFCB !important; }
+  .light .breadcrumb li a:after {
+    background-color: #FFF !important;
+  }
+
+  .text-amount-big{ color: #03BFCB; font-size: 2.0rem !important; font-weight: bold;}
+  .boxedz h3{ font-weight: normal !important;}

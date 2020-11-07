@@ -65,7 +65,7 @@ class RegisterController extends BaseController
             $user_result = json_decode($user_result);
             $result_message = $user_result->message;
 
-            if (!$user_result->error) {
+            if (!$user_result->error) { 
                 $success_message = 'Successfully created user. Please login.';
                 Session::flash('success', $success_message);
                 return redirect()->route('login');

@@ -83,7 +83,8 @@ Route::get('/', 'Web\HomeController@index')->name('home');
 
 Route::get('/register', 'Web\HomeController@index')->name('register');
 Route::get('/aboutus', 'Web\HomeController@index')->name('aboutus');
-Route::get('/contacts', 'Web\HomeController@index')->name('contacts');
+Route::get('/contact-us', 'Web\HomeController@contacts')->name('contacts');
+Route::post('/contact-us', 'Web\HomeController@contactsStore')->name('contacts.store');
 
 Route::get('/events', 'Web\HomeController@index')->name('events');
 Route::get('/restaurants', 'Web\HomeController@index')->name('restaurants');
@@ -170,6 +171,17 @@ Route::group(['middleware' => 'auth'], function() {
 
     // shopping cart item controller
     Route::delete('/my-shopping-cart-item/{id}', 'Web\ShoppingCartItem\ShoppingCartItemController@destroy')->name('my-shopping-cart-item.destroy');
+
+    // my transactions routes
+    Route::get('/my-transactions', 'Web\MyTransaction\MyTransactionController@index')->name('my-transactions.index');
+    Route::get('/my-transactions2', 'Web\MyTransaction\MyTransactionController@index2')->name('my-transactions2.index');
+    Route::get('/my-transactions/create', 'Web\MyTransaction\MyTransactionController@create')->name('my-transactions.create');
+
+    //payment controller
+
+    Route::get('/payments','PaymentController@index')->name('payments');
+    Route::get('/all-payments','PaymentController@store')->name('all-payments');
+
 
 	Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
@@ -459,11 +471,3 @@ Route::group(['middleware' => 'guest'], function() {
 	Route::get('auth/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
 
 });
-//transacction routes
-Route::get('/my-transactions', 'TransactionController@index');
-Route::get('/new-transaction', 'TransactionController@create');
-
-//payment controller
-
-Route::get('/payments','PaymentController@index')->name('payments');
-Route::get('/all-payments','PaymentController@store')->name('all-payments');

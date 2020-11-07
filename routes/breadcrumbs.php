@@ -10,6 +10,7 @@ use App\Entities\CompanyUser;
 use App\Entities\Offer;
 use App\Entities\OfferProduct;
 use App\Entities\Till;
+use App\Entities\Transaction;
 use App\Permission;
 use App\Role;
 use App\User;
@@ -162,6 +163,41 @@ Breadcrumbs::register('companies.edit', function($breadcrumbs, $id)
 });
 
 /******** END COMPANIES ROUTES ********/
+
+
+/******** MY TRANSACTIONS ROUTES ********/
+
+// Home > My Transactions
+Breadcrumbs::register('my-transactions.index', function($breadcrumbs)
+{
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('My Transactions', route('my-transactions.index'));
+});
+
+// Home > My Transactions > Create New Transaction
+Breadcrumbs::register('my-transactions.create', function($breadcrumbs)
+{
+    $breadcrumbs->parent('my-transactions.index');
+    $breadcrumbs->push('Create New Transaction', route('my-transactions.create'));
+});
+
+// Home > My Transactions > Show Transaction
+Breadcrumbs::register('my-transactions.show', function($breadcrumbs, $id)
+{
+    $transaction = Transaction::findOrFail($id);
+    $breadcrumbs->parent('my-transactions.index');
+    $breadcrumbs->push($transaction->name, route('my-transactions.show', $transaction->id));
+});
+
+// Home > My Transactions > Edit Transaction
+Breadcrumbs::register('my-transactions.edit', function($breadcrumbs, $id)
+{
+    $transaction = Transaction::findOrFail($id);
+    $breadcrumbs->parent('my-transactions.index');
+    $breadcrumbs->push("Edit transaction - " . $transaction->name, route('my-transactions.edit', $transaction->id));
+});
+
+/******** END MY TRANSACTIONS ROUTES ********/
 
 
 /******** ADMIN OFFERS ROUTES ********/
@@ -1541,32 +1577,32 @@ Breadcrumbs::register('ussd-recommends.edit', function($breadcrumbs, $id)
 
 /******** USSD CONTACTUS ROUTES ********/
 
-// Home > USSD Contact Us
-Breadcrumbs::register('ussd-contactus', function($breadcrumbs)
+// Home > Contact Us
+Breadcrumbs::register('contacts.index', function($breadcrumbs)
 {
     $breadcrumbs->parent('home');
-    $breadcrumbs->push('USSD Contact Us', route('ussd-contactus.index'));
+    $breadcrumbs->push('Contact Us', route('contacts'));
 });
 
-// Home > USSD Contact Us > Create USSD Contact Us
-Breadcrumbs::register('ussd-contactus.create', function($breadcrumbs)
+// Home > Contact Us > Create Contact Us
+Breadcrumbs::register('contacts.create', function($breadcrumbs)
 {
-    $breadcrumbs->parent('ussd-contactus');
-    $breadcrumbs->push('Create USSD Contact Us', route('ussd-contactus.create'));
+    $breadcrumbs->parent('contacts.index');
+    $breadcrumbs->push('Contact Us', route('contacts.create'));
 });
 
-// Home > USSD Contact Us > Show USSD Contact Us
-Breadcrumbs::register('ussd-contactus.show', function($breadcrumbs, $id)
+// Home > Contact Us > Show Contact Us
+Breadcrumbs::register('contacts.show', function($breadcrumbs, $id)
 {
-    $breadcrumbs->parent('ussd-contactus');
-    $breadcrumbs->push("Showing USSD Contact Us - " . $id, route('ussd-contactus.show', $id));
+    $breadcrumbs->parent('contacts.index');
+    $breadcrumbs->push("Showing Contact Us - " . $id, route('contacts.show', $id));
 });
 
-// Home > USSD Contact Us > Edit USSD Contact Us
-Breadcrumbs::register('ussd-contactus.edit', function($breadcrumbs, $id)
+// Home > Contact Us > Edit Contact Us
+Breadcrumbs::register('contacts.edit', function($breadcrumbs, $id)
 {
-    $breadcrumbs->parent('ussd-contactus');
-    $breadcrumbs->push("Edit USSD Contact Us - " . $id, route('ussd-contactus.edit', $id));
+    $breadcrumbs->parent('contacts.index');
+    $breadcrumbs->push("Edit Contact Us - " . $id, route('contacts.edit', $id));
 });
 
 /******** END USSD CONTACTUS ROUTES ********/

@@ -16,9 +16,9 @@ My-transactions
 
 <div class="row justify-content-center">
 
-  
+
   <div class="column col-md-3">
-    
+
       <div class="card">
         <div class="row">
           <p class="pay">PendoPay Balance</p>
@@ -29,7 +29,7 @@ My-transactions
         <button class="btn-default" data-toggle="modal" data-target="#modalLoginForm" data-target="#myModal">Transfer Funds</button>
 
       </div>
-      
+
     </div>
     <div class="card">
       <div class="row">
@@ -67,13 +67,13 @@ My-transactions
   </div>
 @endif
 <div class="md-form mat-2 mx-auto">
-      
+
       <button class="btn-default">Request Funds</button>
 
     </div>
-    
+
   </div>
-      
+
   </div>
 <div class="col-md-7" >
         <div class="inputs row">
@@ -83,7 +83,7 @@ My-transactions
         </div>
 
         <div class="card">
-                  
+
               <div class="row justify-content-center">
                      <div class="col-md-12" >
 
@@ -93,7 +93,7 @@ My-transactions
                                </div>
                                <div class="row">
 
-                                
+
                                    <div class="col-md-4">
                                     <strong>Payment received</strong>
                                     <p>payment date</p>
@@ -114,10 +114,10 @@ My-transactions
                                 <p class="pay"><i class="fas fa-th-list"></i><a class="btn-link" href="{{ route('all-payments') }}"> view all activities</a></p>
                               </div>
                   </div>
-            
+
         </div>
   </div>
-    
+
 <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 aria-hidden="true">
 <div class="modal-dialog" role="document">
