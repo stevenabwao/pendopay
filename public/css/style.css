@@ -5687,13 +5687,13 @@ Inverted responsive classes
   }
 
   .auth-link a, .auth-link{ color: #ffffff; text-decoration: none; }
-  .auth-link a:hover{ color: #03BFCB; }
+  .auth-link a:hover{ color: #24a8e0; }
   .no-padding-right{ padding-right: 0 !important; }
   .text-danger, .text-danger .fa{ color: #cc181e !important; }
-  .text-success, .text-success .fa{ color: #03BFCB !important; }
+  .text-success, .text-success .fa{ color: #24a8e0 !important; }
   .light .breadcrumb li a:after {
     background-color: #FFF !important;
   }
 
-  .text-amount-big{ color: #03BFCB; font-size: 2.0rem !important; font-weight: bold;}
+  .text-amount-big{ color: #24a8e0; font-size: 2.0rem !important; font-weight: bold;}
   .boxedz h3{ font-weight: normal !important;}
