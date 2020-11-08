@@ -16,6 +16,7 @@ use App\Entities\ReminderMessageType;
 use App\Entities\ReportDataSummaryDetail;
 use App\Entities\SmsOutbox;
 use App\Entities\Status;
+use App\Entities\Transaction;
 use App\Entities\UserAccessToken;
 use App\Entities\UserAudit;
 use App\Role;
@@ -87,6 +88,11 @@ class User extends Authenticatable
 
     public function useraccesstoken() {
         return $this->hasOne(UserAccessToken::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
     }
 
     public function useraudits()

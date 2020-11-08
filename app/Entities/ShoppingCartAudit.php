@@ -105,26 +105,5 @@ class ShoppingCartAudit extends Model
 
     }
 
-    /**
-     * @param array $attributes
-     * @return \Illuminate\Database\Eloquent\Model
-     */
-    public static function updatedata($id, array $attributes = [])
-    {
-
-        if (auth()->user()) {
-            $user_id = auth()->user()->id;
-
-            $attributes['updated_by'] = $user_id;
-        }
-
-        //item data
-        $item = static::query()->findOrFail($id);
-
-        $model = $item->update($attributes);
-
-        return $model;
-
-    }
 
 }

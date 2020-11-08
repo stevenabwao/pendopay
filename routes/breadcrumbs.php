@@ -1575,7 +1575,7 @@ Breadcrumbs::register('ussd-recommends.edit', function($breadcrumbs, $id)
 
 
 
-/******** USSD CONTACTUS ROUTES ********/
+/******** CONTACTUS ROUTES ********/
 
 // Home > Contact Us
 Breadcrumbs::register('contacts.index', function($breadcrumbs)
@@ -1605,9 +1605,7 @@ Breadcrumbs::register('contacts.edit', function($breadcrumbs, $id)
     $breadcrumbs->push("Edit Contact Us - " . $id, route('contacts.edit', $id));
 });
 
-/******** END USSD CONTACTUS ROUTES ********/
-
-
+/******** END CONTACTUS ROUTES ********/
 
 
 /******** PERMISSIONS ROUTES ********/

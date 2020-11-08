@@ -5,18 +5,16 @@ namespace App\Entities;
 use App\BaseModel;
 use App\Entities\Image;
 use App\Entities\Status;
-use App\Events\TransactionCreated;
-use App\Events\TransactionUpdated;
 use App\User;
 
-class Transaction extends BaseModel
+class TransactionAudit extends BaseModel
 {
 
     /**
      * The attributes that are mass assignable
      */
     protected $fillable = [
-        'id', 'title', 'transaction_amount', 'transaction_date', 'seller_user_id',  'buyer_user_id',
+        'id', 'parent_id', 'title', 'transaction_amount', 'transaction_date', 'seller_user_id',  'buyer_user_id',
          'status_id', 'created_by', 'created_by_name', 'updated_by', 'updated_by_name'
     ];
 
@@ -60,7 +58,7 @@ class Transaction extends BaseModel
     public function getUrlAttribute()
     {
 
-        $app_url = config('app.url');
+        /* $app_url = config('app.url');
         $restaurant_cat_id = config('constants.establishments.restaurant_cat_id');
 
         $link_text = config('constants.establishments.club_cat_text');
@@ -71,7 +69,7 @@ class Transaction extends BaseModel
         // generate url
         $the_url = $app_url . "/$link_text/" . $this->attributes['id'] . '-' . $this->attributes['permalink'];
 
-        return $the_url;
+        return $the_url; */
 
     }
 
@@ -79,7 +77,7 @@ class Transaction extends BaseModel
     public function getMainImageAttribute()
     {
 
-        $no_image_url = getNoImageThumb400();
+        /* $no_image_url = getNoImageThumb400();
         $img_path = "";
 
         if (count($this->images)) {
@@ -93,7 +91,7 @@ class Transaction extends BaseModel
             $img_path = $no_image_url;
         }
 
-        return getFullImagePath($img_path);
+        return getFullImagePath($img_path); */
 
     }
 
@@ -104,12 +102,14 @@ class Transaction extends BaseModel
     public static function create(array $attributes = [])
     {
 
-        // dd("in create", $attributes);
-        $model = static::query()->create($attributes);
+        //add parent id
+        $attributes['parent_id'] = $attributes['id'];
 
-        // start call create event
-        event(new TransactionCreated($model));
-        // end call update event
+        // remove id and updated_by fields from array,
+        // id will be auto populated (autoincrement field)
+        unset($attributes['id']);
+
+        $model = static::query()->create($attributes);
 
         return $model;
 
@@ -126,10 +126,6 @@ class Transaction extends BaseModel
         $item = static::query()->findOrFail($id);
 
         $model = $item->update($attributes);
-
-        // start call create event
-        event(new TransactionUpdated($item->fresh()));
-        // end call update event
 
         return $model;
 

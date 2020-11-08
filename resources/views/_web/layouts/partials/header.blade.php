@@ -55,10 +55,11 @@
                 </li>
 
             </ul>
+
             <div class="menu-right">
+
                 <div class="custom-area">
-                    Mombasa Road<br />
-                    Nairobi, Kenya
+                    {!! ($site_settings['company_location']) !!}
                 </div>
 
                 @if (isLoggedIn())

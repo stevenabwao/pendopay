@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Barddy'),
+    'name' => env('APP_NAME', 'PendoPay'),
 
     /*
     |--------------------------------------------------------------------------
@@ -146,7 +146,13 @@ return [
     'cache_minutes' => env('CACHE_MINUTES', '5'),
     'cache_minutes_low' => env('CACHE_MINUTES_LOW', '60'),
 
-    
+
+    'pagination_limit' => env('PAGINATION_LIMIT', '10'),
+    'short_pagination_limit' => env('SHORT_PAGINATION_LIMIT', '4'),
+
+
+
+
 
     /*
     |--------------------------------------------------------------------------
