@@ -88,10 +88,19 @@ class MyTransactionController extends Controller
             $new_item = json_decode($new_item);
             $result = $new_item->message->message;
             $success_message = $result->message;
-            $new_item = $result->data;
-            // dd($new_item, $result_message->message);
+            $new_item_data = $result->data;
+            // dd($new_item_data, $success_message);
+
+            // check whether user is buyer or seller
+            // display screen to ask user to enter details of buyer/ seller
             Session::flash('success', $success_message);
-            return redirect(route('my-transactions.index'));
+            return redirect(route('my-transactions.create-step2', [
+                'new_item_data' => $new_item_data
+            ]));
+
+            /* return view('_web.my-transactions.create_step2', [
+                'new_item_data' => $new_item_data
+            ]); */
 
         } catch (\Exception $e) {
 
@@ -101,6 +110,15 @@ class MyTransactionController extends Controller
 
         }
 
+    }
+
+    // ask user to select buyer/ seller
+    public function create_step2(Request $request)
+    {
+
+        // dd($request->new_item_data);
+
+        return view('_web.my-transactions.create_step2', ['new_item_data' => $request->new_item_data]);
     }
 
 }

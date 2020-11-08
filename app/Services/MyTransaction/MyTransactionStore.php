@@ -33,10 +33,13 @@ class MyTransactionStore
         $logged_user = getLoggedUser();
 
         // check the role
+        $transaction_role_message = "";
         if ($transaction_role == 'buyer') {
             $attributes['buyer_user_id'] = $logged_user->id;
+            $transaction_role_message = "Please select seller";
         } else if ($transaction_role == 'seller') {
             $attributes['seller_user_id'] = $logged_user->id;
+            $transaction_role_message = "Please select buyer";
         }
 
         // add status_id
@@ -60,9 +63,12 @@ class MyTransactionStore
 
             $new_trans = new Transaction();
             $trans_result = $new_trans->create($attributes);
+            $trans_result->trans_message = $transaction_role_message;
 
             $response["error"] = false;
-            $response["message"] = 'Successfully created transaction titled - ' . $trans_result->title;
+            $success_message = 'Successfully created transaction - ' . $trans_result->title . " - ";
+            $success_message .= $transaction_role_message;
+            $response["message"] = $success_message;
             $response["data"] = $trans_result;
 
         } catch(\Exception $e) {
