@@ -5,7 +5,7 @@
 @endsection
 
 @section('page_title')
-    {!! getLoggedUser()->first_name !!}
+    {!! getLoggedUser()->first_name !!} 
 @endsection
 
 @section('page_breadcrumbs')
