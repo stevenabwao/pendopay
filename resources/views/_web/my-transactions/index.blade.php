@@ -64,54 +64,57 @@
 
                         <div class="grid-box">
 
-                            <div class="grid-item">
-                                <div class="cnt-boxz cnt-box-blog-side boxedz" data-href="#">
-                                    <div class="caption2">
-                                        <h3>Sale of Lexus motor vehicle KDA 001B motor vehicle KDA 001B</h3>
-                                        <ul class="icon-list icon-list-horizontal">
-                                            <li><i class="icon-calendar"></i><a href="#">15-Dec-2020</a></li>
-                                            <li><i class="icon-bookmark"></i><a href="#">SELLER</a></li>
-                                            <li><i class="icon-user"></i><a href="#">KES 2,000,000</a></li>
-                                            <li class="text-success"><i class="fa fa-thumbs-up"></i> COMPLETED</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="grid-item">
-                                <div class="cnt-boxz cnt-box-blog-side boxedz" data-href="#">
-                                    <div class="caption2">
-                                        <h3>Sale of Lexus motor vehicle KDA 001B motor vehicle KDA 001B</h3>
-                                        <ul class="icon-list icon-list-horizontal">
-                                            <li><i class="icon-calendar"></i><a href="#">15-Dec-2020</a></li>
-                                            <li><i class="icon-bookmark"></i><a href="#">BUYER</a></li>
-                                            <li><i class="icon-user"></i><a href="#">KES 2,000,000</a></li>
-                                            <li class="text-danger"><i class="fa fa-thumbs-up"></i> PENDING</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="grid-item">
-                                <div class="cnt-boxz cnt-box-blog-side boxedz" data-href="#">
-                                    <div class="caption2">
-                                        <h3>Sale of Lexus motor vehicle KDA 001B motor vehicle KDA 001B</h3>
-                                        <ul class="icon-list icon-list-horizontal">
-                                            <li><i class="icon-calendar"></i><a href="#">15-Dec-2020</a></li>
-                                            <li><i class="icon-bookmark"></i><a href="#">SELLER</a></li>
-                                            <li><i class="icon-user"></i><a href="#">KES 2,000,000</a></li>
-                                            <li class="text-danger"><i class="fa fa-thumbs-up"></i> PENDING</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
+                            @if (count($transactions))
 
-                            <a href="#" class="btn btn-sm btn-border full-width-sm btn-block"><i class="fa fa-plus"></i> View All Transactions</a>
+                                @foreach ($transactions as $transaction)
+
+                                    <div class="grid-item">
+                                        <div class="cnt-boxz cnt-box-blog-side boxedz" data-href="#">
+                                            <div class="caption2">
+                                                <h3>{{ $transaction->title }}</h3>
+                                                <ul class="icon-list icon-list-horizontal">
+                                                    <li><i class="icon-calendar"></i><a href="#">
+                                                        {{ formatDatePickerDate($transaction->transaction_date, 'd-M-Y') }}</a>
+                                                        </li>
+                                                    <li>
+                                                        <i class="icon-bookmark"></i>
+                                                        <a href="#">
+                                                            @if (getLoggedUser()->id == $transaction->seller_user_id)
+                                                                SELLER
+                                                            @else
+                                                                BUYER
+                                                            @endif
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <i class="icon-user"></i>
+                                                        <a href="#">{{ formatCurrency($transaction->transaction_amount) }}</a>
+                                                    </li>
+                                                    <li class="text-success"><i class="fa fa-thumbs-up"></i>
+                                                        {!! showStatusText($transaction->status_id) !!}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+
+                                @endforeach
+
+                            @else
+
+                                No Transactions
+
+                            @endif
+
+                            {{-- pagination --}}
+                            {{ $transactions->links() }}
 
                         </div>
 
                     </div>
+
+
 
                 </div>
             </div>

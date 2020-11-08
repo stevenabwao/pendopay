@@ -35,6 +35,12 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\DepositAccountUpdated' => [
             'App\Listeners\NotifyDepositAccountUpdated',
         ],
+        'App\Events\TransactionCreated' => [
+            'App\Listeners\NotifyTransactionCreated',
+        ],
+        'App\Events\TransactionUpdated' => [
+            'App\Listeners\NotifyTransactionUpdated',
+        ],
     ];
 
     /**

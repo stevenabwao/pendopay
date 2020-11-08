@@ -88,34 +88,34 @@ body > header h2, .breadcrumb li:last-child a, .cnt-box-side .extra-field, .cnt-
 .album-title > a:before, .accordion-list > li.active > a, .media-box.media-box-reveal .caption h3, .cnt-box-top .extra-field, .list-nav a:first-child:before, .list-nav a:last-child:before,
 .cnt-box-testimonials-bubble .thumb-bar span:last-child, .cnt-box-side-icon > i, .countdown-vertical [data-time] > div > span:first-child, .countdown-horizontal [data-time] > div > span:first-child,
 .social-feed a {
-    color: #03BFCB
+    color: #24a8e0
 }
 
 footer.light a, .cnt-box.light .extra-field, nav.light .menu-cnt > ul > li:hover > a, .section-home-slider [data-to], .section-home-slider h2, .light .title p, body > header.light h2,
 .boxed-area.light .text-list-bold li b, .text-color-2 {
-    color: #03BFCB !important;
+    color: #24a8e0 !important;
 }
 
 .cnt-box-blog-side .blog-date span:last-child, .progress-bar > div > div, footer .icon-list li:before, .shop-menu .cart-buttons a:hover, .cnt-box-blog-top .blog-date span:last-child, .btn-video:empty,
 .dropdown ul:not(.icon-list) li:hover > a, .cnt-box-info .extra-field, .menu-cnt > ul > li:hover > a, .lan-menu > li:hover > a, .dropdown > ul:before, .shop-menu-cnt .cart-count, .light .icon-box i, .light .counter i,
 .section-color.light .btn:not(.btn-border):hover, .breadcrumb li a:after, .menu-inner li:before, .text-list-base li > div, .text-list-image .content > div, .text-list-side li > div, .text-line:before,
 .icon-line li:before, .icon-line span:before, .icon-circle li:before, .media-box-reveal .caption h3:before, .arrows-inner-right .glide__arrow, .light .breadcrumb li a:after, .list-tags a:hover {
-    background-color: #03BFCB
+    background-color: #24a8e0
 }
 
 .btn, .icon-links-grid a:hover, .icon-links-button a, .pagination li.page:hover a, .pagination li.page.active a, .list-nav a.list-archive {
-    background-color: #03BFCB;
-    border-color: #03BFCB;
+    background-color: #24a8e0;
+    border-color: #24a8e0;
 }
 
 .light .glide__bullets > button.glide__bullet--active, .section-home-slider .glide__arrow {
-    background-color: #03BFCB !important;
-    border-color: #03BFCB !important;
+    background-color: #24a8e0 !important;
+    border-color: #24a8e0 !important;
 }
 
 .shop-menu, .menu-cnt > ul li ul li:hover + li > a, nav .menu-right .custom-area, .input-text, .input-select, .input-textarea, .light .glide__bullets > button, .light .text-list-line li hr,
 .media-box-half .extra-field + p, .album-box .caption, .media-box-reveal .caption, .cnt-box-top .extra-field, .icon-links-grid a, .cnt-box-testimonials-bubble > p, .light .table-border td {
-    border-color: #03BFCB
+    border-color: #24a8e0
 }
 
 .cnt-call, .comment-list li, .timeline .panel, .header-base, main > section.section-base.section-color, .section-color .input-text, .section-color .input-select, .section-color .input-textarea {
@@ -1064,8 +1064,8 @@ body > header.header-base h1 {
 body > header {
     /* height: 250px; */
     height: 60px;
-    background-color: #03BFCB;
-    /* background-color: #03BFCB; */
+    background-color: #24a8e0;
+    /* background-color: #24a8e0; */
 }
 
 body > header h1 {

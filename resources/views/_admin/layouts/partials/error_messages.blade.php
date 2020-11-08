@@ -10,14 +10,15 @@
 				$("body").removeAttr('class');
 				$.toast({
 		            heading: 'Success',
-		            text: {!! session('success') !!},
+		            text: {!! json_encode(session('success')) !!},
 		            position: 'bottom-right',
 		            loaderBg:'#fec107',
 		            icon: 'success',
 		            hideAfter: 15500,
 		            stack: 6
 		        });
-				return false;
+                return false;
+
 		});
 
 	</script>
@@ -36,7 +37,7 @@
 				$("body").removeAttr('class');
 				$.toast({
 		            heading: 'An Error Occured',
-		            text: {!! session('error') !!},
+		            text: {!! json_encode(session('error')) !!},
 		            position: 'bottom-right',
 		            loaderBg:'#fec107',
 		            icon: 'error',
