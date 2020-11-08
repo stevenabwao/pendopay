@@ -176,6 +176,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/my-transactions', 'Web\MyTransaction\MyTransactionController@index')->name('my-transactions.index');
     Route::get('/my-transactions2', 'Web\MyTransaction\MyTransactionController@index2')->name('my-transactions2.index');
     Route::get('/my-transactions/create', 'Web\MyTransaction\MyTransactionController@create')->name('my-transactions.create');
+    Route::post('/my-transactions/store', 'Web\MyTransaction\MyTransactionController@store')->name('my-transactions.store');
 
     //payment controller
 

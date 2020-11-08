@@ -5697,3 +5697,7 @@ Inverted responsive classes
 
   .text-amount-big{ color: #24a8e0; font-size: 2.0rem !important; font-weight: bold;}
   .boxedz h3{ font-weight: normal !important;}
+
+  .breadcrumb li a:hover {
+    color: #325c92 !important;
+}

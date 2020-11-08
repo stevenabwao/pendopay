@@ -101,3 +101,13 @@ hr{margin: 20px 0 !important;}
 body{
     background-color: rgb(228, 237, 243);
 }
+.menu-cnt, footer { font-family: 'Montserrat', sans-serif !important; }
+
+.md-form.radiobtn label {
+    position: relative;
+    top: 0;
+}
+.md-form.radiobtn .radioform:not(:last-child) {
+    margin-right: 30px;
+}
+

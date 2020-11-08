@@ -1,18 +1,12 @@
-{{-- @if (trim($__env->yieldContent('page_title'))) --}}
 @hasSection('page_title')
 
     <header class="header-image ken-burn-center light" data-parallax="true" data-natural-height="500" data-natural-width="1920" data-bleed="0" data-image-src="media/hd-wide-4.jpg" data-offset="0">
         <div class="container">
+
             <h1>@yield('page_title')</h1>
-            {{-- <h2>@yield('page_subtitle')</h2> --}}
 
             @yield('page_breadcrumbs')
 
-            {{-- <ol class="breadcrumb">
-                <li><a href="index-2.html">Home</a></li>
-                <li><a href="#">Pages</a></li>
-                <li><a href="#">Services</a></li>
-            </ol> --}}
         </div>
     </header>
 

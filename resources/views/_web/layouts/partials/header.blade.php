@@ -55,7 +55,9 @@
                 </li>
 
             </ul>
+
             <div class="menu-right">
+
                 <div class="custom-area">
                     {!! ($site_settings['company_location']) !!}
                 </div>
