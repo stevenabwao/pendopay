@@ -179,8 +179,8 @@ Route::group(['middleware' => 'auth'], function() {
 
     //payment controller
 
-    Route::get('/payments','PaymentController@index')->name('payments');
-    Route::get('/all-payments','PaymentController@store')->name('all-payments');
+    Route::get('/my-payments','PaymentController@index')->name('my-payments.index');
+    Route::get('/all-payments','PaymentController@store')->name('my-payments');
 
 
 	Route::post('logout', 'Auth\LoginController@logout')->name('logout');

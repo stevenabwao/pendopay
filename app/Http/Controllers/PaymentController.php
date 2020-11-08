@@ -13,7 +13,7 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        return view('_web.payments');
+        return view('_web.my-payments.index');
     }
 
     /**
