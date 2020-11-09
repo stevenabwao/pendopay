@@ -2,19 +2,19 @@
 
 @section('title')
     Create New Transaction
-    @if ($new_item_data['trans_message'])
-     - {{ $new_item_data['trans_message'] }}
+    @if ($trans_data['trans_message'])
+     - {{ $trans_data['trans_message'] }}
     @endif
 @endsection
 
 @section('page_title')
     Create New Transaction
-    @if ($new_item_data['trans_message'])
-     - {{ $new_item_data['trans_message'] }}
+    @if ($trans_data['trans_message'])
+     - {{ $trans_data['trans_message'] }}
     @endif
 @endsection
 
-{{-- {{ dd($new_item_data) }} --}}
+{{-- {{ dd($trans_data) }} --}}
 
 @section('page_breadcrumbs')
     {!! Breadcrumbs::render('my-transactions.create') !!}
@@ -39,8 +39,8 @@
                     </div>
                     <div class="row justify-content-center form-title">
                         <h3>Create New Transaction
-                            @if ($new_item_data['trans_message'])
-                            - {{ $new_item_data['trans_message'] }}
+                            @if ($trans_data['trans_message'])
+                            - {{ $trans_data['trans_message'] }}
                             @endif
                         </h3>
                     </div>
@@ -49,13 +49,15 @@
 
                         {{ csrf_field() }}
 
+                        <h3>Transaction summary:</h3>
+
                         <div class="md-form mat-2 mx-auto">
-                            <input type="text" value="{{ $new_item_data['title'] }}" name="title" disabled>
+                            <input type="text" value="{{ $trans_data['title'] }}" name="title" disabled>
                             <label for="title">Transaction Title</label>
                         </div>
 
                         <div class="md-form mat-2 mx-auto">
-                            <input type="text" value="{{ $new_item_data['transaction_amount'] }}" name="transaction_amount" disabled>
+                            <input type="text" value="{{ $trans_data['transaction_amount'] }}" name="transaction_amount" disabled>
                             <label for="transaction_amount">Transaction Amount</label>
 
                             @if ($errors->has('transaction_amount'))
@@ -65,10 +67,37 @@
                             @endif
                         </div>
 
+                        <hr>
+
+                        <h3>Enter any of the following:</h3>
+
+                        <div class="md-form mat-2 mx-auto radiobtn">
+
+                            <label class="date" for="enter_details">Select seller/ buyer details to enter</label>
+                            <div class="row justify-content-center">
+
+                                <div class="form-check form-check-inline radioform">
+                                  <input type="radio" class="form-check-input" value="phone" checked="checked" name="enter_details">
+                                  <label class="form-check-label" for="materialInline1">Phone No</label>
+                                </div>
+
+                                <div class="form-check form-check-inline radioform">
+                                  <input type="radio" class="form-check-input" value="email" name="enter_details">
+                                  <label class="form-check-label" for="materialInline2">Email</label>
+                                </div>
+
+                                <div class="form-check form-check-inline radioform">
+                                  <input type="radio" class="form-check-input" value="id_no" name="enter_details">
+                                  <label class="form-check-label" for="materialInline2">National ID No</label>
+                                </div>
+
+                            </div>
+
+                        </div>
+
                         <div class="md-form mat-2 mx-auto">
-                            <input type="text" value="{{ old('user_id') }}"
-                                class="form-control datepicker" name="user_id">
-                            <label class="date" for="user_id">Enter User ID</label>
+                            <input type="text" value="{{ old('user_id') }}" class="form-control" name="user_id">
+                            <label class="date" for="user_id">Enter Details Here</label>
                             <div>
                                 @if ($errors->has('user_id'))
                                     <div class="help-block">
@@ -78,9 +107,9 @@
                             </div>
                         </div>
 
-                        <div class="md-form mat-2 mx-auto">
+                        {{-- <div class="md-form mat-2 mx-auto">
                             <input type="text" value="{{ old('phone') }}"
-                                class="form-control datepicker" name="phone">
+                                class="form-control" name="phone">
                             <label class="date" for="phone">Enter User Phone</label>
                             <div>
                                 @if ($errors->has('phone'))
@@ -102,7 +131,7 @@
                                     </div>
                                 @endif
                             </div>
-                        </div>
+                        </div> --}}
 
                         <hr>
 

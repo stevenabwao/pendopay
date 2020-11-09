@@ -2900,7 +2900,7 @@ function getCompanyLoanProductSetting($company_id, $loan_product_id) {
 
 }
 
-// start general helpers
+// statuses
 function getPendoAdminAppName() {
     return config('constants.settings.pendoapi_app_name');
 }
@@ -2934,6 +2934,14 @@ function getStatusSent() {
 function getStatusPaid() {
     return config('constants.status.paid');
 }
+function getStatusCompleted() {
+    return config('constants.status.completed');
+}
+function getStatusCancelled() {
+    return config('constants.status.cancelled');
+}
+
+// site
 function getSiteUrl() {
     return config('constants.site.url');
 }
@@ -2953,6 +2961,32 @@ function getDefaultBranchCd() {
 }
 function getDefaultAccountTypeCd() {
     return config('constants.account_settings.default_account_type_cd');
+}
+
+// transaction roles
+function getTransactionRoleBuyer() {
+    return config('constants.transactionroles.buyer');
+}
+function getTransactionRoleSeller() {
+    return config('constants.transactionroles.seller');
+}
+function getSelectTransactionBuyerText() {
+    return config('constants.transactionroles.select_buyer_text');
+}
+function getSelectTransactionSellerText() {
+    return config('constants.transactionroles.select_seller_text');
+}
+function getSelectTransactionBuyerSellerText() {
+    return config('constants.transactionroles.select_buyer_seller_text');
+}
+function getWaitForSellerToAcceptText() {
+    return config('constants.transactionroles.wait_seller_accept_text');
+}
+function getWaitForBuyerToAcceptText() {
+    return config('constants.transactionroles.wait_buyer_accept_text');
+}
+function getAcceptToProceedText() {
+    return config('constants.transactionroles.accept_to_proceed_text');
 }
 
 // gl account types
@@ -3035,6 +3069,108 @@ function getPasswordResetSmsType() {
 }
 
 // end sms types
+
+// get transaction role
+function getTransactionRole($trans_data) {
+
+    // dd($trans_data);
+    $logged_user = getLoggedUser();
+    $trans_role = "";
+
+    if ($logged_user->id == $trans_data->buyer_user_id) {
+        $trans_role = getTransactionRoleBuyer();
+    } else if ($logged_user->id == $trans_data->seller_user_id) {
+        $trans_role = getTransactionRoleSeller();
+    }
+
+    return $trans_role;
+
+}
+
+// check if user created the transaction
+function isTransactionCreator($trans_data) {
+
+    // dd($trans_data);
+    $logged_user = getLoggedUser();
+    $is_creator = false;
+
+    if ($logged_user->id == $trans_data->created_by) {
+        $is_creator = true;
+    }
+
+    return $is_creator;
+
+}
+
+// get transaction role user message
+function getTransactionRoleUserMessage($transaction_role, $item_data) {
+
+    $trans_role_msg = "";
+
+    switch ($item_data->status_id) {
+
+        case getStatusInactive():
+
+            if ($transaction_role == getTransactionRoleBuyer()) {
+                $trans_role_msg = getSelectTransactionSellerText();
+            } else if ($transaction_role == getTransactionRoleSeller()) {
+                $trans_role_msg = getSelectTransactionBuyerText();
+            }
+            $trans_message = $trans_role_msg;
+            break;
+
+        case getStatusPending():
+
+            if (isTransactionCreator($item_data)) {
+                if ($transaction_role == getTransactionRoleBuyer()) {
+                    $trans_role_msg = getWaitForSellerToAcceptText();
+                } elseif ($transaction_role == getTransactionRoleSeller()) {
+                    $trans_role_msg = getWaitForBuyerToAcceptText();
+                }
+            } else {
+                $trans_role_msg = getAcceptToProceedText();
+            }
+            $trans_message = $trans_role_msg;
+            break;
+
+        case getStatusActive():
+
+            $trans_role_msg = "Active";
+            $trans_message = $trans_role_msg;
+            break;
+
+        case getStatusCompleted():
+
+            $trans_role_msg = "Completed";
+            $trans_message = $trans_role_msg;
+            break;
+
+        case getStatusCancelled():
+
+            $trans_role_msg = "Cancelled";
+            $trans_message = $trans_role_msg;
+            break;
+
+
+        default:
+            $trans_message = getSelectTransactionBuyerSellerText();
+
+    }
+
+    return $trans_message;
+
+}
+
+// get my transaction message
+function getMyTransactionMessage($item_data) {
+
+    $transaction_role = getTransactionRole($item_data);
+
+    $transaction_role_msg = getTransactionRoleUserMessage($transaction_role, $item_data);
+
+    return $transaction_role_msg;
+
+}
 
 // get barddy company id
 function getBarddyCompanyId() {

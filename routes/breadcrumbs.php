@@ -186,7 +186,7 @@ Breadcrumbs::register('my-transactions.show', function($breadcrumbs, $id)
 {
     $transaction = Transaction::findOrFail($id);
     $breadcrumbs->parent('my-transactions.index');
-    $breadcrumbs->push($transaction->name, route('my-transactions.show', $transaction->id));
+    $breadcrumbs->push($transaction->title, route('my-transactions.show', $transaction->id));
 });
 
 // Home > My Transactions > Edit Transaction

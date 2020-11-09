@@ -56,23 +56,44 @@ class Transaction extends BaseModel
         return $this->id . '-' . $this->permalink;
     }
 
-    // add accessor for club url
+    // add accessor for url
     public function getUrlAttribute()
     {
 
-        $app_url = config('app.url');
-        $restaurant_cat_id = config('constants.establishments.restaurant_cat_id');
-
-        $link_text = config('constants.establishments.club_cat_text');
-        if ($this->attributes['category_id'] == $restaurant_cat_id) {
-            $link_text = config('constants.establishments.restaurant_cat_text');
+        if ($this->status_id == getStatusInactive()) {
+            // link to create step 2
+            $url = route('my-transactions.create-step2', ['id'=>$this->id]);
+        } else {
+            // link to show
+            $url = route('my-transactions.show', ['id'=>$this->id]);
         }
 
-        // generate url
-        $the_url = $app_url . "/$link_text/" . $this->attributes['id'] . '-' . $this->attributes['permalink'];
+        return $url;
 
-        return $the_url;
+    }
 
+    // add accessor for trans date
+    public function getFormattedTransactionDateAttribute()
+    {
+        return formatDatePickerDate($this->transaction_date, 'd-M-Y');
+    }
+
+    // add accessor for trans amount
+    public function getFormattedTransactionAmountAttribute()
+    {
+        return formatCurrency($this->transaction_amount);
+    }
+
+    // add accessor for user role in trans
+    public function getUserTransactionRoleAttribute()
+    {
+        if (getLoggedUser()->id == $this->seller_user_id) {
+            return 'SELLER';
+        } else if (getLoggedUser()->id == $this->buyer_user_id) {
+            return 'BUYER';
+        } else {
+            return '';
+        }
     }
 
     // add accessor for image

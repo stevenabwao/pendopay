@@ -56,6 +56,16 @@
             'sms' => 'sms',
             'email' => 'email',
         ],
+        'transactionroles' => [
+            'buyer' => 'buyer',
+            'seller' => 'seller',
+            'select_buyer_text' => 'Please Select Buyer',
+            'select_seller_text' => 'Please Select Seller',
+            'select_buyer_seller_text' => 'Please Select Buyer/ Seller',
+            'wait_seller_accept_text' => 'Please wait for seller to accept',
+            'wait_buyer_accept_text' => 'Please wait for buyer to accept',
+            'accept_to_proceed_text' => 'Please accept request to proceed',
+        ],
         'sitefunctions' => [
             'registration' => 'registration',
             'passwordreset' => 'passwordreset',

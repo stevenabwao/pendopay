@@ -11,14 +11,6 @@ class MyTransactionStore
     public function createItem($attributes) {
         // dd($attributes);
 
-        /*
-        "title" => "Sale of Furniture"
-        "transaction_amount" => "30000"
-        "transaction_date" => "08-12-2020"
-        "transaction_role" => "seller"
-        "terms" => "on"
-        */
-
         $response = [];
 
         DB::beginTransaction();
@@ -34,12 +26,12 @@ class MyTransactionStore
 
         // check the role
         $transaction_role_message = "";
-        if ($transaction_role == 'buyer') {
+        if ($transaction_role == getTransactionRoleBuyer()) {
             $attributes['buyer_user_id'] = $logged_user->id;
-            $transaction_role_message = "Please select seller";
-        } else if ($transaction_role == 'seller') {
+            $transaction_role_message = getSelectTransactionSellerText();
+        } else if ($transaction_role == getTransactionRoleSeller()) {
             $attributes['seller_user_id'] = $logged_user->id;
-            $transaction_role_message = "Please select buyer";
+            $transaction_role_message = getSelectTransactionBuyerText();
         }
 
         // add status_id

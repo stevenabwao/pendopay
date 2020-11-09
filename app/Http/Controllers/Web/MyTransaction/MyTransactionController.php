@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Web\MyTransaction;
 
-use App\Entities\ShoppingCartItem;
+use App\Entities\Transaction;
 use App\Entities\Status;
 use App\Http\Controllers\Controller;
 use App\Services\MyTransaction\MyTransactionIndex;
@@ -22,7 +22,7 @@ class MyTransactionController extends Controller
      *
      * @param ShoppingCartItem $model
      */
-    public function __construct(ShoppingCartItem $model)
+    public function __construct(Transaction $model)
     {
         $this->model = $model;
     }
@@ -50,18 +50,6 @@ class MyTransactionController extends Controller
         return view('_web.my-transactions.index', [
             'transactions' => $data,
             'statuses' => $statuses
-        ]);
-
-    }
-
-    public function index2(Request $request)
-    {
-
-        // get trans data
-        $my_transactions = "";
-
-        return view('_web.my-transactions', [
-            'my_transactions' => $my_transactions
         ]);
 
     }
@@ -95,12 +83,8 @@ class MyTransactionController extends Controller
             // display screen to ask user to enter details of buyer/ seller
             Session::flash('success', $success_message);
             return redirect(route('my-transactions.create-step2', [
-                'new_item_data' => $new_item_data
+                'id' => $new_item_data->id
             ]));
-
-            /* return view('_web.my-transactions.create_step2', [
-                'new_item_data' => $new_item_data
-            ]); */
 
         } catch (\Exception $e) {
 
@@ -113,12 +97,47 @@ class MyTransactionController extends Controller
     }
 
     // ask user to select buyer/ seller
-    public function create_step2(Request $request)
+    public function create_step2($id, Request $request)
     {
 
-        // dd($request->new_item_data);
 
-        return view('_web.my-transactions.create_step2', ['new_item_data' => $request->new_item_data]);
+        $itemdata = $this->model->where('id', $id)
+                       ->where('status_id', getStatusInactive())
+                       ->first();
+
+        $trans_message = getMyTransactionMessage($itemdata);
+        $itemdata->trans_message = $trans_message;
+
+        return view('_web.my-transactions.create_step2', [
+            'trans_data' => $itemdata
+        ]);
+    }
+
+    public function show($id)
+    {
+
+        // get logged user
+        $logged_user_id = getLoggedUser()->id;
+
+        // get statuses array
+        $status_ids_array = [];
+        $status_ids_array[] = getStatusPending();
+        $status_ids_array[] = getStatusActive();
+        $status_ids_array[] = getStatusCompleted();
+        $status_ids_array[] = getStatusCancelled();
+        $status_ids_array[] = getStatusExpired();
+
+        // get records where user is seller or buyer
+        $transaction = $this->model->where('id', $id)
+                       ->whereIn('status_id', $status_ids_array)
+                       ->where(function($q) use ($logged_user_id){
+                            $q->orWhere('seller_user_id', '=', $logged_user_id);
+                            $q->orWhere('buyer_user_id', '=', $logged_user_id);
+                       })
+                       ->firstOrFail();
+
+        return view('_web.my-transactions.show', compact('transaction'));
+
     }
 
 }

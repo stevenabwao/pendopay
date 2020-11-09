@@ -8,6 +8,7 @@
 <script src="{{ asset('js/imagesloaded.min.js') }}"></script>
 <script src="{{ asset('js/progress.js') }}" async></script>
 <script src="{{ asset('js/contact-form/contact-form.js') }}" async></script>
+<script src="{{ asset('js/sticky-kit.min.js') }}" async></script>
 
 <script src="{{ asset('myjs/moment.min.js') }}"></script>
 

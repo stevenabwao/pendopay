@@ -78,12 +78,14 @@
                             <div class="row justify-content-center">
 
                                 <div class="form-check form-check-inline radioform">
-                                  <input type="radio" class="form-check-input" value="seller" name="transaction_role">
+                                  <input type="radio" class="form-check-input" value="{{ getTransactionRoleSeller() }}"
+                                    checked="checked" name="transaction_role">
                                   <label class="form-check-label" for="materialInline1">Seller</label>
                                 </div>
 
                                 <div class="form-check form-check-inline radioform">
-                                  <input type="radio" class="form-check-input" value="buyer" name="transaction_role">
+                                  <input type="radio" class="form-check-input" value="{{ getTransactionRoleBuyer() }}"
+                                    name="transaction_role">
                                   <label class="form-check-label" for="materialInline2">Buyer</label>
                                 </div>
 
