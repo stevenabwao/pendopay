@@ -5705,6 +5705,6 @@ Inverted responsive classes
 .firstHeading{ color: #325c92; font-weight: bold; font-size: 1.2rem; }
 #bodyContent p, .bodyContent p {
     /* float: left; */
-    font-weight: 300; font-size: 1.1rem !important;
+    font-weight: 300; font-size: 1.0rem !important;
     line-height: 24px;
 }
