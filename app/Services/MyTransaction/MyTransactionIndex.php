@@ -87,6 +87,9 @@ class MyTransactionIndex
             $limit = $request->get('limit', config('app.short_pagination_limit'));
             $data = $data->paginate($limit);
 
+            // limit number of pagination links onn each side of current page
+            /* $data = $data->onEachSide(2); */
+
             //add query params
             if ($request->has('order_by')) {
                 $data->appends('order_by', $request->get('order_by'));

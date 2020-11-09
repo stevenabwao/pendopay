@@ -131,7 +131,7 @@ class HomeController extends BaseController
         $rules = [
             'name' => 'required',
             'subject' => 'required',
-            'phone' => 'required|phone',
+            'phone' => 'required|phone:KE',
             'message' => 'required',
         ];
 
@@ -144,18 +144,22 @@ class HomeController extends BaseController
         }
 
         //create item
-        $new_contact = $contactStore->createItem($request->all());
-        $new_contact = json_decode($new_contact);
-        $result_message = $new_contact->message;
-        //dd($result_message);
+        try {
+            $new_contact = $contactStore->createItem($request->all());
+            $new_contact = json_decode($new_contact);
+            $result_message = $new_contact->message;
+            //dd($result_message);
 
-        if (!$new_contact->error) {
             $new_contact = $result_message->message;
             Session::flash('success', 'Your message has been successfully sent');
             return redirect()->route('contactus');
-        } else {
-            Session::flash('error', $result_message->message);
-            return redirect()->back()->withInput()->withErrors($result_message->message);
+
+        } catch(\Exception $e) {
+
+            $error_message = $e->getMessage();
+            Session::flash('error', $error_message);
+            return redirect()->back()->withInput()->withErrors($error_message);
+
         }
 
     }
