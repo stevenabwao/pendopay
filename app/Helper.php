@@ -6795,6 +6795,70 @@ function createNewReminderMessageDetail($company_id, $reminder_message_id,
 
 }
 
+// is the user sending a request to himself/ herself?
+function getSentFieldName($partner_details_select) {
+
+    if ($partner_details_select == 'phone') {
+        return "Phone No";
+    } else if ($partner_details_select == 'id_no') {
+        return "National ID No";
+    } else if ($partner_details_select == 'email') {
+        return "Email Address";
+    }
+
+    return "";
+
+}
+
+// is the user sending a request to himself/ herself?
+function isLoggedUserDetails($partner_details_select, $transaction_partner_details) {
+
+    $logged_user_data = getLoggedUser();
+    $logged_user_phone = $logged_user_data->phone;
+    $logged_user_email = $logged_user_data->email;
+    $logged_user_id_no = $logged_user_data->id_no;
+
+    if ($partner_details_select == 'phone') {
+        // check if supplied phone is the same as logged user phone
+        if ($logged_user_phone == getDatabasePhoneNumber($transaction_partner_details)){
+            return true;
+        }
+    } else if ($partner_details_select == 'id_no') {
+        // check if supplied id_no is the same as logged user id_no
+        if ($logged_user_id_no == $transaction_partner_details){
+            return true;
+        }
+    } else if ($partner_details_select == 'email') {
+        // check if supplied email is the same as logged user email
+        if ($logged_user_email == $transaction_partner_details){
+            return true;
+        }
+    }
+
+    return false;
+
+}
+
+/* getgetTransUserData($partner_details_select, $transaction_partner_details) */
+function getTransUserData($partner_details_select, $transaction_partner_details) {
+
+    $user_data = new User();
+
+    if ($partner_details_select == 'phone') {
+        $user_data = $user_data->where('phone', getDatabasePhoneNumber($transaction_partner_details));
+    } else if ($partner_details_select == 'id_no') {
+        $user_data = $user_data->where('id_no', $transaction_partner_details);
+    } else if ($partner_details_select == 'email') {
+        $user_data = $user_data->where('email', $transaction_partner_details);
+    }
+
+    // dont get logged user data
+    $user_data = $user_data->where('id', '!=', getLoggedUser()->id)->first();
+
+    return $user_data;
+
+}
+
 
 /*generate user account number*/
 function generate_user_cd() {

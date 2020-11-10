@@ -7,6 +7,8 @@ use App\Entities\Status;
 use App\Http\Controllers\Controller;
 use App\Services\MyTransaction\MyTransactionIndex;
 use App\Services\MyTransaction\MyTransactionStore;
+use App\Services\MyTransaction\MyTransactionStoreStepTwo;
+use App\User;
 use Illuminate\Http\Request;
 use Session;
 
@@ -111,6 +113,143 @@ class MyTransactionController extends Controller
         return view('_web.my-transactions.create_step2', [
             'trans_data' => $itemdata
         ]);
+    }
+
+    public function storeStep2(Request $request, MyTransactionStoreStepTwo $myTransactionStoreStepTwo)
+    {
+
+        $this->validate($request, [
+            'partner_details_select' => 'required',
+            'transaction_partner_details' => 'required'
+        ]);
+        $request_id = $request->id;
+
+        //create item
+        try {
+            $new_item = $myTransactionStoreStepTwo->createItem($request->all());
+            $new_item_decode = json_decode($new_item);
+            $new_item_message = $new_item_decode->message;
+
+            // check if we found the user
+            if ($new_item_message->error) {
+
+                // error occured, user not found
+                $result = $new_item_message->message;
+                $the_message = $result->message;
+                // dd($the_message);
+
+                // show user form asking them to enter user email or phone OR go back and search again
+                return redirect(route('my-transactions.create-step3', [
+                    'id' => $request_id,
+                    'error_message' => $the_message
+                ]));
+
+            } else {
+
+                // no error user was found
+                $result = $new_item_message->message;
+                $user_data = $result->data;
+                // dd($user_data);
+
+                // show user form asking them to send request to this user
+                return redirect(route('my-transactions.create-step3', [
+                    'id' => $request_id,
+                    'user_id' => $user_data->id
+                ]));
+
+            }
+
+        } catch (\Exception $e) {
+
+            $error_message = $e->getMessage();
+            Session::flash('error', $error_message);
+            return redirect()->back()->withInput()->withErrors($error_message);
+
+        }
+
+    }
+
+    // send transaction request selected buyer/ seller
+    public function create_step3($id, Request $request)
+    {
+
+        $user_id = NULL;
+        $error_message = "";
+        $itemdata = NULL;
+        $userdata = NULL;
+        // dd("chh", $request->all());
+
+        // error message
+        if ($request->error_message) {
+            $error_message = $request->error_message;
+        }
+
+        // user data
+        if ($request->user_id) {
+            $user_id = $request->user_id;
+            $userdata = User::find($user_id);
+
+            $itemdata = $this->model->where('id', $id)
+                       ->where('status_id', getStatusInactive())
+                       ->first();
+
+            $trans_message = getMyTransactionMessage($itemdata);
+            $itemdata->trans_message = $trans_message;
+        }
+
+        return view('_web.my-transactions.create_step3', [
+            'id' => $id,
+            'trans_data' => $itemdata,
+            'user_data' => $userdata,
+            'error_message' => $error_message
+        ]);
+    }
+
+    public function storeStep3(Request $request, MyTransactionStoreStepTwo $myTransactionStoreStepTwo)
+    {
+
+        $this->validate($request, [
+            'partner_details_select' => 'required',
+            'transaction_partner_details' => 'required'
+        ]);
+
+        //create item
+        try {
+            $new_item = $myTransactionStoreStepTwo->createItem($request->all());
+            $new_item_decode = json_decode($new_item);
+            $new_item_message = $new_item_decode->message;
+
+            // check if we found the user
+            if ($new_item_message->error) {
+                // error occured, user not found
+                $result = $new_item_message->message;
+                $the_message = $result->message;
+                // show user form asking them to enter user email or phone OR go back and search again
+                dd($the_message);
+            } else {
+                // no error user was found
+                $result = $new_item_message->message;
+                $new_item_data = $result->data;
+                // show user form asking them to send request to this user
+                dd($new_item_data);
+            }
+            dd("end");
+
+            // check whether user is buyer or seller
+            // display screen to ask user to enter details of buyer/ seller
+            /* Session::flash('success', $the_message);
+            return redirect(route('my-transactions.create-step2', [
+                'id' => $new_item_data->id
+            ])); */
+
+        } catch (\Exception $e) {
+
+            $error_message = $e->getMessage();
+            Session::flash('error', $error_message);
+            return redirect()->back()->withInput()->withErrors($error_message);
+
+        }
+
     }
 
     public function show($id)

@@ -25,127 +25,89 @@
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-6" >
-
-        <div class="card">
-
-            <div class="card-body">
-
-                <div class="row justify-content-center">
-                    <img  class="" src="{{ asset('images/login_icon.png') }}" />
-                    <br>
-
-                    <p class="card-text">
+        <div class="col-md-7" >
+            <div class="card">
+                <div class="card-body">
+                    <div class="row justify-content-center">
+                        <img  class="" src="{{ asset('images/login_icon.png') }}" />
+                        <br>
+                        <p class="card-text">
                     </div>
                     <div class="row justify-content-center form-title">
-                        <h3>Create New Transaction
-                            @if ($trans_data['trans_message'])
-                            - {{ $trans_data['trans_message'] }}
-                            @endif
-                        </h3>
+                    <h3>Create New Transaction
+                        @if ($trans_data['trans_message'])
+                        - {{ $trans_data['trans_message'] }}
+                        @endif
+                    </h3>
                     </div>
-
-                    <form action="{{ route('my-transactions.store') }}" class="form-box" method="post">
+                    <form action="{{ route('my-transactions.store-step2') }}" class="form-box" method="post">
 
                         {{ csrf_field() }}
 
                         <h3>Transaction summary:</h3>
-
                         <div class="md-form mat-2 mx-auto">
                             <input type="text" value="{{ $trans_data['title'] }}" name="title" disabled>
+                            <input type="hidden" value="{{ $trans_data['id'] }}" name="id">
                             <label for="title">Transaction Title</label>
                         </div>
 
                         <div class="md-form mat-2 mx-auto">
                             <input type="text" value="{{ $trans_data['transaction_amount'] }}" name="transaction_amount" disabled>
                             <label for="transaction_amount">Transaction Amount</label>
-
                             @if ($errors->has('transaction_amount'))
-                                <div class="help-block">
-                                    <strong>{{ $errors->first('transaction_amount') }}</strong>
-                                </div>
+                            <div class="help-block">
+                                <strong>{{ $errors->first('transaction_amount') }}</strong>
+                            </div>
                             @endif
                         </div>
-
                         <hr>
 
                         <h3>Enter any of the following:</h3>
-
                         <div class="md-form mat-2 mx-auto radiobtn">
-
-                            <label class="date" for="enter_details">Select seller/ buyer details to enter</label>
+                            <label class="date" for="trans_partner_details">Select seller/ buyer details to enter</label>
                             <div class="row justify-content-center">
-
                                 <div class="form-check form-check-inline radioform">
-                                  <input type="radio" class="form-check-input" value="phone" checked="checked" name="enter_details">
-                                  <label class="form-check-label" for="materialInline1">Phone No</label>
+                                    <input type="radio" class="form-check-input" value="phone" name="partner_details_select"
+                                        {{ old('partner_details_select', 'phone') == 'phone' ? 'checked' : ''}}>
+                                    <label class="form-check-label" for="materialInline1">Phone No</label>
                                 </div>
-
                                 <div class="form-check form-check-inline radioform">
-                                  <input type="radio" class="form-check-input" value="email" name="enter_details">
-                                  <label class="form-check-label" for="materialInline2">Email</label>
+                                    <input type="radio" class="form-check-input" value="email" name="partner_details_select"
+                                        {{ old('partner_details_select') == 'email' ? 'checked' : ''}}>
+                                    <label class="form-check-label" for="materialInline2">Email Address</label>
                                 </div>
-
                                 <div class="form-check form-check-inline radioform">
-                                  <input type="radio" class="form-check-input" value="id_no" name="enter_details">
-                                  <label class="form-check-label" for="materialInline2">National ID No</label>
+                                    <input type="radio" class="form-check-input" value="id_no" name="partner_details_select"
+                                        {{ old('partner_details_select') == 'id_no' ? 'checked' : ''}}>
+                                    <label class="form-check-label" for="materialInline2">National ID No</label>
                                 </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="md-form mat-2 mx-auto">
-                            <input type="text" value="{{ old('user_id') }}" class="form-control" name="user_id">
-                            <label class="date" for="user_id">Enter Details Here</label>
-                            <div>
-                                @if ($errors->has('user_id'))
-                                    <div class="help-block">
-                                        <strong>{{ $errors->first('user_id') }}</strong>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-
-                        {{-- <div class="md-form mat-2 mx-auto">
-                            <input type="text" value="{{ old('phone') }}"
-                                class="form-control" name="phone">
-                            <label class="date" for="phone">Enter User Phone</label>
-                            <div>
-                                @if ($errors->has('phone'))
-                                    <div class="help-block">
-                                        <strong>{{ $errors->first('phone') }}</strong>
-                                    </div>
-                                @endif
                             </div>
                         </div>
 
                         <div class="md-form mat-2 mx-auto">
-                            <input type="text" value="{{ old('email') }}"
-                                class="form-control datepicker" name="email">
-                            <label class="date" for="email">Enter User Email</label>
+                            <input type="text" value="{{ old('transaction_partner_details') }}" class="form-control" name="transaction_partner_details">
+                            <label class="date" for="transaction_partner_details">Enter Details Here</label>
                             <div>
-                                @if ($errors->has('email'))
-                                    <div class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </div>
+                                @if ($errors->has('transaction_partner_details'))
+                                <div class="help-block">
+                                    <strong>{{ $errors->first('transaction_partner_details') }}</strong>
+                                </div>
                                 @endif
                             </div>
-                        </div> --}}
-
+                        </div>
                         <hr>
 
                         <div class="inputs row">
                             <button class="btn btn-xs" type="submit">Submit</button>
                         </div>
-                        </form>
 
-                </p>
+                    </form>
+
+                    </p>
+                </div>
             </div>
-          </div>
         </div>
         </div>
-
     </div>
 
 @endsection
