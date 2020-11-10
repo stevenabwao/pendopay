@@ -31,31 +31,24 @@
 
                                 {{ csrf_field() }}
 
-                                <div>
-
-                                    <div class="md-form mat-2 mx-auto">
-                                        <input type="text" value="{{ old('username') }}" name="username" class="active">
-                                        <label for="example">Phone/ Email</label>
-                                    </div>
+                                <div class="md-form mat-2 mx-auto">
+                                    <input type="text" value="{{ old('username') }}" name="username" class="active">
+                                    <label for="example">Phone/ Email</label>
                                     @if ($errors->has('username'))
                                         <div class="help-block">
                                             <strong>{{ $errors->first('username') }}</strong>
                                         </div>
                                     @endif
-
                                 </div>
-                                <div>
 
-                                    <div class="md-form mat-2 mx-auto">
-                                        <input type="password" name="password" value="{{ old('password') }}" class="active">
-                                        <label for="example">Password</label>
-                                    </div>
+                                <div class="md-form mat-2 mx-auto">
+                                    <input type="password" name="password" value="{{ old('password') }}" class="active">
+                                    <label for="example">Password</label>
                                     @if ($errors->has('password'))
                                         <div class="help-block">
                                             <strong>{{ $errors->first('password') }}</strong>
                                         </div>
                                     @endif
-
                                 </div>
 
                                 <div class="inputs mt-2">

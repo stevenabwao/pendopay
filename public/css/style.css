@@ -5701,3 +5701,10 @@ Inverted responsive classes
   .breadcrumb li a:hover {
     color: #325c92 !important;
 }
+
+.firstHeading{ color: #325c92; font-weight: bold; font-size: 1.2rem; }
+#bodyContent p, .bodyContent p {
+    /* float: left; */
+    font-weight: 300; font-size: 1.0rem !important;
+    line-height: 24px;
+}

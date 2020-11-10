@@ -33,7 +33,6 @@
                         <a href="#">My Account</a>
                         <ul>
                             <li><a href="{{ route('my-transactions.index') }}">My Transactions</a></li>
-                            <li><a href="{{ route('my-transactions2.index') }}">My Transactions V2</a></li>
                             <li><a href="{{ route('my-payments.index') }}">My Payments</a></li>
                         </ul>
                     </li>

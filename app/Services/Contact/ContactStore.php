@@ -39,6 +39,7 @@ class ContactStore
             if (array_key_exists('g-recaptcha-response', $attributes)) {
                 $captcha = $attributes['g-recaptcha-response'];
             }
+            // dd($phone);
 
             //get user data
             try{
@@ -52,6 +53,7 @@ class ContactStore
                 $message = "Please confirm the security box ";
                 throw new \Exception($message);
             }
+            // dd($attributes);
 
             $site_settings = getSiteSettings();
             $secretKey = $site_settings['recaptcha_secret_key'];
@@ -130,8 +132,6 @@ class ContactStore
 
                 DB::rollback();
                 $message = $e->getMessage();
-                /* $response["message"] = $message;
-                return show_json_error($response); */
                 throw new \Exception($message);
 
             }

@@ -2,11 +2,19 @@
 
 @section('title')
     Create New Transaction
+    @if ($trans_data['trans_message'])
+     - {{ $trans_data['trans_message'] }}
+    @endif
 @endsection
 
 @section('page_title')
     Create New Transaction
+    @if ($trans_data['trans_message'])
+     - {{ $trans_data['trans_message'] }}
+    @endif
 @endsection
+
+{{-- {{ dd($trans_data) }} --}}
 
 @section('page_breadcrumbs')
     {!! Breadcrumbs::render('my-transactions.create') !!}
@@ -30,26 +38,26 @@
                     <p class="card-text">
                     </div>
                     <div class="row justify-content-center form-title">
-                        <h3>Create New Transaction</h3>
+                        <h3>Create New Transaction
+                            @if ($trans_data['trans_message'])
+                            - {{ $trans_data['trans_message'] }}
+                            @endif
+                        </h3>
                     </div>
 
                     <form action="{{ route('my-transactions.store') }}" class="form-box" method="post">
 
                         {{ csrf_field() }}
 
-                        <div class="md-form mat-2 mx-auto">
-                            <input type="text" value="{{ old('title', 'Sale of Furniture') }}" name="title" >
-                            <label for="title">Transaction Title</label>
+                        <h3>Transaction summary:</h3>
 
-                            @if ($errors->has('title'))
-                                <div class="help-block">
-                                    <strong>{{ $errors->first('title') }}</strong>
-                                </div>
-                            @endif
+                        <div class="md-form mat-2 mx-auto">
+                            <input type="text" value="{{ $trans_data['title'] }}" name="title" disabled>
+                            <label for="title">Transaction Title</label>
                         </div>
 
                         <div class="md-form mat-2 mx-auto">
-                            <input type="text" value="{{ old('transaction_amount', '30000') }}" name="transaction_amount" >
+                            <input type="text" value="{{ $trans_data['transaction_amount'] }}" name="transaction_amount" disabled>
                             <label for="transaction_amount">Transaction Amount</label>
 
                             @if ($errors->has('transaction_amount'))
@@ -59,60 +67,71 @@
                             @endif
                         </div>
 
-                        <div class="md-form mat-2 mx-auto">
-                            <input type="text" value="{{ old('transaction_date', '08-12-2020') }}"
-                                class="form-control datepicker" name="transaction_date">
-                            <label class="date" for="transaction_date">Expected Final Transaction Date</label>
-                            <div>
-                                @if ($errors->has('transaction_date'))
-                                    <div class="help-block">
-                                        <strong>{{ $errors->first('transaction_date') }}</strong>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
+                        <hr>
+
+                        <h3>Enter any of the following:</h3>
 
                         <div class="md-form mat-2 mx-auto radiobtn">
 
-                            <label class="date" for="transaction_role">Your Role In The Transaction</label>
+                            <label class="date" for="enter_details">Select seller/ buyer details to enter</label>
                             <div class="row justify-content-center">
 
                                 <div class="form-check form-check-inline radioform">
-                                  <input type="radio" class="form-check-input" value="{{ getTransactionRoleSeller() }}"
-                                    checked="checked" name="transaction_role">
-                                  <label class="form-check-label" for="materialInline1">Seller</label>
+                                  <input type="radio" class="form-check-input" value="phone" checked="checked" name="enter_details">
+                                  <label class="form-check-label" for="materialInline1">Phone No</label>
                                 </div>
 
                                 <div class="form-check form-check-inline radioform">
-                                  <input type="radio" class="form-check-input" value="{{ getTransactionRoleBuyer() }}"
-                                    name="transaction_role">
-                                  <label class="form-check-label" for="materialInline2">Buyer</label>
+                                  <input type="radio" class="form-check-input" value="email" name="enter_details">
+                                  <label class="form-check-label" for="materialInline2">Email</label>
+                                </div>
+
+                                <div class="form-check form-check-inline radioform">
+                                  <input type="radio" class="form-check-input" value="id_no" name="enter_details">
+                                  <label class="form-check-label" for="materialInline2">National ID No</label>
                                 </div>
 
                             </div>
 
+                        </div>
 
+                        <div class="md-form mat-2 mx-auto">
+                            <input type="text" value="{{ old('user_id') }}" class="form-control" name="user_id">
+                            <label class="date" for="user_id">Enter Details Here</label>
                             <div>
-                                @if ($errors->has('transaction_role'))
+                                @if ($errors->has('user_id'))
                                     <div class="help-block">
-                                        <strong>{{ $errors->first('transaction_role') }}</strong>
+                                        <strong>{{ $errors->first('user_id') }}</strong>
                                     </div>
                                 @endif
                             </div>
                         </div>
 
-                        <hr>
-
-                        <div class="inputs mt-2">
-                            <div class="form-checkbox">
-
-                                <input id="terms" type="checkbox" name="terms"
-                                        {{ old('terms', 'checked') ? 'checked' : '' }}>
-
-                                <label for="terms">I accept terms and coditions</label>
+                        {{-- <div class="md-form mat-2 mx-auto">
+                            <input type="text" value="{{ old('phone') }}"
+                                class="form-control" name="phone">
+                            <label class="date" for="phone">Enter User Phone</label>
+                            <div>
+                                @if ($errors->has('phone'))
+                                    <div class="help-block">
+                                        <strong>{{ $errors->first('phone') }}</strong>
+                                    </div>
+                                @endif
                             </div>
-
                         </div>
+
+                        <div class="md-form mat-2 mx-auto">
+                            <input type="text" value="{{ old('email') }}"
+                                class="form-control datepicker" name="email">
+                            <label class="date" for="email">Enter User Email</label>
+                            <div>
+                                @if ($errors->has('email'))
+                                    <div class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </div>
+                                @endif
+                            </div>
+                        </div> --}}
 
                         <hr>
 

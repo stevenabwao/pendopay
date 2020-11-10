@@ -11,14 +11,6 @@ class MyTransactionStore
     public function createItem($attributes) {
         // dd($attributes);
 
-        /*
-        "title" => "Sale of Furniture"
-        "transaction_amount" => "30000"
-        "transaction_date" => "08-12-2020"
-        "transaction_role" => "seller"
-        "terms" => "on"
-        */
-
         $response = [];
 
         DB::beginTransaction();
@@ -33,10 +25,13 @@ class MyTransactionStore
         $logged_user = getLoggedUser();
 
         // check the role
-        if ($transaction_role == 'buyer') {
+        $transaction_role_message = "";
+        if ($transaction_role == getTransactionRoleBuyer()) {
             $attributes['buyer_user_id'] = $logged_user->id;
-        } else if ($transaction_role == 'seller') {
+            $transaction_role_message = getSelectTransactionSellerText();
+        } else if ($transaction_role == getTransactionRoleSeller()) {
             $attributes['seller_user_id'] = $logged_user->id;
+            $transaction_role_message = getSelectTransactionBuyerText();
         }
 
         // add status_id
@@ -60,9 +55,12 @@ class MyTransactionStore
 
             $new_trans = new Transaction();
             $trans_result = $new_trans->create($attributes);
+            $trans_result->trans_message = $transaction_role_message;
 
             $response["error"] = false;
-            $response["message"] = 'Successfully created transaction titled - ' . $trans_result->title;
+            $success_message = 'Successfully created transaction - ' . $trans_result->title . " - ";
+            $success_message .= $transaction_role_message;
+            $response["message"] = $success_message;
             $response["data"] = $trans_result;
 
         } catch(\Exception $e) {

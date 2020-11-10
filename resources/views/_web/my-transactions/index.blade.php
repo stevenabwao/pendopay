@@ -5,7 +5,7 @@
 @endsection
 
 @section('page_title')
-    {!! getLoggedUser()->first_name !!} 
+    {!! getLoggedUser()->first_name !!}
 @endsection
 
 @section('page_breadcrumbs')
@@ -69,29 +69,32 @@
                                 @foreach ($transactions as $transaction)
 
                                     <div class="grid-item">
-                                        <div class="cnt-boxz cnt-box-blog-side boxedz" data-href="#">
+                                        <div class="cnt-boxz cnt-box-blog-side boxedz" data-href="{{ $transaction->url }}">
                                             <div class="caption2">
                                                 <h3>{{ $transaction->title }}</h3>
                                                 <ul class="icon-list icon-list-horizontal">
-                                                    <li><i class="icon-calendar"></i><a href="#">
-                                                        {{ formatDatePickerDate($transaction->transaction_date, 'd-M-Y') }}</a>
-                                                        </li>
+                                                    <li>
+                                                        <i class="icon-calendar"></i>
+                                                        <a href="{{ $transaction->url }}">
+                                                            {{ $transaction->formatted_transaction_date }}
+                                                        </a>
+                                                    </li>
                                                     <li>
                                                         <i class="icon-bookmark"></i>
                                                         <a href="#">
-                                                            @if (getLoggedUser()->id == $transaction->seller_user_id)
-                                                                SELLER
-                                                            @else
-                                                                BUYER
-                                                            @endif
+                                                            {{ $transaction->user_transaction_role }}
                                                         </a>
                                                     </li>
                                                     <li>
                                                         <i class="icon-user"></i>
-                                                        <a href="#">{{ formatCurrency($transaction->transaction_amount) }}</a>
+                                                        <a href="{{ $transaction->url }}">
+                                                            {{ $transaction->formatted_transaction_amount }}
+                                                        </a>
                                                     </li>
-                                                    <li class="text-success"><i class="fa fa-thumbs-up"></i>
+                                                    <li class="text-success">
+                                                        <i class="fa fa-thumbs-up"></i>
                                                         {!! showStatusText($transaction->status_id) !!}
+                                                        ({{ getMyTransactionMessage($transaction) }})
                                                     </li>
                                                 </ul>
                                             </div>

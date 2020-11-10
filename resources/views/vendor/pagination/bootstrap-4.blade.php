@@ -33,6 +33,8 @@
                     @else
                         <li class="page"><a href="{{ $url }}">{{ $page }}</a></li>
                     @endif
+                    {{-- break on number of pages to show --}}
+                    {{-- @if($loop->index > 4) break; @endif --}}
                 @endforeach
             @endif
 

@@ -14,8 +14,8 @@ class Contact extends Model
      * The attributes that are mass assignable
      */
     protected $fillable = [
-        'id', 'name', 'user_id', 'ip', 'host', 'user_agent', 
-        'phone', 'subject', 'email', 'message', 'viewed_at', 'viewed' 
+        'id', 'name', 'user_id', 'ip', 'host', 'user_agent',
+        'phone', 'subject', 'email', 'message', 'viewed_at', 'viewed'
     ];
 
     protected $table = "user_feedback";
@@ -57,7 +57,7 @@ class Contact extends Model
     {
 
         //dd($attributes);
-        
+
         if (auth()->user()) {
             $user_id = auth()->user()->id;
 
