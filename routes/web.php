@@ -180,9 +180,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/my-transactions/{id}', 'Web\MyTransaction\MyTransactionController@show')->name('my-transactions.show');
 
     //payment controller
-
-    Route::get('/my-payments','PaymentController@index')->name('my-payments.index');
-    Route::get('/all-payments','PaymentController@store')->name('my-payments');
+	Route::get('/my-payments', 'Web\MyPayments\MyPaymentController@index')->name('my-payments.index');
+    
 
 
 	Route::post('logout', 'Auth\LoginController@logout')->name('logout');

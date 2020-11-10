@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\web\MyPayments;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class PaymentController extends Controller
+class MyPaymentController extends Controller
 {
-    /**
+    //
+      /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -82,3 +84,5 @@ class PaymentController extends Controller
         //
     }
 }
+
+

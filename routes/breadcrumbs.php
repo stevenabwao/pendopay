@@ -199,6 +199,15 @@ Breadcrumbs::register('my-transactions.edit', function($breadcrumbs, $id)
 
 /******** END MY TRANSACTIONS ROUTES ********/
 
+/********PAYMENTS ROUTES ********/
+Breadcrumbs::register('my-payments.index', function($breadcrumbs)
+{
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('My Payments', route('my-payments.index'));
+});
+
+/*********END OF PAYMENTS ROUTES ********/
+
 
 /******** ADMIN OFFERS ROUTES ********/
 

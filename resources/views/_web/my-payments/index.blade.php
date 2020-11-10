@@ -1,7 +1,7 @@
 @extends('_web.layouts.master')
 
 @section('title')
-    My Transactions
+    My payments
 @endsection
 
 @section('page_title')
@@ -9,7 +9,7 @@
 @endsection
 
 @section('page_breadcrumbs')
-   {!! Breadcrumbs::render('my-transactions.index') !!}
+   {!! Breadcrumbs::render('my-payments.index') !!}
 @endsection
 
 
