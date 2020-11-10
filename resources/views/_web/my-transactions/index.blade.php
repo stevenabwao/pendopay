@@ -36,8 +36,18 @@
                             </div>
 
                             <hr>
+                            <div class="row">
+                                <div class=" walet">
+                                    <a href="#" class="btn btn-sm btn-border full-width btn-block"><i class="fa fa-dollar"></i> Transfer Funds</a>
+                                </div>
+                                <div class="walet">
+                                    <a href="#" class="btn btn-sm btn-border full-width btn-block">
+                                        <i class="fa fa-money-bill-wave-alt"></i> Deposit Funds</a>
+                                </div>
+                                
+                            </div>
 
-                            <a href="#" class="btn btn-sm btn-border full-width-sm btn-block"><i class="fa fa-dollar"></i> Transfer Funds</a>
+                            
 
                         </div>
                         <hr class="space-sm" />

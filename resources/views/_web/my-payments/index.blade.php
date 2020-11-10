@@ -36,9 +36,18 @@
                             </div>
 
                             <hr>
+                            <div class="row">
+                                <div class=" walet">
+                                    <a href="#" class="btn btn-sm btn-border full-width btn-block"><i class="fa fa-dollar"></i> Transfer Funds</a>
+                                </div>
+                                <div class="walet">
+                                    <a href="#" class="btn btn-sm btn-border full-width btn-block">
+                                        <i class="fa fa-money-bill-wave-alt"></i> Deposit Funds</a>
+                                </div>
+                                
+                            </div>
 
-                            <a href="#" class="btn btn-sm btn-border full-width-sm btn-block"><i class="fa fa-dollar"></i> Transfer Funds</a>
-
+                 
                         </div>
                         <hr class="space-sm" />
 
@@ -55,7 +64,7 @@
                             <div class="col-lg-6"><h3>MY PAYMENTS</h3></div>
                             <div class="col-lg-6 no-gutters">
                                 <a href="{{ route('my-transactions.create') }}" class="btn btn-sm btn-icon full-width-sm">
-                                    <i class="fa fa-plus"></i>Create New Payment
+                                    <i class="fa fa-plus"></i>Make New Payment
                                 </a>
                             </div>
                         </div>
@@ -72,7 +81,7 @@
                                             <li><i class="icon-calendar"></i><a href="#">15-Dec-2020</a></li>
                                             <li><i class="icon-bookmark"></i><a href="#">SENT</a></li>
                                             <li><i class="icon-user"></i><a href="#">KES 2,000,000</a></li>
-                                            <li class="text-success"><i class="fa fa-thumbs-up"></i> VIEW</li>
+                                            <li class="text-success"><i class="fa fa-eye"></i> VIEW</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -86,7 +95,7 @@
                                             <li><i class="icon-calendar"></i><a href="#">15-Dec-2020</a></li>
                                             <li><i class="icon-bookmark"></i><a href="#">RECEIVED</a></li>
                                             <li><i class="icon-user"></i><a href="#">KES 2,000,000</a></li>
-                                            <li class="text-danger"><i class="fa fa-thumbs-up"></i> VIEW</li>
+                                            <li class="text-success"><i class="fa fa-eye"></i> VIEW</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -100,15 +109,14 @@
                                             <li><i class="icon-calendar"></i><a href="#">15-Dec-2020</a></li>
                                             <li><i class="icon-bookmark"></i><a href="#">RECEIVED</a></li>
                                             <li><i class="icon-user"></i><a href="#">KES 2,000,000</a></li>
-                                            <li class="text-danger"><i class="fa fa-thumbs-up"></i> VIEW</li>
+                                            <li class="text-success"><i class="fa fa-eye"></i> VIEW</li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                             <hr>
 
-                            <a href="#" class="btn btn-sm btn-border full-width-sm btn-block"><i class="fa fa-plus"></i> View All Transactions</a>
-
+                          
                         </div>
 
                     </div>
