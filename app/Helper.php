@@ -38,6 +38,7 @@ use App\Entities\MediaTemplate;
 use App\Entities\PasswordReset;
 use App\Entities\Payment;
 use App\Entities\CommissionScale;
+use App\Entities\Transaction;
 use App\Events\LoanApplicationUpdated;
 use App\Services\EmailQueue\EmailQueueStore;
 use App\Mail\ReminderMessageEmail;
@@ -2463,16 +2464,35 @@ function getUserSetLoanLimit($loan_limit_calculation_id, $user_deposit_payments,
 }
 
 // get user account data
-function getUserData($phone, $email="") {
+function getUserData($phone, $email="", $id=NULL) {
 
 	//get user data
-	$user_data = User::where('phone', '=', $phone)
+	$user_data = User::when($phone, function ($query) use ($phone) {
+                            $query->orWhere('phone', '=', $phone);
+                        })
                         ->when($email, function ($query) use ($email) {
                             $query->orWhere('email', '=', $email);
+                        })
+                        ->when($id, function ($query) use ($id) {
+                            $query->orWhere('id', '=', $id);
                         })
 					    ->first();
 
 	return $user_data;
+
+}
+
+// get transaction data
+function getTransactionData($id, $status_id="") {
+
+	//get trans data
+    $trans_data = Transaction::where("id", $id)
+                               ->when($status_id, function ($query) use ($status_id) {
+                                    $query->orWhere('status_id', '=', $status_id);
+                               })
+                               ->first();
+
+	return $trans_data;
 
 }
 
@@ -3042,7 +3062,31 @@ function getNoImageText() {
     return config('constants.site_text.no_photo_text');
 }
 
-// get sms types
+// start media types
+function getMediaTypeEmail() {
+    return config('constants.mediatypes.email');
+}
+function getMediaTypeSms() {
+    return config('constants.mediatypes.sms');
+}
+// end media types
+
+// start site functions
+function getSiteFunctionRegistration() {
+    return config('constants.sitefunctions.registration');
+}
+function getSiteFunctionPasswordReset() {
+    return config('constants.sitefunctions.passwordreset');
+}
+function getSiteFunctionTransactionRequest() {
+    return config('constants.sitefunctions.transactionrequest');
+}
+function getSiteFunctionTransactionRequestNoAccount() {
+    return config('constants.sitefunctions.transactionrequest_noaccount');
+}
+// end site functions
+
+// start sms types
 function getCompanySmsType() {
     return config('constants.sms_types.company_sms');
 }
@@ -3067,7 +3111,6 @@ function getReminderSmsType() {
 function getPasswordResetSmsType() {
     return config('constants.sms_types.password_reset_sms');
 }
-
 // end sms types
 
 // get transaction role
@@ -3081,6 +3124,23 @@ function getTransactionRole($trans_data) {
         $trans_role = getTransactionRoleBuyer();
     } else if ($logged_user->id == $trans_data->seller_user_id) {
         $trans_role = getTransactionRoleSeller();
+    }
+
+    return $trans_role;
+
+}
+
+// get transaction partner role
+function getTransactionPartnerRole($trans_data) {
+
+    // dd($trans_data);
+    $logged_user = getLoggedUser();
+    $trans_role = "";
+
+    if ($logged_user->id == $trans_data->buyer_user_id) {
+        $trans_role = getTransactionRoleSeller();
+    } else if ($logged_user->id == $trans_data->seller_user_id) {
+        $trans_role = getTransactionRoleBuyer();
     }
 
     return $trans_role;
@@ -4670,6 +4730,7 @@ function disablePreviousResets($email) {
 
 }
 
+// START SEND EMAILS
 // send password reset email
 function sendPasswordResetEmail($new_reset_data) {
 
@@ -4682,8 +4743,8 @@ function sendPasswordResetEmail($new_reset_data) {
     $first_name = $user_data->first_name;
 
     // formulate email
-    $email_media_type = config('constants.mediatypes.email');
-    $passwordreset_site_function = config('constants.sitefunctions.passwordreset');
+    $email_media_type = getMediaTypeEmail();
+    $passwordreset_site_function = getSiteFunctionPasswordReset();
 
     // get site settings
     $site_settings = getSiteSettings();
@@ -4728,6 +4789,78 @@ function sendPasswordResetEmail($new_reset_data) {
                         $company_id, $email_footer, $panel_text, $table_text, $parent_id, $reminder_message_id);
 
 }
+
+// send transaction request email
+function sendTransactionRequestEmail($sender_user_data, $recipient_user_data, $transaction_data) {
+
+    // get transaction partner role
+    $transaction_partner_role = getTransactionPartnerRole($transaction_data);
+
+    // get sender user data
+    $sender_first_name = $sender_user_data->first_name;
+    $sender_phone = $sender_user_data->phone;
+    $sender_email = $sender_user_data->email;
+
+    // get recipient user data
+    $recipient_first_name = $recipient_user_data->first_name;
+    $recipient_email = $recipient_user_data->email;
+
+    // get trans data
+    $transaction_title = $transaction_data->title;
+
+    // formulate email
+    $email_media_type = getMediaTypeEmail();
+    $transaction_request_site_function = getSiteFunctionTransactionRequest();
+
+    // get site settings
+    $site_settings = getSiteSettings();
+    $email_footer = $site_settings['email_footer'];
+    $email_salutation = $site_settings['email_salutation'];
+    $company_full_name = $site_settings['company_full_name_ltd'];
+    $email_subject = $site_settings['email_subject_transaction_request'];
+
+    // create salutation replacement array
+    $salutation_replacement_array = array();
+    $salutation_replacement_array[] = $recipient_first_name;
+
+    // replace [[name]] in template
+    $email_salutation = replaceDelimitersInTemplate($email_salutation, $salutation_replacement_array);
+
+    $email_template = getMediaTemplate($transaction_request_site_function, $email_media_type);
+
+    // formulate message from template
+    $set_email_template = $email_template->text ? $email_template->text : $email_template->default_text;
+
+    // login link
+    $login_url = route('login');
+    $login_link = "<a href='$login_url'>$login_url</a>";
+
+    // create replacement array
+    $replacement_array = array();
+    $replacement_array[] = $sender_first_name;
+    $replacement_array[] = $sender_phone;
+    $replacement_array[] = $transaction_partner_role;
+    $replacement_array[] = $transaction_title;
+    $replacement_array[] = $login_link;
+
+    // formulate email
+    // replace [[name]] and [[token]] in template
+    $email_text = replaceDelimitersInTemplate($set_email_template, $replacement_array);
+
+    // set subject
+    $title = $email_subject;
+    $company_id = NULL;
+    $panel_text = "";
+    $table_text = "";
+    $parent_id = NULL;
+    $reminder_message_id = NULL;
+
+    // send email to user
+    sendTheEmailToQueue($recipient_email, $email_subject, $title, $company_full_name, $email_text, $email_salutation,
+                        $company_id, $email_footer, $panel_text, $table_text, $parent_id, $reminder_message_id);
+
+}
+// END SEND EMAILS
 
 function createPhoneConfirmCode($confirm_code, $phone, $phone_country, $establishment_id, $sms_type_id=1, $sms_message="", $user_id="") {
 
@@ -6849,6 +6982,10 @@ function getTransUserData($partner_details_select, $transaction_partner_details)
     } else if ($partner_details_select == 'id_no') {
         $user_data = $user_data->where('id_no', $transaction_partner_details);
     } else if ($partner_details_select == 'email') {
+        // check email validity
+        if (!isValidEmail($transaction_partner_details)) {
+            throw new \Exception("Invalid email address: $transaction_partner_details");
+        }
         $user_data = $user_data->where('email', $transaction_partner_details);
     }
 
@@ -6968,7 +7105,8 @@ function getDatabasePhoneNumber($phone_number, $country_code='KE') {
         $phone_number = PhoneNumber::make($phone_number, $country_code)->formatE164();
         return str_replace("+", "", $phone_number);
     } catch(\Exception $e) {
-        throw new \Exception($e->getMessage());
+        $message = "Invalid phone number: $phone_number";
+        throw new \Exception($message);
     }
 }
 

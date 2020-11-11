@@ -11,7 +11,7 @@
 
         <div class="container">
 
-            <div class="row justify-content-center">
+            <div class="row justify-content-center thebg">
 
                 <div class="col-md-6" >
                     <div class="card">
@@ -96,6 +96,13 @@
     @section('page_css')
 
         <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+
+        <style>
+            .thebg {
+                background: url('images/bg.jpg') center no-repeat !important;
+                height:100%;width:100%;
+            }
+        </style>
 
     @endsection
 

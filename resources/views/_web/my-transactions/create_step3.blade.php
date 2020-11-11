@@ -1,11 +1,11 @@
 @extends('_web.layouts.master')
 
 @section('title')
-    Send Transaction Request To Transaction Partner
+    Send Transaction Request To {{ titlecase($trans_data->trans_partner_role) }}
 @endsection
 
 @section('page_title')
-    Send Transaction Request To Transaction Partner
+    Send Transaction Request To {{ titlecase($trans_data->trans_partner_role) }}
 @endsection
 
 {{-- {{ dd($trans_data) }} --}}
@@ -28,7 +28,7 @@
                         <p class="card-text">
                     </div>
                     <div class="row justify-content-center form-title">
-                    <h3>Send Transaction Request To Transaction Partner</h3>
+                    <h3>Send Transaction Request To {{ titlecase($trans_data->trans_partner_role) }}</h3>
                     </div>
                     <form action="{{ route('my-transactions.store-step3') }}" class="form-box" method="post">
 
@@ -36,9 +36,12 @@
 
                         @if($user_data)
 
-                            <h3>User Details:</h3>
+                            <h3>{{ titlecase($trans_data->trans_partner_role) }} Details:</h3>
                             <div class="md-form mat-2 mx-auto">
                                 <input type="text" value="{{ $user_data->first_name }} {{ $user_data->last_name }}" disabled>
+                                <input type="hidden" value="{{ $user_data->id }}" name="user_id">
+                                <input type="hidden" value="{{ $trans_data->trans_partner_role }}" name="trans_partner_role">
+                                <input type="hidden" value="{{ $id }}" name="trans_id">
                                 <label for="title">User Names</label>
                             </div>
 
@@ -57,9 +60,10 @@
 
                             <h3 class="text-danger">{{ $error_message }}</h3>
                             <hr>
+                            <input type="hidden" value="{{ $trans_data->trans_partner_role }}" name="trans_partner_role">
 
                             <div class="md-form mat-2 mx-auto radiobtn">
-                                <label class="date" for="trans_partner_details">Enter seller/ buyer Email Address or Phone No. and we will ask them to join Pendopay</label>
+                                <label class="date" for="trans_partner_details">Enter {{ titlecase($trans_data->trans_partner_role) }} Email Address or Phone No. and we will ask them to join Pendopay</label>
                                 <div class="row justify-content-center">
                                     <div class="form-check form-check-inline radioform">
                                         <input type="radio" class="form-check-input" value="phone" name="partner_details_select"

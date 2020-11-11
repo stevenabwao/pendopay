@@ -7,6 +7,7 @@ use App\Entities\Status;
 use App\Http\Controllers\Controller;
 use App\Services\MyTransaction\MyTransactionIndex;
 use App\Services\MyTransaction\MyTransactionStore;
+use App\Services\MyTransaction\MyTransactionStoreStepThree;
 use App\Services\MyTransaction\MyTransactionStoreStepTwo;
 use App\User;
 use Illuminate\Http\Request;
@@ -110,6 +111,10 @@ class MyTransactionController extends Controller
         $trans_message = getMyTransactionMessage($itemdata);
         $itemdata->trans_message = $trans_message;
 
+        // get trans partner role
+        $trans_partner_role = getTransactionPartnerRole($itemdata);
+        $itemdata->trans_partner_role = $trans_partner_role;
+
         return view('_web.my-transactions.create_step2', [
             'trans_data' => $itemdata
         ]);
@@ -195,7 +200,12 @@ class MyTransactionController extends Controller
 
             $trans_message = getMyTransactionMessage($itemdata);
             $itemdata->trans_message = $trans_message;
+
+            // get trans partner role
+            $trans_partner_role = getTransactionPartnerRole($itemdata);
+            $itemdata->trans_partner_role = $trans_partner_role;
         }
+        // dd($itemdata);
 
         return view('_web.my-transactions.create_step3', [
             'id' => $id,
@@ -205,17 +215,18 @@ class MyTransactionController extends Controller
         ]);
     }
 
-    public function storeStep3(Request $request, MyTransactionStoreStepTwo $myTransactionStoreStepTwo)
+    public function storeStep3(Request $request, MyTransactionStoreStepThree $myTransactionStoreStepThree)
     {
 
+
+
         $this->validate($request, [
-            'partner_details_select' => 'required',
-            'transaction_partner_details' => 'required'
+            'trans_partner_role' => 'required'
         ]);
 
         //create item
         try {
-            $new_item = $myTransactionStoreStepTwo->createItem($request->all());
+            $new_item = $myTransactionStoreStepThree->createItem($request->all());
             $new_item_decode = json_decode($new_item);
             $new_item_message = $new_item_decode->message;
 

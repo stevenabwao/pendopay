@@ -69,6 +69,8 @@
         'sitefunctions' => [
             'registration' => 'registration',
             'passwordreset' => 'passwordreset',
+            'transactionrequest' => 'transactionrequest',
+            'transactionrequest_noaccount' => 'transactionrequest_noaccount',
         ],
         'email' => [
             'subject' =>    [

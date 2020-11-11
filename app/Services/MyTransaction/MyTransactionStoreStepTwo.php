@@ -29,7 +29,11 @@ class MyTransactionStoreStepTwo
         }
 
         // use provided details to locate partner
-        $user_data = getTransUserData($partner_details_select, $transaction_partner_details);
+        try {
+            $user_data = getTransUserData($partner_details_select, $transaction_partner_details);
+        } catch(\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
 
         if (!$user_data) {
             $sent_field_name = getSentFieldName($partner_details_select);

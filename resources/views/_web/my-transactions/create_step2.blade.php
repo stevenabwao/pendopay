@@ -54,17 +54,12 @@
                         <div class="md-form mat-2 mx-auto">
                             <input type="text" value="{{ $trans_data['transaction_amount'] }}" name="transaction_amount" disabled>
                             <label for="transaction_amount">Transaction Amount</label>
-                            @if ($errors->has('transaction_amount'))
-                            <div class="help-block">
-                                <strong>{{ $errors->first('transaction_amount') }}</strong>
-                            </div>
-                            @endif
                         </div>
                         <hr>
 
-                        <h3>Enter any of the following:</h3>
+                        <h3>Enter {{ $trans_data['trans_partner_role'] }} details below:</h3>
                         <div class="md-form mat-2 mx-auto radiobtn">
-                            <label class="date" for="trans_partner_details">Select seller/ buyer details to enter</label>
+                            <label class="date" for="trans_partner_details">Select {{ $trans_data['trans_partner_role'] }} details to enter</label>
                             <div class="row justify-content-center">
                                 <div class="form-check form-check-inline radioform">
                                     <input type="radio" class="form-check-input" value="phone" name="partner_details_select"
