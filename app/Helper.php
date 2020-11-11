@@ -39,6 +39,8 @@ use App\Entities\PasswordReset;
 use App\Entities\Payment;
 use App\Entities\CommissionScale;
 use App\Entities\Transaction;
+use App\Entities\TransactionRequest;
+use App\Entities\UserNotification;
 use App\Events\LoanApplicationUpdated;
 use App\Services\EmailQueue\EmailQueueStore;
 use App\Mail\ReminderMessageEmail;
@@ -2496,6 +2498,26 @@ function getTransactionData($id, $status_id="") {
 
 }
 
+// change transaction status
+function changeTransactionStatus($trans_id, $status_id) {
+
+    // update
+    try {
+
+        $result = Transaction::where("id", $trans_id)->update([
+                'status_id' => $status_id
+        ]);
+
+        return $result;
+
+    } catch(\Exception $e) {
+
+        throw new \Exception($e->getMessage());
+
+    }
+
+}
+
 // activate new user
 function activateNewUser($phone) {
 
@@ -3085,6 +3107,12 @@ function getSiteFunctionTransactionRequestNoAccount() {
     return config('constants.sitefunctions.transactionrequest_noaccount');
 }
 // end site functions
+
+// start site sections
+function getSiteSectionTransactionRequest() {
+    return config('constants.sitesections.transactionrequest');
+}
+// end site sections
 
 // start sms types
 function getCompanySmsType() {
@@ -4860,7 +4888,101 @@ function sendTransactionRequestEmail($sender_user_data, $recipient_user_data, $t
                         $company_id, $email_footer, $panel_text, $table_text, $parent_id, $reminder_message_id);
 
 }
+
 // END SEND EMAILS
+
+// send transaction request email
+function saveNewTransactionRequest($sender_user_data, $recipient_user_data, $transaction_data) {
+
+    // get transaction partner role
+    $sender_transaction_role = getTransactionRole($transaction_data);
+    $recipient_transaction_role = getTransactionPartnerRole($transaction_data);
+
+    $transaction_request_attributes = [];
+
+    // recipient data
+    $recipient_user_id = $recipient_user_data->id ? $recipient_user_data->id : "";
+    $recipient_user_email = $recipient_user_data->email ? $recipient_user_data->email : "";
+    $recipient_user_phone = $recipient_user_data->phone ? $recipient_user_data->phone : "";
+    $recipient_user_id_no = $recipient_user_data->id_no ? $recipient_user_data->id_no : "";
+
+    // confirm code
+    $site_settings = getSiteSettings();
+    $transaction_request_code_length = $site_settings['transaction_request_code_length'];
+    $transaction_request_code = generateCode($transaction_request_code_length, false, 'lud');
+
+    // create new recipient transaction request
+    $new_transaction_request = new TransactionRequest();
+
+    $transaction_request_attributes['transaction_id'] = $transaction_data->id;
+	$transaction_request_attributes['sender_user_id'] = $sender_user_data->id;
+	$transaction_request_attributes['sender_role'] = $sender_transaction_role;
+	$transaction_request_attributes['recipient_role'] = $recipient_transaction_role;
+	$transaction_request_attributes['recipient_user_id'] = $recipient_user_id;
+	$transaction_request_attributes['recipient_email'] = $recipient_user_email;
+    $transaction_request_attributes['recipient_phone'] = $recipient_user_phone;
+	$transaction_request_attributes['recipient_id_no'] = $recipient_user_id_no;
+	$transaction_request_attributes['confirm_code'] = $transaction_request_code;
+	$transaction_request_attributes['status_id'] = getStatusActive();
+    $transaction_request_attributes['created_by'] = $sender_user_data->id;
+	$transaction_request_attributes['created_by_name'] = $sender_user_data->full_name;
+	$transaction_request_attributes['updated_by'] = $sender_user_data->id;
+    $transaction_request_attributes['updated_by_name'] = $sender_user_data->full_name;
+    // dd("transaction_request_attributes == ", $transaction_request_attributes);
+
+    try {
+
+        $new_transaction_request_result = $new_transaction_request->create($transaction_request_attributes);
+
+        log_this("new_transaction_request_result\n\n" . json_encode($new_transaction_request_result));
+
+        // return $new_transaction_request_result;
+
+    } catch(\Exception $e) {
+
+        log_this($e);
+        throw new \Exception($e->getMessage());
+
+    }
+
+    // create new recipient notification
+    $new_notification = new UserNotification();
+
+    $notification_message = "the message";
+    $notification_link = route('transaction-requests.accept', ['token' => $transaction_request_code]);
+
+    $notification_attributes['user_id'] = $sender_user_data->id;
+    $notification_attributes['notification_message'] = $notification_message;
+    $notification_attributes['notification_link'] = $notification_link;
+    $notification_attributes['notification_section'] = getSiteSectionTransactionRequest();
+    $notification_attributes['notification_section_id'] = $transaction_data->id;
+    $notification_attributes['notification_object'] = 'App\Entities\TransactionRequest';
+    $notification_attributes['status_id'] = getStatusActive();
+    $notification_attributes['created_by'] = $sender_user_data->id;
+    $notification_attributes['created_by_name'] = $sender_user_data->full_name;
+    $notification_attributes['updated_by'] = $sender_user_data->id;
+    $notification_attributes['updated_by_name'] = $sender_user_data->full_name;
+
+    // dd("notification_attributes == ", $notification_attributes);
+
+    try {
+
+        $new_notification_result = $new_notification->create($notification_attributes);
+
+        log_this("new_notification_result\n\n" . json_encode($new_notification_result));
+
+        // return $new_notification_result;
+
+    } catch(\Exception $e) {
+
+        log_this($e);
+        throw new \Exception($e->getMessage());
+
+    }
+
+    return $new_transaction_request_result;
+
+}
 
 function createPhoneConfirmCode($confirm_code, $phone, $phone_country, $establishment_id, $sms_type_id=1, $sms_message="", $user_id="") {
 

@@ -182,8 +182,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/my-transactions/store-step3', 'Web\MyTransaction\MyTransactionController@storeStep3')->name('my-transactions.store-step3');
     Route::get('/my-transactions/{id}', 'Web\MyTransaction\MyTransactionController@show')->name('my-transactions.show');
 
-    //payment controller
+    // transaction request routes
+    Route::get('/transaction-requests', 'Web\MyTransaction\TransactionRequestController@index')->name('transaction-requests.index');
+    Route::get('/transaction-requests/accept/{token}', 'Web\MyTransaction\TransactionRequestController@accept')->name('transaction-requests.accept');
 
+    // payment routes
     Route::get('/payments','PaymentController@index')->name('payments');
     Route::get('/all-payments','PaymentController@store')->name('all-payments');
 

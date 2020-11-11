@@ -72,6 +72,9 @@
             'transactionrequest' => 'transactionrequest',
             'transactionrequest_noaccount' => 'transactionrequest_noaccount',
         ],
+        'sitesections' => [
+            'transactionrequest' => 'transactionrequest',
+        ],
         'email' => [
             'subject' =>    [
                                 'passwordreset' => 'Reset Password',

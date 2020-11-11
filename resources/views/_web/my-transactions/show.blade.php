@@ -39,8 +39,9 @@
                             <hr class="space visible-xs" />
                             <div class="boxed-area light">
                                 <ul class="text-list text-list-bold">
+                                    <li><b>Transaction Title: </b><p>{{ $transaction->title }}</p></li>
                                     <li><b>Transaction Amount: </b><p>{{ $transaction->formatted_transaction_amount }}</p></li>
-                                    <li><b>Paid Amount: </b><p>{{ $transaction->formatted_transaction_amount }}</p></li>
+                                    <li><b>Transaction Status: </b><p>{!! showStatusText($transaction->status_id) !!}</p></li>
                                     <li><b>Estimated Trans Date: </b><p>{{ $transaction->formatted_transaction_date }}</p></li>
                                     <li><b>Your Transaction Role: </b><p>{{ $transaction->user_transaction_role }}</p></li>
                                 </ul>
