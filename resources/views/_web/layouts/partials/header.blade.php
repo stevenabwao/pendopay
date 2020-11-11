@@ -2,7 +2,7 @@
     <div class="container">
         <div class="menu-brand">
             <a href="#">
-                <img class="logo-default scroll-hide" src="{{ asset('images/logo_white.png') }}" alt="PendoPay Logo" />
+                 <img class="logo-default scroll-hide" src="{{ asset('images/logo_white.png') }}" alt="PendoPay Logo" />
                 <img class="logo-retina scroll-hide" src="{{ asset('images/logo_white.png') }}" alt="PendoPay Logo" />
                 <img class="logo-default scroll-show" src="{{ asset('images/logo_white.png') }}" alt="PendoPay Logo" />
                 <img class="logo-retina scroll-show" src="{{ asset('images/logo_white.png') }}" alt="PendoPay Logo" />
@@ -33,7 +33,7 @@
                         <a href="#">My Account</a>
                         <ul>
                             <li><a href="{{ route('my-transactions.index') }}">My Transactions</a></li>
-                            <li><a href="{{ route('my-transactions.index') }}">My Payments</a></li>
+                            <li><a href="{{ route('my-payments.index') }}">My Payments</a></li>
                         </ul>
                     </li>
 

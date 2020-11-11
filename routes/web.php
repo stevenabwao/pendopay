@@ -187,9 +187,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/transaction-requests/accept/{token}', 'Web\MyTransaction\TransactionRequestController@accept')->name('transaction-requests.accept');
 
     // payment routes
-    Route::get('/payments','PaymentController@index')->name('payments');
-    Route::get('/all-payments','PaymentController@store')->name('all-payments');
-
+	Route::get('/my-payments', 'Web\MyPayments\MyPaymentController@index')->name('my-payments.index');
 
 	Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
@@ -197,7 +195,6 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('/orders/addItemToCart', 'Web\Order\OrderController@addItemToCart')->name('orders.addItemToCart');
 
     // Route::resource('/admin/orders', 'Web\Admin\Order\OrderController');
-
 
 	// companyjoinrequests routes...
 	Route::resource('/company-join-requests', 'Web\Company\CompanyJoinRequestController');

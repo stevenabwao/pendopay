@@ -43,8 +43,9 @@ input[type=text], input[type=password] { height: 1.5rem; line-height: 0;  }
 
 .md-form, .md-form .btn {
     margin-bottom: 0;
-    margin-top: 1rem;
+    margin-top: 1rem ;
 }
+
 
 .form-title{background: #ededed; padding-top:8px; margin-top:8px; margin-bottom:2rem;}
 

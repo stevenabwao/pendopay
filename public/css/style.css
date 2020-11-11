@@ -5154,7 +5154,7 @@ Small devices (landscape phones, less than 768px)
     }
 
     .full-width-sm {
-        width: 100% !important;
+        width: 90% !important;
     }
 
     .hidden-sm {
@@ -5202,7 +5202,7 @@ Small devices (landscape phones, less than 768px)
     }
 
     .btn:not(.full-width) + .btn.full-width-sm {
-        margin-left: 0;
+        margin-left: 0px;
     }
 
     /*
@@ -5707,4 +5707,8 @@ Inverted responsive classes
     /* float: left; */
     font-weight: 300; font-size: 1.0rem !important;
     line-height: 24px;
+}
+.walet{
+    max-width: 100%;
+    margin-right: 8px;
 }
