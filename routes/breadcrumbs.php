@@ -200,14 +200,35 @@ Breadcrumbs::register('my-transactions.edit', function($breadcrumbs, $id)
 /******** END MY TRANSACTIONS ROUTES ********/
 
 /********PAYMENTS ROUTES ********/
+// Home > My Payments
 Breadcrumbs::register('my-payments.index', function($breadcrumbs)
 {
     $breadcrumbs->parent('home');
     $breadcrumbs->push('My Payments', route('my-payments.index'));
+   
+});
+// Home > My Payments>New Payment
+Breadcrumbs::register('my-payments.create', function($breadcrumbs)
+{
+    $breadcrumbs->parent('my-payments.index');
+    $breadcrumbs->push('New Payment', route('my-payments.create'));
+});
+/*********END OF PAYMENTS ROUTES ********/
+/*********DEPOSITS  ROUTES */
+Breadcrumbs::register('my-account.deposit.create', function($breadcrumbs)
+
+{   
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('My Account /New Deposit', route('my-account.deposit.create'));
 });
 
-/*********END OF PAYMENTS ROUTES ********/
+/*********TRANSFER  ROUTES */
+Breadcrumbs::register('my-account.transferfund.create', function($breadcrumbs)
 
+{   
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('My Account /New Transfer', route('my-account.transferfund.create'));
+});
 
 /******** ADMIN OFFERS ROUTES ********/
 

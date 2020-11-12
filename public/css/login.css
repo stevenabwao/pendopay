@@ -126,3 +126,15 @@ body{
     top: 1.9rem;
     left: 8px;
 }
+.md-form.mat-2 select{
+    border-width: 1px !important;
+    border-style: solid;
+    border-color: #ced4da;
+    border-radius: 5px;
+    padding-bottom: .1rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    box-sizing: border-box;
+    height: 45px;
+    width: 100%;
+}

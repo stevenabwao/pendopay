@@ -82,7 +82,7 @@ class TransferController extends Controller
 
         return view('transfers.create', compact('companybranches', 'countries', 'companyusers', 'products')); */
 
-        return view('transfers.create');
+        return view('_web.transfer.create');
 
     }
 

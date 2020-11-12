@@ -1,15 +1,15 @@
 @extends('_web.layouts.master')
 
 @section('title')
-    New Payment
+    New Deposit
 @endsection
 
 @section('page_title')
-    Make new payment
+      Deposit funds
 @endsection
 
 @section('page_breadcrumbs')
-    {!! Breadcrumbs::render('my-payments.create') !!}
+    {!! Breadcrumbs::render('my-account.deposit.create') !!}
 @endsection
 
 
@@ -30,34 +30,18 @@
                     <p class="card-text">
                     </div>
                     <div class="row justify-content-center form-title">
-                        <h3>Make a payment</h3>
+                        <h3>Deposit funds to your wallet</h3>
                     </div>
 
-                    <form action="{{ route('my-payments.store') }}" class="form-box" method="post">
+                    <form action="" class="form-box" method="post">
 
                         {{ csrf_field() }}
-                        <div class="md-form mat-2 mx-auto">
-                            <div class="active-cyan-3 active-cyan-4 mb-4">
-                                <input class="form-control" type="text"  aria-label="Search">
-                                <label for="email">Enter phone/email making payment to</label>
-                            </div>
-                        </div>
 
-                        <div class="md-form mat-2 mx-auto">
-                            <input type="text" value="{{ old('title', 'Sale of Furniture') }}" name="title" >
-                            <label for="title">Payment Title</label>
-
-                            @if ($errors->has('title'))
-                                <div class="help-block">
-                                    <strong>{{ $errors->first('title') }}</strong>
-                                </div>
-                            @endif
-                        </div>
                         <div class="md-form mat-2 mx-auto">
                            <select class="mdb-select md-form" nam>
-                              <option value="" disabled selected>Choose your option</option>
-                              <option value="1">Pay with Pendopay wallet</option>
-                              <option value="2">pay with M-pesa</option>
+                              <option value="" disabled selected>Choose Deposit Method</option>
+                              <option value="1">M-pesa</option>
+                              <option value="2">Credit Card</option>
                             </select>
                             @if ($errors->has('payment_method'))
                             <div class="help-block">
@@ -80,7 +64,7 @@
                         <hr>
 
                         <div class="inputs row">
-                            <button class="btn btn-xs" type="submit">Submit</button>
+                            <button class="btn btn-xs" type="submit">Deposit</button>
                         </div>
                         </form>
 

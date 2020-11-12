@@ -181,8 +181,16 @@ Route::group(['middleware' => 'auth'], function() {
 
     //payment controller
 	Route::get('/my-payments', 'Web\MyPayments\MyPaymentController@index')->name('my-payments.index');
-    Route::get('/my-payments/create', 'Web\MyPayments\MyPaymentController@index')->name('my-payments.create');
+	Route::get('/my-payments/create', 'Web\MyPayments\MyPaymentController@create')->name('my-payments.create');
+	Route::post('/my-payments/store', 'Web\MyPayments\MyPaymentController@store')->name('my-payments.store');
 
+	//deposit controller route
+	Route::get('/my-account/deposit', 'Web\Deposits\DepositController@create')->name('my-account.deposit.create');
+	 
+	
+	//TRANSFER FUNDS ROUTES
+
+	Route::get('/my-account/transferfund', 'Web\Transfer\TransferController@create')->name('my-account.transferfund.create');
 
 	Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 

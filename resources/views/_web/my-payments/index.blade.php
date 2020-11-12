@@ -38,10 +38,10 @@
                             <hr>
                             <div class="row">
                                 <div class=" walet">
-                                    <a href="#" class="btn btn-sm btn-border full-width btn-block"><i class="fa fa-dollar"></i> Transfer Funds</a>
+                                    <a href="{{ route('my-account.transferfund.create') }}" class="btn btn-sm btn-border full-width btn-block"><i class="fa fa-dollar"></i> Transfer Funds</a>
                                 </div>
                                 <div class="walet">
-                                    <a href="#" class="btn btn-sm btn-border full-width btn-block"  
+                                    <a href="{{ route('my-account.deposit.create') }}"  class="btn btn-sm btn-border full-width btn-block"  
                                     data-toggle="modal" data-target="#modalSubscriptionForm">
                                         <i class="fa fa-money-bill-wave-alt" data-toggle="modal" data-target="#myModal"></i> Deposit Funds</a>
                                 </div>
@@ -65,7 +65,7 @@
                         <div class="row">
                             <div class="col-lg-6"><h3>MY PAYMENTS</h3></div>
                             <div class="col-lg-6 no-gutters">
-                                <a href="{{ route('my-transactions.create') }}" class="btn btn-sm btn-icon full-width-sm">
+                                <a href="{{ route('my-payments.create') }}" class="btn btn-sm btn-icon full-width-sm">
                                     <i class="fa fa-plus"></i>Make New Payment
                                 </a>
                             </div>

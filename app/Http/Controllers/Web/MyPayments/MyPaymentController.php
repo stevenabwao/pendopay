@@ -25,7 +25,7 @@ class MyPaymentController extends Controller
      */
     public function create()
     {
-        //
+        return view('_web.my-payments.create');
     }
 
     /**
