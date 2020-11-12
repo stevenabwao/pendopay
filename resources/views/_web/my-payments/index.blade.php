@@ -41,8 +41,9 @@
                                     <a href="#" class="btn btn-sm btn-border full-width btn-block"><i class="fa fa-dollar"></i> Transfer Funds</a>
                                 </div>
                                 <div class="walet">
-                                    <a href="#" class="btn btn-sm btn-border full-width btn-block">
-                                        <i class="fa fa-money-bill-wave-alt"></i> Deposit Funds</a>
+                                    <a href="#" class="btn btn-sm btn-border full-width btn-block"  
+                                    data-toggle="modal" data-target="#modalSubscriptionForm">
+                                        <i class="fa fa-money-bill-wave-alt" data-toggle="modal" data-target="#myModal"></i> Deposit Funds</a>
                                 </div>
                                 
                             </div>
@@ -54,7 +55,8 @@
                     </div>
 
                 </div>
-                <div class="col-lg-7 no-guttersz">
+
+       <div class="col-lg-7 no-guttersz">
 
 
 
@@ -124,7 +126,48 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="modalSubscriptionForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header text-center">
+              <h4 class="modal-title w-100 font-weight-bold">Subscribe</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body mx-3">
+              <div class="md-form mb-5">
+                <i class="fas fa-user prefix grey-text"></i>
+                <input type="text" id="form3" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="form3">ENTER AMOUNT</label>
+              </div>
+      
+      
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+              <button class="btn btn-success">deposit <i class="fas fa-paper-plane-o ml-1"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+
     </section>
 
 @endsection
 
+{{-- @section('page_scripts')
+
+<!-- MDB core JavaScript -->
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/js/mdb.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+@endsection
+
+@section('page_css')
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+@endsection --}}
