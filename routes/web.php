@@ -81,7 +81,7 @@ Route::get('/storage-link', function() {
  */
 Route::get('/', 'Web\HomeController@index')->name('home');
 
-Route::get('/register', 'Web\HomeController@index')->name('register');
+// Route::get('/register', 'Web\HomeController@index')->name('register');
 Route::get('/aboutus', 'Web\HomeController@index')->name('aboutus');
 Route::get('/contact-us', 'Web\HomeController@contacts')->name('contacts');
 Route::post('/contact-us', 'Web\HomeController@contactsStore')->name('contacts.store');
@@ -159,19 +159,6 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::get('excel/admin/offers/{type}', 'ExcelController@exportOffersToExcel')->name('excel.admin.offers');
 
-	// shopping cart
-	Route::get('/review-order', 'Web\ShoppingCart\ShoppingCartController@reviewOrder')->name('review-order');
-	Route::get('/review-order/make-payment/{id}', 'Web\ShoppingCart\ShoppingCartController@makePayment')->name('make-payment');
-	Route::post('/review-order/make-payment', 'Web\ShoppingCart\ShoppingCartController@makePaymentRequestStore')->name('make-payment-request-store');
-	Route::get('/payment-status/{id}', 'Web\ShoppingCart\ShoppingCartController@makePaymentResult')->name('payment-status');
-	Route::get('/my-shopping-cart', 'Web\ShoppingCart\ShoppingCartController@index')->name('my-shopping-cart');
-	Route::post('/my-shopping-cart', 'Web\ShoppingCart\ShoppingCartController@store')->name('my-shopping-cart.store');
-	Route::post('/my-shopping-cart/update-cart-items', 'Web\ShoppingCart\ShoppingCartController@updateCartItems')->name('my-shopping-cart.updateCartItems');
-	// Route::delete('/my-shopping-cart/{id}', 'Web\ShoppingCart\ShoppingCartController@destroy')->name('my-shopping-cart.updateCartItems');
-
-    // shopping cart item controller
-    Route::delete('/my-shopping-cart-item/{id}', 'Web\ShoppingCartItem\ShoppingCartItemController@destroy')->name('my-shopping-cart-item.destroy');
-
     // my transactions routes
     Route::get('/my-transactions', 'Web\MyTransaction\MyTransactionController@index')->name('my-transactions.index');
     Route::get('/my-transactions/create', 'Web\MyTransaction\MyTransactionController@create')->name('my-transactions.create');
@@ -187,7 +174,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/transaction-requests/accept/{token}', 'Web\MyTransaction\TransactionRequestController@accept')->name('transaction-requests.accept');
 
     // payment routes
-	Route::get('/my-payments', 'Web\MyPayments\MyPaymentController@index')->name('my-payments.index');
+    Route::get('/my-payments', 'Web\MyPayments\MyPaymentController@index')->name('my-payments.index');
+    Route::get('/my-payments/create', 'Web\MyPayments\MyPaymentController@create')->name('my-payments.create');
+    Route::post('/my-payments/store', 'Web\MyPayments\MyPaymentController@store')->name('my-payments.store');
+    Route::get('/my-payments/{id}', 'Web\MyPayments\MyPaymentController@show')->name('my-payments.show');
 
 	Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
@@ -326,13 +316,6 @@ Route::group(['middleware' => 'role:superadministrator|administrator'], function
 		'show' => 'admin.companyproducts.show',
 		'destroy' => 'admin.companyproducts.destroy'
 	]]);
-
-	//manage company products routes...
-	/* Route::resource('/admin/companyproducts', 'Web\Admin\CompanyProduct\CompanyProductController', [
-		'as' => 'admin'
-	]);
-	Route::post('/admin/companyproducts/create-step-2', 'Web\Admin\CompanyProduct\CompanyProductController@create_step2')->name('admin.companyproducts.create_step2');
- */
 
 	//manage assets routes...
 	Route::resource('/manage/assets', 'Web\Assets\AssetController');

@@ -1863,7 +1863,7 @@ function deleteShoppingCartItem($shopping_cart_item_id) {
 }
 
 // send invoice to user
-function sendStkPushRequest($paybill_number, $phone_number, $shopping_cart_id, $amount, $company_id, $offer_id, $user_id) {
+function sendStkPushRequest($paybill_number, $phone_number, $account_no, $amount, $company_id, $user_id) {
 
     // get logged in user
     $logged_user_data = getLoggedUser();
@@ -1884,12 +1884,10 @@ function sendStkPushRequest($paybill_number, $phone_number, $shopping_cart_id, $
     $stkpush_data->paybill = $paybill_number;
     $stkpush_data->phone = $phone_number;
     $stkpush_data->amount = $amount;
-    $stkpush_data->acc_ref = $shopping_cart_id;
-    $stkpush_data->shopping_cart_id = $shopping_cart_id;
+    $stkpush_data->acc_ref = $account_no;
     $stkpush_data->user_id = $user_id;
     $stkpush_data->status_id = 1;
     $stkpush_data->company_id = $company_id;
-    $stkpush_data->offer_id = $offer_id;
 
     $stkpush_data->created_by = $logged_user_id;
     $stkpush_data->created_by_name = $logged_user_names;
@@ -1906,7 +1904,7 @@ function sendStkPushRequest($paybill_number, $phone_number, $shopping_cart_id, $
 
 	//get app access token
     $access_token = getAdminAccessToken($pendoapi_app_name);
-    // dd($stk_push_url, $paybill_number, $phone_number, $shopping_cart_id, $amount, $company_id, $offer_id, $user_id, $access_token);
+    // dd($stk_push_url, $paybill_number, $phone_number, $account_no, $amount, $company_id, $offer_id, $user_id, $access_token);
 
     if ($access_token) {
 
@@ -1916,7 +1914,7 @@ function sendStkPushRequest($paybill_number, $phone_number, $shopping_cart_id, $
 				"paybill_number" => $paybill_number,
 				"phone_number" => $phone_number,
                 "amount" => format_num($amount, 0, ''),
-                "acct_no" => $shopping_cart_id
+                "acct_no" => $account_no
 			]
 		];
 
@@ -3003,6 +3001,9 @@ function getDefaultBranchCd() {
 }
 function getDefaultAccountTypeCd() {
     return config('constants.account_settings.default_account_type_cd');
+}
+function getTransactionAccountTypeId() {
+    return config('constants.account_settings.transaction_account_type_id');
 }
 
 // transaction roles

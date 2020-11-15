@@ -5,7 +5,7 @@
 @endsection
 
 @section('page_title')
-    {!! getLoggedUser()->first_name !!} 
+    {!! getLoggedUser()->first_name !!}
 @endsection
 
 @section('page_breadcrumbs')
@@ -44,10 +44,10 @@
                                     <a href="#" class="btn btn-sm btn-border full-width btn-block">
                                         <i class="fa fa-money-bill-wave-alt"></i> Deposit Funds</a>
                                 </div>
-                                
+
                             </div>
 
-                 
+
                         </div>
                         <hr class="space-sm" />
 
@@ -63,7 +63,7 @@
                         <div class="row">
                             <div class="col-lg-6"><h3>MY PAYMENTS</h3></div>
                             <div class="col-lg-6 no-gutters">
-                                <a href="{{ route('my-transactions.create') }}" class="btn btn-sm btn-icon full-width-sm">
+                                <a href="{{ route('my-payments.create') }}" class="btn btn-sm btn-icon full-width-sm btn-white">
                                     <i class="fa fa-plus"></i>Make New Payment
                                 </a>
                             </div>
@@ -116,7 +116,7 @@
                             </div>
                             <hr>
 
-                          
+
                         </div>
 
                     </div>

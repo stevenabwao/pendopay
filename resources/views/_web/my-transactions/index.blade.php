@@ -44,10 +44,10 @@
                                     <a href="#" class="btn btn-sm btn-border full-width btn-block">
                                         <i class="fa fa-money-bill-wave-alt"></i> Deposit Funds</a>
                                 </div>
-                                
+
                             </div>
 
-                            
+
 
                         </div>
                         <hr class="space-sm" />
@@ -55,16 +55,14 @@
                     </div>
 
                 </div>
-                <div class="col-lg-7 no-guttersz">
-
-
+                <div class="col-lg-7 no-guttersz" style="display:inline-block; word-break: break-word; overflow: inherit;">
 
                     <div class="grid-list equalheight" data-columns="1">
 
                         <div class="row">
                             <div class="col-lg-6"><h3>RECENT TRANSACTIONS</h3></div>
                             <div class="col-lg-6 no-gutters">
-                                <a href="{{ route('my-transactions.create') }}" class="btn btn-sm btn-icon full-width-sm">
+                                <a href="{{ route('my-transactions.create') }}" class="btn btn-sm btn-icon full-width-sm btn-white">
                                     <i class="fa fa-plus"></i>Create New Transaction
                                 </a>
                             </div>
@@ -101,7 +99,7 @@
                                                             {{ $transaction->formatted_transaction_amount }}
                                                         </a>
                                                     </li>
-                                                    <li class="text-success">
+                                                    <li>
                                                         <i class="fa fa-thumbs-up"></i>
                                                         {!! showStatusText($transaction->status_id) !!}
                                                         ({{ getMyTransactionMessage($transaction) }})
@@ -114,14 +112,24 @@
 
                                 @endforeach
 
+                                {{-- pagination --}}
+                                {{ $transactions->links() }}
+
                             @else
 
-                                No Transactions
+                                <div class="alert alert-danger text-center">
+                                    No Transactions Found
+                                </div>
+
+                                {{-- <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="alert alert-danger text-center">
+                                            No Transactions Found
+                                        </div>
+                                    </div>
+                                </div> --}}
 
                             @endif
-
-                            {{-- pagination --}}
-                            {{ $transactions->links() }}
 
                         </div>
 

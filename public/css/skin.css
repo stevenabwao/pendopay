@@ -957,6 +957,9 @@ nav .custom-area {
     margin: 0;
     min-width: 75px;
 }
+.lan-menu-top > .dropdown > ul {
+    min-width: 220px !important;
+}
 
 .menu-mini {
     height: 39px;

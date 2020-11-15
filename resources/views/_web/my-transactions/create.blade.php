@@ -49,7 +49,7 @@
                         </div>
 
                         <div class="md-form mat-2 mx-auto">
-                            <input type="text" value="{{ old('transaction_amount', '30000') }}" name="transaction_amount" >
+                            <input type="text" value="{{ old('transaction_amount', '30000') }}" name="transaction_amount" class="digitsOnly">
                             <label for="transaction_amount">Transaction Amount</label>
 
                             @if ($errors->has('transaction_amount'))

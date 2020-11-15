@@ -9,6 +9,7 @@ use App\Entities\MpesaPaybill;
 use App\Entities\CompanyUser;
 use App\Entities\Offer;
 use App\Entities\OfferProduct;
+use App\Entities\Payment;
 use App\Entities\Till;
 use App\Entities\Transaction;
 use App\Permission;
@@ -199,14 +200,32 @@ Breadcrumbs::register('my-transactions.edit', function($breadcrumbs, $id)
 
 /******** END MY TRANSACTIONS ROUTES ********/
 
-/********PAYMENTS ROUTES ********/
+
+/******** MY PAYMENTS ROUTES ********/
+
+// Home > My Payments
 Breadcrumbs::register('my-payments.index', function($breadcrumbs)
 {
     $breadcrumbs->parent('home');
     $breadcrumbs->push('My Payments', route('my-payments.index'));
 });
 
-/*********END OF PAYMENTS ROUTES ********/
+// Home > My Payments > Create New Payment
+Breadcrumbs::register('my-payments.create', function($breadcrumbs)
+{
+    $breadcrumbs->parent('my-payments.index');
+    $breadcrumbs->push('Create New Payment', route('my-payments.create'));
+});
+
+// Home > My Payments > Show Payment
+Breadcrumbs::register('my-payments.show', function($breadcrumbs, $id)
+{
+    $payment = Payment::findOrFail($id);
+    $breadcrumbs->parent('my-payments.index');
+    $breadcrumbs->push($payment->title, route('my-payments.show', $payment->id));
+});
+
+/******** END MY PAYMENTS ROUTES ********/
 
 
 /******** ADMIN OFFERS ROUTES ********/

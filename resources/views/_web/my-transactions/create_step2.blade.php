@@ -52,7 +52,7 @@
                         </div>
 
                         <div class="md-form mat-2 mx-auto">
-                            <input type="text" value="{{ $trans_data['transaction_amount'] }}" name="transaction_amount" disabled>
+                            <input type="text" value="{{ formatCurrency($trans_data['transaction_amount']) }}" name="transaction_amount" disabled>
                             <label for="transaction_amount">Transaction Amount</label>
                         </div>
                         <hr>

@@ -136,7 +136,7 @@
 
                             </div>
 
-                            <button class="btn btn-xs" type="submit">Send message</button>
+                            <button class="btn btn-xs btn-block" type="submit">Send message</button>
 
                         @endif
 

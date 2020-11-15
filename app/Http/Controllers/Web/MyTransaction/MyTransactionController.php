@@ -67,7 +67,7 @@ class MyTransactionController extends Controller
 
         $this->validate($request, [
             'title' => 'required',
-            'transaction_amount' => 'required',
+            'transaction_amount' => 'required|numeric',
             'transaction_date' => 'required|date|date_format:d-m-Y|after:yesterday',
             'transaction_role' => 'required',
             'terms' => 'required'
@@ -80,7 +80,6 @@ class MyTransactionController extends Controller
             $result = $new_item->message->message;
             $success_message = $result->message;
             $new_item_data = $result->data;
-            // dd($new_item_data, $success_message);
 
             // check whether user is buyer or seller
             // display screen to ask user to enter details of buyer/ seller
