@@ -81,7 +81,7 @@ Route::get('/storage-link', function() {
  */
 Route::get('/', 'Web\HomeController@index')->name('home');
 
-Route::get('/register', 'Web\HomeController@index')->name('register');
+// Route::get('/register', 'Web\HomeController@index')->name('register');
 Route::get('/aboutus', 'Web\HomeController@index')->name('aboutus');
 Route::get('/contact-us', 'Web\HomeController@contacts')->name('contacts');
 Route::post('/contact-us', 'Web\HomeController@contactsStore')->name('contacts.store');
@@ -159,31 +159,32 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::get('excel/admin/offers/{type}', 'ExcelController@exportOffersToExcel')->name('excel.admin.offers');
 
-	// shopping cart
-	Route::get('/review-order', 'Web\ShoppingCart\ShoppingCartController@reviewOrder')->name('review-order');
-	Route::get('/review-order/make-payment/{id}', 'Web\ShoppingCart\ShoppingCartController@makePayment')->name('make-payment');
-	Route::post('/review-order/make-payment', 'Web\ShoppingCart\ShoppingCartController@makePaymentRequestStore')->name('make-payment-request-store');
-	Route::get('/payment-status/{id}', 'Web\ShoppingCart\ShoppingCartController@makePaymentResult')->name('payment-status');
-	Route::get('/my-shopping-cart', 'Web\ShoppingCart\ShoppingCartController@index')->name('my-shopping-cart');
-	Route::post('/my-shopping-cart', 'Web\ShoppingCart\ShoppingCartController@store')->name('my-shopping-cart.store');
-	Route::post('/my-shopping-cart/update-cart-items', 'Web\ShoppingCart\ShoppingCartController@updateCartItems')->name('my-shopping-cart.updateCartItems');
-	// Route::delete('/my-shopping-cart/{id}', 'Web\ShoppingCart\ShoppingCartController@destroy')->name('my-shopping-cart.updateCartItems');
-
-    // shopping cart item controller
-    Route::delete('/my-shopping-cart-item/{id}', 'Web\ShoppingCartItem\ShoppingCartItemController@destroy')->name('my-shopping-cart-item.destroy');
-
     // my transactions routes
     Route::get('/my-transactions', 'Web\MyTransaction\MyTransactionController@index')->name('my-transactions.index');
     Route::get('/my-transactions/create', 'Web\MyTransaction\MyTransactionController@create')->name('my-transactions.create');
     Route::get('/my-transactions/create-step2/{id}', 'Web\MyTransaction\MyTransactionController@create_step2')->name('my-transactions.create-step2');
+    Route::get('/my-transactions/create-step3/{id}', 'Web\MyTransaction\MyTransactionController@create_step3')->name('my-transactions.create-step3');
     Route::post('/my-transactions/store', 'Web\MyTransaction\MyTransactionController@store')->name('my-transactions.store');
+    Route::post('/my-transactions/store-step2', 'Web\MyTransaction\MyTransactionController@storeStep2')->name('my-transactions.store-step2');
+    Route::post('/my-transactions/store-step3', 'Web\MyTransaction\MyTransactionController@storeStep3')->name('my-transactions.store-step3');
     Route::get('/my-transactions/{id}', 'Web\MyTransaction\MyTransactionController@show')->name('my-transactions.show');
 
+<<<<<<< HEAD
     //payment controller
 	Route::get('/my-payments', 'Web\MyPayments\MyPaymentController@index')->name('my-payments.index');
 	Route::get('/my-payments/create', 'Web\MyPayments\MyPaymentController@create')->name('my-payments.create');
 	Route::post('/my-payments/store', 'Web\MyPayments\MyPaymentController@store')->name('my-payments.store');
+||||||| merged common ancestors
+    //payment controller
+	Route::get('/my-payments', 'Web\MyPayments\MyPaymentController@index')->name('my-payments.index');
+    
+=======
+    // transaction request routes
+    Route::get('/transaction-requests', 'Web\MyTransaction\TransactionRequestController@index')->name('transaction-requests.index');
+    Route::get('/transaction-requests/accept/{token}', 'Web\MyTransaction\TransactionRequestController@accept')->name('transaction-requests.accept');
+>>>>>>> master
 
+<<<<<<< HEAD
 	//deposit controller route
 	Route::get('/my-account/deposit', 'Web\Deposits\DepositController@create')->name('my-account.deposit.create');
 	 
@@ -191,6 +192,14 @@ Route::group(['middleware' => 'auth'], function() {
 	//TRANSFER FUNDS ROUTES
 
 	Route::get('/my-account/transferfund', 'Web\Transfer\TransferController@create')->name('my-account.transferfund.create');
+||||||| merged common ancestors
+=======
+    // payment routes
+    Route::get('/my-payments', 'Web\MyPayments\MyPaymentController@index')->name('my-payments.index');
+    Route::get('/my-payments/create', 'Web\MyPayments\MyPaymentController@create')->name('my-payments.create');
+    Route::post('/my-payments/store', 'Web\MyPayments\MyPaymentController@store')->name('my-payments.store');
+    Route::get('/my-payments/{id}', 'Web\MyPayments\MyPaymentController@show')->name('my-payments.show');
+>>>>>>> master
 
 	Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
@@ -198,7 +207,6 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('/orders/addItemToCart', 'Web\Order\OrderController@addItemToCart')->name('orders.addItemToCart');
 
     // Route::resource('/admin/orders', 'Web\Admin\Order\OrderController');
-
 
 	// companyjoinrequests routes...
 	Route::resource('/company-join-requests', 'Web\Company\CompanyJoinRequestController');
@@ -330,13 +338,6 @@ Route::group(['middleware' => 'role:superadministrator|administrator'], function
 		'show' => 'admin.companyproducts.show',
 		'destroy' => 'admin.companyproducts.destroy'
 	]]);
-
-	//manage company products routes...
-	/* Route::resource('/admin/companyproducts', 'Web\Admin\CompanyProduct\CompanyProductController', [
-		'as' => 'admin'
-	]);
-	Route::post('/admin/companyproducts/create-step-2', 'Web\Admin\CompanyProduct\CompanyProductController@create_step2')->name('admin.companyproducts.create_step2');
- */
 
 	//manage assets routes...
 	Route::resource('/manage/assets', 'Web\Assets\AssetController');

@@ -40,6 +40,11 @@ class Transaction extends BaseModel
         return $this->belongsTo(User::class, 'buyer_user_id', 'id');
     }
 
+    public function transactionrequests()
+    {
+        return $this->hasMany(TransactionRequest::class);
+    }
+
     public function creator()
     {
         return $this->belongsTo(User::class, 'created_by', 'id');

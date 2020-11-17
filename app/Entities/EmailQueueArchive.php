@@ -22,8 +22,8 @@ class EmailQueueArchive extends Model
      */
     protected $fillable = [
         'parent_id', 'title', 'email_text', 'email_address', 'company_name', 'status_id', 'company_id', 'email_salutation',
-        'has_attachments', 'event_type_id', 'table_text', 'parent_id', 'reminder_message_id', 'panel_text', 'item_id', 
-        'email_footer', 'subject', 'email_batch_id', 'sent_at', 'updated_at', 'updated_by', 
+        'has_attachments', 'event_type_id', 'table_text', 'parent_id', 'reminder_message_id', 'panel_text', 'item_id',
+        'email_footer', 'subject', 'email_batch_id', 'sent_at', 'updated_at', 'updated_by',
         'updated_by_name', 'created_at', 'created_by', 'created_by_name', 'email_provider_name'
     ];
 
@@ -36,7 +36,7 @@ class EmailQueueArchive extends Model
     public function emailqueue()
     {
         return $this->belongsTo(EmailQueue::class, 'parent_id', 'id');
-    }    
+    }
 
     public function status()
     {
@@ -78,7 +78,7 @@ class EmailQueueArchive extends Model
     public static function create(array $attributes = [])
     {
 
-        echo(json_encode($attributes));
+        // echo(json_encode($attributes));
         /* if (
             auth()->user()) {
             $user_id = auth()->user()->id;
@@ -96,7 +96,7 @@ class EmailQueueArchive extends Model
         // add parent id
         $attributes['parent_id'] = $attributes['id'];
 
-        // remove id and updated_by fields from array, 
+        // remove id and updated_by fields from array,
         // id will be auto populated (autoincrement field)
         unset($attributes['id']);
 

@@ -11,9 +11,10 @@
 
         <div class="container">
 
-            <div class="row justify-content-center">
+            <div class="row justify-content-center thebg">
 
-                <div class="col-md-6" >
+                <div class="col-md-7" >
+
                     <div class="card">
                         <div class="card-body">
                             <div class="row justify-content-center">
@@ -67,18 +68,25 @@
                                 <div class="inputs row">
                                     <button class="btn btn-xs" type="submit">Login</button>
                                 </div>
-                                <div class="col-sm-12z inputs row">
-                                    <div class="col-sm-6">
+
+                                <hr>
+
+                                <div class="inputs row">
+                                    <div class="col-sm-4">
                                         <a href="{{ route('register') }}" class="reset">Register an Account</a>
                                     </div>
-                                    <div class="col-sm-6 float-right">
+                                    <div class="col-sm-4">
                                         <a href="{{ route('password.request') }}" class="reset">Forgot Your Password?</a>
+                                    </div>
+                                    <div class="col-sm-4 float-right">
+                                        <a href="{{ route('activate-account') }}" class="reset">Activate Account</a>
                                     </div>
                                 </div>
                             </form>
 
                         </div>
                     </div>
+
                 </div>
             </div>
 
@@ -96,6 +104,13 @@
     @section('page_css')
 
         <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+
+        <style>
+            .thebg {
+                background: url('images/bg.jpg') center no-repeat !important;
+                height:100%;width:100%;
+            }
+        </style>
 
     @endsection
 

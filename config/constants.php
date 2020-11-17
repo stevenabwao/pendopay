@@ -69,6 +69,11 @@
         'sitefunctions' => [
             'registration' => 'registration',
             'passwordreset' => 'passwordreset',
+            'transactionrequest' => 'transactionrequest',
+            'transactionrequest_noaccount' => 'transactionrequest_noaccount',
+        ],
+        'sitesections' => [
+            'transactionrequest' => 'transactionrequest',
         ],
         'email' => [
             'subject' =>    [
@@ -148,6 +153,7 @@
             'loan_account_product_id' => '2',
             'mobile_loan_product_id' => '6',
             'shares_account_product_id' => '13',
+            'transaction_account_type_id' => '31',
         ],
 
         'membership_age_limits' => [

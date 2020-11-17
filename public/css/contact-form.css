@@ -96,6 +96,11 @@ form.form-box textarea {
     width: calc(100% - 40px);
     margin-left: 15px;
     font-weight: normal;
+    margin-bottom: 0;
+}
+
+.form-check-label {
+    margin-bottom: 1rem;
 }
 
 .form-box .form-checkbox + button, .form-box .form-checkbox + input {

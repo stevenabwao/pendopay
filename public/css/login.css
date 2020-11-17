@@ -117,7 +117,7 @@ body{
 .md-form.mat-2 textarea {
     padding: 10px; border-color: #ced4da;
 }
-.contact-us-form .md-form.mat-2 label.active, .md-form.mat-2 label.date.active {
+.contact-us-form .md-form.mat-2 label.active, .contact-us-form .md-form.mat-2 label.date.active {
     background-color: rgb(228, 237, 243) !important;
     font-weight: 500;
     padding-right: 5px;
@@ -126,6 +126,7 @@ body{
     top: 1.9rem;
     left: 8px;
 }
+<<<<<<< HEAD
 .md-form.mat-2 select{
     border-width: 1px !important;
     border-style: solid;
@@ -138,3 +139,7 @@ body{
     height: 45px;
     width: 100%;
 }
+||||||| merged common ancestors
+=======
+
+>>>>>>> master

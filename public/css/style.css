@@ -2535,7 +2535,7 @@ ICON LIST - COMPONENT
     padding-left: 25px;
     position: relative;
     white-space: nowrap;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .icon-list p {
@@ -2672,7 +2672,8 @@ ul.icon-decimal, ul.icon-decimal li {
 
 
 .icon-list-horizontal.icon-list:not(.icon-md):not(.icon-lg) span {
-    padding-left: 33px;
+    /* padding-left: 33px; */
+    padding-left: 0;
 }
 
 ul.icon-list.list-right li, .icon-list-horizontal.icon-list.list-right span {
@@ -5712,3 +5713,13 @@ Inverted responsive classes
     max-width: 100%;
     margin-right: 8px;
 }
+.breadcrumb{
+    background-color: transparent;
+    border-radius: 0;
+}
+.h3, h3 {
+    font-size: 1.2rem;
+}
+
+/* override btn hover */
+.btn-white:hover{ color:#fff; }

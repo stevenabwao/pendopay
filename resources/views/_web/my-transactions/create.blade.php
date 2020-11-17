@@ -17,7 +17,7 @@
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-6" >
+            <div class="col-md-7" >
 
         <div class="card">
 
@@ -49,7 +49,7 @@
                         </div>
 
                         <div class="md-form mat-2 mx-auto">
-                            <input type="text" value="{{ old('transaction_amount', '30000') }}" name="transaction_amount" >
+                            <input type="text" value="{{ old('transaction_amount', '30000') }}" name="transaction_amount" class="digitsOnly">
                             <label for="transaction_amount">Transaction Amount</label>
 
                             @if ($errors->has('transaction_amount'))
@@ -78,14 +78,14 @@
                             <div class="row justify-content-center">
 
                                 <div class="form-check form-check-inline radioform">
-                                  <input type="radio" class="form-check-input" value="{{ getTransactionRoleSeller() }}"
-                                    checked="checked" name="transaction_role">
+                                  <input type="radio" class="form-check-input" value="{{ getTransactionRoleSeller() }}" name="transaction_role"
+                                    {{ old('transaction_role', getTransactionRoleSeller()) == getTransactionRoleSeller() ? 'checked' : ''}}>
                                   <label class="form-check-label" for="materialInline1">Seller</label>
                                 </div>
 
                                 <div class="form-check form-check-inline radioform">
-                                  <input type="radio" class="form-check-input" value="{{ getTransactionRoleBuyer() }}"
-                                    name="transaction_role">
+                                  <input type="radio" class="form-check-input" value="{{ getTransactionRoleBuyer() }}" name="transaction_role"
+                                    {{ old('transaction_role') == getTransactionRoleBuyer() ? 'checked' : ''}}>
                                   <label class="form-check-label" for="materialInline2">Buyer</label>
                                 </div>
 

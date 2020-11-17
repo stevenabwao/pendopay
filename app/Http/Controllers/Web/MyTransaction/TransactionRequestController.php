@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\MyTransaction;
 
 use App\Entities\Transaction;
 use App\Entities\Status;
+use App\Entities\TransactionRequest;
 use App\Http\Controllers\Controller;
 use App\Services\MyTransaction\MyTransactionIndex;
 use App\Services\MyTransaction\MyTransactionStore;
@@ -13,7 +14,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Session;
 
-class MyTransactionController extends Controller
+class TransactionRequestController extends Controller
 {
 
     /**
@@ -23,9 +24,9 @@ class MyTransactionController extends Controller
     /**
      * constructor.
      *
-     * @param Transaction $model
+     * @param TransactionRequest $model
      */
-    public function __construct(Transaction $model)
+    public function __construct(TransactionRequest $model)
     {
         $this->model = $model;
     }
@@ -67,7 +68,7 @@ class MyTransactionController extends Controller
 
         $this->validate($request, [
             'title' => 'required',
-            'transaction_amount' => 'required|numeric',
+            'transaction_amount' => 'required',
             'transaction_date' => 'required|date|date_format:d-m-Y|after:yesterday',
             'transaction_role' => 'required',
             'terms' => 'required'
@@ -80,6 +81,7 @@ class MyTransactionController extends Controller
             $result = $new_item->message->message;
             $success_message = $result->message;
             $new_item_data = $result->data;
+            // dd($new_item_data, $success_message);
 
             // check whether user is buyer or seller
             // display screen to ask user to enter details of buyer/ seller
@@ -98,12 +100,12 @@ class MyTransactionController extends Controller
 
     }
 
-    // ask user to select buyer/ seller
-    public function create_step2($id, Request $request)
+    // accept a transaction request
+    public function accept($token, Request $request)
     {
 
 
-        $itemdata = $this->model->where('id', $id)
+        $itemdata = $this->model->where('id', $token)
                        ->where('status_id', getStatusInactive())
                        ->first();
 
@@ -217,7 +219,7 @@ class MyTransactionController extends Controller
     public function storeStep3(Request $request, MyTransactionStoreStepThree $myTransactionStoreStepThree)
     {
 
-        // dd($request);
+
 
         $this->validate($request, [
             'trans_partner_role' => 'required'
@@ -227,13 +229,30 @@ class MyTransactionController extends Controller
         try {
             $new_item = $myTransactionStoreStepThree->createItem($request->all());
             $new_item_decode = json_decode($new_item);
-            $new_item_message = $new_item_decode->message->message->message;
-            // dd($new_item_message);
+            $new_item_message = $new_item_decode->message;
+
+            // check if we found the user
+            if ($new_item_message->error) {
+                // error occured, user not found
+                $result = $new_item_message->message;
+                $the_message = $result->message;
+                // show user form asking them to enter user email or phone OR go back and search again
+                dd($the_message);
+            } else {
+                // no error user was found
+                $result = $new_item_message->message;
+                $new_item_data = $result->data;
+                // show user form asking them to send request to this user
+                dd($new_item_data);
+            }
+            dd("end");
 
             // check whether user is buyer or seller
             // display screen to ask user to enter details of buyer/ seller
-            Session::flash('success', $new_item_message);
-            return redirect(route('my-transactions.index'));
+            /* Session::flash('success', $the_message);
+            return redirect(route('my-transactions.create-step2', [
+                'id' => $new_item_data->id
+            ])); */
 
         } catch (\Exception $e) {
 

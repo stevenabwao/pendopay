@@ -38,6 +38,9 @@ use App\Entities\MediaTemplate;
 use App\Entities\PasswordReset;
 use App\Entities\Payment;
 use App\Entities\CommissionScale;
+use App\Entities\Transaction;
+use App\Entities\TransactionRequest;
+use App\Entities\UserNotification;
 use App\Events\LoanApplicationUpdated;
 use App\Services\EmailQueue\EmailQueueStore;
 use App\Mail\ReminderMessageEmail;
@@ -1860,7 +1863,7 @@ function deleteShoppingCartItem($shopping_cart_item_id) {
 }
 
 // send invoice to user
-function sendStkPushRequest($paybill_number, $phone_number, $shopping_cart_id, $amount, $company_id, $offer_id, $user_id) {
+function sendStkPushRequest($paybill_number, $phone_number, $account_no, $amount, $company_id, $user_id) {
 
     // get logged in user
     $logged_user_data = getLoggedUser();
@@ -1881,12 +1884,10 @@ function sendStkPushRequest($paybill_number, $phone_number, $shopping_cart_id, $
     $stkpush_data->paybill = $paybill_number;
     $stkpush_data->phone = $phone_number;
     $stkpush_data->amount = $amount;
-    $stkpush_data->acc_ref = $shopping_cart_id;
-    $stkpush_data->shopping_cart_id = $shopping_cart_id;
+    $stkpush_data->acc_ref = $account_no;
     $stkpush_data->user_id = $user_id;
     $stkpush_data->status_id = 1;
     $stkpush_data->company_id = $company_id;
-    $stkpush_data->offer_id = $offer_id;
 
     $stkpush_data->created_by = $logged_user_id;
     $stkpush_data->created_by_name = $logged_user_names;
@@ -1903,7 +1904,7 @@ function sendStkPushRequest($paybill_number, $phone_number, $shopping_cart_id, $
 
 	//get app access token
     $access_token = getAdminAccessToken($pendoapi_app_name);
-    // dd($stk_push_url, $paybill_number, $phone_number, $shopping_cart_id, $amount, $company_id, $offer_id, $user_id, $access_token);
+    // dd($stk_push_url, $paybill_number, $phone_number, $account_no, $amount, $company_id, $offer_id, $user_id, $access_token);
 
     if ($access_token) {
 
@@ -1913,7 +1914,7 @@ function sendStkPushRequest($paybill_number, $phone_number, $shopping_cart_id, $
 				"paybill_number" => $paybill_number,
 				"phone_number" => $phone_number,
                 "amount" => format_num($amount, 0, ''),
-                "acct_no" => $shopping_cart_id
+                "acct_no" => $account_no
 			]
 		];
 
@@ -2463,16 +2464,55 @@ function getUserSetLoanLimit($loan_limit_calculation_id, $user_deposit_payments,
 }
 
 // get user account data
-function getUserData($phone, $email="") {
+function getUserData($phone, $email="", $id=NULL) {
 
 	//get user data
-	$user_data = User::where('phone', '=', $phone)
+	$user_data = User::when($phone, function ($query) use ($phone) {
+                            $query->orWhere('phone', '=', $phone);
+                        })
                         ->when($email, function ($query) use ($email) {
                             $query->orWhere('email', '=', $email);
+                        })
+                        ->when($id, function ($query) use ($id) {
+                            $query->orWhere('id', '=', $id);
                         })
 					    ->first();
 
 	return $user_data;
+
+}
+
+// get transaction data
+function getTransactionData($id, $status_id="") {
+
+	//get trans data
+    $trans_data = Transaction::where("id", $id)
+                               ->when($status_id, function ($query) use ($status_id) {
+                                    $query->orWhere('status_id', '=', $status_id);
+                               })
+                               ->first();
+
+	return $trans_data;
+
+}
+
+// change transaction status
+function changeTransactionStatus($trans_id, $status_id) {
+
+    // update
+    try {
+
+        $result = Transaction::where("id", $trans_id)->update([
+                'status_id' => $status_id
+        ]);
+
+        return $result;
+
+    } catch(\Exception $e) {
+
+        throw new \Exception($e->getMessage());
+
+    }
 
 }
 
@@ -2962,6 +3002,9 @@ function getDefaultBranchCd() {
 function getDefaultAccountTypeCd() {
     return config('constants.account_settings.default_account_type_cd');
 }
+function getTransactionAccountTypeId() {
+    return config('constants.account_settings.transaction_account_type_id');
+}
 
 // transaction roles
 function getTransactionRoleBuyer() {
@@ -3042,7 +3085,37 @@ function getNoImageText() {
     return config('constants.site_text.no_photo_text');
 }
 
-// get sms types
+// start media types
+function getMediaTypeEmail() {
+    return config('constants.mediatypes.email');
+}
+function getMediaTypeSms() {
+    return config('constants.mediatypes.sms');
+}
+// end media types
+
+// start site functions
+function getSiteFunctionRegistration() {
+    return config('constants.sitefunctions.registration');
+}
+function getSiteFunctionPasswordReset() {
+    return config('constants.sitefunctions.passwordreset');
+}
+function getSiteFunctionTransactionRequest() {
+    return config('constants.sitefunctions.transactionrequest');
+}
+function getSiteFunctionTransactionRequestNoAccount() {
+    return config('constants.sitefunctions.transactionrequest_noaccount');
+}
+// end site functions
+
+// start site sections
+function getSiteSectionTransactionRequest() {
+    return config('constants.sitesections.transactionrequest');
+}
+// end site sections
+
+// start sms types
 function getCompanySmsType() {
     return config('constants.sms_types.company_sms');
 }
@@ -3067,7 +3140,6 @@ function getReminderSmsType() {
 function getPasswordResetSmsType() {
     return config('constants.sms_types.password_reset_sms');
 }
-
 // end sms types
 
 // get transaction role
@@ -3081,6 +3153,23 @@ function getTransactionRole($trans_data) {
         $trans_role = getTransactionRoleBuyer();
     } else if ($logged_user->id == $trans_data->seller_user_id) {
         $trans_role = getTransactionRoleSeller();
+    }
+
+    return $trans_role;
+
+}
+
+// get transaction partner role
+function getTransactionPartnerRole($trans_data) {
+
+    // dd($trans_data);
+    $logged_user = getLoggedUser();
+    $trans_role = "";
+
+    if ($logged_user->id == $trans_data->buyer_user_id) {
+        $trans_role = getTransactionRoleSeller();
+    } else if ($logged_user->id == $trans_data->seller_user_id) {
+        $trans_role = getTransactionRoleBuyer();
     }
 
     return $trans_role;
@@ -4670,6 +4759,7 @@ function disablePreviousResets($email) {
 
 }
 
+// START SEND EMAILS
 // send password reset email
 function sendPasswordResetEmail($new_reset_data) {
 
@@ -4682,8 +4772,8 @@ function sendPasswordResetEmail($new_reset_data) {
     $first_name = $user_data->first_name;
 
     // formulate email
-    $email_media_type = config('constants.mediatypes.email');
-    $passwordreset_site_function = config('constants.sitefunctions.passwordreset');
+    $email_media_type = getMediaTypeEmail();
+    $passwordreset_site_function = getSiteFunctionPasswordReset();
 
     // get site settings
     $site_settings = getSiteSettings();
@@ -4726,6 +4816,172 @@ function sendPasswordResetEmail($new_reset_data) {
     // send email to user
     sendTheEmailToQueue($email, $email_subject, $title, $company_full_name, $email_text, $email_salutation,
                         $company_id, $email_footer, $panel_text, $table_text, $parent_id, $reminder_message_id);
+
+}
+
+// send transaction request email
+function sendTransactionRequestEmail($sender_user_data, $recipient_user_data, $transaction_data) {
+
+    // get transaction partner role
+    $transaction_partner_role = getTransactionPartnerRole($transaction_data);
+
+    // get sender user data
+    $sender_first_name = $sender_user_data->first_name;
+    $sender_phone = $sender_user_data->phone;
+    $sender_email = $sender_user_data->email;
+
+    // get recipient user data
+    $recipient_first_name = $recipient_user_data->first_name;
+    $recipient_email = $recipient_user_data->email;
+
+    // get trans data
+    $transaction_title = $transaction_data->title;
+
+    // formulate email
+    $email_media_type = getMediaTypeEmail();
+    $transaction_request_site_function = getSiteFunctionTransactionRequest();
+
+    // get site settings
+    $site_settings = getSiteSettings();
+    $email_footer = $site_settings['email_footer'];
+    $email_salutation = $site_settings['email_salutation'];
+    $company_full_name = $site_settings['company_full_name_ltd'];
+    $email_subject = $site_settings['email_subject_transaction_request'];
+
+    // create salutation replacement array
+    $salutation_replacement_array = array();
+    $salutation_replacement_array[] = $recipient_first_name;
+
+    // replace [[name]] in template
+    $email_salutation = replaceDelimitersInTemplate($email_salutation, $salutation_replacement_array);
+
+    $email_template = getMediaTemplate($transaction_request_site_function, $email_media_type);
+
+    // formulate message from template
+    $set_email_template = $email_template->text ? $email_template->text : $email_template->default_text;
+
+    // login link
+    $login_url = route('login');
+    $login_link = "<a href='$login_url'>$login_url</a>";
+
+    // create replacement array
+    $replacement_array = array();
+    $replacement_array[] = $sender_first_name;
+    $replacement_array[] = $sender_phone;
+    $replacement_array[] = $transaction_partner_role;
+    $replacement_array[] = $transaction_title;
+    $replacement_array[] = $login_link;
+
+    // formulate email
+    // replace [[name]] and [[token]] in template
+    $email_text = replaceDelimitersInTemplate($set_email_template, $replacement_array);
+
+    // set subject
+    $title = $email_subject;
+    $company_id = NULL;
+    $panel_text = "";
+    $table_text = "";
+    $parent_id = NULL;
+    $reminder_message_id = NULL;
+
+    // send email to user
+    sendTheEmailToQueue($recipient_email, $email_subject, $title, $company_full_name, $email_text, $email_salutation,
+                        $company_id, $email_footer, $panel_text, $table_text, $parent_id, $reminder_message_id);
+
+}
+
+// END SEND EMAILS
+
+// send transaction request email
+function saveNewTransactionRequest($sender_user_data, $recipient_user_data, $transaction_data) {
+
+    // get transaction partner role
+    $sender_transaction_role = getTransactionRole($transaction_data);
+    $recipient_transaction_role = getTransactionPartnerRole($transaction_data);
+
+    $transaction_request_attributes = [];
+
+    // recipient data
+    $recipient_user_id = $recipient_user_data->id ? $recipient_user_data->id : "";
+    $recipient_user_email = $recipient_user_data->email ? $recipient_user_data->email : "";
+    $recipient_user_phone = $recipient_user_data->phone ? $recipient_user_data->phone : "";
+    $recipient_user_id_no = $recipient_user_data->id_no ? $recipient_user_data->id_no : "";
+
+    // confirm code
+    $site_settings = getSiteSettings();
+    $transaction_request_code_length = $site_settings['transaction_request_code_length'];
+    $transaction_request_code = generateCode($transaction_request_code_length, false, 'lud');
+
+    // create new recipient transaction request
+    $new_transaction_request = new TransactionRequest();
+
+    $transaction_request_attributes['transaction_id'] = $transaction_data->id;
+	$transaction_request_attributes['sender_user_id'] = $sender_user_data->id;
+	$transaction_request_attributes['sender_role'] = $sender_transaction_role;
+	$transaction_request_attributes['recipient_role'] = $recipient_transaction_role;
+	$transaction_request_attributes['recipient_user_id'] = $recipient_user_id;
+	$transaction_request_attributes['recipient_email'] = $recipient_user_email;
+    $transaction_request_attributes['recipient_phone'] = $recipient_user_phone;
+	$transaction_request_attributes['recipient_id_no'] = $recipient_user_id_no;
+	$transaction_request_attributes['confirm_code'] = $transaction_request_code;
+	$transaction_request_attributes['status_id'] = getStatusActive();
+    $transaction_request_attributes['created_by'] = $sender_user_data->id;
+	$transaction_request_attributes['created_by_name'] = $sender_user_data->full_name;
+	$transaction_request_attributes['updated_by'] = $sender_user_data->id;
+    $transaction_request_attributes['updated_by_name'] = $sender_user_data->full_name;
+    // dd("transaction_request_attributes == ", $transaction_request_attributes);
+
+    try {
+
+        $new_transaction_request_result = $new_transaction_request->create($transaction_request_attributes);
+
+        log_this("new_transaction_request_result\n\n" . json_encode($new_transaction_request_result));
+
+        // return $new_transaction_request_result;
+
+    } catch(\Exception $e) {
+
+        log_this($e);
+        throw new \Exception($e->getMessage());
+
+    }
+
+    // create new recipient notification
+    $new_notification = new UserNotification();
+
+    $notification_message = "the message";
+    $notification_link = route('transaction-requests.accept', ['token' => $transaction_request_code]);
+
+    $notification_attributes['user_id'] = $sender_user_data->id;
+    $notification_attributes['notification_message'] = $notification_message;
+    $notification_attributes['notification_link'] = $notification_link;
+    $notification_attributes['notification_section'] = getSiteSectionTransactionRequest();
+    $notification_attributes['notification_section_id'] = $transaction_data->id;
+    $notification_attributes['notification_object'] = 'App\Entities\TransactionRequest';
+    $notification_attributes['status_id'] = getStatusActive();
+    $notification_attributes['created_by'] = $sender_user_data->id;
+    $notification_attributes['created_by_name'] = $sender_user_data->full_name;
+    $notification_attributes['updated_by'] = $sender_user_data->id;
+    $notification_attributes['updated_by_name'] = $sender_user_data->full_name;
+
+    // dd("notification_attributes == ", $notification_attributes);
+
+    try {
+
+        $new_notification_result = $new_notification->create($notification_attributes);
+
+        log_this("new_notification_result\n\n" . json_encode($new_notification_result));
+
+        // return $new_notification_result;
+
+    } catch(\Exception $e) {
+
+        log_this($e);
+        throw new \Exception($e->getMessage());
+
+    }
+
+    return $new_transaction_request_result;
 
 }
 
@@ -6795,6 +7051,74 @@ function createNewReminderMessageDetail($company_id, $reminder_message_id,
 
 }
 
+// is the user sending a request to himself/ herself?
+function getSentFieldName($partner_details_select) {
+
+    if ($partner_details_select == 'phone') {
+        return "Phone No";
+    } else if ($partner_details_select == 'id_no') {
+        return "National ID No";
+    } else if ($partner_details_select == 'email') {
+        return "Email Address";
+    }
+
+    return "";
+
+}
+
+// is the user sending a request to himself/ herself?
+function isLoggedUserDetails($partner_details_select, $transaction_partner_details) {
+
+    $logged_user_data = getLoggedUser();
+    $logged_user_phone = $logged_user_data->phone;
+    $logged_user_email = $logged_user_data->email;
+    $logged_user_id_no = $logged_user_data->id_no;
+
+    if ($partner_details_select == 'phone') {
+        // check if supplied phone is the same as logged user phone
+        if ($logged_user_phone == getDatabasePhoneNumber($transaction_partner_details)){
+            return true;
+        }
+    } else if ($partner_details_select == 'id_no') {
+        // check if supplied id_no is the same as logged user id_no
+        if ($logged_user_id_no == $transaction_partner_details){
+            return true;
+        }
+    } else if ($partner_details_select == 'email') {
+        // check if supplied email is the same as logged user email
+        if ($logged_user_email == $transaction_partner_details){
+            return true;
+        }
+    }
+
+    return false;
+
+}
+
+/* getgetTransUserData($partner_details_select, $transaction_partner_details) */
+function getTransUserData($partner_details_select, $transaction_partner_details) {
+
+    $user_data = new User();
+
+    if ($partner_details_select == 'phone') {
+        $user_data = $user_data->where('phone', getDatabasePhoneNumber($transaction_partner_details));
+    } else if ($partner_details_select == 'id_no') {
+        $user_data = $user_data->where('id_no', $transaction_partner_details);
+    } else if ($partner_details_select == 'email') {
+        // check email validity
+        if (!isValidEmail($transaction_partner_details)) {
+            throw new \Exception("Invalid email address: $transaction_partner_details");
+        }
+        $user_data = $user_data->where('email', $transaction_partner_details);
+    }
+
+    // dont get logged user data
+    $user_data = $user_data->where('id', '!=', getLoggedUser()->id)->first();
+
+    return $user_data;
+
+}
+
 
 /*generate user account number*/
 function generate_user_cd() {
@@ -6904,7 +7228,8 @@ function getDatabasePhoneNumber($phone_number, $country_code='KE') {
         $phone_number = PhoneNumber::make($phone_number, $country_code)->formatE164();
         return str_replace("+", "", $phone_number);
     } catch(\Exception $e) {
-        throw new \Exception($e->getMessage());
+        $message = "Invalid phone number: $phone_number";
+        throw new \Exception($message);
     }
 }
 
