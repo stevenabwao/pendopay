@@ -65,13 +65,7 @@
                         <div class="row">
                             <div class="col-lg-6"><h3>MY PAYMENTS</h3></div>
                             <div class="col-lg-6 no-gutters">
-<<<<<<< HEAD
-                                <a href="{{ route('my-payments.create') }}" class="btn btn-sm btn-icon full-width-sm">
-||||||| merged common ancestors
-                                <a href="{{ route('my-transactions.create') }}" class="btn btn-sm btn-icon full-width-sm">
-=======
                                 <a href="{{ route('my-payments.create') }}" class="btn btn-sm btn-icon full-width-sm btn-white">
->>>>>>> master
                                     <i class="fa fa-plus"></i>Make New Payment
                                 </a>
                             </div>

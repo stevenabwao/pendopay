@@ -1772,6 +1772,12 @@ Breadcrumbs::register('users.edit', function($breadcrumbs, $id)
 
 /******** END USERS ROUTES ********/
 
+// Home > Users > Change My Password
+Breadcrumbs::register('user.changepass', function($breadcrumbs)
+{
+    $breadcrumbs->parent('user.profile');
+    $breadcrumbs->push("Change My Password", route('user.changepass'));
+});
 
 
 /******** LOGGED USER ROUTES ********/
@@ -1798,9 +1804,4 @@ Breadcrumbs::register('user.profile', function($breadcrumbs)
     $breadcrumbs->push("$full_names profile", route('user.profile.id'));
 });*/
 
-// Home > Users > Change My Password
-// Breadcrumbs::register('user.changepass', function($breadcrumbs)
-// {
-//     $breadcrumbs->parent('user.profile');
-//     $breadcrumbs->push("Change My Password", route('user.changepass'));
-// });
+});
