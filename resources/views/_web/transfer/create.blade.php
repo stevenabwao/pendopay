@@ -9,7 +9,7 @@
 @endsection
 
 @section('page_breadcrumbs')
-    {!! Breadcrumbs::render('my-account.transferfund.create') !!}
+    {{-- {!! Breadcrumbs::render('my-account.transferfund.create') !!} --}}
 @endsection
 
 
@@ -61,7 +61,7 @@
                         <hr>
 
                         <div class="inputs row">
-                            <button class="btn btn-xs" type="submit">Deposit</button>
+                            <button class="btn btn-xs" type="submit">Transfer</button>
                         </div>
                         </form>
 
