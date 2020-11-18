@@ -33,7 +33,7 @@ Register
                                 {{ csrf_field() }}
 
                                 <div class="md-form mat-2 mx-auto">
-                                    <input type="text" value="{{ old('first_name', 'Shapiro') }}" name="first_name" >
+                                    <input type="text" value="{{ old('first_name') }}" name="first_name" >
                                     <label for="first_name">First Name</label>
                                     @if ($errors->has('first_name'))
                                         <div class="help-block">
@@ -43,7 +43,7 @@ Register
                                 </div>
 
                                 <div class="md-form mat-2 mx-auto">
-                                    <input type="text" value="{{ old('last_name', 'King') }}" name="last_name" >
+                                    <input type="text" value="{{ old('last_name') }}" name="last_name" >
                                     <label for="last_name">Last Name</label>
                                     @if ($errors->has('last_name'))
                                         <div class="help-block">
@@ -53,7 +53,7 @@ Register
                                 </div>
 
                                 <div class="md-form mat-2 mx-auto">
-                                    <input type="text" value="{{ old('id_number', '23894567') }}" name="id_number" >
+                                    <input type="text" value="{{ old('id_number') }}" name="id_number" >
                                     <label for="id_number">ID No/ Passport No</label>
                                     @if ($errors->has('id_number'))
                                         <div class="help-block">
@@ -63,7 +63,7 @@ Register
                                 </div>
 
                                 <div class="md-form mat-2 mx-auto">
-                                    <input type="text" value="{{ old('dob', '08-02-1988') }}"
+                                    <input type="text" value="{{ old('dob') }}"
                                         class="form-control datepicker" name="dob">
                                     <label class="date" for="dob">Date of Birth</label>
                                     @if ($errors->has('dob'))
@@ -74,7 +74,7 @@ Register
                                 </div>
 
                                 <div class="md-form mat-2 mx-auto">
-                                    <input type="text" id="email" value="{{ old('email', 'antiv_boy_22@yahoo.com') }}" name="email" >
+                                    <input type="text" id="email" value="{{ old('email') }}" name="email" >
                                     <label for="email">Email adress</label>
                                     @if ($errors->has('email'))
                                         <div class="help-block">
@@ -84,7 +84,7 @@ Register
                                 </div>
 
                                 <div class="md-form mat-2 mx-auto">
-                                    <input type="text" id="phone" value="{{ old('phone', '254720743211') }}" name="phone">
+                                    <input type="text" id="phone" value="{{ old('phone') }}" name="phone">
                                     <label for="phone">Phone Number</label>
                                     @if ($errors->has('phone'))
                                         <div class="help-block">
@@ -94,7 +94,7 @@ Register
                                 </div>
 
                                 <div class="md-form mat-2 mx-auto">
-                                    <input type="password" id="password" value="{{ old('password', '123456') }}" name="password" >
+                                    <input type="password" id="password" value="{{ old('password') }}" name="password" >
                                     <label for="password">Password</label>
                                     @if ($errors->has('password'))
                                         <div class="help-block">
@@ -104,7 +104,7 @@ Register
                                 </div>
 
                                 <div class="md-form mat-2 mx-auto">
-                                    <input type="password" id="password_confirmation" value="{{ old('password_confirmation', '123456') }}" name="password_confirmation" class="active" >
+                                    <input type="password" id="password_confirmation" value="{{ old('password_confirmation') }}" name="password_confirmation" class="active" >
                                     <label for="password_confirmation">Confirm Password</label>
                                     @if ($errors->has('password_confirmation'))
                                         <div class="help-block">
@@ -117,7 +117,7 @@ Register
                                     <div class="form-checkbox">
 
                                         <input id="terms" type="checkbox" name="terms"
-                                                {{ old('terms', 'checked') ? 'checked' : '' }}>
+                                                {{ old('terms') ? 'checked' : '' }}>
 
                                         <label for="terms">I accept terms and coditions</label>
                                     </div>
