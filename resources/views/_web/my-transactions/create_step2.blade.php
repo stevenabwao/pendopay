@@ -63,17 +63,17 @@
                             <div class="row justify-content-center">
                                 <div class="form-check form-check-inline radioform">
                                     <input type="radio" class="form-check-input" value="phone" name="partner_details_select"
-                                        {{ old('partner_details_select', 'phone') == 'phone' ? 'checked' : ''}}>
+                                        {{ old('partner_details_select', 'phone') == 'phone' ? '' : ''}}>
                                     <label class="form-check-label" for="materialInline1">Phone No</label>
                                 </div>
                                 <div class="form-check form-check-inline radioform">
                                     <input type="radio" class="form-check-input" value="email" name="partner_details_select"
-                                        {{ old('partner_details_select') == 'email' ? 'checked' : ''}}>
+                                        {{ old('partner_details_select') == 'email' ? '' : ''}}>
                                     <label class="form-check-label" for="materialInline2">Email Address</label>
                                 </div>
                                 <div class="form-check form-check-inline radioform">
                                     <input type="radio" class="form-check-input" value="id_no" name="partner_details_select"
-                                        {{ old('partner_details_select') == 'id_no' ? 'checked' : ''}}>
+                                        {{ old('partner_details_select') == 'id_no' ? '' : ''}}>
                                     <label class="form-check-label" for="materialInline2">National ID No</label>
                                 </div>
                             </div>

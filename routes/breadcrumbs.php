@@ -201,6 +201,7 @@ Breadcrumbs::register('my-transactions.edit', function($breadcrumbs, $id)
 /******** END MY TRANSACTIONS ROUTES ********/
 
 
+
 /******** MY PAYMENTS ROUTES ********/
 
 // Home > My Payments
@@ -208,14 +209,27 @@ Breadcrumbs::register('my-payments.index', function($breadcrumbs)
 {
     $breadcrumbs->parent('home');
     $breadcrumbs->push('My Payments', route('my-payments.index'));
+   
 });
-
-// Home > My Payments > Create New Payment
+// Home > My Payments>New Payment
 Breadcrumbs::register('my-payments.create', function($breadcrumbs)
+{
+    $breadcrumbs->parent('my-payments.index');
+    $breadcrumbs->push('New Payment', route('my-payments.create'));
+});
+/*********END OF PAYMENTS ROUTES ********/
+/*********DEPOSITS  ROUTES */
+Breadcrumbs::register('my-account.deposit.create', function($breadcrumbs)
+{
+    Breadcrumbs::register('my-payments.create', function($breadcrumbs)
 {
     $breadcrumbs->parent('my-payments.index');
     $breadcrumbs->push('Create New Payment', route('my-payments.create'));
 });
+
+
+// Home > My Payments > Create New Payment
+
 
 // Home > My Payments > Show Payment
 Breadcrumbs::register('my-payments.show', function($breadcrumbs, $id)
@@ -227,6 +241,13 @@ Breadcrumbs::register('my-payments.show', function($breadcrumbs, $id)
 
 /******** END MY PAYMENTS ROUTES ********/
 
+/*********TRANSFER  ROUTES */
+Breadcrumbs::register('my-account.transferfund.create', function($breadcrumbs)
+
+{   
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('My Account /New Transfer', route('my-account.transferfund.create'));
+});
 
 /******** ADMIN OFFERS ROUTES ********/
 
@@ -1778,9 +1799,9 @@ Breadcrumbs::register('user.profile', function($breadcrumbs)
 });*/
 
 // Home > Users > Change My Password
-Breadcrumbs::register('user.changepass', function($breadcrumbs)
-{
-    $breadcrumbs->parent('user.profile');
-    $breadcrumbs->push("Change My Password", route('user.changepass'));
+// Breadcrumbs::register('user.changepass', function($breadcrumbs)
+// {
+//     $breadcrumbs->parent('user.profile');
+//     $breadcrumbs->push("Change My Password", route('user.changepass'));
+// });
 });
-/******** END LOGGED USER ROUTES ********/

@@ -169,10 +169,21 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/my-transactions/store-step3', 'Web\MyTransaction\MyTransactionController@storeStep3')->name('my-transactions.store-step3');
     Route::get('/my-transactions/{id}', 'Web\MyTransaction\MyTransactionController@show')->name('my-transactions.show');
 
+    //payment controller
+	Route::get('/my-payments', 'Web\MyPayments\MyPaymentController@index')->name('my-payments.index');
+	Route::get('/my-payments/create', 'Web\MyPayments\MyPaymentController@create')->name('my-payments.create');
+	Route::post('/my-payments/store', 'Web\MyPayments\MyPaymentController@store')->name('my-payments.store');
     // transaction request routes
     Route::get('/transaction-requests', 'Web\MyTransaction\TransactionRequestController@index')->name('transaction-requests.index');
     Route::get('/transaction-requests/accept/{token}', 'Web\MyTransaction\TransactionRequestController@accept')->name('transaction-requests.accept');
 
+	//deposit controller route
+	Route::get('/my-account/deposit', 'Web\Deposits\DepositController@create')->name('my-account.deposit.create');
+	 
+	
+	//TRANSFER FUNDS ROUTES
+
+	Route::get('/my-account/transferfund', 'Web\Transfer\TransferController@create')->name('my-account.transferfund.create');
     // payment routes
     Route::get('/my-payments', 'Web\MyPayments\MyPaymentController@index')->name('my-payments.index');
     Route::get('/my-payments/create', 'Web\MyPayments\MyPaymentController@create')->name('my-payments.create');

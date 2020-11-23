@@ -9,7 +9,7 @@
 @endsection
 
 @section('page_breadcrumbs')
-   {!! Breadcrumbs::render('contacts.index') !!}
+   {{-- {!! Breadcrumbs::render('contacts') !!} --}}
 @endsection
 
 @section('content')

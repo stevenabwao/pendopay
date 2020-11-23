@@ -38,7 +38,7 @@
                         {{ csrf_field() }}
 
                         <div class="md-form mat-2 mx-auto">
-                            <input type="text" value="{{ old('title', 'Sale of Furniture') }}" name="title" >
+                            <input type="text" value="{{ old('title') }}" name="title" >
                             <label for="title">Transaction Title</label>
 
                             @if ($errors->has('title'))
@@ -49,7 +49,7 @@
                         </div>
 
                         <div class="md-form mat-2 mx-auto">
-                            <input type="text" value="{{ old('transaction_amount', '30000') }}" name="transaction_amount" class="digitsOnly">
+                            <input type="text" value="{{ old('transaction_amount') }}" name="transaction_amount" class="digitsOnly">
                             <label for="transaction_amount">Transaction Amount</label>
 
                             @if ($errors->has('transaction_amount'))
@@ -60,7 +60,7 @@
                         </div>
 
                         <div class="md-form mat-2 mx-auto">
-                            <input type="text" value="{{ old('transaction_date', '08-12-2020') }}"
+                            <input type="text" value="{{ old('transaction_date') }}"
                                 class="form-control datepicker" name="transaction_date">
                             <label class="date" for="transaction_date">Expected Final Transaction Date</label>
                             <div>
@@ -79,7 +79,7 @@
 
                                 <div class="form-check form-check-inline radioform">
                                   <input type="radio" class="form-check-input" value="{{ getTransactionRoleSeller() }}" name="transaction_role"
-                                    {{ old('transaction_role', getTransactionRoleSeller()) == getTransactionRoleSeller() ? 'checked' : ''}}>
+                                    {{ old('transaction_role', getTransactionRoleSeller()) == getTransactionRoleSeller() ? '' : ''}}>
                                   <label class="form-check-label" for="materialInline1">Seller</label>
                                 </div>
 
@@ -107,7 +107,7 @@
                             <div class="form-checkbox">
 
                                 <input id="terms" type="checkbox" name="terms"
-                                        {{ old('terms', 'checked') ? 'checked' : '' }}>
+                                        {{ old('terms', 'checked') ? '' : '' }}>
 
                                 <label for="terms">I accept terms and coditions</label>
                             </div>

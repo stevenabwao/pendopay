@@ -84,7 +84,7 @@ Register
                                 </div>
 
                                 <div class="md-form mat-2 mx-auto">
-                                    <input type="text" id="phone" value="{{ old('phone', '254720743211') }}" name="phone">
+                                    <input type="text" id="phone" value="{{ old('phone') }}" name="phone">
                                     <label for="phone">Phone Number</label>
                                     @if ($errors->has('phone'))
                                         <div class="help-block">
@@ -126,7 +126,7 @@ Register
                                     <div class="form-checkbox">
 
                                         <input id="terms" type="checkbox" name="terms"
-                                                {{ old('terms', 'checked') ? 'checked' : '' }}>
+                                                {{ old('terms') ? 'checked' : '' }}>
 
                                         <label for="terms">I accept terms and coditions</label>
                                     </div>
