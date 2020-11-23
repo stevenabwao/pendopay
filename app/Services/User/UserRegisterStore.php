@@ -52,25 +52,16 @@ class UserRegisterStore
             } */
 
             //start check if user exists
-            $user_data = "";
-            try {
-                $user_data = getUserData($phone, $email);
-            } catch(\Exception $e) {
-                log_this(formatErrorJson($e));
-                $message = "Could not create user";
+            if (checkEmailAccountExists($email)) {
+                $message = "Email $email is already being used. Please try another, or login.";
                 throw new \Exception($message);
             }
 
-            // if user data already exists, throw an error
-            if ($user_data) {
-                $message = "User data already exists";
-                log_this($message . " - " . formatErrorJson($user_data));
+            if (checkPhoneAccountExists($phone)) {
+                $message = "Phone number $phone is already being used. Please try another, or login.";
                 throw new \Exception($message);
             }
             // end check if user exists
-
-            ///
-            // dd("ccc", $attributes);
 
             // add user env
             $agent = new \Jenssegers\Agent\Agent;
@@ -119,6 +110,7 @@ class UserRegisterStore
 
             } catch(\Exception $e) {
 
+                dd($e);
                 DB::rollback();
                 log_this($e->getMessage());
                 $message = "Error creating user account. Please try again later";
@@ -153,6 +145,7 @@ class UserRegisterStore
 
             } catch(\Exception $e) {
 
+                dd($e);
                 DB::rollback();
                 $message = "Error creating user deposit account. Please try again later";
                 log_this($message . " - " . $e->getMessage());

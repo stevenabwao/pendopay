@@ -2,7 +2,7 @@
 
     @section('title')
 
-    Login
+    Activate Account
 
     @endsection
 
@@ -23,55 +23,39 @@
                                     <p class="card-text">
                             </div>
                             <div class="row justify-content-center form-title">
-                                <h3>Please Login</h3>
+                                <h3>Please Activate Your Account</h3>
                             </div>
 
                             {{-- <hr> --}}
 
-                            <form action="{{ route('login.store') }}" method="post" id="loginForm">
+                            <form action="{{ route('activate-account.store') }}" method="post" id="passResetForm">
 
                                 {{ csrf_field() }}
 
                                 <div class="md-form mat-2 mx-auto">
-                                    <input type="text" value="{{ old('username') }}" name="username" id="username">
-                                    <label for="username">Phone/ Email</label>
-                                    @if ($errors->has('username'))
+                                    <input type="text" value="{{ old('phone') }}" name="phone" id="phone">
+                                    <label for="phone">Phone</label>
+                                    @if ($errors->has('phone'))
                                         <div class="help-block">
-                                            <strong>{{ $errors->first('username') }}</strong>
+                                            <strong>{{ $errors->first('phone') }}</strong>
                                         </div>
                                     @endif
                                 </div>
 
                                 <div class="md-form mat-2 mx-auto">
-                                    <input type="password" name="password" id="password" value="{{ old('password') }}">
-                                    <label for="password">Password</label>
-
-                                    <span toggle="#password-field" class="fa fa-fw fa-eye"
-                                        title="Show/ Hide Password"  id="togglePassword">
-                                    </span>
-
-                                    @if ($errors->has('password'))
+                                    <input type="text" name="code" id="code" value="{{ old('code') }}">
+                                    <label for="code">Activation Code</label>
+                                    @if ($errors->has('code'))
                                         <div class="help-block">
-                                            <strong>{{ $errors->first('password') }}</strong>
+                                            <strong>{{ $errors->first('code') }}</strong>
                                         </div>
                                     @endif
-                                </div>
-
-                                <div class="inputs mt-2">
-                                    <div class="form-checkbox">
-
-                                        <input id="remember" type="checkbox" name="remember"
-                                                {{ old('remember') ? 'checked' : '' }}>
-
-                                        <label for="check">Remember Me</label>
-                                    </div>
-
                                 </div>
 
                                 <hr>
 
                                 <div class="inputs row">
-                                    <button class="btn btn-xs" type="submit">Login</button>
+                                    <button class="btn btn-xs" type="submit">Submit</button>
                                 </div>
 
                                 <hr>
@@ -84,7 +68,7 @@
                                         <a href="{{ route('password.request') }}" class="reset">Forgot Your Password?</a>
                                     </div>
                                     <div class="col-sm-4 float-right">
-                                        <a href="{{ route('activate-account') }}" class="reset">Activate Account</a>
+                                        <a href="{{ route('login') }}" class="reset">Login</a>
                                     </div>
                                 </div>
                             </form>

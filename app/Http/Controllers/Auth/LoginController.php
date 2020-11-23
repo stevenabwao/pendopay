@@ -70,16 +70,18 @@ class LoginController extends Controller
         try {
             $this->validateLogin($request);
 
+            // dd("after request == ", $request->all());
+
             // If the class is using the ThrottlesLogins trait, we can automatically throttle
             // the login attempts for this application. We'll key this by the username and
             // the IP address of the client making these requests into this application.
             if ($this->hasTooManyLoginAttempts($request)) {
 
-            //start save user details if login locked
+                //start save user details if login locked
                 $request->merge([
-                'status' => 'locked',
-                'action' => 'login',
-            ]);
+                    'status' => 'locked',
+                    'action' => 'login',
+                ]);
                 $userlogin = new UserLogin();
                 $userlogin = $userlogin->create($request->toArray());
                 //end save user details if login locked
@@ -88,26 +90,28 @@ class LoginController extends Controller
 
                 return $this->sendLockoutResponse($request);
             }
-            //dd($request);
+            // dd($request);
 
             // was login successful
             if ($this->attemptLogin($request)) {
 
-            // logout other devices
+                // logout other devices
                 Auth::logoutOtherDevices($request->password);
 
                 //start save user details if login succeeded
                 $request->merge([
-                'status' => 'success',
-                'action' => 'login',
-            ]);
-                //dd($request);
+                    'status' => 'success',
+                    'action' => 'login',
+                ]);
+                // dd("here == ", $request);
                 $userlogin = new UserLogin();
                 $userlogin = $userlogin->create($request->toArray());
                 //end save user details if login succeeded
 
                 return $this->sendLoginResponse($request);
+
             }
+            // dd("end");
 
             // If the login attempt was unsuccessful we will increment the number of attempts
             // to login and redirect the user back to the login form. Of course, when this
@@ -116,9 +120,9 @@ class LoginController extends Controller
 
             //start save user details if login failed
             $request->merge([
-            'status' => 'failed',
-            'action' => 'login',
-        ]);
+                'status' => 'failed',
+                'action' => 'login',
+            ]);
             $userlogin = new UserLogin();
             $userlogin = $userlogin->create($request->toArray());
             //end save user details if login failed
@@ -127,6 +131,7 @@ class LoginController extends Controller
 
         } catch(\Exception $e) {
             // dd("here");
+            dd($e);
             $message =$e->getMessage();
             Session::flash('error', $message);
             return redirect()->back()->withInput()->withErrors($message);
@@ -188,147 +193,5 @@ class LoginController extends Controller
     }
     /**** end change password route ****/
 
-
-    /////////////////////////////////////////
-    public function tokenAuthCheck (Request $request) {
-		return [
-			'request' => $request->get('id'),
-			'auth'    => Auth::check() ? Auth::id() : -9999,
-		];
-	}
-
-	public function tokenAuthUser (Request $request) {
-		return [
-			'request' => $request->get('id'),
-			'auth'    => Auth::user()->id,
-		];
-	}
-
-	public function tokenAuthId (Request $request) {
-		return [
-			'request' => $request->get('id'),
-			'auth'    => Auth::id(),
-		];
-	}
-
-	public function tokenAuthAttempt (Request $request) {
-		Auth::attempt([ 'email' => $request->get('email'), 'password' => $request->get('password') ]);
-
-		return [
-			'request' => $request->get('id'),
-			'auth'    => Auth::id(),
-		];
-	}
-
-	public function tokenAuthOnce (Request $request) {
-		Auth::once([ 'email' => $request->get('email'), 'password' => $request->get('password') ]);
-
-		return [
-			'request' => $request->get('id'),
-			'auth'    => Auth::id(),
-		];
-	}
-
-	public function tokenAuthLogin (Request $request) {
-		Auth::login(User::find($request->get('id')));
-	}
-
-	public function tokenAuthLoginUsingId (Request $request) {
-		Auth::loginUsingId($request->get('id'));
-
-		return [
-			'request' => $request->get('id'),
-			'auth'    => Auth::id(),
-		];
-	}
-
-	public function tokenAuthLogout (Request $request) {
-		Auth::logout();
-
-		return [
-			'request' => $request->get('id'),
-			'auth'    => Auth::id(),
-		];
-	}
-
-	public function tokenAuthValidate (Request $request) {
-		$isValidated = Auth::validate([ 'email' => $request->get('email'), 'password' => $request->get('password') ]);
-
-		return [
-			'request' => $request->get('id'),
-			'auth'    => $isValidated ? $request->get('id') : -8998,
-		];
-	}
-
-	public function apiAuthCheck (Request $request) {
-		return [
-			'request' => $request->get('id'),
-			'auth'    => Auth::check() ? Auth::id() : -9999,
-		];
-	}
-
-	public function apiAuthUser (Request $request) {
-		return [
-			'request' => $request->get('id'),
-			'auth'    => Auth::user()->id,
-		];
-	}
-
-	public function apiAuthId (Request $request) {
-		return [
-			'request' => $request->get('id'),
-			'auth'    => Auth::id(),
-		];
-	}
-
-	public function apiAuthAttempt (Request $request) {
-		Auth::attempt([ 'email' => $request->get('email'), 'password' => $request->get('password') ]);
-
-		return [
-			'request' => $request->get('id'),
-			'auth'    => Auth::id(),
-		];
-	}
-
-	public function apiAuthOnce (Request $request) {
-		Auth::once([ 'email' => $request->get('email'), 'password' => $request->get('password') ]);
-
-		return [
-			'request' => $request->get('id'),
-			'auth'    => Auth::id(),
-		];
-	}
-
-	public function apiAuthLogin (Request $request) {
-		Auth::login(User::find($request->get('id')));
-	}
-
-	public function apiAuthLoginUsingId (Request $request) {
-		Auth::loginUsingId($request->get('id'));
-
-		return [
-			'request' => $request->get('id'),
-			'auth'    => Auth::id(),
-		];
-	}
-
-	public function apiAuthLogout (Request $request) {
-		Auth::logout();
-
-		return [
-			'request' => $request->get('id'),
-			'auth'    => Auth::id(),
-		];
-	}
-
-	public function apiAuthValidate (Request $request) {
-		$isValidated = Auth::validate([ 'email' => $request->get('email'), 'password' => $request->get('password') ]);
-
-		return [
-			'request' => $request->get('id'),
-			'auth'    => $isValidated ? $request->get('id') : -8998,
-		];
-	}
-    /////////////////////////////////////////
 
 }

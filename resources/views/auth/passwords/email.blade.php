@@ -27,38 +27,58 @@ Forgot Password
 
                         {{-- <hr> --}}
 
-                        <form action="{{ route('password.email') }}" method="post">
+                        @if (session('success'))
 
-                            {{ csrf_field() }}
+                            <div class="alert alert-success text-center">
+                                {{ session('success') }}
+                            </div>
+                            <a href="{{ route('login') }}" class="btn btn-xs btn-block">
+                                Go To Login Page
+                            </a>
 
-                            <div>
+                        @else
 
-                                <div class="md-form mat-2 mx-auto">
-                                    <input type="text" value="{{ old('email') }}" name="email" class="form-control">
-                                    <label for="example">Enter Email Address</label>
-                                </div>
-                                @if ($errors->has('email'))
-                                    <div class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                            <form  method="POST" action="{{ route('password.email') }}" id="passResetForm">
+
+                                {{ csrf_field() }}
+
+                                <p class="text-center">Enter your email address below, and we’ll help you create a new password:</p>
+
+                                {{-- <hr> --}}
+
+                                <div>
+
+                                    <div class="md-form mat-2 mx-auto">
+                                        <input type="text" value="{{ old('email') }}" name="email" class="form-control">
+                                        <label for="example">Enter Email Address</label>
                                     </div>
-                                @endif
+                                    @if ($errors->has('email'))
+                                        <div class="help-block">
+                                            <strong>{{ $errors->first('email') }}</strong>
+                                        </div>
+                                    @endif
 
-                            </div>
-
-                            <hr>
-
-                            <div class="inputs row">
-                                <button class="btn btn-xs" type="submit">Submit</button>
-                            </div>
-                            <div class="col-sm-12z inputs row">
-                                <div class="col-sm-6">
-                                    <a href="{{ route('register') }}" class="reset">Register an Account</a>
                                 </div>
-                                <div class="col-sm-6 float-right">
-                                    <a href="{{ route('login') }}" class="reset">Login</a>
+
+                                <hr>
+
+                                <div class="inputs row">
+                                    <button class="btn btn-xs" type="submit">Submit</button>
                                 </div>
-                            </div>
-                        </form>
+
+                                <hr>
+
+                                <div class="col-sm-12z inputs row">
+                                    <div class="col-sm-6">
+                                        <a href="{{ route('register') }}" class="reset">Register an Account</a>
+                                    </div>
+                                    <div class="col-sm-6 float-right">
+                                        <a href="{{ route('login') }}" class="reset">Login</a>
+                                    </div>
+                                </div>
+                            </form>
+
+                        @endif
 
                     </div>
                 </div>

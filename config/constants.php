@@ -75,6 +75,10 @@
         'sitesections' => [
             'transactionrequest' => 'transactionrequest',
         ],
+        'sitetexts' => [
+            'passwordinstructions' => '(Your password must be more than 6 characters long, should contain at-least 1 Uppercase, 1 Lowercase,
+                                        1 Numeric and 1 special character) e.g. T7w@375#aB',
+        ],
         'email' => [
             'subject' =>    [
                                 'passwordreset' => 'Reset Password',

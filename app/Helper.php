@@ -2482,6 +2482,46 @@ function getUserData($phone, $email="", $id=NULL) {
 
 }
 
+// checkEmailAccountExists
+function checkEmailAccountExists($email) {
+
+	//get user data
+	$user_data = getUserData("", $email);
+
+    if ($user_data) {
+        return true;
+    }
+
+	return false;
+
+}
+
+// checkPhoneAccountExists
+function checkPhoneAccountExists($phone) {
+
+	//get user data
+	$user_data = getUserData($phone, "");
+
+    if ($user_data) {
+        return true;
+    }
+
+	return false;
+
+}
+
+// activate new user
+function activateNewUser($phone) {
+
+    $status_id = getStatusActive();
+
+    //get user data
+    $user_data = getUserData($phone);
+
+	return $user_data->updatedata($user_data->id, ['status_id' => $status_id, 'active' => '1']);
+
+}
+
 // get transaction data
 function getTransactionData($id, $status_id="") {
 
@@ -2513,18 +2553,6 @@ function changeTransactionStatus($trans_id, $status_id) {
         throw new \Exception($e->getMessage());
 
     }
-
-}
-
-// activate new user
-function activateNewUser($phone) {
-
-    $status_id = getStatusActive();
-
-    //get user data
-    $user_data = getUserData($phone);
-
-	return $user_data->update(['status_id' => $status_id, 'active' => '1']);
 
 }
 
@@ -3045,6 +3073,13 @@ function getGlAccountTypeClubExpenses() {
 function getGlAccountTypeClubWithdrawals() {
     return config('constants.gl_account_types.club_withdrawals');
 }
+
+// start site texts
+function getSiteTextPasswordInstructions() {
+    return config('constants.sitetexts.passwordinstructions');
+}
+// end site texts
+
 
 // gl establishment types
 function getEstCategoryAdmin() {
@@ -3705,7 +3740,7 @@ function sendApiSms($data) {
 
     // get company id
     $site_settings = getSiteSettings();
-    $company_id  = $site_settings['barddy_company_id'];
+    $company_id  = $site_settings['company_id'];
 
     if ($access_token) {
 
@@ -4763,9 +4798,8 @@ function disablePreviousResets($email) {
 // send password reset email
 function sendPasswordResetEmail($new_reset_data) {
 
-    $id = $new_reset_data->id;
-    $email = $new_reset_data->email;
-    $token = $new_reset_data->token;
+    $email = $new_reset_data['email'];
+    $token = $new_reset_data['token'];
 
     // get user data
     $user_data = getUserData("", $email);
@@ -4773,7 +4807,7 @@ function sendPasswordResetEmail($new_reset_data) {
 
     // formulate email
     $email_media_type = getMediaTypeEmail();
-    $passwordreset_site_function = getSiteFunctionPasswordReset();
+    $passwordreset_site_function = config('constants.sitefunctions.passwordreset');
 
     // get site settings
     $site_settings = getSiteSettings();
@@ -4781,6 +4815,7 @@ function sendPasswordResetEmail($new_reset_data) {
     $email_salutation = $site_settings['email_salutation'];
     $company_full_name = $site_settings['company_full_name_ltd'];
     $email_subject = $site_settings['email_subject_password_reset'];
+    $link_expiry_minutes = $site_settings['password_reset_token_lifetime_minutes'];
 
     // create salutation replacement array
     $salutation_replacement_array = array();
@@ -4800,10 +4835,12 @@ function sendPasswordResetEmail($new_reset_data) {
     // create replacement array
     $replacement_array = array();
     $replacement_array[] = $reset_link;
+    $replacement_array[] = $link_expiry_minutes;
 
     // formulate email
     // replace [[name]] and [[token]] in template
     $email_text = replaceDelimitersInTemplate($set_email_template, $replacement_array);
+    // dd("email_text == ", $email_text); getRegistrationSmsType
 
     // set subject
     $title = $email_subject;
@@ -4814,8 +4851,29 @@ function sendPasswordResetEmail($new_reset_data) {
     $reminder_message_id = NULL;
 
     // send email to user
-    sendTheEmailToQueue($email, $email_subject, $title, $company_full_name, $email_text, $email_salutation,
-                        $company_id, $email_footer, $panel_text, $table_text, $parent_id, $reminder_message_id);
+    try {
+
+        sendTheEmailToQueue(
+            $email,
+            $email_subject,
+            $title,
+            $company_full_name,
+            $email_text,
+            $email_salutation,
+            $company_id,
+            $email_footer,
+            $panel_text,
+            $table_text,
+            $parent_id,
+            $reminder_message_id
+        );
+
+    } catch(\Exception $e) {
+
+        // dd($e);
+        throw new \Exception($e->getMessage());
+
+    }
 
 }
 
@@ -7614,9 +7672,9 @@ function sendAccountActivationDetails($phone, $email="", $resent_flag=false) {
     // defaults
     $resent_flag = $resent_flag ? $resent_flag : false;
 
-    $sms_media_type = config('constants.mediatypes.sms');
-    $email_media_type = config('constants.mediatypes.email');
-    $registration_site_function = config('constants.sitefunctions.registration');
+    $sms_media_type = getMediaTypeSms();
+    $email_media_type = getMediaTypeEmail();
+    $registration_site_function = getSiteFunctionRegistration();
 
     $sms_template = getMediaTemplate($registration_site_function, $sms_media_type);
     $email_template = getMediaTemplate($registration_site_function, $email_media_type);
@@ -7634,17 +7692,31 @@ function sendAccountActivationDetails($phone, $email="", $resent_flag=false) {
     $site_settings = getSiteSettings();
     $activation_code_length = $site_settings['activation_code_length'];
 
+    // get email data
+    $email_footer = $site_settings['email_footer'];
+    $email_salutation = $site_settings['email_salutation'];
+    $company_full_name = $site_settings['company_full_name_ltd'];
+    $company_name = $site_settings['company_name_title'];
+    $email_subject = $site_settings['email_subject_registration'];
+
     $activation_code = generateCode($activation_code_length, false, 'd');
 
     // read and check for delimiters in template
-    // create replacement array
-    $replacement_array = array();
-    $replacement_array[] = $first_name;
-    $replacement_array[] = $activation_code;
+    // create sms replacement array
+    $sms_replacement_array = array();
+    $sms_replacement_array[] = $first_name;
+    $sms_replacement_array[] = $activation_code;
 
-    // replace [[name]] and [[code]] in template
-    $sms_message = replaceDelimitersInTemplate($set_sms_template, $replacement_array);
-    $email_message = replaceDelimitersInTemplate($set_email_template, $replacement_array);
+    // replace [[name]] and [[code]] in sms template
+    $sms_message = replaceDelimitersInTemplate($set_sms_template, $sms_replacement_array);
+
+    // create email replacement array
+    $email_replacement_array = array();
+    $email_replacement_array[] = $company_name;
+    $email_replacement_array[] = $activation_code;
+
+    // replace [[name]] and [[code]] in email template
+    $email_message = replaceDelimitersInTemplate($set_email_template, $email_replacement_array);
 
     // start send sms activation code
     $sms_type = config('constants.sms_types.registration_sms');
@@ -7661,6 +7733,45 @@ function sendAccountActivationDetails($phone, $email="", $resent_flag=false) {
 
     // log data
     log_this("\n\n\n\n>>>>>>>>> send user sms - request :\n\n" . "sms_message == " . $sms_message . "\n phone == " . $phone);
+
+    // send registration email to user
+    // dd("email_message == ", $email_message);
+
+    // set subject
+    $title = $email_subject;
+    $company_id = NULL;
+    $panel_text = "";
+    $table_text = "";
+    $parent_id = NULL;
+    $reminder_message_id = NULL;
+
+    // send email to user
+    try {
+
+        sendTheEmailToQueue(
+            $email,
+            $email_subject,
+            $title,
+            $company_full_name,
+            $email_message,
+            $email_salutation,
+            $company_id,
+            $email_footer,
+            $panel_text,
+            $table_text,
+            $parent_id,
+            $reminder_message_id
+        );
+
+    } catch(\Exception $e) {
+
+        // dd($e);
+        throw new \Exception($e->getMessage());
+
+    }
+
+    // log data
+    log_this("\n\n\n\n>>>>>>>>> send user email - request :\n\n" . "email_message == " . $email_message . "\n email address == " . $email);
 
 }
 

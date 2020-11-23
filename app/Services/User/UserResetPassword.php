@@ -15,55 +15,85 @@ class UserResetPassword
 
         DB::beginTransaction();
 
-        //get the submitted data
-        $email = "";
+        $response = [];
 
-        if (array_key_exists('email', $attributes)) {
-            $email = $attributes['email'];
+        //get the submitted data
+        $token = "";
+
+        if (array_key_exists('token', $attributes)) {
+            $token = $attributes['token'];
         }
 
-        //start get user
+        // start get password reset record
         try {
 
-            // DB::enableQueryLog();
+            $password_reset = PasswordReset::where('token', $token)
+                                           ->where('status_id', getStatusActive())
+                                           ->first();
 
-            $user = User::where('email', $email)->first();
+            if ($password_reset) {
 
-            if ($user) {
-
-                // generate reset token
-                $lower_upper_digits = "lud";
-                $reset_token = generateCode(50, false, $lower_upper_digits);
+                // get email address
+                $email = $password_reset->email;
 
                 // disable all previous reset entries for this email
                 disablePreviousResets($email);
 
-                // create a new password reset entry
-                $password_reset_data = new PasswordReset();
-
-                $attributes['email'] = $email;
-                $attributes['token'] = $reset_token;
-                $attributes['status_id'] = getStatusActive();
-
-                $new_reset_data = $password_reset_data->create($attributes);
-
-                // send password reset email to user
-                sendPasswordResetEmail($new_reset_data);
-
-                $message = "Password reset link has been sent to your email address";
-                $response = show_success_response($message);
-
             } else {
-                $message = "Password reset link has been sent to your email address";
-                // return show_error_response($message);
-                $response = show_success_response($message);
+
+                $message = "Invalid password reset link";
+                throw new \Exception($message);
+
             }
 
         } catch(\Exception $e) {
 
             DB::rollback();
-            $message = "An error occured. Try again. " . $e;
-            return show_error_response($message);
+            $message = "An error occured. Try again. " . $e->getMessage();
+            throw new \Exception($message);
+
+        }
+        // end get password reset record
+
+
+        //start get user record
+        try {
+
+            // DB::enableQueryLog();
+
+            $user = User::where('email', $email)->first();
+            // dd($user, $attributes);
+
+            if ($user) {
+
+                $attributes['user_id'] = $user->id;
+                $attributes['user_id'] = $user->id;
+
+                // dd("user == ", $user);
+                // update user password
+                unset($attributes['token']);
+                unset($attributes['new_password_confirmation']);
+                $result = $user->updateUserPassword($attributes);
+                // dd("result == ", $result, $attributes);
+
+                // send password reset email to user
+                // sendPasswordResetEmail($new_reset_data);
+
+                $message['message'] = "Password has been successfully reset. Please login.";
+                $response = show_success_response($message);
+
+            } else {
+
+                $message = "Invalid Password reset link";
+                throw new \Exception($message);
+
+            }
+
+        } catch(\Exception $e) {
+
+            DB::rollback();
+            $message = "An error occured. Try again. " . $e->getMessage();
+            throw new \Exception($message);
 
         }
         //end get user

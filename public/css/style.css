@@ -5723,3 +5723,33 @@ Inverted responsive classes
 
 /* override btn hover */
 .btn-white:hover{ color:#fff; }
+
+.help-block, .has-error{ color: #d9534f; }
+
+ /* i.password-eye {
+    margin-left: -30px;
+    cursor: pointer;
+} */
+.field-icon, #togglePassword {
+    float: right;
+    margin-right: 10px;
+    margin-top: -50px;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+}
+#regForm .field-icon, #regForm #togglePassword, #passResetForm .field-icon, #passResetForm #togglePassword,
+#loginForm .field-icon, #loginForm #togglePassword {
+    margin-top: -30px !important;
+}
+#passwordHelpBlock {
+    margin-top: 0;
+    font-size: 0.8rem !important;
+    margin-bottom: 30px;
+}
+#regForm #password {
+    margin: 0 0 0 0;
+}
+#regForm .inputs .btn-xs, #passResetForm .inputs .btn-xs, #loginForm .inputs .btn-xs{
+    margin-top: 0 !important;
+}

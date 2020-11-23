@@ -377,7 +377,14 @@ class User extends Authenticatable
             $attributes['updated_by_name'] = $user_full_names;
         }
 
+        if ($attributes['user_id']) {
+            $user_id = $attributes['user_id'];
+            unset($attributes['user_id']);
+        }
+        // dd("chini == ", $user_id);
+
         $attributes['password'] = Hash::make($attributes['new_password']);
+        // dd("updateUserPassword == ", $attributes);
 
         // get user
         $user = static::query()->findOrFail($user_id);
@@ -387,6 +394,64 @@ class User extends Authenticatable
 
         //start call update event
         event(new UserUpdated($user->fresh()));
+        //end call update event
+
+        return $model;
+
+    }
+
+    public static function updateUserPassword2(array $attributes = [])
+    {
+
+        /* if (isLoggedIn()) {
+            $user = getLoggedUser();
+            $user_id = $user->id;
+            $user_full_names = $user->full_name;
+
+            $attributes['updated_by'] = $user_id;
+            $attributes['updated_by_name'] = $user_full_names;
+        } */
+
+        if ($attributes['user_id']) {
+            $user_id = $attributes['user_id'];
+            unset($attributes['user_id']);
+        }
+        // dd("chini == ", $user_id);
+
+        /* $attributes['password'] = Hash::make($attributes['new_password']);
+        $attributes['password2'] = encryptData($attributes['new_password']);
+        dd("updateUserPassword == ", $attributes); */
+
+        // get user
+        $user = static::query()->findOrFail($user_id);
+        // dd($user, $attributes['new_password']);
+
+        // update password
+        try {
+            $user->password = Hash::make($attributes['new_password']);
+            $user->password2 = encryptData($attributes['new_password']);
+
+            if (isLoggedIn()) {
+                $logged_user = getLoggedUser();
+                $user_id = $logged_user->id;
+                $user_full_names = $logged_user->full_name;
+
+                $user->updated_by = $user_id;
+                $user->updated_by_name = $user_full_names;
+            }
+
+            $model = $user->save();
+
+        } catch(\Exception $e) {
+
+            throw new \Exception($e->getMessage());
+
+        }
+
+        $new_user = static::query()->findOrFail($user_id);
+
+        //start call update event
+        event(new UserUpdated($new_user));
         //end call update event
 
         return $model;

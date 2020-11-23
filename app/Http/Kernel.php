@@ -21,6 +21,8 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+
+        \App\Http\Middleware\ForceJsonResponse::class,
     ];
 
     /**
@@ -71,5 +73,7 @@ class Kernel extends HttpKernel
         'roles' => \App\Http\Middleware\CheckRole::class,
 
         // 'client_credentials' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
+
+        'json.response' => \App\Http\Middleware\ForceJsonResponse::class,
     ];
 }

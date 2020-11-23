@@ -53,7 +53,8 @@ class RegisterController extends BaseController
             // 'dob' => 'required|date|date_format:d/m/Y|before:yesterday',
             // 'dob' => 'required',
             'phone' => 'required|phone:KE,mobile',
-            'password' => 'required|min:6|confirmed',
+            // 'password' => 'required|min:6|confirmed',
+            'password' => 'required|min:6|confirmed|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
             'terms' => 'required',
             // 'gender' => 'required',
         ]);
@@ -65,10 +66,10 @@ class RegisterController extends BaseController
             $user_result = json_decode($user_result);
             $result_message = $user_result->message;
 
-            if (!$user_result->error) { 
-                $success_message = 'Successfully created user. Please login.';
+            if (!$user_result->error) {
+                $success_message = 'Successfully created user. Please activate your account.';
                 Session::flash('success', $success_message);
-                return redirect()->route('login');
+                return redirect()->route('activate-account');
                 /* return $request->wantsJson()
                     ? new Response($success_message, 201)
                     : Session::flash('success', $success_message); return redirect()->route('login'); */

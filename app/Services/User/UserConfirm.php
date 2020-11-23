@@ -11,10 +11,11 @@ class UserConfirm
 
     public function createItem($attributes) {
 
+        $response = [];
+
         // dd("attributes == ", $attributes);
-        //global variables
-        $status_active = config('constants.status.active');
-        $status_disabled = config('constants.status.disabled');
+        $status_active = getStatusActive();
+        $status_disabled = getStatusDisabled();
 
         //get data
         $phone = "";
@@ -39,13 +40,14 @@ class UserConfirm
             try {
 
                 $user = getUserData($phone, $email);
+                // dd($user);
 
             } catch(\Exception $e) {
 
                 DB::rollback();
                 $message = "User not found";
                 log_this('Error activating user phone === ' . $message . "\n" . json_encode($attributes));
-                return show_error_response($message);
+                throw new \Exception($message);
 
             }
             // end get user
@@ -54,25 +56,27 @@ class UserConfirm
             if (!$user) {
                 $message = "User not found";
                 log_this('Error activating user phone === ' . $message . "\n" . json_encode($attributes));
-                return show_error_response($message);
+                throw new \Exception($message);
             }
 
             // if user is already active, show error
             if ($user->status_id == $status_active) {
                 $message = 'User account is already active.';
                 log_this('Error activating user phone === ' . $message . "\n" . json_encode($attributes));
-                return show_error_response($message);
+                throw new \Exception($message);
             }
 
             // start check if supplied code is active
             $code_data = getConfirmCodeData($code, $phone);
+            // dd($code_data);
 
             if (!$code_data) {
                 $message = 'Invalid confirmation code.';
                 log_this('Error activating user phone === ' . $message . "\n" . json_encode($attributes));
-                return show_error_response($message);
+                throw new \Exception($message);
             }
             // end check if supplied code is active
+
 
             // activate user record
             try {
@@ -84,7 +88,7 @@ class UserConfirm
                 DB::rollback();
                 $message = "Could not update user details";
                 log_this('Error activating user phone === ' . $message . "\n" . json_encode($attributes));
-                return show_error_response($message);
+                throw new \Exception($message);
 
             }
 
@@ -92,28 +96,22 @@ class UserConfirm
             try {
 
                 $code_data->update(['status_id' => $status_disabled]);
+                $response['message'] = "User phone successfully activated";
 
             } catch(\Exception $e) {
 
                 DB::rollback();
                 $message = "Could not update confirm code";
                 log_this('Error activating user phone === ' . $message . "\n" . json_encode($attributes));
-                return show_error_response($message);
+                throw new \Exception($message);
 
             }
 
-            // activate company user account
-            // activate_user_company($user_id, $company_id);
-
         DB::commit();
 
-        // fire event
-        // event(new UserConfirmed($company_user));
+        log_this('Success activating user phone === ' . "\n" . json_encode($attributes));
 
-        $message = "User phone successfully activated";
-        log_this('Success activating user phone === ' . $message . "\n" . json_encode($attributes));
-
-        return show_success_response($message);
+        return show_success_response($response);
 
     }
 

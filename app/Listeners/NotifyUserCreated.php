@@ -33,11 +33,11 @@ class NotifyUserCreated
             $phone = $event->user->phone;
             $email = $event->user->email;
 
-            // send account activation email/ sms
-            // sendAccountActivationDetails($phone, $email);
-
             //create user archive
             $user = $this->model->create($event->user->toArray());
+
+            // send account activation email/ sms
+            sendAccountActivationDetails($phone, $email);
 
             return $user;
 
