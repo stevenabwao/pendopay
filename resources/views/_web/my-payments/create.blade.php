@@ -33,51 +33,77 @@
                         <h3>Create New Payment</h3>
                     </div>
 
-                    <form action="{{ route('my-payments.store') }}" class="form-box" method="post">
 
-                        {{ csrf_field() }}
+                    <div class="tab-box tab-vertical tab-inverse" data-tab-anima="fade-in">
 
-                        <div class="md-form mat-2 mx-auto">
-                            <input type="text" value="{{ old('phone', getLoggedUser()->phone) }}" name="phone" >
-                            <label for="phone">Phone No</label>
+                        <div class="active panel">
+                            <div class="tab-box" data-tab-anima="fade-in">
+                                <ul class="tab-nav">
+                                    <li class="active"><a href="#">Mpesa</a></li>
+                                    <li><a href="#">Paypal</a></li>
+                                    {{-- <li><a href="#">Pesalink</a></li> --}}
+                                </ul>
+                                <div class="panel active">
 
-                            @if ($errors->has('phone'))
-                                <div class="help-block">
-                                    <strong>{{ $errors->first('phone') }}</strong>
+                                    <form action="{{ route('my-payments.store') }}" class="form-box" method="post">
+
+                                        {{ csrf_field() }}
+
+                                        <div class="md-form mat-2 mx-auto">
+                                            <input type="text" value="{{ old('phone', getLoggedUser()->phone) }}" name="phone" >
+                                            <label for="phone">Phone No</label>
+
+                                            @if ($errors->has('phone'))
+                                                <div class="help-block">
+                                                    <strong>{{ $errors->first('phone') }}</strong>
+                                                </div>
+                                            @endif
+                                        </div>
+
+                                        <div class="md-form mat-2 mx-auto">
+                                            <input type="text" value="{{ old('amount', '5') }}" name="amount" class="digitsOnly">
+                                            <label for="amount">Amount</label>
+
+                                            @if ($errors->has('amount'))
+                                                <div class="help-block">
+                                                    <strong>{{ $errors->first('amount') }}</strong>
+                                                </div>
+                                            @endif
+                                        </div>
+
+                                        <hr>
+
+                                        <div class="inputs mt-2">
+
+                                            <p>
+                                                Click on "Send Request to Phone" button to generate an MPESA payment request on your phone.
+                                                Enter your MPESA PIN on your phone to complete the payment.
+                                                <br>
+                                                You will get your receipt from MPESA and an email payment confirmation from us.
+                                            </p>
+
+                                        </div>
+
+                                        <hr>
+
+                                        <div class="inputs row">
+                                            <button class="btn btn-xs" type="submit">Send Request To Phone</button>
+                                        </div>
+                                    </form>
+
                                 </div>
-                            @endif
-                        </div>
-
-                        <div class="md-form mat-2 mx-auto">
-                            <input type="text" value="{{ old('amount', '5') }}" name="amount" class="digitsOnly">
-                            <label for="amount">Amount</label>
-
-                            @if ($errors->has('amount'))
-                                <div class="help-block">
-                                    <strong>{{ $errors->first('amount') }}</strong>
+                                <div class="panel">
+                                    Paypal Payments
                                 </div>
-                            @endif
+                                {{-- <div class="panel">
+                                    Pesalink Payments here
+                                </div> --}}
+                            </div>
                         </div>
 
-                        <hr>
+                    </div>
 
-                        <div class="inputs mt-2">
 
-                            <p>
-                                Click on "Send Request to Phone" button to generate an MPESA payment request on your phone.
-                                Enter your MPESA PIN on your phone to complete the payment.
-                                <br>
-                                You will get your receipt from MPESA and an email payment confirmation from us.
-                            </p>
-
-                        </div>
-
-                        <hr>
-
-                        <div class="inputs row">
-                            <button class="btn btn-xs" type="submit">Send Request To Phone</button>
-                        </div>
-                        </form>
 
                 </p>
             </div>

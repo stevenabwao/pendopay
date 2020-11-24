@@ -33,7 +33,8 @@
                                 {{ csrf_field() }}
 
                                 <div class="md-form mat-2 mx-auto">
-                                    <input type="text" value="{{ old('username') }}" name="username" id="username">
+                                    <input type="text" value="{{ old('username', 'antiv_boy@yahoo.com') }}"
+                                        name="username" id="username">
                                     <label for="username">Phone/ Email</label>
                                     @if ($errors->has('username'))
                                         <div class="help-block">
@@ -43,11 +44,12 @@
                                 </div>
 
                                 <div class="md-form mat-2 mx-auto">
-                                    <input type="password" name="password" id="password" value="{{ old('password') }}">
+                                    <input type="password" name="password" id="password"
+                                        value="{{ old('password', '123456#aB') }}">
                                     <label for="password">Password</label>
 
                                     <span toggle="#password-field" class="fa fa-fw fa-eye"
-                                        title="Show/ Hide Password"  id="togglePassword">
+                                        title="Show/ Hide Password" data-toggle="tooltip" id="togglePassword">
                                     </span>
 
                                     @if ($errors->has('password'))

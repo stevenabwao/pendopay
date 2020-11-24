@@ -3725,8 +3725,10 @@ TABS - CONTAINER
 }
 
 .tab-vertical > .panel {
-    flex: 0 0 75%;
-    max-width: 75%;
+    /* flex: 0 0 75%;
+    max-width: 75%; */
+    flex: 0 0 100%;
+    max-width: 100%;
 }
 
 .tab-vertical.tab-inverse > .tab-nav {
@@ -5753,3 +5755,5 @@ Inverted responsive classes
 #regForm .inputs .btn-xs, #passResetForm .inputs .btn-xs, #loginForm .inputs .btn-xs{
     margin-top: 0 !important;
 }
+h5.modal-title { font-size: 1.4rem !important; font-weight: bold; color: #FCB040; margin-bottom: 0 !important;}
+.modal-body p{ color: #6c757d !important;}

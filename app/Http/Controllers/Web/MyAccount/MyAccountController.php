@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\web\MyPayments;
+namespace App\Http\Controllers\web\MyAccount;
 
 use App\Entities\DepositAccountSummary;
 use App\Http\Controllers\Controller;
@@ -8,7 +8,7 @@ use App\Services\MyPayment\MyPaymentStore;
 use Illuminate\Http\Request;
 use Session;
 
-class MyPaymentController extends Controller
+class MyAccountController extends Controller
 {
     //
       /**
@@ -18,9 +18,7 @@ class MyPaymentController extends Controller
      */
     public function index()
     {
-
         return view('_web.my-payments.index');
-
     }
 
     /**
@@ -88,6 +86,19 @@ class MyPaymentController extends Controller
                        ->firstOrFail();
 
         return view('_web.my-payments.show', compact('transaction'));
+
+    }
+
+    public function balance($id)
+    {
+
+        // get logged user
+        $logged_user_id = getLoggedUser()->id;
+
+        // get deposit summary balance
+        $deposit_account_summary = DepositAccountSummary::where('user_id', $logged_user_id)->firstOrFail();
+
+        return view('_web.my-payments.show', compact('deposit_account_summary'));
 
     }
 

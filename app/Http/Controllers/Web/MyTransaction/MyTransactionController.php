@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web\MyTransaction;
 
+use App\Entities\DepositAccountSummary;
 use App\Entities\Transaction;
 use App\Entities\Status;
 use App\Http\Controllers\Controller;
@@ -59,7 +60,13 @@ class MyTransactionController extends Controller
 
     public function create(Request $request)
     {
-        return view('_web.my-transactions.create');
+
+        // get site setting - transaction terms and conditions
+        $site_settings = getSiteSettings();
+        $terms_and_conditions = $site_settings['transaction_terms_and_conditions'];
+
+        return view('_web.my-transactions.create', compact('terms_and_conditions'));
+
     }
 
     public function store(Request $request, MyTransactionStore $myTransactionStore)

@@ -84,7 +84,7 @@ Register
                                 </div>
 
                                 <div class="md-form mat-2 mx-auto">
-                                    <input type="text" id="phone" value="{{ old('phone') }}" name="phone">
+                                    <input type="text" id="phone" value="{{ old('phone', '254720743211') }}" name="phone">
                                     <label for="phone">Phone Number</label>
                                     @if ($errors->has('phone'))
                                         <div class="help-block">
@@ -98,7 +98,7 @@ Register
                                     <label for="password">Password</label>
 
                                     <span toggle="#password-field" class="fa fa-fw fa-eye"
-                                        title="Show/ Hide Password"  id="togglePassword">
+                                        title="Show/ Hide Password" data-toggle="tooltip" id="togglePassword">
                                     </span>
 
                                     <p id="passwordHelpBlock" class="form-text text-muted text-sm">
@@ -122,14 +122,38 @@ Register
                                     @endif
                                 </div>
 
-                                <div class="inputs mt-2">
+                                <div class="inputsz mt-2">
                                     <div class="form-checkbox">
 
                                         <input id="terms" type="checkbox" name="terms"
                                                 {{ old('terms') ? 'checked' : '' }}>
 
-                                        <label for="terms">I accept terms and coditions</label>
+                                        <label for="terms">
+                                            I accept
+                                            <a id="scroll-box-trigger" href="#scroll-box" title="Click to view terms and conditions"
+                                                class="lightbox full-width" data-lightbox-anima="fade-in">
+                                                terms and conditions
+                                            </a>
+                                        </label>
                                     </div>
+
+                                    {{-- scrollbox --}}
+                                    <div id="scroll-box" class="box-lightbox">
+                                        <div class="scroll-box" data-height="400" data-rail-color="#c3dff7" data-bar-color="#379cf4">
+
+                                            <h5 class="modal-title" id="exampleModalLongTitle">
+                                                <img  class="" src="{{ asset('images/login_icon.png') }}" height="30"/> &nbsp;&nbsp;
+                                                Terms and Conditions
+                                            </h5>
+                                            <hr>
+
+                                            <p>
+                                                {!! $terms_and_conditions !!}
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                    {{-- scrollbox --}}
 
                                     @if ($errors->has('terms'))
                                         <div class="help-block">
@@ -188,6 +212,8 @@ Register
     </script>
 
     <script src="{{ asset('js/passwords.js') }}"></script>
+    <script src="{{ asset('js/magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('js/slimscroll.min.js') }}"></script>
 
 @endsection
 

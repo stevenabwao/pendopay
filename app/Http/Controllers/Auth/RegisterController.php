@@ -36,10 +36,14 @@ class RegisterController extends BaseController
     public function showRegistrationForm()
     {
 
+        // get site setting - registration terms and conditions
+        $site_settings = getSiteSettings();
+        $terms_and_conditions = $site_settings['registration_terms_and_conditions'];
+
         $status_active = config('constants.status.active');
         $counties = getCounties("", $status_active);
 
-        return view('auth.register', compact('counties'));
+        return view('auth.register', compact('counties', 'terms_and_conditions'));
 
     }
 
@@ -69,7 +73,7 @@ class RegisterController extends BaseController
             if (!$user_result->error) {
                 $success_message = 'Successfully created user. Please activate your account.';
                 Session::flash('success', $success_message);
-                return redirect()->route('activate-account');
+                return redirect()->route('activate-account', ['phone' => getDatabasePhoneNumber($request->phone)]);
                 /* return $request->wantsJson()
                     ? new Response($success_message, 201)
                     : Session::flash('success', $success_message); return redirect()->route('login'); */

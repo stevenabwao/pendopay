@@ -2482,6 +2482,21 @@ function getUserData($phone, $email="", $id=NULL) {
 
 }
 
+// get user deposit account balance
+function getUserDepositAccountBalance() {
+
+    $ledger_balance = 0;
+
+	$logged_user_id = getLoggedUser()->id;
+    $deposit_account_summary = DepositAccountSummary::where('user_id', $logged_user_id)->first();
+    if ($deposit_account_summary) {
+        $ledger_balance = $deposit_account_summary->ledger_balance;
+    }
+
+	return $ledger_balance;
+
+}
+
 // checkEmailAccountExists
 function checkEmailAccountExists($email) {
 
@@ -5048,7 +5063,7 @@ function createPhoneConfirmCode($confirm_code, $phone, $phone_country, $establis
     // start disable any previous confirm code sent to this number
     $status_disabled = config('constants.status.disabled');
     $status_active = config('constants.status.active');
-    $default_sms_type_id = config('constants.sms_types.registration_sms');
+    $default_sms_type_id = getRegistrationSmsType();
 
     if (!$sms_type_id) { $sms_type_id = $default_sms_type_id; }
 
@@ -5447,7 +5462,7 @@ function createSmsOutbox($message, $phone, $sms_type_id='1', $company_id='', $co
 
     $app_mode = config('constants.settings.app_mode');
     $app_short_name = config('constants.settings.app_short_name');
-    $default_sms_type_id = config('constants.sms_types.registration_sms');
+    $default_sms_type_id = getRegistrationSmsType();
 
     if (!$sms_type_id) { $sms_type_id = $default_sms_type_id; }
 
@@ -5477,7 +5492,7 @@ function createSmsOutbox($message, $phone, $sms_type_id='1', $company_id='', $co
     // end create new outbox
 
     //if we are in test mode, dont send sms, save to log file
-    if ($app_mode == 'test') {
+    if ($app_mode != 'test') {
 
         /* start testing */
         //send sms
@@ -5485,6 +5500,7 @@ function createSmsOutbox($message, $phone, $sms_type_id='1', $company_id='', $co
 		$params['phone_number']     = $phone;
 
         $result = sendApiSms($params);
+        // dd("result === ", $result, $message);
         /* end testing */
 
         $message_log = "\n\n************************************ SNB TEST SMS MSG ************************************\n\n\n";
@@ -7692,12 +7708,8 @@ function sendAccountActivationDetails($phone, $email="", $resent_flag=false) {
     $site_settings = getSiteSettings();
     $activation_code_length = $site_settings['activation_code_length'];
 
-    // get email data
-    $email_footer = $site_settings['email_footer'];
-    $email_salutation = $site_settings['email_salutation'];
-    $company_full_name = $site_settings['company_full_name_ltd'];
+    // get sms data
     $company_name = $site_settings['company_name_title'];
-    $email_subject = $site_settings['email_subject_registration'];
 
     $activation_code = generateCode($activation_code_length, false, 'd');
 
@@ -7705,25 +7717,28 @@ function sendAccountActivationDetails($phone, $email="", $resent_flag=false) {
     // create sms replacement array
     $sms_replacement_array = array();
     $sms_replacement_array[] = $first_name;
+    $sms_replacement_array[] = $company_name;
     $sms_replacement_array[] = $activation_code;
 
     // replace [[name]] and [[code]] in sms template
     $sms_message = replaceDelimitersInTemplate($set_sms_template, $sms_replacement_array);
+    // dd("sms_message === ", $sms_message);
 
     // create email replacement array
-    $email_replacement_array = array();
+    /* $email_replacement_array = array();
     $email_replacement_array[] = $company_name;
-    $email_replacement_array[] = $activation_code;
+    $email_replacement_array[] = $activation_code; */
 
     // replace [[name]] and [[code]] in email template
-    $email_message = replaceDelimitersInTemplate($set_email_template, $email_replacement_array);
+    // $email_message = replaceDelimitersInTemplate($set_email_template, $email_replacement_array);
 
     // start send sms activation code
-    $sms_type = config('constants.sms_types.registration_sms');
+    // $sms_type = config('constants.sms_types.registration_sms');
+    $sms_type = getRegistrationSmsType();
 
     // if this is resent reg sms
     if($resent_flag) {
-        $sms_type = config('constants.sms_types.resent_registration_sms');
+        $sms_type = getResentRegistrationSmsType();
     }
 
     $confirm_code = $activation_code;
@@ -7738,15 +7753,15 @@ function sendAccountActivationDetails($phone, $email="", $resent_flag=false) {
     // dd("email_message == ", $email_message);
 
     // set subject
-    $title = $email_subject;
+    /* $title = $email_subject;
     $company_id = NULL;
     $panel_text = "";
     $table_text = "";
     $parent_id = NULL;
-    $reminder_message_id = NULL;
+    $reminder_message_id = NULL; */
 
     // send email to user
-    try {
+    /* try {
 
         sendTheEmailToQueue(
             $email,
@@ -7768,10 +7783,10 @@ function sendAccountActivationDetails($phone, $email="", $resent_flag=false) {
         // dd($e);
         throw new \Exception($e->getMessage());
 
-    }
+    } */
 
     // log data
-    log_this("\n\n\n\n>>>>>>>>> send user email - request :\n\n" . "email_message == " . $email_message . "\n email address == " . $email);
+    // log_this("\n\n\n\n>>>>>>>>> send user email - request :\n\n" . "email_message == " . $email_message . "\n email address == " . $email);
 
 }
 

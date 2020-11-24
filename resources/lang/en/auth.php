@@ -15,5 +15,8 @@ return [
 
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'inactive' => 'This account has not yet been activated. Click "Activate Account" to activate',
+    'useralreadyactive' => 'User account is already active.',
+    'invalidconfirmcode' => 'Invalid confirmation code.',
 
 ];

@@ -33,7 +33,7 @@
                                 {{ csrf_field() }}
 
                                 <div class="md-form mat-2 mx-auto">
-                                    <input type="text" value="{{ old('phone') }}" name="phone" id="phone">
+                                    <input type="text" value="{{ old('phone', $phone) }}" name="phone" id="phone">
                                     <label for="phone">Phone</label>
                                     @if ($errors->has('phone'))
                                         <div class="help-block">

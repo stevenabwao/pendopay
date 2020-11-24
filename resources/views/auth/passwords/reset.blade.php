@@ -54,7 +54,7 @@ Recover Password
                                     <label for="new_password">New Password</label>
 
                                     <span toggle="#password-field" class="fa fa-fw fa-eye"
-                                        title="Show/ Hide Password"  id="togglePassword">
+                                        title="Show/ Hide Password" data-toggle="tooltip" id="togglePassword">
                                     </span>
 
                                     <p id="passwordHelpBlock" class="form-text text-muted text-sm">

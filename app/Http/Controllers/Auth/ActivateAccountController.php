@@ -11,10 +11,15 @@ use Illuminate\Support\Facades\Session;
 class ActivateAccountController extends BaseController
 {
 
-    public function showActivationForm()
+    public function showActivationForm(Request $request)
     {
 
-        return view('auth.activate-account');
+        $phone = "";
+        if ($request->has('phone')) {
+            $phone = $request->phone;
+        }
+
+        return view('auth.activate-account', compact('phone'));
 
     }
 

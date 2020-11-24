@@ -31,7 +31,9 @@
                                     <i class="im-coins text-lg"></i>
                                 </div> --}}
                                 <div class="col-lg-12">
-                                    <div class="text-lg text-amount-big">Ksh 9,999</div>
+                                    <div class="text-lg text-amount-big">
+                                        {{ formatCurrency(getUserDepositAccountBalance()) }}
+                                    </div>
                                 </div>
                             </div>
 
@@ -41,8 +43,8 @@
                                     <a href="{{ route('my-account.transferfund.create') }}" class="btn btn-sm btn-border full-width btn-block"><i class="fa fa-dollar"></i> Transfer Funds</a>
                                 </div>
                                 <div class="walet">
-                                    <a href="{{ route('my-account.deposit.create') }}"class="btn btn-sm btn-border full-width btn-block">
-                                        <i class="fa fa-money-bill-wave-alt"></i> Deposit Funds</a>
+                                    <a href="{{ route('my-payments.create') }}"class="btn btn-sm btn-border full-width btn-block">
+                                        <i class="fa fa-plus"></i> Make Payment</a>
                                 </div>
 
                             </div>

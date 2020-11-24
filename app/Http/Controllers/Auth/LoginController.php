@@ -128,15 +128,39 @@ class LoginController extends Controller
             //end save user details if login failed
 
             return $this->sendFailedLoginResponse($request);
+            // return $this->sendFailedLoginResponse($request, 'auth.noactive');
 
         } catch(\Exception $e) {
             // dd("here");
-            dd($e);
+            // dd($e);
             $message =$e->getMessage();
             Session::flash('error', $message);
             return redirect()->back()->withInput()->withErrors($message);
         }
 
+    }
+
+    // override to show user inactive errors
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        $errors = [$this->username() => trans('auth.failed')];
+
+        // Load user from database
+        $user = User::where($this->username_get($request), $request->{$this->username()})->first();
+
+        // Check if user was successfully loaded, that the password matches
+        // and active is not 1. If so, override the default error message.
+        if ($user && \Hash::check($request->password, $user->password) && $user->active != 1) {
+            $errors = [$this->username() => trans('auth.inactive')];
+        }
+
+        if ($request->expectsJson()) {
+            return response()->json($errors, 422);
+        }
+        Session::flash('error', trans('auth.inactive'));
+        return redirect()->back()
+            ->withInput($request->only($this->username(), 'remember'))
+            ->withErrors($errors);
     }
 
     // set login credentials based on what the user enters in login page
@@ -166,6 +190,15 @@ class LoginController extends Controller
     }
 
     // set the username
+    public function username_get($request)
+    {
+        if (isValidEmail($request->username)) {
+            return 'email';
+        } else {
+            return 'phone';
+        }
+    }
+
     public function username()
     {
         return 'username';
