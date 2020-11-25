@@ -55,14 +55,14 @@
                                 <hr>
 
                                 <div class="inputs row">
-                                    <button class="btn btn-xs" type="submit">Submit</button>
+                                    <button class="btn btn-xs btn-form" type="submit">Submit</button>
                                 </div>
 
                                 <hr>
 
                                 <div class="inputs row">
                                     <div class="col-sm-12 text-center">
-                                        <a href="{{ route('resend-activation-code') }}" class="btn-xs btn-border btn-danger">Resend Activation Code</a>
+                                        <a href="{{ route('resend-activation-code') }}" class="btn-xs btn btn-danger">Resend Activation Code</a>
                                     </div>
                                 </div>
 

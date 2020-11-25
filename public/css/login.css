@@ -60,7 +60,7 @@ hr{margin: 20px 0 !important;}
 }
 
 
-.inputs .btn-xs {
+.inputs .btn-xs.btn-form {
     margin-top: 25px !important;
     background-color: #03BFCB ;
     color: white;
@@ -126,7 +126,6 @@ body{
     top: 1.9rem;
     left: 8px;
 }
-<<<<<<< HEAD
 .md-form.mat-2 select{
     border-width: 1px !important;
     border-style: solid;
@@ -139,7 +138,3 @@ body{
     height: 45px;
     width: 100%;
 }
-||||||| merged common ancestors
-=======
-
->>>>>>> master
