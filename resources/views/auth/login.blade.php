@@ -60,13 +60,6 @@
                                 </div>
 
                                 <div class="inputs mt-2">
-                                    {{-- <div class="form-checkbox">
-
-                                        <input id="remember" type="checkbox" name="remember"
-                                                {{ old('remember') ? 'checked' : '' }}>
-
-                                        <label for="check">Remember Me</label>
-                                    </div> --}}
 
                                     <div class="form-checkbox">
 

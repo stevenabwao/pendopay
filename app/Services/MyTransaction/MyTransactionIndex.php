@@ -84,7 +84,7 @@ class MyTransactionIndex
         //if not, set url appended params
         if (!$report) {
 
-            $limit = $request->get('limit', config('app.short_pagination_limit'));
+            $limit = $request->get('limit', getAppPaginationShort());
             $data = $data->paginate($limit);
 
             // limit number of pagination links onn each side of current page

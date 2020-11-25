@@ -79,49 +79,63 @@
 
                         <div class="grid-box">
 
-                            <div class="grid-item">
-                                <div class="cnt-boxz cnt-box-blog-side boxedz" data-href="#">
-                                    <div class="caption2">
-                                        <h3>Sale of Lexus motor vehicle KDA 001B motor vehicle KDA 001B</h3>
-                                        <ul class="icon-list icon-list-horizontal">
-                                            <li><i class="icon-calendar"></i><a href="#">15-Dec-2020</a></li>
-                                            <li><i class="icon-bookmark"></i><a href="#">SENT</a></li>
-                                            <li><i class="icon-user"></i><a href="#">KES 2,000,000</a></li>
-                                            <li class="text-success"><i class="fa fa-eye"></i> VIEW</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="grid-item">
-                                <div class="cnt-boxz cnt-box-blog-side boxedz" data-href="#">
-                                    <div class="caption2">
-                                        <h3>Sale of Lexus motor vehicle KDA 001B motor vehicle KDA 001B</h3>
-                                        <ul class="icon-list icon-list-horizontal">
-                                            <li><i class="icon-calendar"></i><a href="#">15-Dec-2020</a></li>
-                                            <li><i class="icon-bookmark"></i><a href="#">RECEIVED</a></li>
-                                            <li><i class="icon-user"></i><a href="#">KES 2,000,000</a></li>
-                                            <li class="text-success"><i class="fa fa-eye"></i> VIEW</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="grid-item">
-                                <div class="cnt-boxz cnt-box-blog-side boxedz" data-href="#">
-                                    <div class="caption2">
-                                        <h3>Sale of Lexus motor vehicle KDA 001B motor vehicle KDA 001B</h3>
-                                        <ul class="icon-list icon-list-horizontal">
-                                            <li><i class="icon-calendar"></i><a href="#">15-Dec-2020</a></li>
-                                            <li><i class="icon-bookmark"></i><a href="#">RECEIVED</a></li>
-                                            <li><i class="icon-user"></i><a href="#">KES 2,000,000</a></li>
-                                            <li class="text-success"><i class="fa fa-eye"></i> VIEW</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
+                            @if (count($payments))
 
+                                @foreach ($payments as $payment)
+
+                                    <div class="grid-item">
+                                        <div class="cnt-boxz cnt-box-blog-side boxedz">
+                                            <div class="caption2">
+                                                <h3>{{ $payment->formatted_amount }}</h3>
+                                                <ul class="icon-list icon-list-horizontal">
+                                                    <li>
+                                                        <i class="icon-calendar"></i>
+                                                        <a href="{{ $payment->url }}">
+                                                            {{ $payment->created_at }}
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <i class="icon-bookmark"></i>
+                                                        <a href="#">
+                                                            {{ $payment->payment_method_name }}
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-phone"></i>
+                                                        <a href="{{ $payment->url }}">
+                                                            {{ $payment->phone }}
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <i class="icon-user"></i>
+                                                        {!! $payment->formatted_full_name !!}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+
+                                @endforeach
+
+                                {{-- pagination --}}
+                                {{ $payments->links() }}
+
+                            @else
+
+                                <div class="alert alert-danger text-center">
+                                    No Payments Found
+                                </div>
+
+                                {{-- <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="alert alert-danger text-center">
+                                            No Transactions Found
+                                        </div>
+                                    </div>
+                                </div> --}}
+
+                            @endif
 
                         </div>
 

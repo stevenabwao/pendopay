@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\web\MyPayments;
 
 use App\Entities\DepositAccountSummary;
+use App\Entities\Status;
 use App\Http\Controllers\Controller;
+use App\Services\MyPayment\MyPaymentIndex;
 use App\Services\MyPayment\MyPaymentStore;
 use Illuminate\Http\Request;
 use Session;
@@ -16,10 +18,26 @@ class MyPaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, MyPaymentIndex $myPaymentIndex)
     {
 
-        return view('_web.my-payments.index');
+        // get trans data
+        $data = $myPaymentIndex->getData($request);
+
+        //are we in report mode? return get results
+        if ($request->report) {
+
+            $data = $data->get();
+
+        }
+        // dd("data == ", $data);
+
+        $statuses = Status::where("section", "LIKE", "%payment%")->get();
+
+        return view('_web.my-payments.index', [
+            'payments' => $data,
+            'statuses' => $statuses
+        ]);
 
     }
 

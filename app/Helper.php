@@ -41,6 +41,7 @@ use App\Entities\CommissionScale;
 use App\Entities\Transaction;
 use App\Entities\TransactionRequest;
 use App\Entities\UserNotification;
+use App\Entities\PaymentMethod;
 use App\Events\LoanApplicationUpdated;
 use App\Services\EmailQueue\EmailQueueStore;
 use App\Mail\ReminderMessageEmail;
@@ -2497,6 +2498,31 @@ function getUserDepositAccountBalance() {
 
 }
 
+// get payment method
+function getPaymentMethodName($payment_method_id) {
+
+    $payment_method_name = "";
+
+    $payment_method_data = getPaymentMethodData($payment_method_id);
+    if ($payment_method_data) {
+        $payment_method_name = $payment_method_data->name;
+    }
+
+	return $payment_method_name;
+
+}
+
+// get payment method
+function getPaymentMethodData($payment_method_id) {
+
+    $payment_method_name = "";
+
+    $payment_method_data = PaymentMethod::find($payment_method_id);
+
+	return $payment_method_data;
+
+}
+
 // checkEmailAccountExists
 function checkEmailAccountExists($email) {
 
@@ -3143,6 +3169,11 @@ function getMediaTypeSms() {
     return config('constants.mediatypes.sms');
 }
 // end media types
+
+// pagination
+function getAppPaginationShort() {
+    return config('app.short_pagination_limit');
+}
 
 // start site functions
 function getSiteFunctionRegistration() {
@@ -7605,7 +7636,7 @@ function reArrangeSubmittedDate($date) {
 
 // mutate model dates
 function showLocalizedDate($date) {
-    return Carbon::parse($date)->timezone(getLocalTimezone());
+    return formatFriendlyDate(Carbon::parse($date)->timezone(getLocalTimezone()));
 }
 
 // get date in UTC timezone

@@ -8,12 +8,12 @@ class BaseModel extends Model
 {
 
     // start getters
-    public function getCreatedAtAttribute($value)
+    public static function getCreatedAtAttribute($value)
     {
         return showLocalizedDate($value);
     }
 
-    public function getUpdatedAtAttribute($value)
+    public static function getUpdatedAtAttribute($value)
     {
         return showLocalizedDate($value);
     }

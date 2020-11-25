@@ -10,8 +10,8 @@ use App\Entities\PaymentMethod;
 use App\Entities\PaymentDeposit;
 use App\Events\PaymentCreated;
 use App\Entities\GlAccountHistory;
+use App\Traits\StandardDates;
 use App\User;
-use Carbon\Carbon;
 
 class Payment extends BaseModel
 {
@@ -119,6 +119,29 @@ class Payment extends BaseModel
     public function getFailedAtAttribute($value)
     {
         return showLocalizedDate($value);
+    }
+
+    public function getFormattedAmountAttribute()
+    {
+        return formatCurrency($this->amount);
+    }
+
+    public function getFormattedFullNameAttribute()
+    {
+        return titlecase($this->full_name);
+    }
+
+    public function getPaymentMethodNameAttribute()
+    {
+        return strtoupper(getPaymentMethodName($this->payment_method_id));
+    }
+
+    // add accessor for url
+    public function getUrlAttribute()
+    {
+
+        return route('payments.show', ['id' => $this->id]);
+
     }
     // end getters
 

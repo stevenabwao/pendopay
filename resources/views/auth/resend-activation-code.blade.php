@@ -32,6 +32,8 @@
 
                                 {{ csrf_field() }}
 
+                                <p class="text-center">Enter your phone number below, and we’ll resend your account activation code:</p>
+
                                 <div class="md-form mat-2 mx-auto">
                                     <input type="text" value="{{ old('phone') }}" name="phone" id="phone">
                                     <label for="phone">Phone</label>
