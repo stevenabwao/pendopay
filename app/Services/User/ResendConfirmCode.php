@@ -2,8 +2,6 @@
 
 namespace App\Services\User;
 
-use App\Entities\ConfirmCode;
-use App\User;
 use Illuminate\Support\Facades\DB;
 
 class ResendConfirmCode
@@ -34,25 +32,25 @@ class ResendConfirmCode
             } catch(\Exception $e) {
 
                 DB::rollback();
-                $message = "User not found";
+                $message = trans('auth.usernotfound');
                 log_this('Error activating user phone === ' . $message . "\n" . json_encode($attributes));
-                return show_error_response($message);
+                throw new \Exception($message);
 
             }
             // end get user
 
             // show error if user not found
             if (!$user) {
-                $message = "User not found";
+                $message = trans('auth.usernotfound');
                 log_this('Error activating user phone === ' . $message . "\n" . json_encode($attributes));
-                return show_error_response($message);
+                throw new \Exception($message);
             }
 
             // if user is already active, show error
             if ($user->status_id == $status_active) {
-                $message = 'User account is already active.';
+                $message = trans('auth.useralreadyactive');
                 log_this('Error activating user phone === ' . $message . "\n" . json_encode($attributes));
-                return show_error_response($message);
+                throw new \Exception($message);
             }
 
             // send activation code
@@ -65,9 +63,9 @@ class ResendConfirmCode
             } catch(\Exception $e) {
 
                 DB::rollback();
-                $message = "Could not send activation code";
+                $message = "Could not resend activation code";
                 log_this('Error activating user phone === ' . $message . "\n" . json_encode($attributes));
-                return show_error_response($message);
+                throw new \Exception($message);
 
             }
 

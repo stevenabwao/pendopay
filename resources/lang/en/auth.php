@@ -13,10 +13,11 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
+    'failed' => 'Invalid login credentials.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'inactive' => 'This account has not yet been activated. Click "Activate Account" to activate',
     'useralreadyactive' => 'User account is already active.',
+    'usernotfound' => 'User account not found.',
     'invalidconfirmcode' => 'Invalid confirmation code.',
 
 ];

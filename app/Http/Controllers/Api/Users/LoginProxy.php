@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Users;
 
 use App\User;
 use App\Entities\UserLogin;
-use App\Http\Resources\UserResource;
+use App\Http\Resources\User\UserResource;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -65,15 +65,27 @@ class LoginProxy
 
                 $userlogin = $userlogin->create($attributes);
                 //end save user login details
-                throw new \Exception("User account not activated. Please activate account to proceed.");
+                throw new \Exception(trans('auth.inactive'));
+
             }
+            // dd("user === ", $user);
 
             //start save user login details
             $attributes['status'] = 'success';
             $attributes['action'] = 'apilogin';
 
-            $userlogin = $userlogin->create($attributes);
+            try {
+
+                $userlogin = $userlogin->create($attributes);
+
+            } catch(\Exception $e) {
+
+                throw new \Exception($e->getMessage());
+
+            }
             //end save user login details
+
+            // dd("after === ", $userlogin);
 
             return $this->proxy('password', [
                 'username' => $username,
@@ -89,7 +101,7 @@ class LoginProxy
             $userlogin = $userlogin->create($attributes);
             //end save user login details
 
-            throw new \Exception("Invalid username or password");
+            throw new \Exception(trans('auth.failed'));
 
         }
 
@@ -196,6 +208,7 @@ class LoginProxy
         ]);
         // Get response
         $response = app()->handle($request);
+        // dd("response --- ", $response);
 
         if (!$response->isSuccessful()) {
             $message = "Wrong login credentials";

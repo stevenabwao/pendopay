@@ -2,7 +2,7 @@
 
     @section('title')
 
-    Activate Account
+    Resend Activation Code
 
     @endsection
 
@@ -23,31 +23,21 @@
                                     <p class="card-text">
                             </div>
                             <div class="row justify-content-center form-title">
-                                <h3>Please Activate Your Account</h3>
+                                <h3>Resend Activation Code</h3>
                             </div>
 
                             {{-- <hr> --}}
 
-                            <form action="{{ route('activate-account.store') }}" method="post" id="passResetForm">
+                            <form action="{{ route('resend-activation-code.store') }}" method="post" id="passResetForm">
 
                                 {{ csrf_field() }}
 
                                 <div class="md-form mat-2 mx-auto">
-                                    <input type="text" value="{{ old('phone', $phone) }}" name="phone" id="phone">
+                                    <input type="text" value="{{ old('phone') }}" name="phone" id="phone">
                                     <label for="phone">Phone</label>
                                     @if ($errors->has('phone'))
                                         <div class="help-block">
                                             <strong>{{ $errors->first('phone') }}</strong>
-                                        </div>
-                                    @endif
-                                </div>
-
-                                <div class="md-form mat-2 mx-auto">
-                                    <input type="text" name="code" id="code" value="{{ old('code') }}">
-                                    <label for="code">Activation Code</label>
-                                    @if ($errors->has('code'))
-                                        <div class="help-block">
-                                            <strong>{{ $errors->first('code') }}</strong>
                                         </div>
                                     @endif
                                 </div>
@@ -61,16 +51,8 @@
                                 <hr>
 
                                 <div class="inputs row">
-                                    <div class="col-sm-12 text-center">
-                                        <a href="{{ route('resend-activation-code') }}" class="btn-xs btn-border btn-danger">Resend Activation Code</a>
-                                    </div>
-                                </div>
-
-                                <hr>
-
-                                <div class="inputs row">
                                     <div class="col-sm-4">
-                                        <a href="{{ route('register') }}" class="reset">Register an Account</a>
+                                        <a href="{{ route('activate-account') }}" class="reset">Activate Account</a>
                                     </div>
                                     <div class="col-sm-4">
                                         <a href="{{ route('password.request') }}" class="reset">Forgot Your Password?</a>

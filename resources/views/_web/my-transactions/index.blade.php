@@ -43,7 +43,7 @@
                                     <a href="{{ route('my-account.transferfund.create') }}" class="btn btn-sm btn-border full-width btn-block"><i class="fa fa-dollar"></i> Transfer Funds</a>
                                 </div>
                                 <div class="walet">
-                                    <a href="{{ route('my-payments.create') }}"class="btn btn-sm btn-border full-width btn-block">
+                                    <a href="{{ route('my-payments.create') }}" class="btn btn-sm btn-border full-width btn-block">
                                         <i class="fa fa-plus"></i> Make Payment</a>
                                 </div>
 

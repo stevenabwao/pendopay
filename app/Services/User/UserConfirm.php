@@ -45,7 +45,7 @@ class UserConfirm
             } catch(\Exception $e) {
 
                 DB::rollback();
-                $message = "User not found";
+                $message = trans('auth.usernotfound');
                 log_this('Error activating user account === ' . $message . "\n" . json_encode($attributes));
                 throw new \Exception($message);
 
@@ -54,7 +54,7 @@ class UserConfirm
 
             // show error if user not found
             if (!$user) {
-                $message = "User not found";
+                $message = trans('auth.usernotfound');
                 log_this('Error activating user phone === ' . $message . "\n" . json_encode($attributes));
                 throw new \Exception($message);
             }

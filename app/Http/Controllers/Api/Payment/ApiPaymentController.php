@@ -63,19 +63,20 @@ class ApiPaymentController extends BaseController
     {
 
         $rules = [
-            'payment_method_id' => 'required',
             'amount' => 'required',
-            //'account_no' => 'required',
-            'full_name' => 'required'
+            'full_name' => 'required',
+            'paybill_number' => 'required',
+            'phone_number' => 'required'
         ];
 
-        $payload = app('request')->only('payment_method_id', 'amount', 'full_name');
+        $payload = app('request')->only('amount', 'full_name', 'paybill_number', 'phone_number');
 
         $validator = app('validator')->make($payload, $rules);
 
         if ($validator->fails()) {
-            $message = "Please enter all required fields";
-            return show_error_response($validator->errors());
+            // $message = "Please enter all required fields";
+            // return show_error_response($validator->errors());
+            return showCompoundMessage(422, $validator->errors());
         }
 
         //create main payment first
@@ -85,7 +86,8 @@ class ApiPaymentController extends BaseController
             // dd($payment_main_result);
         } catch(\Exception $e) {
             log_this($e->getMessage());
-            dd($e);
+            // dd($e);
+            return showCompoundMessage(422, $e->getMessage());
         }
 
         $payment_main_result_message = $payment_main_result->message;
@@ -93,7 +95,7 @@ class ApiPaymentController extends BaseController
         // dd($new_payment_main_result_message->id);
 
         //start create other payment data in transaction
-        DB::beginTransaction();
+        // DB::beginTransaction();
 
             try {
 
@@ -106,7 +108,7 @@ class ApiPaymentController extends BaseController
 
             } catch(\Exception $e) {
 
-                DB::rollback();
+                // DB::rollback();
                 // dd($e);
                 $message = 'Error. Could not complete payment transactions - ' . $e->getMessage();
                 $show_message = $message . ' - ' . $e;
@@ -119,14 +121,16 @@ class ApiPaymentController extends BaseController
                                     'failed_at' => getCurrentDate(1)
                                 ]);
 
-                return show_error($message);
+                // return show_error($message);
+                return showCompoundMessage(422, $message);
 
             }
 
-        DB::commit();
-        //end create other payment data in transaction
+        // DB::commit();
+        // end create other payment data in transaction
 
-        return show_success($message);
+        // return show_success($message);
+        return showCompoundMessage(200, $message);
 
     }
 

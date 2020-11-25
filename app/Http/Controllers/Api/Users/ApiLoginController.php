@@ -44,6 +44,7 @@ class ApiLoginController extends ApiController
             $username = getDatabasePhoneNumber($username, $phone_country);
         }
         $password = $request->get('password');
+        // dd("username === ", $username, $password);
 
         try {
 
@@ -51,6 +52,7 @@ class ApiLoginController extends ApiController
 
         } catch(\Exception $e) {
 
+            // dd("hapaa === ", $e);
             return showCompoundMessage(422, $e->getMessage());
 
         }

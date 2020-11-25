@@ -49,7 +49,7 @@ class ActivateAccountController extends BaseController
             // DB::rollback();
             $error_message = $e->getMessage();
             log_this('Error activating user phone === ' . $error_message);
-            session()->flash("error", "An error occured\n" . $error_message);
+            session()->flash("error", $error_message);
             return redirect()->back()->withInput()->withErrors($error_message);
 
         }
@@ -77,25 +77,19 @@ class ActivateAccountController extends BaseController
             $user_result = json_decode($user_result);
             $result_message = $user_result->message;
 
-            if (!$user_result->error) {
-                // $success_message = 'Successfully created user. Please login.';
-                $message = $result_message->message;
-                Session::flash('success', $message);
-                return redirect()->route('activate-account');
-            } else {
-                $message = $result_message->message;
-                Session::flash('error', $message);
-                return redirect()->back()->withInput()->withErrors($message);
-            }
+            // $success_message = 'Successfully created user. Please login.';
+            $message = $result_message->message;
+            Session::flash('success', $message);
+            // return redirect()->route('activate-account');
+            return redirect()->route('activate-account', ['phone' => getDatabasePhoneNumber($request->phone)]);
 
         } catch(\Exception $e) {
 
-            DB::rollback();
             $error_message = json_encode($e->getMessage());
             log_this('Error activating user phone === ' . $error_message);
             //error occured
-            session()->flash("error", "An error occured\n" . $error_message);
-            return redirect()->back()->withInput()->withErrors($e);
+            session()->flash("error", $error_message);
+            return redirect()->back()->withInput()->withErrors($e->getMessage());
 
         }
 

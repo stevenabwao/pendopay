@@ -120,10 +120,10 @@ class ResetPasswordController extends Controller
 
         } catch(\Exception $e) {
 
-            dd($e);
+            // dd($e);
             $error_message = $e->getMessage();
             log_this('Error activating user phone === ' . $error_message);
-            session()->flash("error", "An error occured\n" . $error_message);
+            session()->flash("error", $error_message);
             return redirect()->back()->withInput()->withErrors($error_message);
 
         }
