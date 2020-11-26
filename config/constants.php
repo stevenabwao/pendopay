@@ -55,6 +55,7 @@
         'mediatypes' => [
             'sms' => 'sms',
             'email' => 'email',
+            'notification' => 'notification',
         ],
         'transactionroles' => [
             'buyer' => 'buyer',

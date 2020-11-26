@@ -3168,6 +3168,9 @@ function getMediaTypeEmail() {
 function getMediaTypeSms() {
     return config('constants.mediatypes.sms');
 }
+function getMediaTypeNotification() {
+    return config('constants.mediatypes.notification');
+}
 // end media types
 
 // pagination
@@ -4968,13 +4971,16 @@ function sendTransactionRequestEmail($sender_user_data, $recipient_user_data, $t
     $login_url = route('login');
     $login_link = "<a href='$login_url'>$login_url</a>";
 
+    // trans accept_link
+    $trans_accept_link = route('transaction-requests.accept', ['token' => $transaction_data->transaction_request_code]);
+
     // create replacement array
     $replacement_array = array();
     $replacement_array[] = $sender_first_name;
     $replacement_array[] = $sender_phone;
     $replacement_array[] = $transaction_partner_role;
     $replacement_array[] = $transaction_title;
-    $replacement_array[] = $login_link;
+    $replacement_array[] = "<a href='$trans_accept_link'>" . $trans_accept_link . "</a>";
 
     // formulate email
     // replace [[name]] and [[token]] in template
@@ -5050,11 +5056,44 @@ function saveNewTransactionRequest($sender_user_data, $recipient_user_data, $tra
 
     }
 
+    ////////////////////////////////////////////////////
+    // get transaction partner role
+    $transaction_partner_role = getTransactionPartnerRole($transaction_data);
+
+    // get sender user data
+    $sender_first_name = $sender_user_data->first_name;
+    $sender_phone = $sender_user_data->phone;
+
+    // get trans data
+    $transaction_title = $transaction_data->title;
+
+    // formulate notification
+    // get template
+    $notification_template = getMediaTemplate(getSiteFunctionTransactionRequest(), getMediaTypeNotification());
+
+    // formulate message from template
+    $set_notification_template = $notification_template->text ? $notification_template->text : $notification_template->default_text;
+
+    // notification_link
+    $notification_link = route('transaction-requests.accept', ['token' => $transaction_request_code]);
+
+    // create replacement array
+    $replacement_array = array();
+    $replacement_array[] = $sender_first_name;
+    $replacement_array[] = $sender_phone;
+    $replacement_array[] = $transaction_partner_role;
+    $replacement_array[] = $transaction_title;
+    $replacement_array[] = "<a href='$notification_link'>" . $notification_link . "</a>";
+
+    // formulate notification
+    $notification_text = replaceDelimitersInTemplate($set_notification_template, $replacement_array);
+    // dd("notification_text === ", $notification_text);
+    ////////////////////////////////////////////////////
+
     // create new recipient notification
     $new_notification = new UserNotification();
 
-    $notification_message = "the message";
-    $notification_link = route('transaction-requests.accept', ['token' => $transaction_request_code]);
+    $notification_message = $notification_text;
 
     $notification_attributes['user_id'] = $sender_user_data->id;
     $notification_attributes['notification_message'] = $notification_message;
@@ -5085,7 +5124,7 @@ function saveNewTransactionRequest($sender_user_data, $recipient_user_data, $tra
 
     }
 
-    return $new_transaction_request_result;
+    return $transaction_request_code;
 
 }
 

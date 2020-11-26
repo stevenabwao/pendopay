@@ -11,12 +11,6 @@ use App\Services\EmailSend\EmailSendStore;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-use Dingo\Api\Exception\StoreResourceFailedException;
-use Dingo\Api\Exception\UpdateResourceFailedException;
-
-use Mail;
-use App\Mail\OverdueLoanReminder;
-
 class ManageDataIndex
 {
 
@@ -248,7 +242,7 @@ class ManageDataIndex
                                 //dd("new_reminder_message_store - " . $message);
                                 log_this($message);
                                 $show_message_text = "Error creating reminder message.";
-                                throw new StoreResourceFailedException($show_message_text);
+                                throw new \Exception($show_message_text);
 
                             }
                             //end create new rem entry
@@ -269,7 +263,7 @@ class ManageDataIndex
             //3. PROCESS EXPIRED LOAN REPAYMENTS - REMINDERS - END
             //***********************************************************
 
-
+*/
 
             //***********************************************************
             //4. SEND QUEUED EMAILS - START
@@ -290,7 +284,7 @@ class ManageDataIndex
                 //dd("email_send_store - " . $message, $e);
                 log_this($message);
                 $show_message_text = "Error creating email send store";
-                throw new StoreResourceFailedException($show_message_text);
+                throw new \Exception($show_message_text);
 
             }
 
@@ -299,7 +293,7 @@ class ManageDataIndex
             //***********************************************************
             //dd("end");
 
-        DB::commit(); */
+        // DB::commit();
 
 
 	}

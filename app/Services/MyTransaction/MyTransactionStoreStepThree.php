@@ -46,23 +46,10 @@ class MyTransactionStoreStepThree
             // get recipient user data
             $recipient_user_data = getUserData("","", $user_id);
 
-            // send email request to user
-            try {
-
-                sendTransactionRequestEmail($sender_user_data, $recipient_user_data, $transaction_data);
-
-            } catch(\Exception $e) {
-
-                DB::rollback();
-                log_this($e);
-                throw new \Exception($e->getMessage());
-
-            }
-
             // save entry into transaction requests table
             try {
 
-                saveNewTransactionRequest($sender_user_data, $recipient_user_data, $transaction_data);
+                $transaction_request_code = saveNewTransactionRequest($sender_user_data, $recipient_user_data, $transaction_data);
 
             } catch(\Exception $e) {
 
@@ -76,6 +63,20 @@ class MyTransactionStoreStepThree
             try {
 
                 changeTransactionStatus($trans_id, getStatusPending());
+
+            } catch(\Exception $e) {
+
+                DB::rollback();
+                log_this($e);
+                throw new \Exception($e->getMessage());
+
+            }
+
+            // send email request to user
+            try {
+
+                $transaction_data->transaction_request_code = $transaction_request_code;
+                sendTransactionRequestEmail($sender_user_data, $recipient_user_data, $transaction_data);
 
             } catch(\Exception $e) {
 
