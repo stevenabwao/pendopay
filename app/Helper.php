@@ -3226,6 +3226,35 @@ function getPasswordResetSmsType() {
 }
 // end sms types
 
+// is the user accepting the transaction created as a buyer or seller?
+function isAcceptingUserSellerOrBuyer($trans_data) {
+
+    // get the logged user
+    $logged_user = getLoggedUser();
+
+    // transaction id
+    $trans_id = $trans_data->id;
+
+    // get active transaction request with this transaction id
+    $transaction_request_data = TransactionRequest::where('transaction_id', $trans_id)
+                                                   ->where('status_id', getStatusActive())
+                                                   ->first();
+
+    // dd("transaction_request_data == ", $transaction_request_data);
+    $transaction_sender_user_id = $transaction_request_data->sender_user_id;
+    $transaction_sender_role = $transaction_request_data->sender_role;
+    $transaction_recipient_role = $transaction_request_data->recipient_role;
+
+    // chek if sender is the one accepting the request, if so, show error
+    if ($logged_user->id == $transaction_sender_user_id) {
+        $message = "You cannot accept a transaction request created by you";
+        throw new \Exception($message);
+    }
+
+    return titlecase($transaction_recipient_role);
+
+}
+
 // get transaction role
 function getTransactionRole($trans_data) {
 
@@ -4966,10 +4995,6 @@ function sendTransactionRequestEmail($sender_user_data, $recipient_user_data, $t
 
     // formulate message from template
     $set_email_template = $email_template->text ? $email_template->text : $email_template->default_text;
-
-    // login link
-    $login_url = route('login');
-    $login_link = "<a href='$login_url'>$login_url</a>";
 
     // trans accept_link
     $trans_accept_link = route('transaction-requests.accept', ['token' => $transaction_data->transaction_request_code]);

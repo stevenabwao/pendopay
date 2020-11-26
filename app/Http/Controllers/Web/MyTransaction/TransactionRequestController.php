@@ -100,27 +100,6 @@ class TransactionRequestController extends Controller
 
     }
 
-    // accept a transaction request
-    public function accept($token, Request $request)
-    {
-
-
-        $itemdata = $this->model->where('id', $token)
-                       ->where('status_id', getStatusInactive())
-                       ->first();
-
-        $trans_message = getMyTransactionMessage($itemdata);
-        $itemdata->trans_message = $trans_message;
-
-        // get trans partner role
-        $trans_partner_role = getTransactionPartnerRole($itemdata);
-        $itemdata->trans_partner_role = $trans_partner_role;
-
-        return view('_web.my-transactions.create_step2', [
-            'trans_data' => $itemdata
-        ]);
-    }
-
     public function storeStep2(Request $request, MyTransactionStoreStepTwo $myTransactionStoreStepTwo)
     {
 
@@ -289,6 +268,42 @@ class TransactionRequestController extends Controller
 
         return view('_web.my-transactions.show', compact('transaction'));
 
+    }
+
+    // accept a transaction request
+    public function accept($token, Request $request)
+    {
+
+        // get transaction request data
+        $transrequestdata = $this->model->where('confirm_code', $token)
+                       ->where('status_id', getStatusActive())
+                       ->first();
+        $transaction_id = $transrequestdata->transaction_id;
+
+        // get transaction data
+        $itemdata = Transaction::find($transaction_id);
+        // dd("itemdata --- ", $itemdata);
+
+        $trans_message = getMyTransactionMessage($itemdata);
+        $itemdata->trans_message = $trans_message;
+
+        // get trans role
+        // check whether user is seller or buyer in transaction
+        $trans_role = isAcceptingUserSellerOrBuyer($itemdata);
+        $itemdata->trans_role = $trans_role;
+
+        // get trans partner role
+        // $trans_partner_role = getTransactionPartnerRole($itemdata);
+        // $itemdata->trans_partner_role = $trans_partner_role;
+
+        // get site setting - transaction terms and conditions
+        $site_settings = getSiteSettings();
+        $terms_and_conditions = $site_settings['transaction_terms_and_conditions'];
+
+        return view('_web.my-transactions.accept_transaction', [
+            'trans_data' => $itemdata,
+            'terms_and_conditions' => $terms_and_conditions
+        ]);
     }
 
 }
