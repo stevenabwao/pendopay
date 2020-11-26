@@ -47,15 +47,16 @@
                         {{-- {{ dd($trans_data) }} --}}
 
                         <h3>Transaction summary:</h3>
-                        <div class="md-form mat-2 mx-auto">
-                            <input type="text" value="{{ $trans_data->title }}" name="title" disabled>
-                            <input type="hidden" value="{{ $trans_data['id'] }}" name="id">
-                            <label for="title">Transaction Title</label>
-                        </div>
 
                         <div class="md-form mat-2 mx-auto">
                             <input type="text" value="{{ $trans_data->creator->full_name }} - {{ $trans_data->creator->phone }}" name="title" disabled>
                             <label for="title">Transaction Creator</label>
+                        </div>
+
+                        <div class="md-form mat-2 mx-auto">
+                            <input type="text" value="{{ $trans_data->title }}" name="title" disabled>
+                            <input type="hidden" value="{{ $trans_data['id'] }}" name="id">
+                            <label for="title">Transaction Title</label>
                         </div>
 
                         <div class="md-form mat-2 mx-auto">
