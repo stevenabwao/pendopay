@@ -15,6 +15,7 @@ class TransactionAudit extends BaseModel
      */
     protected $fillable = [
         'id', 'parent_id', 'title', 'transaction_amount', 'transaction_date', 'seller_user_id',  'buyer_user_id',
+        'transaction_amount_paid', 'transaction_balance',
         'transaction_description', 'status_id', 'created_by', 'created_by_name', 'updated_by', 'updated_by_name'
     ];
 
@@ -52,47 +53,6 @@ class TransactionAudit extends BaseModel
     public function getFullPermalinkAttribute()
     {
         return $this->id . '-' . $this->permalink;
-    }
-
-    // add accessor for club url
-    public function getUrlAttribute()
-    {
-
-        /* $app_url = config('app.url');
-        $restaurant_cat_id = config('constants.establishments.restaurant_cat_id');
-
-        $link_text = config('constants.establishments.club_cat_text');
-        if ($this->attributes['category_id'] == $restaurant_cat_id) {
-            $link_text = config('constants.establishments.restaurant_cat_text');
-        }
-
-        // generate url
-        $the_url = $app_url . "/$link_text/" . $this->attributes['id'] . '-' . $this->attributes['permalink'];
-
-        return $the_url; */
-
-    }
-
-    // add accessor for image
-    public function getMainImageAttribute()
-    {
-
-        /* $no_image_url = getNoImageThumb400();
-        $img_path = "";
-
-        if (count($this->images)) {
-            if ($this->images[0]->thumb_img_400) {
-                $img_path = $this->images[0]->thumb_img_400;
-            } else {
-                $img_path = $no_image_url;
-            }
-
-        } else {
-            $img_path = $no_image_url;
-        }
-
-        return getFullImagePath($img_path); */
-
     }
 
     /**

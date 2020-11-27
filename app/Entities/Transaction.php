@@ -17,6 +17,7 @@ class Transaction extends BaseModel
      */
     protected $fillable = [
         'id', 'title', 'transaction_amount', 'transaction_date', 'seller_user_id',  'buyer_user_id',
+        'transaction_amount_paid', 'transaction_balance',
         'transaction_description', 'status_id', 'created_by', 'created_by_name', 'updated_by', 'updated_by_name'
     ];
 
