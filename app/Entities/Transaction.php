@@ -78,6 +78,12 @@ class Transaction extends BaseModel
     }
 
     // add accessor for trans date
+    public function getPercentagePaidAttribute()
+    {
+        return 50;
+    }
+
+    // add accessor for trans date
     public function getFormattedTransactionDateAttribute()
     {
         return formatDatePickerDate($this->transaction_date, 'd-M-Y');
@@ -87,6 +93,30 @@ class Transaction extends BaseModel
     public function getFormattedTransactionAmountAttribute()
     {
         return formatCurrency($this->transaction_amount);
+    }
+
+    // add accessor for trans amount paid
+    public function getTransactionAmountPaidAttribute()
+    {
+        return 4000;
+    }
+
+    // add accessor for formatted trans amount paid
+    public function getFormattedTransactionAmountPaidAttribute()
+    {
+        return formatCurrency($this->transaction_amount_paid);
+    }
+
+    // add accessor for trans balance
+    public function getTransactionBalanceAttribute()
+    {
+        return 2000;
+    }
+
+    // add accessor for formatted trans balance
+    public function getFormattedTransactionBalanceAttribute()
+    {
+        return formatCurrency($this->transaction_balance);
     }
 
     // add accessor for user role in trans

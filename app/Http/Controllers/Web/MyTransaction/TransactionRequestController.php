@@ -10,6 +10,7 @@ use App\Services\MyTransaction\MyTransactionIndex;
 use App\Services\MyTransaction\MyTransactionStore;
 use App\Services\MyTransaction\MyTransactionStoreStepThree;
 use App\Services\MyTransaction\MyTransactionStoreStepTwo;
+use App\Services\TransactionRequest\TransactionRequestAcceptStore;
 use App\User;
 use Illuminate\Http\Request;
 use Session;
@@ -60,7 +61,7 @@ class TransactionRequestController extends Controller
 
     public function create(Request $request)
     {
-        return view('_web.my-transactions.create');
+        return view('_web.transaction-requests.create');
     }
 
     public function store(Request $request, MyTransactionStore $myTransactionStore)
@@ -100,149 +101,6 @@ class TransactionRequestController extends Controller
 
     }
 
-    public function storeStep2(Request $request, MyTransactionStoreStepTwo $myTransactionStoreStepTwo)
-    {
-
-        $this->validate($request, [
-            'partner_details_select' => 'required',
-            'transaction_partner_details' => 'required'
-        ]);
-        $request_id = $request->id;
-
-        //create item
-        try {
-            $new_item = $myTransactionStoreStepTwo->createItem($request->all());
-            $new_item_decode = json_decode($new_item);
-            $new_item_message = $new_item_decode->message;
-
-            // check if we found the user
-            if ($new_item_message->error) {
-
-                // error occured, user not found
-                $result = $new_item_message->message;
-                $the_message = $result->message;
-                // dd($the_message);
-
-                // show user form asking them to enter user email or phone OR go back and search again
-                return redirect(route('my-transactions.create-step3', [
-                    'id' => $request_id,
-                    'error_message' => $the_message
-                ]));
-
-            } else {
-
-                // no error user was found
-                $result = $new_item_message->message;
-                $user_data = $result->data;
-                // dd($user_data);
-
-                // show user form asking them to send request to this user
-                return redirect(route('my-transactions.create-step3', [
-                    'id' => $request_id,
-                    'user_id' => $user_data->id
-                ]));
-
-            }
-
-        } catch (\Exception $e) {
-
-            $error_message = $e->getMessage();
-            Session::flash('error', $error_message);
-            return redirect()->back()->withInput()->withErrors($error_message);
-
-        }
-
-    }
-
-    // send transaction request selected buyer/ seller
-    public function create_step3($id, Request $request)
-    {
-
-        $user_id = NULL;
-        $error_message = "";
-        $itemdata = NULL;
-        $userdata = NULL;
-        // dd("chh", $request->all());
-
-        // error message
-        if ($request->error_message) {
-            $error_message = $request->error_message;
-        }
-
-        // user data
-        if ($request->user_id) {
-            $user_id = $request->user_id;
-            $userdata = User::find($user_id);
-
-            $itemdata = $this->model->where('id', $id)
-                       ->where('status_id', getStatusInactive())
-                       ->first();
-
-            $trans_message = getMyTransactionMessage($itemdata);
-            $itemdata->trans_message = $trans_message;
-
-            // get trans partner role
-            $trans_partner_role = getTransactionPartnerRole($itemdata);
-            $itemdata->trans_partner_role = $trans_partner_role;
-        }
-        // dd($itemdata);
-
-        return view('_web.my-transactions.create_step3', [
-            'id' => $id,
-            'trans_data' => $itemdata,
-            'user_data' => $userdata,
-            'error_message' => $error_message
-        ]);
-    }
-
-    public function storeStep3(Request $request, MyTransactionStoreStepThree $myTransactionStoreStepThree)
-    {
-
-
-
-        $this->validate($request, [
-            'trans_partner_role' => 'required'
-        ]);
-
-        //create item
-        try {
-            $new_item = $myTransactionStoreStepThree->createItem($request->all());
-            $new_item_decode = json_decode($new_item);
-            $new_item_message = $new_item_decode->message;
-
-            // check if we found the user
-            if ($new_item_message->error) {
-                // error occured, user not found
-                $result = $new_item_message->message;
-                $the_message = $result->message;
-                // show user form asking them to enter user email or phone OR go back and search again
-                dd($the_message);
-            } else {
-                // no error user was found
-                $result = $new_item_message->message;
-                $new_item_data = $result->data;
-                // show user form asking them to send request to this user
-                dd($new_item_data);
-            }
-            dd("end");
-
-            // check whether user is buyer or seller
-            // display screen to ask user to enter details of buyer/ seller
-            /* Session::flash('success', $the_message);
-            return redirect(route('my-transactions.create-step2', [
-                'id' => $new_item_data->id
-            ])); */
-
-        } catch (\Exception $e) {
-
-            $error_message = $e->getMessage();
-            Session::flash('error', $error_message);
-            return redirect()->back()->withInput()->withErrors($error_message);
-
-        }
-
-    }
-
     public function show($id)
     {
 
@@ -266,7 +124,7 @@ class TransactionRequestController extends Controller
                        })
                        ->firstOrFail();
 
-        return view('_web.my-transactions.show', compact('transaction'));
+        return view('_web.transaction-requests.show', compact('transaction'));
 
     }
 
@@ -278,32 +136,96 @@ class TransactionRequestController extends Controller
         $transrequestdata = $this->model->where('confirm_code', $token)
                        ->where('status_id', getStatusActive())
                        ->first();
-        $transaction_id = $transrequestdata->transaction_id;
+
+        if($transrequestdata) {
+
+            $transaction_id = $transrequestdata->transaction_id;
+
+        } else {
+
+            // transaction request not found
+            $error_message = "Invalid transaction request status";
+            Session::flash('error', $error_message);
+            abort(403);
+
+        }
 
         // get transaction data
         $itemdata = Transaction::find($transaction_id);
         // dd("itemdata --- ", $itemdata);
 
-        $trans_message = getMyTransactionMessage($itemdata);
-        $itemdata->trans_message = $trans_message;
+        /* $trans_message = getMyTransactionMessage($itemdata);
+        $itemdata->trans_message = $trans_message; */
 
         // get trans role
         // check whether user is seller or buyer in transaction
-        $trans_role = isAcceptingUserSellerOrBuyer($itemdata);
-        $itemdata->trans_role = $trans_role;
+        try {
 
-        // get trans partner role
-        // $trans_partner_role = getTransactionPartnerRole($itemdata);
-        // $itemdata->trans_partner_role = $trans_partner_role;
+            $trans_role = isAcceptingUserSellerOrBuyer($itemdata);
+            $itemdata->trans_role = $trans_role;
+
+        } catch(\Exception $e) {
+
+            $error_msg = $e->getMessage();
+            $itemdata->error_msg = $error_msg;
+
+        }
 
         // get site setting - transaction terms and conditions
         $site_settings = getSiteSettings();
         $terms_and_conditions = $site_settings['transaction_terms_and_conditions'];
 
-        return view('_web.my-transactions.accept_transaction', [
-            'trans_data' => $itemdata,
-            'terms_and_conditions' => $terms_and_conditions
+        return view('_web.transaction-requests.accept_transaction', [
+            'transaction_data' => $itemdata,
+            'transaction_request_data' => $transrequestdata,
+            'terms_and_conditions' => $terms_and_conditions,
+            'token' => $token
         ]);
+
+    }
+
+    // accept a transaction request store
+    public function acceptStore(Request $request, $token, TransactionRequestAcceptStore $transactionRequestAcceptStore)
+    {
+
+        $this->validate($request, [
+            'submit_btn' => 'required',
+            'transaction_id' => 'required',
+            'transaction_request_id' => 'required'
+        ]);
+
+        // merge with token flag
+        $request->merge([
+            'token' => $token
+        ]);
+
+        //create item
+        try {
+            $new_item = $transactionRequestAcceptStore->createItem($request->all());
+            $new_item_decode = json_decode($new_item);
+            $new_item_message = $new_item_decode->message->message;
+            // dd($new_item_message, $new_item_message->message);
+
+            // get trans request data
+            $transaction_data = $new_item_message->data;
+            $transaction_id = $transaction_data->id;
+            // dd("transaction_id +++ ", $transaction_id);
+
+            // no error user was found
+            $success_message = $new_item_message->message;
+
+            // redirect to success page/ transaction request show
+            Session::flash('success', $success_message);
+            return redirect()->route('my-transactions.show', $transaction_id);
+
+        } catch (\Exception $e) {
+
+            $error_message = $e->getMessage();
+            Session::flash('error', $error_message);
+            return redirect()->back()->withInput()->withErrors($error_message);
+
+        }
+
     }
 
 }

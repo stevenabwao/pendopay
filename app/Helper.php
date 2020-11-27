@@ -2577,6 +2577,20 @@ function getTransactionData($id, $status_id="") {
 
 }
 
+// get transaction request data
+function getTransactionRequestData($id, $status_id="") {
+
+	//get trans data
+    $trans_request_data = TransactionRequest::where("id", $id)
+                               ->when($status_id, function ($query) use ($status_id) {
+                                    $query->orWhere('status_id', '=', $status_id);
+                               })
+                               ->first();
+
+	return $trans_request_data;
+
+}
+
 // change transaction status
 function changeTransactionStatus($trans_id, $status_id) {
 
@@ -3241,9 +3255,27 @@ function isAcceptingUserSellerOrBuyer($trans_data) {
                                                    ->first();
 
     // dd("transaction_request_data == ", $transaction_request_data);
-    $transaction_sender_user_id = $transaction_request_data->sender_user_id;
-    $transaction_sender_role = $transaction_request_data->sender_role;
-    $transaction_recipient_role = $transaction_request_data->recipient_role;
+    if ($transaction_request_data) {
+        $transaction_sender_user_id = $transaction_request_data->sender_user_id;
+        $transaction_sender_role = $transaction_request_data->sender_role;
+        $transaction_recipient_role = $transaction_request_data->recipient_role;
+    } else {
+        $message = "Invalid transaction request link";
+        throw new \Exception($message);
+    }
+    // dd("trans_data->status_id ", $trans_data->status_id);
+
+    // if transaction status is not pending, it is invalid
+    if ($trans_data->status_id != getStatusPending()) {
+        $message = "Invalid transaction status";
+        throw new \Exception($message);
+    }
+
+    // if transaction status is active, it already activated
+    if ($trans_data->status_id == getStatusActive()) {
+        $message = "This transaction is already active";
+        throw new \Exception($message);
+    }
 
     // chek if sender is the one accepting the request, if so, show error
     if ($logged_user->id == $transaction_sender_user_id) {
@@ -3252,6 +3284,80 @@ function isAcceptingUserSellerOrBuyer($trans_data) {
     }
 
     return titlecase($transaction_recipient_role);
+
+}
+
+// update transaction request status
+function updateTransactionStatus($trans_id, $status_id) {
+
+    $trans = new Transaction();
+
+    $trans_attributes['status_id'] = $status_id;
+
+    try {
+
+        return $trans->updatedata($trans_id, $trans_attributes);
+
+    } catch(\Exception $e) {
+
+        log_this(json_encode($e));
+        throw new \Exception($e->getMessage());
+
+    }
+
+}
+
+// update transaction request status
+function updateTransactionRequestStatus($trans_request_id, $status_id) {
+
+    $trans_request = new TransactionRequest();
+
+    $trans_request_attributes['status_id'] = $status_id;
+
+    try {
+
+        return $trans_request->updatedata($trans_request_id, $trans_request_attributes);
+
+    } catch(\Exception $e) {
+
+        log_this(json_encode($e));
+        throw new \Exception($e->getMessage());
+
+    }
+
+}
+
+// activate transaction
+function activateTransaction($transaction_id) {
+
+    $logged_user = getLoggedUser();
+
+    $transaction = Transaction::find($transaction_id);
+
+    // get current user's role in transaction
+    $current_user_role = getTransactionRole($transaction);
+
+    if ($current_user_role == getTransactionRoleBuyer()) {
+        $role_id_field = "buyer_user_id";
+    } else {
+        $role_id_field = "seller_user_id";
+    }
+
+    $transaction_attributes[$role_id_field] = $logged_user->id;
+    $transaction_attributes['status_id'] = getStatusActive();
+
+    try {
+
+        log_this("Successfully updated transaction \ntransaction_id - " . $transaction_id . "\nattribs - " .
+                 json_encode($transaction_attributes));
+        return $transaction->updatedata($transaction_id, $transaction_attributes);
+
+    } catch(\Exception $e) {
+
+        log_this(json_encode($e));
+        throw new \Exception($e->getMessage());
+
+    }
 
 }
 

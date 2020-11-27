@@ -265,6 +265,7 @@ class MyTransactionController extends Controller
         $status_ids_array[] = getStatusCompleted();
         $status_ids_array[] = getStatusCancelled();
         $status_ids_array[] = getStatusExpired();
+        // dd("status_ids_array === ", $status_ids_array);
 
         // get records where user is seller or buyer
         $transaction = $this->model->where('id', $id)

@@ -177,6 +177,7 @@ Route::group(['middleware' => 'auth'], function() {
     // transaction request routes
     Route::get('/transaction-requests', 'Web\MyTransaction\TransactionRequestController@index')->name('transaction-requests.index');
     Route::get('/transaction-requests/accept/{token}', 'Web\MyTransaction\TransactionRequestController@accept')->name('transaction-requests.accept');
+    Route::post('/transaction-requests/accept/{token}/store', 'Web\MyTransaction\TransactionRequestController@acceptStore')->name('transaction-requests.accept.store');
 
 	// deposit controller route
     Route::get('/my-account/deposit', 'Web\Deposits\DepositController@create')->name('my-account.deposit.create');

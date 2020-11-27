@@ -1,19 +1,21 @@
 @extends('_web.layouts.master')
 
 @section('title')
-    {{ $transaction->title }}
+    Transaction Request Show
 @endsection
 
 @section('page_title')
-    {{ $transaction->title }}
+    Transaction Request Show
 @endsection
 
 @section('page_breadcrumbs')
-   {!! Breadcrumbs::render('my-transactions.show', $transaction->id) !!}
+   {{-- {!! Breadcrumbs::render('my-transactions.show', $transaction->id) !!} --}}
 @endsection
 
 
 @section('content')
+
+{{ dd($transaction->created_by == getLoggedUser()->id) }}
 
     <section class="section-base section-color">
         <div class="container">
@@ -25,88 +27,26 @@
                     <div class="row">
 
                         <div class="col-lg-4 col-md-4 col-sm-5 no-margin-md align-right align-left-sm">
-
-                            <hr class="space visible-xs" />
-
-                            <div
-                                class="progress-circle"
-                                data-color="#03bfcb"
-                                data-thickness="5"
-                                data-progress="{{ $transaction->percentage_paid }}"
-                                data-size="185"
-                                data-size-sm="185"
-                                data-linecap="round"
-                                data-options="emptyFill:#004767">
-
-                                <div class="content">
-                                    <h4>Completed %</h4>
-
-                                    <div
-                                        class="counter"
-                                        data-to="{{ $transaction->percentage_paid }}"
-                                        data-speed="2000"
-                                        data-unit="%">
-                                        {{ $transaction->percentage_paid }}%
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                        {{-- <div class="col-lg-4 col-md-4 col-sm-5 no-margin-md align-right align-left-sm">
                             <hr class="space visible-xs" />
                             <div class="progress-circle" data-color="#03bfcb" data-thickness="5" data-progress="60"
                                 data-size="185" data-size-sm="185" data-linecap="round" data-options="emptyFill:#004767">
                                 <div class="content">
                                     <h4>Completed %</h4>
-
                                     <div class="counter" data-to="35" data-speed="2000" data-unit="%">35%</div>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
 
                         <div class="col-lg-8 col-md-8 col-sm-7 no-margin-md align-right align-left-sm">
                             <hr class="space visible-xs" />
                             <div class="boxed-area light">
-                                <table width="100%" class="">
-                                    <tr>
-                                        <td width="50%" align="left"><b>Transaction Title: </b></td>
-                                        <td width="50%" align="left"><p>{{ $transaction->title }}</p></td>
-                                    </tr>
-                                    <tr>
-                                        <td align="left"><b>Transaction Amount: </b></td>
-                                        <td align="left"><p>{{ $transaction->formatted_transaction_amount }}</p></td>
-                                    </tr>
-                                    <tr>
-                                        <td align="left"><b>Paid Amount: </b></td>
-                                        <td align="left"><p>{{ $transaction->formatted_transaction_amount_paid }}</p></td>
-                                    </tr>
-                                    <tr>
-                                        <td align="left"><b>Transaction Balance: </b></td>
-                                        <td align="left"><p>{{ $transaction->formatted_transaction_balance }}</p></td>
-                                    </tr>
-                                    <tr>
-                                        <td align="left"><b>Transaction Status: </b></td>
-                                        <td align="left"><p>{!! showStatusText($transaction->status_id) !!}</p></td>
-                                    </tr>
-                                    <tr>
-                                        <td align="left"><b>Estimated Trans Date: </b></td>
-                                        <td align="left"><p>{{ $transaction->formatted_transaction_date }}</p></td>
-                                    </tr>
-                                    <tr>
-                                        <td align="left"><b>Your Transaction Role: </b></td>
-                                        <td align="left"><p>{{ $transaction->user_transaction_role }}</p></td>
-                                    </tr>
-                                </table>
-                                {{-- <ul class="text-list text-list-bold">
+                                <ul class="text-list text-list-bold">
                                     <li><b>Transaction Title: </b><p>{{ $transaction->title }}</p></li>
                                     <li><b>Transaction Amount: </b><p>{{ $transaction->formatted_transaction_amount }}</p></li>
-                                    <li><b>Paid Amount </b><p>{{ $transaction->formatted_transaction_amount_paid }}</p></li>
-                                    <li><b>Transaction Balance: </b><p>{{ $transaction->formatted_transaction_balance }}</p></li>
                                     <li><b>Transaction Status: </b><p>{!! showStatusText($transaction->status_id) !!}</p></li>
                                     <li><b>Estimated Trans Date: </b><p>{{ $transaction->formatted_transaction_date }}</p></li>
                                     <li><b>Your Transaction Role: </b><p>{{ $transaction->user_transaction_role }}</p></li>
-                                </ul> --}}
+                                </ul>
                             </div>
                         </div>
 
@@ -131,7 +71,6 @@
                                 You have not yet responded to this Transaction Request to become a {{ strtoupper(getTransactionRole($transaction)) }}. <br>
                                 Please check your email or ask the {{ strtoupper(getTransactionPartnerRole($transaction)) }} to resend the request.
                             </div>
-                            <hr>
 
                         @endif
 

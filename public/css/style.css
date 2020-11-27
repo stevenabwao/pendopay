@@ -5757,3 +5757,5 @@ Inverted responsive classes
 }
 h5.modal-title { font-size: 1.4rem !important; font-weight: bold; color: #FCB040; margin-bottom: 0 !important;}
 .modal-body p{ color: #6c757d !important;}
+
+table td b{ color: #24a8e0;}
