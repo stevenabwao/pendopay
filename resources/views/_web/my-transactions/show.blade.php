@@ -98,15 +98,7 @@
                                         <td align="left"><p>{{ $transaction->user_transaction_role }}</p></td>
                                     </tr>
                                 </table>
-                                {{-- <ul class="text-list text-list-bold">
-                                    <li><b>Transaction Title: </b><p>{{ $transaction->title }}</p></li>
-                                    <li><b>Transaction Amount: </b><p>{{ $transaction->formatted_transaction_amount }}</p></li>
-                                    <li><b>Paid Amount </b><p>{{ $transaction->formatted_transaction_amount_paid }}</p></li>
-                                    <li><b>Transaction Balance: </b><p>{{ $transaction->formatted_transaction_balance }}</p></li>
-                                    <li><b>Transaction Status: </b><p>{!! showStatusText($transaction->status_id) !!}</p></li>
-                                    <li><b>Estimated Trans Date: </b><p>{{ $transaction->formatted_transaction_date }}</p></li>
-                                    <li><b>Your Transaction Role: </b><p>{{ $transaction->user_transaction_role }}</p></li>
-                                </ul> --}}
+
                             </div>
                         </div>
 
@@ -128,8 +120,12 @@
                         @if($transaction->status_id == getStatusPending())
 
                             <div class="alert alert-danger text-center">
-                                You have not yet responded to this Transaction Request to become a {{ strtoupper(getTransactionRole($transaction)) }}. <br>
-                                Please check your email or ask the {{ strtoupper(getTransactionPartnerRole($transaction)) }} to resend the request.
+                                You have not yet responded to this Transaction Request to become a {{ strtoupper(getTransactionRole($transaction)) }}.
+                                <br><br>
+                                {{-- Please check your email or ask the {{ strtoupper(getTransactionPartnerRole($transaction)) }} to resend the request. --}}
+                                <a href="{{ route('my-transactions.create') }}" class="btn btn-sm btn-block full-width-sm btn-white">
+                                    Accept Transaction Role As a {{ titlecase(getTransactionRole($transaction)) }}
+                                </a>
                             </div>
                             <hr>
 
@@ -137,12 +133,14 @@
 
                     @endif
 
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipiscing elitsed do eiusmod tempor incididunt utlabore et dolore magna aliqua.
-                        Utenim ad minim veniam quis nostrud exercitation ullamco laboris. Lorem ipsum dolor sit amet consectetur adipiscing elitsed do eiusmod tempor incididunt utlabore et dolore magna aliqua.
-                        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolore.
-                    </p>
-                    <hr>
+                    @if($transaction->transaction_description)
+
+                        <p>
+                            {!! $transaction->transaction_description !!}
+                        </p>
+                        <hr>
+
+                    @endif
 
                 </div>
                 <div class="col-lg-4">

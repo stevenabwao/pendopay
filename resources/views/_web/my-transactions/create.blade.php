@@ -60,6 +60,17 @@
                         </div>
 
                         <div class="md-form mat-2 mx-auto">
+                            <textarea type="text" name="transaction_description">{{ old('transaction_description') }}</textarea>
+                            <label for="transaction_description">Transaction Description</label>
+
+                            @if ($errors->has('transaction_description'))
+                                <div class="help-block">
+                                    <strong>{{ $errors->first('transaction_description') }}</strong>
+                                </div>
+                            @endif
+                        </div>
+
+                        <div class="md-form mat-2 mx-auto">
                             <input type="text" value="{{ old('transaction_date') }}"
                                 class="form-control datepicker" name="transaction_date">
                             <label class="date" for="transaction_date">Expected Final Transaction Date</label>

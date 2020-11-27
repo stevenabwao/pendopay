@@ -105,7 +105,7 @@
                                                     <li>
                                                         <i class="fa fa-thumbs-up"></i>
                                                         {!! showStatusText($transaction->status_id) !!}
-                                                        ({{ getMyTransactionMessage($transaction) }})
+                                                        ({!! showStatusText($transaction->status_id, "", "", getMyTransactionMessage($transaction)) !!})
                                                     </li>
                                                 </ul>
                                             </div>

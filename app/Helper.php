@@ -4819,7 +4819,7 @@ function getStatusColor($status_id) {
             $color_code = "text-danger";
             break;
         case $status_pending:
-            $color_code = "text-primary";
+            $color_code = "text-danger";
             break;
         case $status_expired:
             $color_code = "text-danger";
