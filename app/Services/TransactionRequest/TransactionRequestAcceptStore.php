@@ -48,7 +48,7 @@ class TransactionRequestAcceptStore
             // start update transaction to active
             try {
 
-                // activateTransaction($transaction_id);
+                activateTransaction($transaction_id);
                 log_this("Transaction ID: $transaction_id status successfully updated to " . getStatusActive());
 
             } catch(\Exception $e) {
@@ -63,7 +63,7 @@ class TransactionRequestAcceptStore
             // start update transaction request to inactive
             try {
 
-                // updateTransactionRequestStatus($transaction_request_id, getStatusInactive());
+                updateTransactionRequestStatus($transaction_request_id, getStatusInactive());
                 log_this("Transaction Request ID: $transaction_request_id status successfully updated to " . getStatusInactive());
 
             } catch(\Exception $e) {
