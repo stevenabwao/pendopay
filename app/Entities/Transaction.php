@@ -114,6 +114,17 @@ class Transaction extends BaseModel
         return 2000;
     }
 
+    // add accessor for whether to show deposit funds to transaction
+    public function getShowDepositToTransactionAttribute()
+    {
+
+        // if logged user is a buyer and transaction is in active status, show button to deposit funds to this transaction
+        if((getTransactionRole($this) == getTransactionRoleBuyer()) && ($this->status_id == getStatusActive())) {
+            return true;
+        }
+        return false;
+    }
+
     // add accessor for formatted trans balance
     public function getFormattedTransactionBalanceAttribute()
     {

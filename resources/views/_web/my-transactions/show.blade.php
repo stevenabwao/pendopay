@@ -105,6 +105,7 @@
                     </div>
                     <hr>
 
+                    {{-- start show if transaction is in pending status --}}
                     @if($transaction->created_by == getLoggedUser()->id)
 
                         @if($transaction->status_id == getStatusPending())
@@ -132,6 +133,18 @@
                         @endif
 
                     @endif
+                    {{-- end show if transaction is in pending status --}}
+
+                    {{-- start whether to show the deposit to transaction button --}}
+                    @if($transaction->show_deposit_to_transaction)
+
+                        <a href="{{ route('my-payments.create') }}" class="btn btn-sm btn-success btn-block full-width-sm btn-white">
+                            Deposit Funds To This Transaction
+                        </a>
+                        <hr>
+
+                    @endif
+                    {{-- end whether to show the deposit to transaction button --}}
 
                     @if($transaction->transaction_description)
 

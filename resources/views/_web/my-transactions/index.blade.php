@@ -105,7 +105,10 @@
                                                     <li>
                                                         <i class="fa fa-thumbs-up"></i>
                                                         {!! showStatusText($transaction->status_id) !!}
-                                                        ({!! showStatusText($transaction->status_id, "", "", getMyTransactionMessage($transaction)) !!})
+                                                        {{-- only show below if the transaction is not active and was not created by the logged in user --}}
+                                                        @if($transaction->status_id != getStatusActive())
+                                                            ({!! showStatusText($transaction->status_id, "", "", getMyTransactionMessage($transaction)) !!})
+                                                        @endif
                                                     </li>
                                                 </ul>
                                             </div>
