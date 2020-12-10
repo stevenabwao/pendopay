@@ -51,7 +51,7 @@ class PaymentController extends Controller
     {
 
         //get logged in user
-        $user = auth()->user(); 
+        $user = auth()->user();
 
         //get paybills
         $paybills_array = getAllUserMpesaPaybills($user);
@@ -60,7 +60,7 @@ class PaymentController extends Controller
 
         //if paybills records exist
         if (count($paybills_array)) {
-            $paybills = $paybills_array; 
+            $paybills = $paybills_array;
         }
 
         //get the data
@@ -75,7 +75,7 @@ class PaymentController extends Controller
 
         //return view with appended url params
         return view('payments.index', [
-            'payments' => $data->appends(Input::except('page')),
+            'payments' => $data,
             'mpesapaybills' => $paybills_array,
             'paymentmethods' => $paymentmethods
         ]);
@@ -108,7 +108,7 @@ class PaymentController extends Controller
             'amount'        => 'required',
             'full_name'     => 'required',
             'phone'         => 'required',
-            'payment_at'    => 'required|date|date_format:d-m-Y'       
+            'payment_at'    => 'required|date|date_format:d-m-Y'
         ];
 
         $payload = app('request')->only('company_id', 'amount', 'full_name', 'phone', 'payment_at');
@@ -136,10 +136,10 @@ class PaymentController extends Controller
 
             $show_message = $message . ' - ' . $e;
             log_this($show_message);
-            
+
             Session::flash('error', $message);
             return redirect()->back()->withInput()->withErrors($message);
-            
+
         }
 
 
@@ -151,18 +151,18 @@ class PaymentController extends Controller
                 //create item
                 $payment_result = $paymentStore->createItem($request->all(), $payment_main_result_message);
                 $payment_result = json_decode($payment_result);
-                
+
                 //get new record entry
                 $new_id = $payment_main_result_message->id;
 
             } catch(\Exception $e) {
 
-                DB::rollback(); 
+                DB::rollback();
                 dd($e);
                 $message = 'Error. Could not complete payment transactions - ' . $e->getMessage();
                 $show_message = $message . ' - ' . $e;
                 log_this($show_message);
-            
+
                 $payment_update = Payment::find($payment_main_result_message->id)
                                 ->update([
                                     'fail_reason' => $message,
@@ -172,7 +172,7 @@ class PaymentController extends Controller
 
                 Session::flash('error', $message);
                 return redirect()->back()->withInput()->withErrors($message);
-                
+
             }
 
         DB::commit();
@@ -292,7 +292,7 @@ class PaymentController extends Controller
         //dd($companies);
         $paymentdata = $this->model->where('id', $id)
                        ->whereIn('company_id', $companies)
-                       ->first(); 
+                       ->first();
 
         //dd($id, $companies, $paymentdata);
 
@@ -311,13 +311,13 @@ class PaymentController extends Controller
 
                 } catch(\Exception $e) {
 
-                    DB::rollback(); 
+                    DB::rollback();
                     //dd($e);
-                    
+
                     $message = 'Error. Could not repost payment - ' . $e->getMessage();
                     $show_message = $message . ' - ' . $e;
                     log_this($show_message);
-                
+
                     $payment_update = Payment::find($id)
                                     ->update([
                                         'fail_reason' => $message,
@@ -327,7 +327,7 @@ class PaymentController extends Controller
 
                     Session::flash('error', $message);
                     return redirect()->back()->withInput()->withErrors($message);
-                    
+
                 }
 
             DB::commit();

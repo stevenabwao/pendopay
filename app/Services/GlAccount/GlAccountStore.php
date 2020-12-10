@@ -10,6 +10,8 @@ class GlAccountStore
 
     public function createItem($attributes) {
 
+        $response = [];
+
         DB::beginTransaction();
 
         $gl_account_type_id = "";
@@ -27,23 +29,37 @@ class GlAccountStore
         }
 
         //check if gl account already exists
-        $gl_account_data = GlAccount::where('company_id', $company_id)
+        try {
+            $gl_account_data = GlAccount::where('company_id', $company_id)
                                     ->where('gl_account_type_id', $gl_account_type_id)
                                     ->first();
-        if ($gl_account_data){
-            //error here
-            $message = "Gl Account already exists for company";
-            return show_json_error($message);
+        } catch(\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
 
-        $gl_account_cd = get_gl_account_cd($gl_account_type_id);
+        if ($gl_account_data){
+            //error here
+            $message = "Gl Account type already exists for company";
+            // return show_json_error($message);
+            throw new \Exception($message);
+        }
 
-        $next_gl_account_sequence = get_next_gl_account_sequence();
+        try {
+            $gl_account_cd = get_gl_account_cd($gl_account_type_id);
+
+            $next_gl_account_sequence = get_next_gl_account_sequence();
+        } catch(\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
 
         //mobile branch id
-        $branch_id = "01";
+        try {
+            $branch_id = "01";
 
-        $next_gl_account_number = generate_gl_account_number($company_id, $branch_id, $gl_account_cd, $next_gl_account_sequence);
+            $next_gl_account_number = generate_gl_account_number($company_id, $branch_id, $gl_account_cd, $next_gl_account_sequence);
+        } catch(\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
 
         //dd($next_gl_account_number);
 
@@ -62,9 +78,10 @@ class GlAccountStore
 
                 //dd($gl_account_attributes);
 
-                $response = $gl_account->create($gl_account_attributes);
+                $response['data'] = $gl_account->create($gl_account_attributes);
 
-                $response = show_json_success($response);
+                $success_message = "Successfully created new GlAccount";
+                $response['message'] = $success_message;
 
             } else {
 
@@ -79,14 +96,13 @@ class GlAccountStore
             // dd($e);
             DB::rollback();
             $message = $e->getMessage();
-            /* return show_json_error($message); */
             throw new \Exception($message);
 
         }
 
         DB::commit();
 
-        return $response;
+        return show_success_response($response);
 
     }
 

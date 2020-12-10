@@ -1,17 +1,16 @@
 @extends('_admin.layouts.master')
 
 @section('title')
-
     Create GL Account
-
 @endsection
 
+@section('page_breadcrumbs')
+   {!! Breadcrumbs::render('admin.manage.glaccounts.create') !!}
+@endsection
 
 @section('css_header')
-
-<link href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" type="text/css">
-<link href="{{ asset('css/bootstrap-select.min.css') }}" rel="stylesheet" type="text/css">
-
+    <link href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/bootstrap-select.min.css') }}" rel="stylesheet" type="text/css">
 @endsection
 
 
@@ -24,9 +23,11 @@
           <div class="col-sm-6 col-xs-12">
             <h5 class="txt-dark">Create GL Account</h5>
           </div>
-          <div class="col-sm-6 col-xs-12">
-              {!! Breadcrumbs::render('glaccounts.create') !!}
-          </div>
+
+          <!-- Breadcrumb -->
+          @include('_admin.layouts.partials.breadcrumbs')
+          <!-- /Breadcrumb -->
+
        </div>
        <!-- /Title -->
 
@@ -55,7 +56,7 @@
                                  <div class="form-wrap">
 
                                     <form class="form-horizontal" method="POST"
-                                        action="{{ route('glaccounts.store') }}">
+                                        action="{{ route('admin.manage.glaccounts.store') }}">
 
                                        {{ csrf_field() }}
 

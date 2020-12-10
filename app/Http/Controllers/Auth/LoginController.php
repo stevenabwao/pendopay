@@ -140,7 +140,7 @@ class LoginController extends Controller
 
     }
 
-    // override to show user inactive errors
+    // override to show user inactive user errors
     protected function sendFailedLoginResponse(Request $request)
     {
         $errors = [$this->username() => trans('auth.failed')];

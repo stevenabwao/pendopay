@@ -61,6 +61,39 @@ Breadcrumbs::register('mpesab2ctrans.show', function($breadcrumbs, $id)
 /********  mpesab2ctrans ROUTES ********/
 
 
+/******** glaccounts ROUTES ********/
+
+// Home > glaccounts
+Breadcrumbs::register('admin.manage.glaccounts', function($breadcrumbs)
+{
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('Manage GL Accounts', route('admin.manage.glaccounts.index'));
+});
+
+// Home > glaccounts > Create gl account
+Breadcrumbs::register('admin.manage.glaccounts.create', function($breadcrumbs)
+{
+    $breadcrumbs->parent('admin.manage.glaccounts');
+    $breadcrumbs->push('Create GL Account', route('admin.manage.glaccounts.create'));
+});
+
+// Home > glaccounts > Edit gl account
+Breadcrumbs::register('admin.manage.glaccounts.edit', function($breadcrumbs, $id)
+{
+    $breadcrumbs->parent('admin.manage.glaccounts');
+    $breadcrumbs->push('Edit GL Account', route('admin.manage.glaccounts.edit', $id));
+});
+
+// Home > glaccounts > Show gl account
+Breadcrumbs::register('admin.manage.glaccounts.show', function($breadcrumbs, $id)
+{
+    $breadcrumbs->parent('admin.manage.glaccounts');
+    $breadcrumbs->push('Showing GL Account', route('admin.manage.glaccounts.show', $id));
+});
+
+/********  glaccounts ROUTES ********/
+
+
 /******** SMS OUTBOX ROUTES ********/
 
 // Home > SMS outbox
@@ -209,7 +242,7 @@ Breadcrumbs::register('my-payments.index', function($breadcrumbs)
 {
     $breadcrumbs->parent('home');
     $breadcrumbs->push('My Payments', route('my-payments.index'));
-   
+
 });
 // Home > My Payments>New Payment
 Breadcrumbs::register('my-payments.create', function($breadcrumbs)
@@ -244,7 +277,7 @@ Breadcrumbs::register('my-payments.show', function($breadcrumbs, $id)
 /*********TRANSFER  ROUTES */
 Breadcrumbs::register('my-account.transferfund.create', function($breadcrumbs)
 
-{   
+{
     $breadcrumbs->parent('home');
     $breadcrumbs->push('My Account /New Transfer', route('my-account.transferfund.create'));
 });

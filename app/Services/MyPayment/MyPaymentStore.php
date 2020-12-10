@@ -32,15 +32,19 @@ class MyPaymentStore
         }
 
         // send stk push request to user phone
-        // get user settings
+        // get site settings
         $site_settings = getSiteSettings();
+
+        // get logged in user phone
+        $logged_user_phone = $logged_user->phone;
+        $logged_user_id = $logged_user->id;
+
         try {
 
             $paybill_number = $site_settings['paybill_number'];
             $company_id = $site_settings['company_id'];
-            $account_no = $phone;
-            $user_id = $logged_user->id;
-            sendStkPushRequest($paybill_number, $phone, $account_no, $amount, $company_id, $user_id);
+            $account_no = $logged_user_phone;
+            sendStkPushRequest($paybill_number, $phone, $account_no, $amount, $company_id, $logged_user_id);
 
             $message = "Mpesa payment request sent successfully";
             $response['message'] = $message;

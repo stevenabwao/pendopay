@@ -458,79 +458,86 @@
 
       <li><hr class="light-grey-hr mb-10"/></li>
 
-      {{-- <li>
-         <a href="javascript:void(0);" data-toggle="collapse" data-target="#accounts_dr">
-            <div class="pull-left">
-               <i class="zmdi zmdi-accounts mr-20"></i>
-               <span class="right-nav-text">Accounts </span>
-            </div>
-            <div class="pull-right">
-               <i class="zmdi zmdi-caret-down"></i>
-            </div>
-            <div class="clearfix"></div>
-         </a>
-         <ul id="accounts_dr" class="collapse collapse-level-1">
+      <li>
+        <a href="javascript:void(0);" data-toggle="collapse" data-target="#accounts_dr">
+           <div class="pull-left">
+              <i class="zmdi zmdi-accounts mr-20"></i>
+              <span class="right-nav-text">Accounts </span>
+           </div>
+           <div class="pull-right">
+              <i class="zmdi zmdi-caret-down"></i>
+           </div>
+           <div class="clearfix"></div>
+        </a>
+        <ul id="accounts_dr" class="collapse collapse-level-1">
 
-            <li>
-               <a href="javascript:void(0);" data-toggle="collapse" data-target="#glaccountsdata_dr">
-                  <div class="pull-left">
-                     <i class="zmdi zmdi-accounts mr-20"></i>
-                     <span class="right-nav-text">GL Accounts </span>
-                  </div>
-                  <div class="pull-right">
-                     <i class="zmdi zmdi-caret-down"></i>
-                  </div>
-                  <div class="clearfix"></div>
-               </a>
-               <ul id="glaccountsdata_dr" class="collapse collapse-level-1">
+           <li>
+              <a href="javascript:void(0);" data-toggle="collapse" data-target="#glaccountsdata_dr">
+                 <div class="pull-left">
+                    <i class="zmdi zmdi-accounts mr-20"></i>
+                    <span class="right-nav-text">GL Accounts </span>
+                 </div>
+                 <div class="pull-right">
+                    <i class="zmdi zmdi-caret-down"></i>
+                 </div>
+                 <div class="clearfix"></div>
+              </a>
+              <ul id="glaccountsdata_dr" class="collapse collapse-level-1">
 
-                  <li>
-                     <a href="{{ route('gl-accounts-history.index') }}">
-                        <i class="zmdi zmdi-account-add mr-10"></i>
-                        <span class="right-nav-text">GL Accts History</span>
-                     </a>
-                  </li>
-                  <li>
-                    <a href="{{ route('gl-accounts-summary.index') }}">
-                        <i class="zmdi zmdi-account-add mr-10"></i>
-                        <span class="right-nav-text">GL Accts Summary</span>
+                 <li>
+                    <a href="{{ route('admin.manage.glaccounts.index') }}">
+                       <i class="zmdi zmdi-account-add mr-10"></i>
+                       <span class="right-nav-text">Manage GL Accts</span>
                     </a>
-                    </li>
+                 </li>
+                 <li>
+                    <a href="{{ route('admin.gl-accounts-history.index') }}">
+                       <i class="zmdi zmdi-account-add mr-10"></i>
+                       <span class="right-nav-text">GL Accts History</span>
+                    </a>
+                 </li>
+                 <li>
+                   <a href="{{ route('admin.gl-accounts-summary.index') }}">
+                       <i class="zmdi zmdi-account-add mr-10"></i>
+                       <span class="right-nav-text">GL Accts Summary</span>
+                   </a>
+                   </li>
 
-               </ul>
-            </li>
+              </ul>
+           </li>
 
-            <li>
-               <a href="javascript:void(0);" data-toggle="collapse" data-target="#transfersdata_dr">
-                  <div class="pull-left">
-                     <i class="zmdi zmdi-accounts mr-20"></i>
-                     <span class="right-nav-text">Transfers </span>
-                  </div>
-                  <div class="pull-right">
-                     <i class="zmdi zmdi-caret-down"></i>
-                  </div>
-                  <div class="clearfix"></div>
-               </a>
-               <ul id="transfersdata_dr" class="collapse collapse-level-1">
+           <li>
+              <a href="javascript:void(0);" data-toggle="collapse" data-target="#transfersdata_dr">
+                 <div class="pull-left">
+                    <i class="zmdi zmdi-accounts mr-20"></i>
+                    <span class="right-nav-text">Transfers </span>
+                 </div>
+                 <div class="pull-right">
+                    <i class="zmdi zmdi-caret-down"></i>
+                 </div>
+                 <div class="clearfix"></div>
+              </a>
+              <ul id="transfersdata_dr" class="collapse collapse-level-1">
 
-                  <li>
-                     <a href="{{ route('transfers.create') }}">
-                        <i class="zmdi zmdi-account-add mr-10"></i>
-                        <span class="right-nav-text">New</span>
-                     </a>
-                  </li>
-                  <li>
-                     <a href="{{ route('transfers.index') }}">
-                        <i class="zmdi zmdi-accounts-add mr-10"></i>
-                        <span class="right-nav-text">Manage</span>
-                     </a>
-                  </li>
+                 <li>
+                    <a href="{{ route('transfers.create') }}">
+                       <i class="zmdi zmdi-account-add mr-10"></i>
+                       <span class="right-nav-text">New</span>
+                    </a>
+                 </li>
+                 <li>
+                    <a href="{{ route('transfers.index') }}">
+                       <i class="zmdi zmdi-accounts-add mr-10"></i>
+                       <span class="right-nav-text">Manage</span>
+                    </a>
+                 </li>
 
-               </ul>
-            </li>
+              </ul>
+           </li>
 
-         </ul>
-      </li> --}}
+        </ul>
+     </li>
+
 
 
       <li>

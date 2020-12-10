@@ -138,7 +138,7 @@
                     {{-- start whether to show the deposit to transaction button --}}
                     @if($transaction->show_deposit_to_transaction)
 
-                        <a href="{{ route('my-payments.create') }}" class="btn btn-sm btn-success btn-block full-width-sm btn-white">
+                        <a href="{{ route('my-payments.create') }}" class="btn btn-sm btn-danger btn-block full-width-sm btn-white">
                             Deposit Funds To This Transaction
                         </a>
                         <hr>
@@ -146,6 +146,7 @@
                     @endif
                     {{-- end whether to show the deposit to transaction button --}}
 
+                    {{-- show transaction description if it exists --}}
                     @if($transaction->transaction_description)
 
                         <p>

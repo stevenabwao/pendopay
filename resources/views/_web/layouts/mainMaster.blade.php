@@ -6,7 +6,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <title>
-            @yield('title') :: {{ config('app.name') }} - Pay Safely
+            @yield('title') :: {{ config('app.name') }} - Pay Safe Stay Safe
         </title>
 
         <meta name="description" content="{{ config('app.name') }}" />

@@ -72,6 +72,7 @@
             'passwordreset' => 'passwordreset',
             'transactionrequest' => 'transactionrequest',
             'transactionrequest_noaccount' => 'transactionrequest_noaccount',
+            'payment_user_deposit_account_success' => 'payment_user_deposit_account_success',
         ],
         'sitesections' => [
             'transactionrequest' => 'transactionrequest',
@@ -256,10 +257,14 @@
             'club_expenses' => "23",
         ],
 
+        'account_type' => [
+            'transaction_account' => "transaction_account",
+            'wallet_account' => "wallet_account",
+        ],
+
         'account_type_text' => [
-            'deposit_account' => "deposit_account",
-            'loan_account' => "loan_account",
-            'shares_account' => "shares_account",
+            'transaction_account' => "Transaction Account",
+            'wallet_account' => "Wallet Account",
         ],
 
         'establishment_category' => [

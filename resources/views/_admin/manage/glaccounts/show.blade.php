@@ -1,9 +1,11 @@
 @extends('_admin.layouts.master')
 
 @section('title')
+    Showing GL Account - {{ $glaccount->id }}
+@endsection
 
-    Showing Product - {{ $product->id }}
-
+@section('page_breadcrumbs')
+   {!! Breadcrumbs::render('admin.manage.glaccounts.show', $glaccount->id) !!}
 @endsection
 
 
@@ -13,14 +15,15 @@
 
        <!-- Title -->
        <div class="row heading-bg">
+
           <div class="col-sm-6 col-xs-12">
-            <h5 class="txt-dark">Showing Product - {{ $product->id }}</h5>
+            <h5 class="txt-dark">Showing GL Account - {{ $glaccount->id }}</h5>
           </div>
+
           <!-- Breadcrumb -->
-          <div class="col-sm-6 col-xs-12">
-              {!! Breadcrumbs::render('products.show', $product->id) !!}
-          </div>
+          @include('_admin.layouts.partials.breadcrumbs')
           <!-- /Breadcrumb -->
+
        </div>
        <!-- /Title -->
 
@@ -40,24 +43,7 @@
                  <div  class="panel-body pb-0 ml-20 mr-20 mb-20">
 
                     <p class="mb-20">
-                          <h5>
-                           Name:
-
-                           @if ($product->status->id == 1)
-                              <span class="text-success">
-                           @elseif (($product->status->id == 2)
-                                 || ($product->status->id == 3)
-                                 || ($product->status->id == 7)
-                                 || ($product->status->id == 99))
-                              <span class="text-danger">
-                           @else
-                              <span class="text-primary">
-                           @endif
-
-                                {{ $product->name }}
-                              </span>
-
-                          </h5>
+                          <h5>Name: {!! showStatusText($glaccount->status_id, "", "", $glaccount->description) !!}</h5>
                     </p>
 
                     <hr>
@@ -77,7 +63,7 @@
                                         <span class="name block capitalize-font">
                                             <strong>ID:</strong>
                                             <span>
-                                              {{ $product->id }}
+                                              {{ $glaccount->id }}
                                             </span>
                                         </span>
                                       </div>
@@ -87,9 +73,9 @@
                                     <div class="follo-data">
                                       <div class="user-data">
                                         <span class="name block capitalize-font">
-                                            <strong>Product CD:</strong>
+                                            <strong>Name:</strong>
                                             <span>
-                                              {{ $product->product_cd }}
+                                              {{ $glaccount->description }}
                                             </span>
                                         </span>
                                       </div>
@@ -99,58 +85,34 @@
                                     <div class="follo-data">
                                       <div class="user-data">
                                         <span class="name block capitalize-font">
-                                            <strong>Product Category Identifier:</strong>
+                                            <strong>GL Account No.:</strong>
                                             <span>
-                                              {{ $product->product_cat_ty }}
+                                              {{ $glaccount->gl_account_no }}
                                             </span>
                                         </span>
                                       </div>
                                       <div class="clearfix"></div>
                                     </div>
 
-                                    @if ($product->start_at)
                                     <div class="follo-data">
                                       <div class="user-data">
                                         <span class="name block capitalize-font">
-                                            <strong>Start At:</strong>
+                                            <strong>Establishment Name:</strong>
                                             <span>
-                                              {{ formatFriendlyDate($product->start_at) }}
+                                                @if($glaccount->company)
+                                                    {{ $glaccount->company->name }}
+                                                @endif
                                             </span>
                                         </span>
                                       </div>
                                       <div class="clearfix"></div>
                                     </div>
-                                    @endif
-
-                                    @if ($product->end_at)
-                                    <div class="follo-data">
-                                      <div class="user-data">
-                                        <span class="name block">
-                                           <strong>End At:</strong>
-                                           {{ formatFriendlyDate($product->end_at) }}
-                                        </span>
-                                      </div>
-                                      <div class="clearfix"></div>
-                                    </div>
-                                    @endif
 
                                     <div class="follo-data">
                                       <div class="user-data">
                                         <span class="name block">
                                            <strong>Status:</strong>
-                                           @if ($product->status->id == 1)
-                                              <span class="text-success">
-                                           @elseif (($product->status->id == 2)
-                                                 || ($product->status->id == 3)
-                                                 || ($product->status->id == 7)
-                                                 || ($product->status->id == 99))
-                                              <span class="text-danger">
-                                           @else
-                                              <span class="text-primary">
-                                           @endif
-
-                                                {{ $product->status->name }}
-                                              </span>
+                                           {!! showStatusText($glaccount->status_id) !!}
                                         </span>
                                       </div>
                                       <div class="clearfix"></div>
@@ -165,10 +127,10 @@
                       </div>
 
                       <a
-                          href="{{ route('products.edit', $product->id) }}"
+                          href="{{ route('admin.manage.glaccounts.edit', $glaccount->id) }}"
                           class="btn btn-success btn-block btn-outline btn-anim mt-30">
                           <i class="fa fa-pencil"></i>
-                          <span class="btn-text">Edit Product</span>
+                          <span class="btn-text">Edit GL Account</span>
                       </a>
 
 
@@ -205,7 +167,7 @@
                                       <div class="user-data">
                                         <span class="name block">
                                            <strong>Created At:</strong>
-                                           {{ formatFriendlyDate($product->created_at) }}
+                                           {{ formatFriendlyDate($glaccount->created_at) }}
                                         </span>
                                       </div>
                                       <div class="clearfix"></div>
@@ -215,7 +177,7 @@
                                       <div class="user-data">
                                         <span class="name block">
                                            <strong>Updated At:</strong>
-                                           {{ formatFriendlyDate($product->updated_at) }}
+                                           {{ formatFriendlyDate($glaccount->updated_at) }}
                                         </span>
                                       </div>
                                       <div class="clearfix"></div>

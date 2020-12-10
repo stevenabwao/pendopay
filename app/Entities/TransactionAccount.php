@@ -5,6 +5,7 @@ namespace App\Entities;
 use App\BaseModel;
 use App\Entities\TransactionAccountSummary;
 use App\Entities\TransactionAccountHistory;
+use App\Entities\Transaction;
 use App\Entities\Status;
 use App\Events\TransactionAccountCreated;
 use App\Events\TransactionAccountUpdated;
@@ -32,6 +33,11 @@ class TransactionAccount extends BaseModel
          'created_by', 'created_by_name', 'updated_by', 'updated_by_name'
     ];
 
+
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class, 'transaction_id', 'id');
+    }
 
     public function transactionaccountsummary()
     {

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Web\MyTransaction;
 
-use App\Entities\DepositAccountSummary;
 use App\Entities\Transaction;
 use App\Entities\Status;
 use App\Http\Controllers\Controller;

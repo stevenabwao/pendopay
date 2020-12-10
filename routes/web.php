@@ -188,7 +188,9 @@ Route::group(['middleware' => 'auth'], function() {
 
 	//TRANSFER FUNDS ROUTES
 
-	Route::get('/my-account/transferfund', 'Web\Transfer\TransferController@create')->name('my-account.transferfund.create');
+	Route::get('/my-account/transfer-funds', 'Web\Transfer\WebTransferController@create')->name('my-account.transferfund.create');
+	Route::get('/my-account/transfer-funds-2', 'Web\Transfer\WebTransferController@create_step2')->name('my-account.transferfund.create_step2');
+	Route::get('/my-account/transfer-funds-confirmation', 'Web\Transfer\WebTransferController@create_step3')->name('my-account.transferfund.create_step3');
     // payment routes
     Route::get('/my-payments', 'Web\MyPayments\MyPaymentController@index')->name('my-payments.index');
     Route::get('/my-payments/create', 'Web\MyPayments\MyPaymentController@create')->name('my-payments.create');
@@ -238,8 +240,16 @@ Route::group(['middleware' => 'role:superadministrator'], function () {
 		'as' => 'admin'
 	]);
 
-	//manage glaccounts routes...
-	Route::resource('/manage/glaccounts', 'Web\GlAccount\GlAccountController');
+	// manage glaccounts routes...
+    // Route::resource('/manage/glaccounts', 'Web\GlAccount\GlAccountController');
+    Route::resource('/admin/manage/glaccounts', 'Web\Admin\GlAccount\GlAccountController', ['names' => [
+		'index' => 'admin.manage.glaccounts.index',
+		'create' => 'admin.manage.glaccounts.create',
+		'store' => 'admin.manage.glaccounts.store',
+		'edit' => 'admin.manage.glaccounts.edit',
+		'update' => 'admin.manage.glaccounts.update',
+		'show' => 'admin.manage.glaccounts.show'
+    ]]);
 
 });
 
@@ -440,7 +450,27 @@ Route::group(['middleware' => 'role:superadministrator|administrator'], function
 	Route::resource('/assets', 'Web\Asset\AssetController', ['except' => ['destroy']]);
 
 	//savings deposit accounts routes...
-	Route::resource('/savings-deposit-accounts', 'Web\Account\SavingsDepositAccountController');
+    Route::resource('/savings-deposit-accounts', 'Web\Account\SavingsDepositAccountController');
+
+    //Gl account history routes...
+    // Route::resource('/admin/gl-accounts-history', 'Web\Admin\Account\GlAccountHistoryController', ['except' => ['edit', 'destroy']]);
+    Route::resource('/admin/gl-accounts-history', 'Web\Admin\Account\GlAccountHistoryController', ['names' => [
+		'index' => 'admin.gl-accounts-history.index',
+		'create' => 'admin.gl-accounts-history.create',
+		'store' => 'admin.gl-accounts-history.store',
+		'update' => 'admin.gl-accounts-history.update',
+		'show' => 'admin.gl-accounts-history.show'
+	]]);
+
+	//Gl account summary routes...
+    // Route::resource('/admin/gl-accounts-summary', 'Web\Admin\Account\GlAccountSummaryController', ['except' => ['edit', 'destroy']]);
+    Route::resource('/admin/gl-accounts-summary', 'Web\Admin\Account\GlAccountSummaryController', ['names' => [
+		'index' => 'admin.gl-accounts-summary.index',
+		'create' => 'admin.gl-accounts-summary.create',
+		'store' => 'admin.gl-accounts-summary.store',
+		'update' => 'admin.gl-accounts-summary.update',
+		'show' => 'admin.gl-accounts-summary.show'
+	]]);
 
 });
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Web\GlAccount;
+namespace App\Http\Controllers\Web\Admin\GlAccount;
 
 use App\Entities\GlAccount;
 use App\Entities\GlAccountType;
@@ -9,11 +9,7 @@ use App\Entities\Status;
 use App\Services\GlAccount\GlAccountIndex;
 use App\Services\GlAccount\GlAccountStore;
 use App\Http\Controllers\Controller;
-use App\User;
-use Carbon\Carbon;
-use Excel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 use Session;
 
 class GlAccountController extends Controller
@@ -35,7 +31,7 @@ class GlAccountController extends Controller
 
     }
 
-    /** 
+    /**
      *
      * @param Request $request
      * @return mixed
@@ -64,8 +60,8 @@ class GlAccountController extends Controller
 
         //return cached data or cache if cached data not exists
         //return Cache::remember($fullUrl, $minutes, function () use ($data) {
-            return view('manage.glaccounts.index', [
-                'glaccounts' => $data->appends(Input::except('page'))
+            return view('_admin.manage.glaccounts.index', [
+                'glaccounts' => $data
             ]);
         //});
 
@@ -79,10 +75,13 @@ class GlAccountController extends Controller
     {
 
         $statuses = Status::all();
-        $glaccounttypes = GlAccountType::all();
-        $companies = Company::all();
+        $glaccounttypes = GlAccountType::where('status_id', getStatusActive())
+                                       ->where('id', '!=', getGlAccountTypeClientDeposits())
+                                       ->get();
+        $companies = Company::where('status_id', getStatusActive())->get();
+        // dd($glaccounttypes);
 
-        return view('manage.glaccounts.create', compact('statuses', 'glaccounttypes', 'companies'));
+        return view('_admin.manage.glaccounts.create', compact('statuses', 'glaccounttypes', 'companies'));
 
     }
 
@@ -92,11 +91,11 @@ class GlAccountController extends Controller
     */
     public function show($id)
     {
-        $glAccount = $this->model->findOrFail($id);
+        $glaccount = $this->model->findOrFail($id);
 
         //Log::info('glaccount ', $glAccount->toArray());
 
-        return view('manage.glaccounts.show', compact('glaccount'));
+        return view('_admin.manage.glaccounts.show', compact('glaccount'));
 
     }
 
@@ -122,30 +121,34 @@ class GlAccountController extends Controller
         }
 
         //create item
-        $gl_account = $glAccountStore->createItem($request->all());
-        $result_json = json_decode($gl_account);
+        try {
 
-        $error = $result_json->error;
-        $message = $result_json->message;
+            $gl_account = $glAccountStore->createItem($request->all());
+            $result_json = json_decode($gl_account);
 
-        if (!$error){
-            //Session::flash('error', $response);
-            Session::flash('success', 'Successfully created new GlAccount');
-        } else {
-            Session::flash('error', $message);
+            $message = $result_json->message->message;
+            $success_message = $message->message;
+            $new_data = $message->data;
+            // dd($message);
+
+            Session::flash('success', $success_message);
+            return redirect()->route('admin.manage.glaccounts.index');
+
+        } catch(\Exception $e) {
+            // dd($e);
+            Session::flash('error', $e->getMessage());
+            return redirect()->back()->withInput()->withErrors($e->getMessage());
         }
-        
-        return redirect()->route('glaccounts.index');
 
     }
 
-    public function edit($id) 
+    public function edit($id)
     {
 
-        $glAccount = GlAccount::findOrFail($id);
+        $glaccount = $this->model->findOrFail($id);
         $statuses = Status::all();
 
-        return view('manage.glaccounts.edit', compact('glaccount', 'statuses'));
+        return view('_admin.manage.glaccounts.edit', compact('glaccount', 'statuses'));
 
     }
 
@@ -179,7 +182,7 @@ class GlAccountController extends Controller
         $this->model->updatedata($id, $request->all());
 
         Session::flash('success', 'Successfully updated GlAccount - ' . $glAccount->name);
-        return redirect()->route('glaccounts.show', $glAccount->id);
+        return redirect()->route('admin.manage.glaccounts.show', $glAccount->id);
 
     }
 
@@ -202,7 +205,7 @@ class GlAccountController extends Controller
             $result = $item->delete();
         }
 
-        return redirect()->route('glaccounts.index');
+        return redirect()->route('admin.manage.glaccounts.index');
     }
 
 }

@@ -1,18 +1,16 @@
 @extends('_admin.layouts.master')
 
-
 @section('title')
-
-    Edit Product - {{ $product->id }} - {{ $product->name }}
-
+    Edit GL Account - {{ $glaccount->description }}
 @endsection
 
+@section('page_breadcrumbs')
+    {!! Breadcrumbs::render('admin.manage.glaccounts.edit', $glaccount->id) !!}
+@endsection
 
 @section('css_header')
-
-<link href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" type="text/css">
-<link href="{{ asset('css/bootstrap-select.min.css') }}" rel="stylesheet" type="text/css">
-
+    <link href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/bootstrap-select.min.css') }}" rel="stylesheet" type="text/css">
 @endsection
 
 
@@ -22,14 +20,15 @@
 
       <!-- Title -->
        <div class="row heading-bg">
+           
           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-            <h5 class="txt-dark">Edit Product - {{ $product->id }}</h5>
+            <h5 class="txt-dark">Edit GL Account - {{ $glaccount->id }}</h5>
           </div>
+
           <!-- Breadcrumb -->
-          <div class="col-lg-8 col-sm-8 col-md-8 col-xs-12">
-              {!! Breadcrumbs::render('products.edit', $product->id) !!}
-          </div>
+          @include('_admin.layouts.partials.breadcrumbs')
           <!-- /Breadcrumb -->
+
        </div>
        <!-- /Title -->
 
@@ -51,7 +50,7 @@
 
                                  <div class="mb-30">
                                     <h3 class="text-center txt-dark mb-10">
-                                        Edit Product - {{ $product->id }} - {{ $product->name }}
+                                        Edit GL Account - {{ $glaccount->description }}
                                     </h3>
                                  </div>
 
@@ -59,16 +58,14 @@
 
                                  <div class="form-wrap">
 
-                                    <form class="form-horizontal" method="POST"
-                                        action="{{ route('products.update', $product->id) }}">
+                                    <form class="form-horizontal" method="POST" action="{{ route('admin.manage.glaccounts.update', $glaccount->id) }}">
 
                                        {{ method_field('PUT') }}
                                        {{ csrf_field() }}
 
+                                       <div  class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
 
-                                       <div  class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-
-                                          <label for="name" class="col-sm-3 control-label">
+                                          <label for="description" class="col-sm-3 control-label">
                                              Name
                                              <span class="text-danger"> *</span>
                                           </label>
@@ -76,15 +73,15 @@
                                             <input
                                                 type="text"
                                                 class="form-control"
-                                                id="name"
-                                                name="name"
-                                                value="{{ old('name', $product->name)}}"
+                                                id="description"
+                                                name="description"
+                                                value="{{ old('description', $glaccount->description)}}"
                                                 required
                                                 autofocus>
 
-                                             @if ($errors->has('name'))
+                                             @if ($errors->has('description'))
                                                   <span class="help-block">
-                                                      <strong>{{ $errors->first('name') }}</strong>
+                                                      <strong>{{ $errors->first('description') }}</strong>
                                                   </span>
                                              @endif
                                           </div>
@@ -92,62 +89,29 @@
                                        </div>
 
 
-                                       <div  class="form-group{{ $errors->has('product_cd') ? ' has-error' : '' }}">
+                                       <div  class="form-group{{ $errors->has('gl_account_no') ? ' has-error' : '' }}">
 
-                                          <label for="product_cd" class="col-sm-3 control-label">
-                                             Product CD
-                                             <span class="text-danger"> *</span>
-                                             &nbsp;&nbsp;
-                                             <a href="#" title="Unique numeric product identifier e.g. 100" data-toggle="tooltip" class="ml-10">
-                                               <i class="zmdi zmdi-info"  style="font-size: 20px"></i>
-                                             </a>
+                                          <label for="gl_account_no" class="col-sm-3 control-label">
+                                             GL Account No
+                                             {{-- <span class="text-danger"> *</span> --}}
                                           </label>
                                           <div class="col-sm-9">
                                             <input
                                                 type="text"
                                                 class="form-control"
-                                                id="product_cd"
-                                                name="product_cd"
-                                                value="{{ old('product_cd', $product->product_cd)}}"
+                                                id="gl_account_no"
+                                                name="gl_account_no" disabled
+                                                value="{{ old('gl_account_no', $glaccount->gl_account_no)}}"
                                                 required>
 
-                                             @if ($errors->has('product_cd'))
+                                             @if ($errors->has('gl_account_no'))
                                                   <span class="help-block">
-                                                      <strong>{{ $errors->first('product_cd') }}</strong>
+                                                      <strong>{{ $errors->first('gl_account_no') }}</strong>
                                                   </span>
                                              @endif
                                           </div>
 
                                        </div>
-
-                                       <div  class="form-group{{ $errors->has('product_cat_ty') ? ' has-error' : '' }}">
-
-                                          <label for="product_cat_ty" class="col-sm-3 control-label">
-                                             Product Category Identifier
-                                             <span class="text-danger"> *</span>
-                                             &nbsp;&nbsp;
-                                             <a href="#" title="Unique product category identifier e.g. LN-loans, DP-deposits, etc" data-toggle="tooltip" class="ml-10">
-                                               <i class="zmdi zmdi-info"  style="font-size: 20px"></i>
-                                             </a>
-                                          </label>
-                                          <div class="col-sm-9">
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                id="product_cat_ty"
-                                                name="product_cat_ty"
-                                                value="{{ old('product_cat_ty', $product->product_cat_ty)}}"
-                                                required>
-
-                                             @if ($errors->has('product_cat_ty'))
-                                                  <span class="help-block">
-                                                      <strong>{{ $errors->first('product_cat_ty') }}</strong>
-                                                  </span>
-                                             @endif
-                                          </div>
-
-                                       </div>
-
 
                                        <div  class="form-group{{ $errors->has('status_id') ? ' has-error' : '' }}">
 
@@ -166,7 +130,7 @@
                                                 <li class="mb-10">
                                                 <option value="{{ $status->id }}"
 
-                                          @if ($status->id == old('status_id', $product->status->id))
+                                          @if ($status->id == old('status_id', $glaccount->status->id))
                                               selected="selected"
                                           @endif
                                                     >
@@ -180,71 +144,6 @@
                                              @if ($errors->has('status_id'))
                                                   <span class="help-block">
                                                       <strong>{{ $errors->first('status_id') }}</strong>
-                                                  </span>
-                                             @endif
-
-                                          </div>
-
-                                       </div>
-
-
-                                       <div  class="form-group{{ $errors->has('start_at') ? ' has-error' : '' }}">
-
-                                          <label for="start_at" class="col-sm-3 control-label">
-                                             Start At
-                                             <span class="text-danger"> *</span>
-                                          </label>
-                                          <div class="col-sm-9">
-
-                                            <div class='input-group date' id='start_at_group'>
-                                                <input
-                                                    type='text'
-                                                    class="form-control"
-                                                    placeholder="Start Date"
-                                                    id='start_at'
-                                                    name="start_at"
-                                                    required
-                                                    value="{{ old('start_at', formatDatePickerDate($product->start_at)) }}"
-                                                />
-                                                <span class="input-group-addon">
-                                                   <span class="fa fa-calendar"></span>
-                                                </span>
-                                            </div>
-
-                                             @if ($errors->has('start_at'))
-                                                  <span class="help-block">
-                                                      <strong>{{ $errors->first('start_at') }}</strong>
-                                                  </span>
-                                             @endif
-
-                                          </div>
-
-                                       </div>
-
-                                       <div  class="form-group{{ $errors->has('end_at') ? ' has-error' : '' }}">
-
-                                          <label for="end_at" class="col-sm-3 control-label">
-                                             End At
-                                          </label>
-                                          <div class="col-sm-9">
-
-                                            <div class='input-group date' id='end_at_group'>
-                                                <input
-                                                    type='text'
-                                                    class="form-control"
-                                                    placeholder="End Date"
-                                                    id='end_at'
-                                                    name="end_at"
-                                                    value="{{ old('end_at', formatDatePickerDate($product->end_at)) }}"
-                                                />
-                                                <span class="input-group-addon">
-                                                   <span class="fa fa-calendar"></span>
-                                                </span>
-                                            </div>
-
-                                             @if ($errors->has('end_at'))
-                                                  <span class="help-block">
-                                                      <strong>{{ $errors->first('end_at') }}</strong>
                                                   </span>
                                              @endif
 

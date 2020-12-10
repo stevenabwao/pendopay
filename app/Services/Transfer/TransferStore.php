@@ -3,23 +3,13 @@
 namespace App\Services\Transfer;
 
 use App\Entities\Transfer;
-use App\Entities\GroupMember;
-use App\Entities\CompanyBranch;
-use App\Entities\CompanyUser;
-use Carbon\Carbon;
-use Dingo\Api\Exception\StoreResourceFailedException;
-use Dingo\Api\Routing\Helpers;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use App\Entities\DepositAccountSummary;
 use App\Entities\DepositAccountHistory;
 use App\Services\Payment\PaymentStore;
-use App\Services\LoanRepayment\LoanRepaymentStore;
 
 class TransferStore
 {
-
-    use Helpers;
 
     public function createItem($request) {
 
@@ -43,7 +33,7 @@ class TransferStore
             $source_account_text = "";
             $destination_account_text = "";
             $shares = "";
-   
+
             if ($request->has('source_account')) {
                 $source_account_id = $request->source_account;
             }
@@ -67,7 +57,7 @@ class TransferStore
             if ($source_text) {
                 $source_account_text = getAccountNameText($source_text);
             }
-            
+
             if ($destination_text) {
                 $destination_account_text = getAccountNameText($destination_text);
             }
@@ -108,7 +98,7 @@ class TransferStore
             try {
 
                 $new_transfer = new Transfer();
-                
+
                 $transfer_comments = "Transfer $source_amount_fmt From  $source_account_text: $source_account_id";
                 $transfer_comments .= " - Account Name: ". titlecase($source_account_name);
                 $transfer_comments .= " - Account Phone: $source_account_phone,";
@@ -219,7 +209,7 @@ class TransferStore
 
                 $payment_id = NULL;
 
-                $client_dep_gl_account_entry = createGlAccountEntry($payment_id, $source_amount, $client_deposits_gl_account_type_id, 
+                $client_dep_gl_account_entry = createGlAccountEntry($payment_id, $source_amount, $client_deposits_gl_account_type_id,
                                                                     $source_company_id, $source_account_phone, "CR", $tran_ref_txt, $tran_desc, "neg", "pos", "neg");
 
             } catch(\Exception $e) {
@@ -243,8 +233,8 @@ class TransferStore
             //end get main paybill no
 
             //if all is ok, create transfer
-            if (($destination_text == $deposit_account_text) || 
-                ($destination_text == $loan_account_text) || 
+            if (($destination_text == $deposit_account_text) ||
+                ($destination_text == $loan_account_text) ||
                 ($destination_text == $shares_account_text)) {
                 //dd("dest deposit act", $destination_account);
 
@@ -279,7 +269,7 @@ class TransferStore
 
                     //dd($attributes);
 
-                    //$response = 
+                    //$response =
                     $paymentStore->createItem($attributes);
                     log_this("\n\n\n************** PAYMENT STORE ************* \n\n"
                     . json_encode($response)
@@ -287,7 +277,7 @@ class TransferStore
 
                 } catch(\Exception $e) {
 
-                    DB::rollback(); 
+                    DB::rollback();
                     dd($e);
                     $message = 'Error. Could not create payments entry - ' . $e->getMessage();
                     log_this($message);

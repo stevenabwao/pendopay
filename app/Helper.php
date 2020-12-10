@@ -2,6 +2,7 @@
 
 use App\Entities\Account;
 use App\Entities\DepositAccount;
+use App\Entities\TransactionAccount;
 use App\Entities\Company;
 use App\Entities\CompanyUser;
 use App\Entities\Offer;
@@ -1841,25 +1842,45 @@ function getAccountData($account_no='', $status_id='1', $phone='') {
 
 }
 
-// deleteShoppingCartItem
-function deleteShoppingCartItem($shopping_cart_item_id) {
 
-    dd($shopping_cart_item_id);
+// get destination account data
+function getDestinationAccountData($account_type, $account_no) {
 
-    // set defaults
-    $status_order_placed = config('constants.status.orderplaced');
-    $status_id = $status_id ? $status_id : $status_order_placed;
+    $destination_account = NULL;
 
-    $order = Order::where('status_id', $status_id)
-                ->when($order_id, function ($query) use ($order_id) {
-                    $query->where('id', $order_id);
-                })
-                ->when($shopping_cart_id, function ($query) use ($shopping_cart_id) {
-                    $query->where('shopping_cart_id', $shopping_cart_id);
-                })
-                ->first();
+    if ($account_type == getAccountTypeTransactionAccount()) {
 
-    return $order;
+        $logged_user_id = getLoggedUser()->id;
+
+        // get transaction account
+        try {
+            $destination_account =  TransactionAccount::where('account_no', $account_no)->first();
+        } catch (\Exception $e) {
+            $error_message = $e->getMessage();
+            log_this($error_message);
+            throw new \Exception($error_message);
+        }
+
+    }
+
+    if ($account_type == getAccountTypeWalletAccount()) {
+
+        // get wallet account with submitted details
+        try {
+            $destination_account =  DepositAccount::where(function ($query) use ($account_no) {
+                                        $query->orWhere('account_no', $account_no);
+                                        $query->orWhere('phone', $account_no);
+                                    })
+                                    ->first();
+        } catch (\Exception $e) {
+            $error_message = $e->getMessage();
+            log_this($error_message);
+            throw new \Exception($error_message);
+        }
+
+    }
+
+    return $destination_account;
 
 }
 
@@ -2464,6 +2485,24 @@ function getUserSetLoanLimit($loan_limit_calculation_id, $user_deposit_payments,
 
 }
 
+// get user deposit account data
+function getUserDepositAccountData($phone, $account_no="", $user_id=NULL) {
+
+	$user_dep_acct_data = DepositAccount::when($phone, function ($query) use ($phone) {
+                            $query->orWhere('phone', '=', $phone);
+                        })
+                        ->when($account_no, function ($query) use ($account_no) {
+                            $query->orWhere('account_no', '=', $account_no);
+                        })
+                        ->when($user_id, function ($query) use ($user_id) {
+                            $query->orWhere('user_id', '=', $user_id);
+                        })
+					    ->first();
+
+	return $user_dep_acct_data;
+
+}
+
 // get user account data
 function getUserData($phone, $email="", $id=NULL) {
 
@@ -2489,12 +2528,22 @@ function getUserDepositAccountBalance() {
     $ledger_balance = 0;
 
 	$logged_user_id = getLoggedUser()->id;
-    $deposit_account_summary = DepositAccountSummary::where('user_id', $logged_user_id)->first();
+    $deposit_account_summary = getUserDepositAccountSummaryData();
+    // dd("deposit_account_summary == ", $deposit_account_summary);
     if ($deposit_account_summary) {
         $ledger_balance = $deposit_account_summary->ledger_balance;
     }
 
 	return $ledger_balance;
+
+}
+
+// get user deposit account summary data
+function getUserDepositAccountSummaryData($user_id=NULL) {
+
+    $user_id = $user_id ? $user_id : getLoggedUser()->id;
+
+    return DepositAccountSummary::where('user_id', $user_id)->first();
 
 }
 
@@ -3089,6 +3138,11 @@ function getTransactionAccountTypeId() {
     return config('constants.account_settings.transaction_account_type_id');
 }
 
+// payment methoods
+function getPaymentMethodMpesa() {
+    return config('constants.payment_methods.mpesa');
+}
+
 // transaction roles
 function getTransactionRoleBuyer() {
     return config('constants.transactionroles.buyer');
@@ -3116,8 +3170,8 @@ function getAcceptToProceedText() {
 }
 
 // gl account types
-function getGlAccountTypeClubIncome() {
-    return config('constants.gl_account_types.club_income');
+function getGlAccountTypeClientDeposits() {
+    return config('constants.gl_account_types.client_deposits');
 }
 function getGlAccountTypeClubRefunds() {
     return config('constants.gl_account_types.club_refunds');
@@ -3205,6 +3259,9 @@ function getSiteFunctionTransactionRequest() {
 function getSiteFunctionTransactionRequestNoAccount() {
     return config('constants.sitefunctions.transactionrequest_noaccount');
 }
+function getSiteFunctionPaymentUserDepositAccountSuccess() {
+    return config('constants.sitefunctions.payment_user_deposit_account_success');
+}
 // end site functions
 
 // start site sections
@@ -3212,6 +3269,21 @@ function getSiteSectionTransactionRequest() {
     return config('constants.sitesections.transactionrequest');
 }
 // end site sections
+
+// start account types
+function getAccountTypeWalletAccount() {
+    return config('constants.account_type.wallet_account');
+}
+function getAccountTypeTextWalletAccount() {
+    return config('constants.account_type_text.wallet_account');
+}
+function getAccountTypeTransactionAccount() {
+    return config('constants.account_type.transaction_account');
+}
+function getAccountTypeTextTransactionAccount() {
+    return config('constants.account_type_text.transaction_account');
+}
+// end account types
 
 // start sms types
 function getCompanySmsType() {
@@ -3483,7 +3555,7 @@ function getMyTransactionMessage($item_data) {
 // get barddy company id
 function getBarddyCompanyId() {
     $site_settings = getSiteSettings();
-    return $site_settings['barddy_company_id'];
+    return $site_settings['company_id'];
 }
 
 // get barddy company name
@@ -7893,12 +7965,8 @@ function sendAccountActivationDetails($phone, $email="", $resent_flag=false) {
     $email_media_type = getMediaTypeEmail();
     $registration_site_function = getSiteFunctionRegistration();
 
-    $sms_template = getMediaTemplate($registration_site_function, $sms_media_type);
-    $email_template = getMediaTemplate($registration_site_function, $email_media_type);
-
-    // formulate message from template
-    $set_sms_template = $sms_template->text ? $sms_template->text : $sms_template->default_text;
-    $set_email_template = $email_template->text ? $email_template->text : $email_template->default_text;
+    /* $sms_template = getMediaTemplate($registration_site_function, $sms_media_type);
+    $email_template = getMediaTemplate($registration_site_function, $email_media_type); */
 
     // get user data
     $user_data = getUserData($phone, $email);
@@ -7921,17 +7989,8 @@ function sendAccountActivationDetails($phone, $email="", $resent_flag=false) {
     $sms_replacement_array[] = $company_name;
     $sms_replacement_array[] = $activation_code;
 
-    // replace [[name]] and [[code]] in sms template
-    $sms_message = replaceDelimitersInTemplate($set_sms_template, $sms_replacement_array);
-    // dd("sms_message === ", $sms_message);
-
-    // create email replacement array
-    /* $email_replacement_array = array();
-    $email_replacement_array[] = $company_name;
-    $email_replacement_array[] = $activation_code; */
-
-    // replace [[name]] and [[code]] in email template
-    // $email_message = replaceDelimitersInTemplate($set_email_template, $email_replacement_array);
+    // generate sms message
+    $sms_message = generateTemplateMessage($sms_media_type, $registration_site_function, $sms_replacement_array);
 
     // start send sms activation code
     // $sms_type = config('constants.sms_types.registration_sms');
@@ -7988,6 +8047,26 @@ function sendAccountActivationDetails($phone, $email="", $resent_flag=false) {
 
     // log data
     // log_this("\n\n\n\n>>>>>>>>> send user email - request :\n\n" . "email_message == " . $email_message . "\n email address == " . $email);
+
+}
+
+
+// generate template message
+function generateTemplateMessage($media_type="", $site_function="", $replacement_array=[]) {
+
+    // media_type - either email or sms
+    $media_type = $media_type ? $media_type : getMediaTypeSms();
+
+    // get the template
+    $message_template = getMediaTemplate($site_function, $media_type);
+
+    // formulate message from template
+    $set_template = $message_template->text ? $message_template->text : $message_template->default_text;
+
+    // replace delited text in template
+    $message_text = replaceDelimitersInTemplate($set_template, $replacement_array);
+
+    return $message_text;
 
 }
 

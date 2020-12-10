@@ -108,6 +108,7 @@ class PaymentGlAccountsStore
             $gl_account_data = GlAccount::where('company_id', $company_id)
                     ->where('gl_account_type_id', $gl_account_type_id)
                     ->first();
+
             if ($gl_account_data) {
                 $gl_account_no = $gl_account_data->gl_account_no;
                 //start get company  gl_account_summary record
@@ -219,8 +220,6 @@ class PaymentGlAccountsStore
 
 
         DB::commit();
-
-        //dd($gl_account_history_data);
 
         return $gl_account_history_data;
 

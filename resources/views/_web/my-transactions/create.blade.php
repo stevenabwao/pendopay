@@ -96,7 +96,7 @@
 
                                 <div class="form-check form-check-inline radioform">
                                   <input type="radio" class="form-check-input" value="{{ getTransactionRoleBuyer() }}" name="transaction_role"
-                                    {{ old('transaction_role') == getTransactionRoleBuyer() ? 'checked' : ''}}>
+                                    {{ old('transaction_role', getTransactionRoleBuyer()) == getTransactionRoleBuyer() ? 'checked' : ''}}>
                                   <label class="form-check-label" for="materialInline2">Buyer</label>
                                 </div>
 

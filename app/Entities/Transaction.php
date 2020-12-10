@@ -5,6 +5,7 @@ namespace App\Entities;
 use App\BaseModel;
 use App\Entities\Image;
 use App\Entities\Status;
+use App\Entities\TransactionAccount;
 use App\Events\TransactionCreated;
 use App\Events\TransactionUpdated;
 use App\User;
@@ -44,6 +45,11 @@ class Transaction extends BaseModel
     public function transactionrequests()
     {
         return $this->hasMany(TransactionRequest::class);
+    }
+
+    public function transactionaccount()
+    {
+        return $this->hasOne(TransactionAccount::class);
     }
 
     public function creator()
@@ -109,10 +115,10 @@ class Transaction extends BaseModel
     }
 
     // add accessor for trans balance
-    public function getTransactionBalanceAttribute()
+    /* public function getTransactionBalanceAttribute()
     {
-        return 2000;
-    }
+        return formatCurrency($this->transaction_balance);
+    } */
 
     // add accessor for whether to show deposit funds to transaction
     public function getShowDepositToTransactionAttribute()

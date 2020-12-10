@@ -1,11 +1,11 @@
 @extends('_web.layouts.master')
 
 @section('title')
-    New Transfer
+    Transfer Funds
 @endsection
 
 @section('page_title')
-      Transfer Funds
+    Transfer Funds
 @endsection
 
 @section('page_breadcrumbs')
@@ -17,58 +17,83 @@
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-6" >
 
-        <div class="card">
+            <div class="col-md-7" >
 
-            <div class="card-body">
+                <div class="card">
 
-                <div class="row justify-content-center">
-                    <img  class="" src="{{ asset('images/login_icon.png') }}" />
-                    <br>
+                    <div class="card-body">
 
-                    <p class="card-text">
-                    </div>
-                    <div class="row justify-content-center form-title">
-                        <h3>Transfer Funds to another person wallet</h3>
-                    </div>
+                        <p class="card-text">
 
-                    <form action="" class="form-box" method="post">
+                            <div class="row justify-content-center">
+                                <img  class="" src="{{ asset('images/login_icon.png') }}" />
+                                <br>
+                            </div>
+                            <div class="row justify-content-center form-title">
+                                <h3>Transfer Funds to a wallet/ transaction account</h3>
+                            </div>
 
-                        {{ csrf_field() }}
+                            <form action="{{ route('my-account.transferfund.create_step2') }}" class="form-box" method="get">
 
-                        <div class="md-form mat-2 mx-auto">
-                            <input type="text" value="{{ old('username') }}" name="username" class="active">
-                            <label for="example">Phone/ Email</label>
-                            @if ($errors->has('username'))
-                                <div class="help-block">
-                                    <strong>{{ $errors->first('username') }}</strong>
+                                {{ csrf_field() }}
+
+                                <div class="md-form mat-2 mx-auto radiobtn">
+
+                                    <label class="date" for="destination_account_type">Select destination account</label>
+                                    <div class="row justify-content-center">
+
+                                        <div class="form-check form-check-inline radioform">
+
+                                          <input type="radio" id="wallet_account" class="form-check-input" value="{{ getAccountTypeWalletAccount() }}" name="destination_account_type"
+                                            {{ (empty(old('destination_account_type')) || old('destination_account_type') == getAccountTypeWalletAccount()) ? 'checked' : '' }}>
+                                          <label class="form-check-label" for="materialInline1">Wallet</label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline radioform">
+                                          <input type="radio" id="transaction_account" class="form-check-input" value="{{ getAccountTypeTransactionAccount() }}"
+                                            name="destination_account_type" {{ old('destination_account_type') == getAccountTypeTransactionAccount() ? 'checked' : ''}}>
+                                          <label class="form-check-label" for="materialInline2">Transaction Account</label>
+                                        </div>
+
+                                    </div>
+
+                                    <div>
+                                        @if ($errors->has('destination_account_type'))
+                                            <div class="help-block">
+                                                <strong>{{ $errors->first('destination_account_type') }}</strong>
+                                            </div>
+                                        @endif
+                                    </div>
+
                                 </div>
-                            @endif
-                        </div>
 
-                        <div class="md-form mat-2 mx-auto">
-                            <input type="text" value="{{ old('payment_amount', '30000') }}" name="payment_amount" >
-                            <label for="payment_amount">Amount</label>
+                                <div class="md-form mat-2 mx-auto">
+                                    <input type="text" value="{{ old('destination_account_no') }}" name="destination_account_no" id="destination_account_no" class="digitsOnlyx">
+                                    <label for="destination_account_no" id="label_destination_account_no">Enter Wallet Account No/ Phone No</label>
 
-                            @if ($errors->has('payment_amount'))
-                                <div class="help-block">
-                                    <strong>{{ $errors->first('payment_amount') }}</strong>
+                                    @if ($errors->has('destination_account_no'))
+                                        <div class="help-block">
+                                            <strong>{{ $errors->first('destination_account_no') }}</strong>
+                                        </div>
+                                    @endif
                                 </div>
-                            @endif
-                        </div>
 
-                        <hr>
+                                <hr>
 
-                        <div class="inputs row">
-                            <button class="btn btn-xs" type="submit">Transfer</button>
-                        </div>
-                        </form>
+                                <div class="inputs row">
+                                    <button class="btn btn-xs" type="submit">Transfer</button>
+                                </div>
+                            </form>
 
-                </p>
+                        </p>
+
+                    </div>
+
+                </div>
+
             </div>
-          </div>
-        </div>
+
         </div>
 
     </div>
@@ -79,16 +104,39 @@
 
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/js/mdb.min.js"></script>
-    
+
     <script>
         // Material Select Initialization
-            $(document).ready(function() {
-               $('.mdb-select').materialSelect();
-             });
-    </script>
+        /* $(document).ready(function() {
 
-   
-  
+            $('.mdb-select').materialSelect();
+
+        }); */
+
+        $(document).ready(function() {
+
+            var clearTextBoxes = function() {
+                $("#destination_account_no").val("");
+            };
+
+            window.onload = function() {
+                $("#wallet_account").on("click", toWallet);
+                $("#transaction_account").on("click", toTransaction);
+            };
+
+            var toWallet = function() {
+                $("#label_destination_account_no").text("Enter Wallet Account No/ Phone No");
+                clearTextBoxes();
+            };
+
+            var toTransaction = function() {
+                $("#label_destination_account_no").text("Enter Transaction Account No");
+                clearTextBoxes();
+            };
+
+        });
+
+    </script>
 
 @endsection
 
@@ -97,9 +145,9 @@
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 
     {{-- datepicker --}}
-    <link rel="stylesheet" 
+    <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
-    
-   
+
+
 
 @endsection

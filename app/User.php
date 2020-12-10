@@ -122,7 +122,7 @@ class User extends Authenticatable
 
     public function depositaccountsummary()
     {
-        return $this->hasMany(DepositAccountSummary::class);
+        return $this->hasOne(DepositAccountSummary::class);
     }
 
     public function remindermessagesettings()

@@ -47,7 +47,7 @@ class PaymentController extends Controller
     {
 
         //get logged in user
-        $user = auth()->user(); 
+        $user = auth()->user();
 
         //get paybills
         $paybills_array = getAllUserMpesaPaybills($user);
@@ -56,7 +56,7 @@ class PaymentController extends Controller
 
         //if paybills records exist
         if (count($paybills_array)) {
-            $paybills = $paybills_array; 
+            $paybills = $paybills_array;
         }
 
         //get the data
@@ -69,7 +69,7 @@ class PaymentController extends Controller
 
         //return view with appended url params
         return view('payments.index', [
-            'payments' => $data->appends(Input::except('page')),
+            'payments' => $data,
             'mpesapaybills' => $paybills_array
         ]);
 
@@ -206,7 +206,7 @@ class PaymentController extends Controller
         //dd($companies);
         $paymentdata = $this->model->where('id', $id)
                        ->whereIn('company_id', $companies)
-                       ->first(); 
+                       ->first();
 
         //dd($id, $companies, $paymentdata);
 
