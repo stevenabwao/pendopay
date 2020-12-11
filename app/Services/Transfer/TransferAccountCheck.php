@@ -46,20 +46,44 @@ class TransferAccountCheck
             if ($destination_account_data) {
 
                 // if its a transaction account
-                // if transaction status is not active, throw an error
-                if ($destination_account_data->transaction->status_id != getStatusActive()) {
+                if ($destination_account_type == getAccountTypeTransactionAccount()) {
+
+                    // check if the transaction is in an active status
+                    // if not active, show error
+                    // transaction must be active (both buyer and seller have accepted requests) before funds can be transferred to it
+                    if ($destination_account_data->transaction->status_id != getStatusActive()) {
                         $error_message = trans('general.invalidtransactionstatus');
                         log_this($error_message . "\n" . json_encode($request->all()));
                         throw new \Exception($error_message);
+                    }
+
+                    // check if logged in user is a buyer in the transaction
+                    // if user is not a buyer, throw an error
+                    if ($logged_user->id != $destination_account_data->buyer_user_id) {
+                            $error_message = trans('general.cannottransferifnotbuyer');
+                            log_this($error_message . "\n" . json_encode($request->all()));
+                            throw new \Exception($error_message);
+                    }
+
                 }
 
-                // check if logged in user is a buyer in transaction
-                // if user is not a buyer, throw an error
-                if (($destination_account_type == getAccountTypeTransactionAccount())
-                    && ($logged_user->id != $destination_account_data->buyer_user_id)) {
-                        $error_message = trans('general.cannottransferifnotbuyer');
+                // if transferring to a wallet account
+                if ($destination_account_type == getAccountTypeWalletAccount()) {
+
+                    // if sending to own account, throw error
+                    if ($destination_account_data->user_id == $logged_user->id) {
+                        $error_message = trans('general.cannottransfertoownwallet');
                         log_this($error_message . "\n" . json_encode($request->all()));
                         throw new \Exception($error_message);
+                    }
+
+                    // if wallet account is not active, throw error
+                    if ($destination_account_data->status_id != getStatusActive()) {
+                        $error_message = trans('general.invalidwalletstatus');
+                        log_this($error_message . "\n" . json_encode($request->all()));
+                        throw new \Exception($error_message);
+                    }
+
                 }
 
                 $response['data'] = $destination_account_data;

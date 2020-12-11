@@ -82,7 +82,6 @@ class WebTransferController extends Controller
             'destination_account_no' => 'required'
         ]);
 
-        // dd($request->all());
         // check if request is valid
         // if not, return appropriate error
         try {
@@ -102,7 +101,6 @@ class WebTransferController extends Controller
             } else {
                 $wallet_account = getDestinationAccountData($request->destination_account_type, $request->destination_account_no);
             }
-            // dd($transaction_account, $transaction_account->transaction);
 
             // get user deposit account summary
             $deposit_account_summary = getUserDepositAccountSummaryData();
@@ -175,7 +173,8 @@ class WebTransferController extends Controller
             return view('_web.transfer.create_step3', [
                 'transaction_account' => $transaction_account,
                 'wallet_account' => $wallet_account,
-                'deposit_account_summary' => $deposit_account_summary
+                'deposit_account_summary' => $deposit_account_summary,
+                'transfer_amount' => $request->transfer_amount
             ]);
 
         } catch (\Exception $e) {

@@ -59,8 +59,12 @@
 
                                     @if($transaction_account)
                                         <input type="text" value="{{ $transaction_account->account_no }}" name="account_no" disabled>
+                                        <input type="hidden" value="{{ getAccountTypeTransactionAccount() }}" name="destination_account_type">
+                                        <input type="hidden" value="{{ $transaction_account->account_no }}" name="destination_account_no">
                                     @else
-                                        <input type="text" value="{{ getAccountTypeTextWalletAccount() }}" name="account_no" disabled>
+                                        <input type="text" value="{{ $wallet_account->account_no }}" name="account_no" disabled>
+                                        <input type="hidden" value="{{ getAccountTypeWalletAccount() }}" name="destination_account_type">
+                                        <input type="hidden" value="{{ $wallet_account->account_no }}" name="destination_account_no">
                                     @endif
 
                                     <label for="account_no">Destination Account No</label>
@@ -74,7 +78,7 @@
                                             value="{{ $transaction_account->account_name }}  &nbsp;&nbsp; (Unpaid Balance: {{ $transaction_account->transaction->formatted_transaction_balance }})"
                                             name="account_name" disabled>
                                     @else
-                                        <input type="text" value="{{ getAccountTypeTextWalletAccount() }}" name="account_name" disabled>
+                                        <input type="text" value="{{ $wallet_account->account_name }}" name="account_name" disabled>
                                     @endif
 
                                     <label for="account_name">Account Name</label>
@@ -83,12 +87,12 @@
 
                                 <div class="md-form mat-2 mx-auto">
 
-                                    <input type="text" value="{{ formatCurrency(getUserDepositAccountBalance()) }}" name="wallet_balance" disabled>
-                                    <label for="wallet_balance">Your Wallet Account Balance</label>
+                                    <input type="text" value="{{ formatCurrency($transfer_amount) }}" name="wallet_balance" disabled>
+                                    <label for="wallet_balance">Transfer Amount</label>
 
                                 </div>
 
-                                <div class="md-form mat-2 mx-auto">
+                                {{-- <div class="md-form mat-2 mx-auto">
                                     <input type="text" value="{{ old('amount') }}" name="amount" id="amount" class="digitsOnly">
                                     <label for="amount" id="label_amount">Enter Transfer Amount</label>
 
@@ -97,7 +101,7 @@
                                             <strong>{{ $errors->first('amount') }}</strong>
                                         </div>
                                     @endif
-                                </div>
+                                </div> --}}
 
                                 <hr>
 

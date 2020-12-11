@@ -61,9 +61,9 @@
                                         <input type="hidden" value="{{ getAccountTypeTransactionAccount() }}" name="destination_account_type">
                                         <input type="hidden" value="{{ $transaction_account->account_no }}" name="destination_account_no">
                                     @else
-                                        <input type="text" value="{{ getAccountTypeTextWalletAccount() }}" name="account_no" disabled>
-                                        <input type="hiddens" value="{{ getAccountTypeWalletAccount() }}" name="destination_account_type">
-                                        <input type="hiddens" value="{{ getAccountTypeWalletAccount() }}" name="destination_account_no">
+                                        <input type="text" value="{{ $wallet_account->account_no }}" name="account_no" disabled>
+                                        <input type="hidden" value="{{ getAccountTypeWalletAccount() }}" name="destination_account_type">
+                                        <input type="hidden" value="{{ $wallet_account->account_no }}" name="destination_account_no">
                                     @endif
 
                                     <label for="account_no">Destination Account No</label>
@@ -77,7 +77,7 @@
                                             value="{{ $transaction_account->account_name }}  &nbsp;&nbsp; (Unpaid Balance: {{ $transaction_account->transaction->formatted_transaction_balance }})"
                                             name="account_name" disabled>
                                     @else
-                                        <input type="text" value="{{ getAccountTypeTextWalletAccount() }}" name="account_name" disabled>
+                                        <input type="text" value="{{ $wallet_account->account_name }}" name="account_name" disabled>
                                     @endif
 
                                     <label for="account_name">Account Name</label>

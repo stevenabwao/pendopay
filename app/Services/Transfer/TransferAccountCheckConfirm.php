@@ -47,6 +47,16 @@ class TransferAccountCheckConfirm
 
             }
 
+            // if transfer amount is more than what the client has in their wallet, throw error
+            if ($transfer_amount > getUserDepositAccountBalance()) {
+                $transfer_amount_fmt = formatCurrency($transfer_amount);
+                $wallet_balance_fmt = formatCurrency(getUserDepositAccountBalance());
+                $error_message = trans('general.excesstransferamountthanwallet', ['transfer_amount' => $transfer_amount_fmt,
+                                                            'wallet_balance' => $wallet_balance_fmt]);
+                log_this($error_message);
+                throw new \exception($error_message);
+            }
+
             // if its a transaction account
             // check if logged in user is a buyer in transaction
             // if user is not a buyer, throw an error
@@ -65,17 +75,6 @@ class TransferAccountCheckConfirm
                     log_this($error_message);
                     throw new \exception($error_message);
                 }
-
-                // if transfer amount is more than what the client has in their wallet, throw error
-                if ($transfer_amount > getUserDepositAccountBalance()) {
-                    $transfer_amount_fmt = formatCurrency($transfer_amount);
-                    $wallet_balance_fmt = formatCurrency(getUserDepositAccountBalance());
-                    $error_message = trans('general.excesstransferamountthanwallet', ['transfer_amount' => $transfer_amount_fmt,
-                                                                'wallet_balance' => $wallet_balance_fmt]);
-                    log_this($error_message);
-                    throw new \exception($error_message);
-                }
-                // dd("transaction_account_balance == ", $transaction_account_balance);
 
             }
             // dd("destination_account_data pitaa == ", $destination_account_data);
