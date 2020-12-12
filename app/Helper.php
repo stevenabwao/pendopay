@@ -2488,7 +2488,9 @@ function getUserSetLoanLimit($loan_limit_calculation_id, $user_deposit_payments,
 // get user deposit account data
 function getUserDepositAccountData($phone, $account_no="", $user_id=NULL) {
 
-	$user_dep_acct_data = DepositAccount::when($phone, function ($query) use ($phone) {
+    try {
+
+        $user_dep_acct_data = DepositAccount::when($phone, function ($query) use ($phone) {
                             $query->orWhere('phone', '=', $phone);
                         })
                         ->when($account_no, function ($query) use ($account_no) {
@@ -2497,9 +2499,15 @@ function getUserDepositAccountData($phone, $account_no="", $user_id=NULL) {
                         ->when($user_id, function ($query) use ($user_id) {
                             $query->orWhere('user_id', '=', $user_id);
                         })
-					    ->first();
+                        ->first();
 
-	return $user_dep_acct_data;
+        return $user_dep_acct_data;
+
+    } catch(\Exception $e) {
+        $error_message = $e->getMessage();
+        log_this($error_message);
+        throw new \Exception($error_message);
+    }
 
 }
 
@@ -3142,6 +3150,18 @@ function getTransactionAccountTypeId() {
 function getPaymentMethodMpesa() {
     return config('constants.payment_methods.mpesa');
 }
+function getPaymentMethodCash() {
+    return config('constants.payment_methods.cash');
+}
+function getPaymentMethodCheque() {
+    return config('constants.payment_methods.cheque');
+}
+function getPaymentMethodBank() {
+    return config('constants.payment_methods.bank');
+}
+function getPaymentMethodTransfer() {
+    return config('constants.payment_methods.transfer');
+}
 
 // transaction roles
 function getTransactionRoleBuyer() {
@@ -3261,6 +3281,12 @@ function getSiteFunctionTransactionRequestNoAccount() {
 }
 function getSiteFunctionPaymentUserDepositAccountSuccess() {
     return config('constants.sitefunctions.payment_user_deposit_account_success');
+}
+function getSiteFunctionPaymentSenderTransferSuccess() {
+    return config('constants.sitefunctions.payment_sender_transfer_success');
+}
+function getSiteFunctionPaymentRecipientTransferSuccess() {
+    return config('constants.sitefunctions.payment_recipient_transfer_success');
 }
 // end site functions
 
@@ -6412,7 +6438,28 @@ function getTransferSummaryData($request) {
 	$loan_account_text = config('constants.account_type_text.loan_account');
 	$shares_account_text = config('constants.account_type_text.shares_account');
 
-	$response = [];
+    $response = [];
+
+
+    /////////////////////////////////////////
+    // site settings
+    $site_settings = getSiteSettings();
+    $settings_company_id = $site_settings['company_id'];
+
+    // get destination account
+    try {
+
+        $destination_account_data = getDestinationAccountData($destination_account_type, $destination_account_no);
+
+    } catch(\Exception $e) {
+
+        $error_message = $e->getMessage();
+        log_this($error_message);
+        throw new \exception($error_message);
+
+    }
+    dd("HEret == destination_account_data == ", $destination_account_type, $destination_account_no, $destination_account_data);
+    /////////////////////////////////////////
 
 	//get logged in user companies
 	$company_ids_array = getUserCompanyIds($request);

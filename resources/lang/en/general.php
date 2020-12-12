@@ -18,6 +18,7 @@ return [
     'couldnotcreatenewdeposit' => 'Could not create new deposit entry.',
     'couldnotcreateclientdepositglentry' => 'Could not create client deposits GL account entry.',
     'successfulwalletdeposit' => 'Successful deposit to wallet account.',
+    'successfultransfer' => 'Amount - :transfer_amount successfully transferred.',
     'invalidtransactionstatus' => 'Invalid transaction status.',
     'invalidwalletstatus' => 'Invalid wallet account status.',
     'destinationaccountnotfound' => 'Destination account not found.',

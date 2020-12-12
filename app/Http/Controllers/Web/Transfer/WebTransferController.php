@@ -241,56 +241,24 @@ class WebTransferController extends Controller
 
             $transfer = $transferStore->createItem($request);
             $transfer = json_decode($transfer);
-            $result_message = $transfer->message;
+            $result_object = $transfer->message;
+            $result_message = $result_object->message;
+            $result_data = $result_object->data;
             //dd($result_message);
 
-            $new_id = $result_message->message->id;
+            $new_id = $result_data->id;
             Session::flash('success', 'Successfully transferred funds');
-            return redirect()->route('transfers.show', $new_id);
+            return redirect()->route('my-account.transferfund.show', $new_id);
 
         } catch(\Exception $e) {
 
             DB::rollback();
-            //dd($e);
+            dd($e);
             $message = 'Error. Could not create transfer entry - ' . $e->getMessage();
             log_this($message);
             Session::flash('error', $message);
             return redirect()->back()->withInput()->withErrors($message);
 
-        }
-
-    }
-
-
-    public function store2(Request $request, TransferStore $transferStore)
-    {
-
-        $user_id = auth()->user()->id;
-
-        $this->validate($request, [
-            'amount' => 'required|regex:/^\d+(\.\d+)?$/',
-            'source_account' => 'required',
-            'destination_account' => 'required',
-            'source_text' => 'required',
-            'destination_text' => 'required',
-        ]);
-        //dd($request);
-
-        //create item
-        $transfer = $transferStore->createItem($request);
-        $transfer = json_decode($transfer);
-        $result_message = $transfer->message;
-        //dd($result_message);
-
-        if (!$transfer->error) {
-            //$result_message = json_decode($result_message);
-            //dd($result_message);
-            $new_id = $result_message->message->id;
-            Session::flash('success', 'Successfully created new transfer');
-            return redirect()->route('transfers.show', $new_id);
-        } else {
-            Session::flash('error', $result_message->message);
-            return redirect()->back()->withInput()->withErrors($result_message->message);
         }
 
     }
@@ -321,7 +289,7 @@ class WebTransferController extends Controller
 
         if ($transfer) {
 
-            return view('transfers.show', compact('transfer', 'company_product_name'));
+            return view('_web.transfer.show', compact('transfer', 'company_product_name'));
 
         } else {
 

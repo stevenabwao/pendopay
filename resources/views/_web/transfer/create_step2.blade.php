@@ -80,7 +80,7 @@
                                         <input type="text" value="{{ $wallet_account->account_name }}" name="account_name" disabled>
                                     @endif
 
-                                    <label for="account_name">Account Name</label>
+                                    <label for="account_name">Destination Account Name</label>
 
                                 </div>
 

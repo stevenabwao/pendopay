@@ -3,14 +3,16 @@
 namespace App\Services\Payment;
 
 use App\Entities\Payment;
-use Carbon\Carbon;
 
 class PaymentMainStore
 {
 
     public function createItem($attributes) {
 
+        // dd("attributes === ", $attributes);
+
         $mpesa_payment_id = getPaymentMethodMpesa();
+
         $cash_payment_id = config('constants.payment_methods.cash');
         $bank_payment_id = config('constants.payment_methods.bank');
         $cheque_payment_id = config('constants.payment_methods.cheque');
@@ -51,7 +53,7 @@ class PaymentMainStore
         } else {
             $payment_method_id = $mpesa_payment_id;
         }
-        if (array_key_exists('transfer', $attributes)) {
+        /* if (array_key_exists('transfer', $attributes)) {
             $transfer = $attributes['transfer'];
         }
         if (array_key_exists('bank_name', $attributes)) {
@@ -65,14 +67,14 @@ class PaymentMainStore
         }
         if (array_key_exists('full_name', $attributes)) {
             $full_name = $attributes['full_name'];
-        }
+        } */
         if (array_key_exists('phone_number', $attributes)) {
             $phone_number = $attributes['phone_number'];
-            $attributes['phone'] = $attributes['phone_number'];
+            $attributes['phone'] = $phone_number;
         }
         if (array_key_exists('acct_no', $attributes)) {
             $account_no = $attributes['acct_no'];
-            $attributes['account_no'] = $attributes['acct_no'];
+            $attributes['account_no'] = $account_no;
         }
 
         // START check the payment method params exist i.e. bank, mpesa, cash or cheque
@@ -90,11 +92,11 @@ class PaymentMainStore
                 throw new \Exception($show_message);
             }
             // check if mpesa id has already been used
-            /* if (isMpesaCodeUsed($mpesa_code)) {
+            if (isMpesaCodeUsed($mpesa_code)) {
                 $show_message = trans('general.usedmpesacode');
                 log_this($show_message);
                 throw new \Exception($show_message);
-            } */
+            }
         }
 
         // init payment_id
@@ -107,6 +109,7 @@ class PaymentMainStore
             try {
                 $payment = new Payment();
                 $payment_result = $payment->create($attributes);
+                // dd("payment_result === ", $payment_result);
                 $payment_id = $payment_result->id;
             } catch(\Exception $e) {
                 // dd($e);
@@ -117,7 +120,7 @@ class PaymentMainStore
 
         }
 
-        $reponse = "";
+        $reponse = [];
 
         if ($payment_id) {
             $reponse = Payment::find($payment_id);

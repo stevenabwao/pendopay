@@ -2,28 +2,26 @@
 
 namespace App\Entities;
 
+use App\BaseModel;
 use App\Entities\Company;
 use App\Entities\CompanyUser;
 use App\Entities\Status;
 use App\Entities\Transfer;
 use App\User;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 
-class TransferAudit extends Model
+class TransferAudit extends BaseModel
 {
 
     /**
-     * The attributes that are mass assignable 
+     * The attributes that are mass assignable
     **/
     protected $fillable = [
-         'id', 'parent_id', 'source_account_type', 'source_account_id', 'source_account_name', 
-         'source_company_user_id', 'destination_company_user_id', 'source_phone', 'destination_phone', 
-         'destination_account_type', 'destination_account_id', 'destination_account_name', 
+         'parent_id', 'source_account_type', 'source_account_id', 'source_account_name',
+         'source_company_user_id', 'destination_company_user_id', 'source_phone', 'destination_phone',
+         'destination_account_type', 'destination_account_id', 'destination_account_name',
          'amount', 'comments', 'status_id', 'company_id', 'source_account_no', 'destination_account_no',
          'created_at', 'created_by', 'updated_at', 'updated_by'
-    ]; 
+    ];
 
     public function transfer()
     {
@@ -42,7 +40,7 @@ class TransferAudit extends Model
 
     public function transferaudits()
     {
-        return $this->belongsTo(LoanApplicationAudit::class); 
+        return $this->belongsTo(LoanApplicationAudit::class);
     }
 
     public function company()
@@ -66,19 +64,6 @@ class TransferAudit extends Model
         return $this->belongsTo(User::class, 'updated_by', 'id');
     }
 
-    //start convert dates to local dates
-    public function getCreatedAtAttribute($value)
-    {
-        return Carbon::parse($value)->timezone(getLocalTimezone());
-    }
-
-    public function getUpdatedAtAttribute($value)
-    {
-        return Carbon::parse($value)->timezone(getLocalTimezone());
-    }
-    //end convert dates to local dates
-
-
     /**
      * @param array $attributes
      * @return \Illuminate\Database\Eloquent\Model
@@ -86,63 +71,16 @@ class TransferAudit extends Model
     public static function create(array $attributes = [])
     {
 
-        if (auth()->user()) {
-            $user_id = auth()->user()->id;
-
-            $attributes['created_by'] = $user_id;
-        }
-
-        //add parent id
         $attributes['parent_id'] = $attributes['id'];
 
-        //remove id and updated_by fields from array, 
-        //id will be auto populated (autoincrement field)
+        // remove id and updated_by fields from array,
+        // id will be auto populated (autoincrement field)
         unset($attributes['id']);
 
-        try{
-            $model = static::query()->create($attributes);
-        } catch (\Exception $e) {
-            dd($e);
-        }
+        $model = static::query()->create($attributes);
 
         return $model;
 
     }
-
-    /**
-     * @param array $attributes
-     * @return \Illuminate\Database\Eloquent\Model
-     */
-    public static function updatedata($id, array $attributes = [])
-    {
-
-        $user = auth()->user();
-        $user_id = $user->id;
-
-        $item = "";
-
-        $item = static::query()->find($id);
-
-        //if user is valid, proceed
-        if ($item) {
-
-            $attributes['updated_by'] = $user_id;
-
-            //item data
-            $item = static::query()->findOrFail($id);
-
-            //do any extra processing here
-            $model = $item->update($attributes);
-
-            return $model;
-
-        } else {
-
-            abort(404);
-
-        }
-
-    }
-
 
 }

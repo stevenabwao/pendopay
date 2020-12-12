@@ -16,6 +16,7 @@ class PaymentDepositStore
     public function createItem($payment_id, $attributes) {
 
         //DB::enableQueryLog();
+        // dd($attributes);
 
         //current date and time
         $date = getCurrentDate(1);
@@ -36,6 +37,7 @@ class PaymentDepositStore
             $tran_desc = "";
             $transfer = "";
             $deposit_account_no = NULL;
+            $phone_number = "";
 
             if (array_key_exists('account_no', $attributes)) {
                 $account_no = $attributes['account_no'];
@@ -93,6 +95,7 @@ class PaymentDepositStore
             try {
 
                 $user_data = getUserData($account_no);
+                // dd("user_data == ", $user_data);
                 $user_id = $user_data->id;
 
             } catch(\Exception $e) {
@@ -106,7 +109,8 @@ class PaymentDepositStore
 
                 $user_deposit_account_data = getUserDepositAccountData("", "", $user_id);
                 $deposit_account_no = $user_deposit_account_data->account_no;
-                $deposit_user_id = $deposit_user_id;
+                $deposit_user_id = $user_deposit_account_data->user_id;
+                // dd("user_deposit_account_data == ", $user_deposit_account_data);
 
             } catch(\Exception $e) {
 
@@ -162,7 +166,7 @@ class PaymentDepositStore
                     } catch(\Exception $e) {
 
                         DB::rollback();
-                        // dd($e);
+                        dd($e);
                         $show_message = trans('general.couldnotcreateclientdepositglentry');
                         log_this($show_message);
                         throw new \Exception($show_message);
@@ -172,6 +176,7 @@ class PaymentDepositStore
                 }
 
             }
+            //  dd("user_deposit_account_data == ", $user_deposit_account_data);
 
 
         DB::commit();

@@ -92,16 +92,39 @@ class PaymentStore
         // dd("payment_method_id == ", $payment_method_id);
 
         // get settings_company_id
-        $site_settings = getSiteSettings();
+        // $site_settings = getSiteSettings();
 
         // read new_payment object
-        $payment_id = $new_payment->id;
+        // $payment_id = $new_payment->id;
 
-        //start transaction
+        // start transaction
         DB::beginTransaction();
 
+            // if we are in transfer mode
+            if ($transfer) {
+
+                // save amount to user deposit account
+                $paymentUserDepositAccountStore = new PaymentUserTransferStore();
+
+                try {
+
+                    // dd($attributes, $new_payment);
+
+                    $result = $paymentUserDepositAccountStore->createItem($attributes, $new_payment);
+                    log_this("Success paymentUserDepositAccountStore \n" . json_encode($result));
+
+                    // dd("result == ", $result);
+
+                } catch(\Exception $e) {
+
+                    throw new \Exception($e->getMessage());
+
+                }
+
+            }
+
             // if account_no exists
-            if ($account_no) {
+            if ($account_no && !$transfer) {
 
                 // save amount to user deposit account
                 $paymentUserDepositAccountStore = new PaymentUserDepositAccountStore();

@@ -105,17 +105,30 @@ class PaymentGlAccountsStore
 
             //get company gl_account_summary record
             $gl_account_summary_data = "";
-            $gl_account_data = GlAccount::where('company_id', $company_id)
+
+            try {
+                $gl_account_data = GlAccount::where('company_id', $company_id)
                     ->where('gl_account_type_id', $gl_account_type_id)
                     ->first();
+            } catch(\Exception $e) {
+                $message = $e->getMessage();
+                log_this($message);
+                throw new \Exception($message);
+            }
 
             if ($gl_account_data) {
                 $gl_account_no = $gl_account_data->gl_account_no;
                 //start get company  gl_account_summary record
                 //if none, create record
-                $gl_account_summary_data = GlAccountSummary::where('company_id', $company_id)
+                try {
+                    $gl_account_summary_data = GlAccountSummary::where('company_id', $company_id)
                         ->where('gl_account_no', $gl_account_no)
                         ->first();
+                } catch(\Exception $e) {
+                    $message = $e->getMessage();
+                    log_this($message);
+                    throw new \Exception($message);
+                }
             }
 
             if ($gl_account_summary_data) {
@@ -127,23 +140,29 @@ class PaymentGlAccountsStore
             } else {
 
                 //create new gl account summary record
-                $gl_account_summary = new GlAccountSummary();
+                try {
+                    $gl_account_summary = new GlAccountSummary();
 
-                $gl_account_summary_attributes['gl_account_no'] = $gl_account_no;
-                $gl_account_summary_attributes['ledger_balance'] = '0';
-                $gl_account_summary_attributes['ledger_balance_calc'] = '0';
-                $gl_account_summary_attributes['cleared_balance'] = '0';
-                $gl_account_summary_attributes['cleared_balance_calc'] = '0';
-                $gl_account_summary_attributes['company_id'] = $company_id;
-                $gl_account_summary_attributes['created_by'] = $system_id;
-                $gl_account_summary_attributes['updated_by'] = $system_id;
-                $gl_account_summary_attributes['created_by_name'] = $system_name;
-                $gl_account_summary_attributes['updated_by_name'] = $system_name;
+                    $gl_account_summary_attributes['gl_account_no'] = $gl_account_no;
+                    $gl_account_summary_attributes['ledger_balance'] = '0';
+                    $gl_account_summary_attributes['ledger_balance_calc'] = '0';
+                    $gl_account_summary_attributes['cleared_balance'] = '0';
+                    $gl_account_summary_attributes['cleared_balance_calc'] = '0';
+                    $gl_account_summary_attributes['company_id'] = $company_id;
+                    $gl_account_summary_attributes['created_by'] = $system_id;
+                    $gl_account_summary_attributes['updated_by'] = $system_id;
+                    $gl_account_summary_attributes['created_by_name'] = $system_name;
+                    $gl_account_summary_attributes['updated_by_name'] = $system_name;
 
-                $new_gl_account_summary_data = $gl_account_summary->create($gl_account_summary_attributes);
+                    $new_gl_account_summary_data = $gl_account_summary->create($gl_account_summary_attributes);
 
-                $gl_account_summary_id = $new_gl_account_summary_data->id;
-                $gl_account_summary_ledger_balance = $new_gl_account_summary_data->ledger_balance_calc;
+                    $gl_account_summary_id = $new_gl_account_summary_data->id;
+                    $gl_account_summary_ledger_balance = $new_gl_account_summary_data->ledger_balance_calc;
+                } catch(\Exception $e) {
+                    $message = $e->getMessage();
+                    log_this($message);
+                    throw new \Exception($message);
+                }
 
             }
             //end get company gl_account_summary record
@@ -217,7 +236,6 @@ class PaymentGlAccountsStore
             //end save to gl_account_history
 
             //dd(DB::getQueryLog());
-
 
         DB::commit();
 

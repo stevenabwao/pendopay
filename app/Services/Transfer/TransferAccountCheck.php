@@ -93,7 +93,6 @@ class TransferAccountCheck
                 log_this($error_message . "\n" . json_encode($request->all()));
                 throw new \Exception($error_message);
             }
-            // dd("destination_account_data pitaa == ", $destination_account_data);
 
         // DB::commit();
 

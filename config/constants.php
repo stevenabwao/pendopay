@@ -73,6 +73,8 @@
             'transactionrequest' => 'transactionrequest',
             'transactionrequest_noaccount' => 'transactionrequest_noaccount',
             'payment_user_deposit_account_success' => 'payment_user_deposit_account_success',
+            'payment_sender_transfer_success' => 'payment_sender_transfer_success',
+            'payment_recipient_transfer_success' => 'payment_recipient_transfer_success',
         ],
         'sitesections' => [
             'transactionrequest' => 'transactionrequest',
@@ -139,6 +141,18 @@
 
         'payment_modes' => [
             'mpesa' => "mpesa",
+            'cash' => "cash",
+            'cheque' => "cheque",
+            'bank' => "bank",
+            'transfer' => "mpesa",
+        ],
+
+        'payment_methods' => [
+            'mpesa' => "1",
+            'cash' => "2",
+            'cheque' => "3",
+            'bank' => "4",
+            'transfer' => "5",
         ],
 
         'barddy_settings' => [

@@ -70,7 +70,7 @@ class DepositStore
                 $dep_account_data = getUserDepositAccountData("", $account_no);
                 $deposit_account_no = $dep_account_data->account_no;
                 $deposit_user_id = $dep_account_data->user_id;
-                // dd($deposit_user_id, $dep_account_data);
+                // dd("hapa -- " ,$deposit_user_id, $dep_account_data);
 
             } catch(\Exception $e) {
 
@@ -97,6 +97,7 @@ class DepositStore
                 throw new \Exception($e->getMessage());
 
             }
+            // dd("deposit_account_summary_data -- " ,$deposit_account_summary_data);
 
 
             //start edit deposit account summary
@@ -122,10 +123,13 @@ class DepositStore
 
                     $new_deposit_account_summary_data = $deposit_account_summary->create($deposit_account_summary_attributes);
 
+                    log_this("created new_deposit_account_summary_data " . json_encode($new_deposit_account_summary_data));
+
                  } catch(\Exception $e) {
 
                     //dd($e);
                     DB::rollback();
+                    log_this($e->getMessage());
                     throw new \Exception($e->getMessage());
 
                 }
@@ -151,6 +155,7 @@ class DepositStore
 
                     //dd($e);
                     DB::rollback();
+                    log_this($e->getMessage());
                     throw new \Exception($e->getMessage());
 
                 }
@@ -189,7 +194,8 @@ class DepositStore
 
                 } else {
                     DB::rollback();
-                    $message = "Deposit account not found";
+                    $message = trans('general.destinationaccountnotfound');
+                    log_this($message);
                     throw new \Exception($message);
                 }
 
@@ -197,6 +203,7 @@ class DepositStore
 
                 //dd($e);
                 DB::rollback();
+                log_this($e->getMessage());
                 throw new \Exception($e->getMessage());
 
             }
