@@ -13,23 +13,36 @@ class TransferStore
 
     public function createItem($request) {
 
-        //dd($attributes);
+        // dd("TransferStore === ", $request->all());
 
-        $client_deposits_gl_account_type_id = config('constants.gl_account_types.client_deposits');
-        //account type texts
-        $deposit_account_text = config('constants.account_type_text.deposit_account');
-        $loan_account_text = config('constants.account_type_text.loan_account');
-        $shares_account_text = config('constants.account_type_text.shares_account');
+        /* $client_deposits_gl_account_type_id = config('constants.gl_account_types.client_deposits');
+        $deposit_account_text = config('constants.account_type_text.deposit_account'); */
 
         DB::beginTransaction();
 
-            $source_account_id = "";
+            ///////////////////////////////////////
+            $destination_account_type = "";
+            $destination_account_no = "";
+            $transfer_amount = "";
+
+            if ($request->has('destination_account_type')) {
+                $destination_account_type = $request->destination_account_type;
+            }
+            if ($request->has('destination_account_no')) {
+                $destination_account_no = $request->destination_account_no;
+            }
+            if ($request->has('transfer_amount')) {
+                $transfer_amount = $request->transfer_amount;
+            }
+            ///////////////////////////////////////
+
+            /* $source_account_id = "";
             $destination_account_id = "";
             $source_text = "";
             $destination_text = "";
             $source_account_no = "";
             $destination_account_no = "";
-            $amount = "";
+            $transfer_amount = "";
             $source_account_text = "";
             $destination_account_text = "";
             $shares = "";
@@ -45,29 +58,40 @@ class TransferStore
             }
             if ($request->has('destination_text')) {
                 $destination_text = $request->destination_text;
-            }
-            if ($request->has('amount')) {
-                $amount = $request->amount;
-            }
-            if ($request->has('shares')) {
-                $shares = $request->shares;
-            }
+            } */
 
             //get account names
-            if ($source_text) {
-                $source_account_text = getAccountNameText($source_text);
-            }
+            $source_account_text = getAccountNameText(getAccountTypeWalletAccount());
 
-            if ($destination_text) {
-                $destination_account_text = getAccountNameText($destination_text);
+            $destination_account_text = getAccountNameText($destination_account_type);
+
+            // dd("destination_account_text === ", $source_account_text, $destination_account_text);
+
+            // site settings
+            $site_settings = getSiteSettings();
+            $settings_company_id = $site_settings['company_id'];
+            // dd("settings_company_id == ", $settings_company_id);
+
+            // get destination account
+            try {
+
+                $destination_account_data = getDestinationAccountData($destination_account_type, $destination_account_no);
+
+            } catch(\Exception $e) {
+
+                $error_message = $e->getMessage();
+                log_this($error_message);
+                throw new \exception($error_message);
+
             }
+            dd("HEret == destination_account_data == ", $destination_account_type, $destination_account_no, $destination_account_data);
 
             //get source and destination accounts
             $transfer_data = getTransferSummaryData($request);
             $transfer_data = json_decode($transfer_data);
             //dd($transfer_data);
             $source_account = $transfer_data->source_account;
-            $source_company_id = $source_account->company_id;
+            $source_company_id = $settings_company_id;
             $source_account_no = $source_account->account_no;
             $source_account_name = $source_account->account_name;
             $source_account_phone = $source_account->phone;
@@ -81,18 +105,18 @@ class TransferStore
             $destination_account_company_user_id = $destination_account->company_user_id;
 
             //ensure amount being transferred is not more than source account balance
-            $source_amount = $amount;
+            $source_amount = $transfer_amount;
             $source_amount_fmt = formatCurrency($source_amount);
             $source_account_balance = $source_account->amount;
 
-            if ($source_amount > $source_account_balance) {
+            /* if ($source_amount > $source_account_balance) {
                 //error, transfer amount cannot be more than account balance
                 $source_account_balance_fmt = formatCurrency($source_account_balance);
                 $message = "Error. Amount being transferred: $source_amount_fmt ";
                 $message .= "cannot be more than source account balance: $source_account_balance_fmt";
                 $response["message"] = $message;
                 return show_json_error($response);
-            }
+            } */
 
             //start create new transfer
             try {

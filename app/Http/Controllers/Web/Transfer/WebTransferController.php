@@ -134,7 +134,6 @@ class WebTransferController extends Controller
             'transfer_amount' => 'required'
         ]);
 
-        // dd($request->all());
         // check if request is valid
         // if not, return appropriate error
         try {
@@ -197,46 +196,68 @@ class WebTransferController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, TransferStore $transferStore)
+    public function store(Request $request, TransferStore $transferStore, TransferAccountCheck $transferAccountCheck,
+                          TransferAccountCheckConfirm $transferAccountCheckConfirm)
     {
 
-        $user_id = auth()->user()->id;
-
         $this->validate($request, [
-            'amount' => 'required|regex:/^\d+(\.\d+)?$/',
-            'source_account' => 'required',
-            'destination_account' => 'required',
-            'source_text' => 'required',
-            'destination_text' => 'required',
+            'destination_account_type' => 'required',
+            'destination_account_no' => 'required',
+            'transfer_amount' => 'required'
         ]);
-        //dd($request);
 
-        //create item
-        DB::beginTransaction();
+        // check if request is valid
+        // if not, return appropriate error
+        try {
 
-            try {
+            $transfer = $transferAccountCheck->createItem($request);
 
-                $transfer = $transferStore->createItem($request);
-                $transfer = json_decode($transfer);
-                $result_message = $transfer->message;
-                //dd($result_message);
+        } catch (\Exception $e) {
 
-                $new_id = $result_message->message->id;
-                Session::flash('success', 'Successfully created new transfer');
-                return redirect()->route('transfers.show', $new_id);
+            $error_message = $e->getMessage();
+            log_this($error_message);
+            Session::flash('error', $error_message);
+            return redirect()->back()->withInput()->withErrors($error_message);
 
-            } catch(\Exception $e) {
+        }
 
-                DB::rollback();
-                //dd($e);
-                $message = 'Error. Could not create transfer entry - ' . $e->getMessage();
-                log_this($message);
-                Session::flash('error', $message);
-                return redirect()->back()->withInput()->withErrors($message);
+        // confirm transfer amount details
+        try {
 
-            }
+            $transfer = $transferAccountCheckConfirm->createItem($request);
 
-        DB::commit();
+        } catch (\Exception $e) {
+
+            $error_message = $e->getMessage();
+            log_this($error_message);
+            Session::flash('error', $error_message);
+            return redirect()->back()->withInput()->withErrors($error_message);
+
+        }
+        // dd($request->all());
+
+        // create transfer item
+        try {
+
+            $transfer = $transferStore->createItem($request);
+            $transfer = json_decode($transfer);
+            $result_message = $transfer->message;
+            //dd($result_message);
+
+            $new_id = $result_message->message->id;
+            Session::flash('success', 'Successfully transferred funds');
+            return redirect()->route('transfers.show', $new_id);
+
+        } catch(\Exception $e) {
+
+            DB::rollback();
+            //dd($e);
+            $message = 'Error. Could not create transfer entry - ' . $e->getMessage();
+            log_this($message);
+            Session::flash('error', $message);
+            return redirect()->back()->withInput()->withErrors($message);
+
+        }
 
     }
 

@@ -6489,22 +6489,14 @@ function getTransferSummaryData($request) {
 function getAccountNameText($account_type_text) {
 
 	//account type texts
-	$deposit_account_text = config('constants.account_type_text.deposit_account');
-	$loan_account_text = config('constants.account_type_text.loan_account');
-	$shares_account_text = config('constants.account_type_text.shares_account');
-
 	$account_name_text = "";
 
-	if ($account_type_text == $deposit_account_text){
-		$account_name_text = "Deposit Account";
+	if ($account_type_text == getAccountTypeWalletAccount()){
+		$account_name_text = getAccountTypeTextWalletAccount();
 	}
 
-	if ($account_type_text == $loan_account_text){
-		$account_name_text = "Loan Account";
-	}
-
-	if ($account_type_text == $shares_account_text){
-		$account_name_text = "Shares Account";
+	if ($account_type_text == getAccountTypeTransactionAccount()){
+		$account_name_text = getAccountTypeTextTransactionAccount();
 	}
 
 	return $account_name_text;

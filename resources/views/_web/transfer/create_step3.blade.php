@@ -50,7 +50,7 @@
                                 </h3>
                             </div>
 
-                            <form action="{{ route('my-account.transferfund.create_step2') }}" class="form-box" method="get">
+                            <form action="{{ route('my-account.transferfund.store') }}" class="form-box" method="post">
 
                                 {{ csrf_field() }}
 
@@ -66,6 +66,8 @@
                                         <input type="hidden" value="{{ getAccountTypeWalletAccount() }}" name="destination_account_type">
                                         <input type="hidden" value="{{ $wallet_account->account_no }}" name="destination_account_no">
                                     @endif
+
+                                    <input type="hidden" value="{{ $transfer_amount }}" name="transfer_amount">
 
                                     <label for="account_no">Destination Account No</label>
 
