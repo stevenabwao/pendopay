@@ -97,6 +97,10 @@
                                         <td align="left"><b>Your Transaction Role: </b></td>
                                         <td align="left"><p>{{ $transaction->user_transaction_role }}</p></td>
                                     </tr>
+                                    <tr>
+                                        <td align="left"><b>Transaction Account No: </b></td>
+                                        <td align="left"><p>{{ $transaction->transaction_account_no }}</p></td>
+                                    </tr>
                                 </table>
 
                             </div>
