@@ -16,6 +16,7 @@ use App\Entities\UserAccessToken;
 use App\Entities\LoanProductSetting;
 use App\Entities\LoanAccount;
 use App\Entities\DepositAccountSummary;
+use App\Entities\TransactionAccountSummary;
 use App\Entities\LoanExposureLimit;
 use App\Entities\UserAccountInquiry;
 use App\Entities\LoanRepaymentSchedule;
@@ -2511,6 +2512,29 @@ function getUserDepositAccountData($phone, $account_no="", $user_id=NULL) {
 
 }
 
+// get transaction account data
+function getTransactionAccountData($account_no="", $transaction_id=NULL) {
+
+    try {
+
+        $transaction_acct_data = TransactionAccount::when($transaction_id, function ($query) use ($transaction_id) {
+                            $query->orWhere('id', '=', $transaction_id);
+                        })
+                        ->when($account_no, function ($query) use ($account_no) {
+                            $query->orWhere('account_no', '=', $account_no);
+                        })
+                        ->first();
+
+        return $transaction_acct_data;
+
+    } catch(\Exception $e) {
+        $error_message = $e->getMessage();
+        log_this($error_message);
+        throw new \Exception($error_message);
+    }
+
+}
+
 // get user account data
 function getUserData($phone, $email="", $id=NULL) {
 
@@ -2552,6 +2576,23 @@ function getUserDepositAccountSummaryData($user_id=NULL) {
     $user_id = $user_id ? $user_id : getLoggedUser()->id;
 
     return DepositAccountSummary::where('user_id', $user_id)->first();
+
+}
+
+// get user deposit account summary data
+function getTransactionAccountSummaryData($account_no=NULL, $transaction_id=NULL) {
+
+    if ((!$transaction_id) && (!$account_no)) {
+        throw new \Exception("Please provide transaction id or account no to get transaction account summary");
+    }
+
+    return TransactionAccountSummary::when($transaction_id, function ($query) use ($transaction_id) {
+                                        $query->where('id', '=', $transaction_id);
+                                    })
+                                    ->when($account_no, function ($query) use ($account_no) {
+                                        $query->where('account_no', '=', $account_no);
+                                    })
+                                    ->first();
 
 }
 
@@ -3192,6 +3233,9 @@ function getAcceptToProceedText() {
 // gl account types
 function getGlAccountTypeClientDeposits() {
     return config('constants.gl_account_types.client_deposits');
+}
+function getGlAccountTypeTransactionDeposits() {
+    return config('constants.gl_account_types.transaction_deposits');
 }
 function getGlAccountTypeClubRefunds() {
     return config('constants.gl_account_types.club_refunds');

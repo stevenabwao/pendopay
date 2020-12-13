@@ -99,9 +99,17 @@
                                                     <li>
                                                         <i class="icon-user"></i>
                                                         <a href="{{ $transaction->url }}">
-                                                            {{ $transaction->formatted_transaction_amount }}
+                                                            {{ $transaction->formatted_transaction_balance }}
                                                         </a>
                                                     </li>
+                                                    @if(($transaction->transaction_account_no) && ($transaction->status_id == getStatusActive()))
+                                                    <li>
+                                                        <i class="icon-bookmark"></i>
+                                                        <a href="#">
+                                                            {{ $transaction->transaction_account_no }}
+                                                        </a>
+                                                    </li>
+                                                    @endif
                                                     <li>
                                                         <i class="fa fa-thumbs-up"></i>
                                                         {!! showStatusText($transaction->status_id) !!}

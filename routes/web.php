@@ -190,7 +190,7 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::get('/my-account/transfer-funds', 'Web\Transfer\WebTransferController@create')->name('my-account.transferfund.create');
 	Route::get('/my-account/transfer-funds-2', 'Web\Transfer\WebTransferController@create_step2')->name('my-account.transferfund.create_step2');
-	Route::get('/my-account/transfer-funds/{id}', 'Web\Transfer\WebTransferController@show')->name('my-account.transferfund.show');
+	Route::get('/my-account/my-transfers/{id}', 'Web\Transfer\WebTransferController@show')->name('my-account.transferfund.show');
 	Route::get('/my-account/transfer-funds-confirmation', 'Web\Transfer\WebTransferController@create_step3')->name('my-account.transferfund.create_step3');
     Route::post('/my-account/transfer-funds-store', 'Web\Transfer\WebTransferController@store')->name('my-account.transferfund.store');
 

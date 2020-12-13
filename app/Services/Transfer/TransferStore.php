@@ -140,65 +140,60 @@ class TransferStore
 
             $tran_ref_txt = "Transfer From User ID - $source_account_user_id, Account Name - "  . titlecase($source_account_name);
 
-            // start reduce source account balance
-            if ($source_account_type == getAccountTypeWalletAccount()) {
+            // start reduce source deposit account balance
+            $source_deposit_account_summary_data = getUserDepositAccountSummaryData($logged_user->id);
 
-                $source_deposit_account_summary_data = getUserDepositAccountSummaryData($logged_user->id);
+            try {
 
-                try {
+                $deposit_account_summary_id = $source_deposit_account_summary_data->id;
+                $account_no = $source_deposit_account_summary_data->account_no;
+                $dep_phone = $source_deposit_account_summary_data->phone;
+                $current_balance = $source_deposit_account_summary_data->ledger_balance;
 
-                    $deposit_account_summary_id = $source_deposit_account_summary_data->id;
-                    $account_no = $source_deposit_account_summary_data->account_no;
-                    $dep_phone = $source_deposit_account_summary_data->phone;
-                    $current_balance = $source_deposit_account_summary_data->ledger_balance;
+                $new_account_balance = $current_balance - $transfer_amount;
 
-                    $new_account_balance = $current_balance - $transfer_amount;
+                // update deposit account summary, reduce account balance
+                $deposit_account_summary_update = $source_deposit_account_summary_data
+                            ->updatedata($deposit_account_summary_id, ['ledger_balance' => $new_account_balance]);
 
-                    // update deposit account summary, reduce account balance
-                    $deposit_account_summary_update = $source_deposit_account_summary_data
-                                ->updatedata($deposit_account_summary_id, ['ledger_balance' => $new_account_balance]);
+            } catch(\Exception $e) {
 
-                } catch(\Exception $e) {
-
-                    DB::rollback();
-                    $message = 'Error. Could not update source_deposit_account_summary_data - ' . $e->getMessage();
-                    log_this($message . " - ". json_encode($source_deposit_account_summary_data));
-                    throw new \Exception($message);
-
-                }
-
-                // start source account deposit acount history record reduction
-                try {
-
-                    $new_deposit_acct_history = new DepositAccountHistory();
-
-                    $deposit_acct_history_attributes['parent_id'] = $deposit_account_summary_id;
-                    $deposit_acct_history_attributes['account_no'] = $account_no;
-                    $deposit_acct_history_attributes['phone'] = $dep_phone;
-                    $deposit_acct_history_attributes['dr_cr_ind'] = 'CR';
-                    $deposit_acct_history_attributes['company_id'] = $source_company_id;
-                    $deposit_acct_history_attributes['trans_ref_txt'] = $tran_ref_txt;
-                    $deposit_acct_history_attributes['trans_desc'] = $tran_desc;
-                    $deposit_acct_history_attributes['company_user_id'] = $source_account_company_user_id;
-                    $deposit_acct_history_attributes['user_id'] = $source_account_user_id;
-                    $deposit_acct_history_attributes['amount'] = -$transfer_amount;
-
-                    // dd($deposit_acct_history_attributes);
-
-                    $result = $new_deposit_acct_history->create($deposit_acct_history_attributes);
-                    // end add deposit acount history record
-
-                } catch(\Exception $e) {
-
-                    DB::rollback();
-                    $message = 'Error. Could not update source account - ' . $e->getMessage();
-                    log_this($message . " - ". json_encode($source_account_data));
-                    throw new \Exception($message);
-
-                }
+                DB::rollback();
+                $message = 'Error. Could not update source_deposit_account_summary_data - ' . $e->getMessage();
+                log_this($message . " - ". json_encode($source_deposit_account_summary_data));
+                throw new \Exception($message);
 
             }
-            // end reduce source  account balance
+            // end reduce source deposit account balance
+
+            // start source account deposit acount history record reduction
+            try {
+
+                $new_deposit_acct_history = new DepositAccountHistory();
+
+                $deposit_acct_history_attributes['parent_id'] = $deposit_account_summary_id;
+                $deposit_acct_history_attributes['account_no'] = $account_no;
+                $deposit_acct_history_attributes['phone'] = $dep_phone;
+                $deposit_acct_history_attributes['dr_cr_ind'] = 'CR';
+                $deposit_acct_history_attributes['company_id'] = $source_company_id;
+                $deposit_acct_history_attributes['trans_ref_txt'] = $tran_ref_txt;
+                $deposit_acct_history_attributes['trans_desc'] = $tran_desc;
+                $deposit_acct_history_attributes['company_user_id'] = $source_account_company_user_id;
+                $deposit_acct_history_attributes['user_id'] = $source_account_user_id;
+                $deposit_acct_history_attributes['amount'] = -$transfer_amount;
+
+                $result = $new_deposit_acct_history->create($deposit_acct_history_attributes);
+                // end add deposit acount history record
+
+            } catch(\Exception $e) {
+
+                DB::rollback();
+                $message = 'Error. Could not update source deposit account - ' . $e->getMessage();
+                log_this($message . " - ". json_encode($source_account_data));
+                throw new \Exception($message);
+
+            }
+            // end source account deposit acount history record reduction
 
             // start store gl account entry for reduced deposit in source acount
             try {

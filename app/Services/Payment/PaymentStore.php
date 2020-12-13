@@ -35,6 +35,7 @@ class PaymentStore
         $transfer = "";
         $payment_id = "";
         $tran_ref_txt = "";
+        $destination_account_type = "";
 
         if (array_key_exists('bank_name', $attributes)) {
             $bank_name = $attributes['bank_name'];
@@ -85,6 +86,10 @@ class PaymentStore
             $account_no = $attributes['acct_no'];
             $attributes['account_no'] = $attributes['acct_no'];
         }
+        if (array_key_exists('destination_account_type', $attributes)) {
+            $destination_account_type = $attributes['destination_account_type'];
+        }
+        // dd("heye attributes == ", $attributes);
 
         if (!$payment_method_id) {
             $payment_method_id = getPaymentMethodMpesa();
@@ -103,27 +108,60 @@ class PaymentStore
             // if we are in transfer mode
             if ($transfer) {
 
-                // save amount to user deposit account
-                $paymentUserDepositAccountStore = new PaymentUserTransferStore();
+                // start if we are transferring to a wallet account
+                if ($destination_account_type == getAccountTypeWalletAccount()) {
 
-                try {
+                    // save amount to user deposit account
+                    $paymentUserDepositAccountStore = new PaymentUserTransferStore();
 
-                    // dd($attributes, $new_payment);
+                    try {
 
-                    $result = $paymentUserDepositAccountStore->createItem($attributes, $new_payment);
-                    log_this("Success paymentUserDepositAccountStore \n" . json_encode($result));
+                        $result = $paymentUserDepositAccountStore->createItem($attributes, $new_payment);
+                        log_this("Success paymentUserDepositAccountStore \n" . json_encode($result));
 
-                    // dd("result == ", $result);
+                        // dd("result == ", $result);
 
-                } catch(\Exception $e) {
+                    } catch(\Exception $e) {
 
-                    throw new \Exception($e->getMessage());
+                        $error_message = $e->getMessage();
+                        log_this("Error paymentUserDepositAccountStore \n" . json_encode($error_message));
+                        throw new \Exception($error_message);
+
+                    }
 
                 }
+                // end if we are transferring to a wallet account
+
+                // start if we are transferring to a transaction account
+                if ($destination_account_type == getAccountTypeTransactionAccount()) {
+
+                    // save amount to transaction account
+                    $paymentTransactionTransferStore = new PaymentTransactionTransferStore();
+
+                    try {
+
+                        $result = $paymentTransactionTransferStore->createItem($attributes, $new_payment);
+                        log_this("Success paymentTransactionTransferStore \n" . json_encode($result));
+
+                        // dd("result == ", $result);
+
+                    } catch(\Exception $e) {
+
+                        // dd($e);
+                        $error_message = $e->getMessage();
+                        log_this("Error paymentTransactionTransferStore \n" . json_encode($error_message));
+                        throw new \Exception($error_message);
+
+                    }
+
+                }
+                // end if we are transferring to a transaction account
+
+
 
             }
 
-            // if account_no exists
+            // if account_no exists and we are not in transfer mode
             if ($account_no && !$transfer) {
 
                 // save amount to user deposit account

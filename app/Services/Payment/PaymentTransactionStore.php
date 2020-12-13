@@ -7,10 +7,11 @@ use App\Entities\CompanyUser;
 use App\Entities\DepositAccount;
 use App\Services\Deposit\DepositStore;
 use App\Entities\RegistrationPayment;
+use App\Services\Transaction\TransactionStore;
 use App\User;
 use Illuminate\Support\Facades\DB;
 
-class PaymentDepositStore
+class PaymentTransactionStore
 {
 
     public function createItem($payment_id, $attributes) {
@@ -84,49 +85,45 @@ class PaymentDepositStore
             if (array_key_exists('transfer', $attributes)) {
                 $transfer = $attributes['transfer'];
             }
+            if (array_key_exists('source_account_no', $attributes)) {
+                $source_account_no = $attributes['source_account_no'];
+            }
+            if (array_key_exists('destination_account_no', $attributes)) {
+                $destination_account_no = $attributes['destination_account_no'];
+            }
 
             // get barddy company id
             $site_settings = getSiteSettings();
             $settings_company_id = $site_settings['company_id'];
 
-            $user_deposit_account_data = NULL;
+            $transaction_account_data = NULL;
 
-            // get user data
+            // dd("INN destination_account_no === ", $attributes, $destination_account_no);
+
+            // start get transaction account
             try {
 
-                $user_data = getUserData($account_no);
-                // dd("user_data == ", $user_data);
-                $user_id = $user_data->id;
+                $transaction_account_data = getTransactionAccountData($destination_account_no);
+                $deposit_account_no = $transaction_account_data->account_no;
+                $deposit_user_id = $transaction_account_data->user_id;
 
             } catch(\Exception $e) {
 
-                throw new \Exception($e->getMessage());
+                $error_message = $e->getMessage();
+                log_this($error_message);
+                throw new \Exception($error_message);
 
             }
+            // end get transaction account
 
-            // get user deposit account
-            try {
-
-                $user_deposit_account_data = getUserDepositAccountData("", "", $user_id);
-                $deposit_account_no = $user_deposit_account_data->account_no;
-                $deposit_user_id = $user_deposit_account_data->user_id;
-                // dd("user_deposit_account_data == ", $user_deposit_account_data);
-
-            } catch(\Exception $e) {
-
-                throw new \Exception($e->getMessage());
-
-            }
-
-            //end check if account_no exists
-            if ($user_deposit_account_data) {
+            if ($transaction_account_data) {
 
                 if ($amount > 0) {
 
                     try {
 
-                        //create a new deposit
-                        $deposit_store = new DepositStore();
+                        //create a new transaction
+                        $transaction_store = new TransactionStore();
 
                         if ($transfer != "1") {
                             $tran_ref_txt = "mpesa_code - $mpesa_code - payment_name - $full_name - payment_id - $payment_id";
@@ -138,14 +135,14 @@ class PaymentDepositStore
                         $attributes['account_no'] = $deposit_account_no;
                         $attributes['amount'] = $amount;
                         // dd($attributes);
-                        $new_deposit = $deposit_store->createItem($attributes);
-                        log_this(json_encode($new_deposit));
+                        $new_transaction = $transaction_store->createItem($attributes);
+                        log_this(json_encode($new_transaction));
 
                     } catch(\Exception $e) {
 
                         DB::rollback();
                         // dd($e);
-                        $show_message = trans('general.couldnotcreatenewdeposit');
+                        $show_message = trans('general.couldnotcreatenewtransactiontransfer');
                         log_this($show_message);
                         throw new \Exception($show_message);
 
@@ -158,17 +155,17 @@ class PaymentDepositStore
                             $tran_ref_txt = "mpesa_code - $mpesa_code - payment_name - $payment_name - payment_id - $payment_id";
                             $tran_desc = "Deposit - user id - $deposit_user_id - Deposit account number - $deposit_account_no";
                         }
-                        $client_dep_gl_account_entry = createGlAccountEntry($payment_id, $amount, getGlAccountTypeClientDeposits(),
+                        $transaction_dep_gl_account_entry = createGlAccountEntry($payment_id, $amount, getGlAccountTypeTransactionDeposits(),
                                                                             $settings_company_id, $phone, "DR", $tran_ref_txt, $tran_desc, "neg", "neg");
 
-                        // dd($client_dep_gl_account_entry);
-                        log_this("Inserted client_dep_gl_account_entry \n" . json_encode($client_dep_gl_account_entry));
+                        // dd($transaction_dep_gl_account_entry);
+                        log_this("Inserted transaction_dep_gl_account_entry \n" . json_encode($transaction_dep_gl_account_entry));
 
                     } catch(\Exception $e) {
 
                         DB::rollback();
                         // dd($e);
-                        $show_message = trans('general.couldnotcreateclientdepositglentry');
+                        $show_message = trans('general.couldnotcreatetransactiondepositglentry');
                         log_this($show_message);
                         throw new \Exception($show_message);
 
@@ -177,13 +174,11 @@ class PaymentDepositStore
                 }
 
             }
-            //  dd("user_deposit_account_data == ", $user_deposit_account_data);
-
 
         DB::commit();
 
-        $response['deposit_account'] = $user_deposit_account_data;
-        $response['user'] = $user_deposit_account_data->user;
+        $response['transaction_account'] = $transaction_account_data;
+        // $response['user'] = $transaction_account_data->user;
 
         return json_encode($response);
 

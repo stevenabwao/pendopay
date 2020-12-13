@@ -261,6 +261,7 @@
             'mobile_loans_principal' => "4",
             'account_charges' => "7",
             'client_deposits' => "12",
+            'transaction_deposits' => "20",
             'mobile_loans_interest' => "8",
             'mobile_loans_interest_income' => "13",
             'mobile_loans_penalty' => "3",

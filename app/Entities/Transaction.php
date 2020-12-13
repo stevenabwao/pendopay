@@ -84,10 +84,10 @@ class Transaction extends BaseModel
 
     }
 
-    // add accessor for trans date
+    // add accessor for percentage paid
     public function getPercentagePaidAttribute()
     {
-        return 50;
+        return ($this->transaction_amount_paid/ $this->transaction_amount) * 100;
     }
 
     // add accessor for trans date
@@ -103,10 +103,14 @@ class Transaction extends BaseModel
     }
 
     // add accessor for trans amount paid
-    public function getTransactionAmountPaidAttribute()
+    /* public function getTransactionAmountPaidAttribute()
     {
-        return 4000;
-    }
+        $trans_amount_paid = 0;
+        if($this->transaction_amount_paid){
+            $trans_amount_paid = $this->transaction_amount_paid;
+        }
+        return $trans_amount_paid;
+    } */
 
     // add accessor for formatted trans amount paid
     public function getFormattedTransactionAmountPaidAttribute()
@@ -147,6 +151,16 @@ class Transaction extends BaseModel
         } else {
             return '';
         }
+    }
+
+    // add accessor for transaction account no
+    public function getTransactionAccountNoAttribute()
+    {
+        $transaction_account = "";
+        if($this->transactionaccount){
+            $transaction_account = $this->transactionaccount->account_no;
+        }
+        return $transaction_account;
     }
 
     // add accessor for image
