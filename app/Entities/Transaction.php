@@ -87,7 +87,8 @@ class Transaction extends BaseModel
     // add accessor for percentage paid
     public function getPercentagePaidAttribute()
     {
-        return ($this->transaction_amount_paid/ $this->transaction_amount) * 100;
+        $formatted_percent_paid = ($this->transaction_amount_paid/ $this->transaction_amount) * 100;
+        return format_num($formatted_percent_paid, 0);
     }
 
     // add accessor for trans date

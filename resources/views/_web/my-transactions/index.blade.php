@@ -104,7 +104,7 @@
                                                     </li>
                                                     @if(($transaction->transaction_account_no) && ($transaction->status_id == getStatusActive()))
                                                     <li>
-                                                        <i class="fa-briefcase"></i>
+                                                        <i class="fa fa-dot-circle-o"></i>
                                                         <a href="#">
                                                             {{ $transaction->transaction_account_no }}
                                                         </a>

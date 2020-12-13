@@ -150,6 +150,17 @@
                     @endif
                     {{-- end whether to show the deposit to transaction button --}}
 
+                    {{-- start whether to show the deposit to transaction button --}}
+                    @if($transaction->status_id == getStatusActive())
+
+                        <a href="{{ route('my-payments.index') }}" class="btn btn-sm btn-info btn-block full-width-sm btn-white">
+                            Show Transaction Deposits History
+                        </a>
+                        <hr>
+
+                    @endif
+                    {{-- end whether to show the deposit to transaction button --}}
+
                     {{-- show transaction description if it exists --}}
                     @if($transaction->transaction_description)
 
