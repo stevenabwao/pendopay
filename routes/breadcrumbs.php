@@ -12,6 +12,7 @@ use App\Entities\OfferProduct;
 use App\Entities\Payment;
 use App\Entities\Till;
 use App\Entities\Transaction;
+use App\Entities\Transfer;
 use App\Permission;
 use App\Role;
 use App\User;
@@ -232,6 +233,26 @@ Breadcrumbs::register('my-transactions.edit', function($breadcrumbs, $id)
 });
 
 /******** END MY TRANSACTIONS ROUTES ********/
+
+
+/******** MY TRANSFERS ROUTES ********/
+
+// Home > My Transfers
+Breadcrumbs::register('my-transfers.index', function($breadcrumbs)
+{
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('My Transfers', route('my-transfers.index'));
+});
+
+// Home > My Transfers > Show Transfer
+Breadcrumbs::register('my-transfers.show', function($breadcrumbs, $id)
+{
+    $transfer = Transfer::findOrFail($id);
+    $breadcrumbs->parent('my-transfers.index');
+    $breadcrumbs->push($transfer->destination_account_name, route('my-transfers.show', $transfer->id));
+});
+
+/******** END MY TRANSFERS ROUTES ********/
 
 
 

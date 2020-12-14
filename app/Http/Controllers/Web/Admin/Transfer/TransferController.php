@@ -95,7 +95,7 @@ class TransferController extends Controller
         $deposit_account_text = config('constants.account_type_text.deposit_account');
         $loan_account_text = config('constants.account_type_text.loan_account');
         $shares_account_text = config('constants.account_type_text.shares_account');
-        
+
         //dd($request);
         $rules = [
             'source_account' => 'required',
@@ -138,36 +138,36 @@ class TransferController extends Controller
                 $destination_title = getAccountNameText($deposit_account_text);
                 $destination_text = $deposit_account_text;
                 $account_type = $deposit_account_text;
-                
+
                 $destination_accounts = getTransferAccountData($request, $company_ids_array, $account_type);
 
             }
 
             //shares account
             if ($request->destination_account == $shares_account_text){
-                
+
                 $destination_title = getAccountNameText($shares_account_text);
                 $destination_text = $shares_account_text;
                 $account_type = $shares_account_text;
 
                 $destination_accounts = getTransferAccountData($request, $company_ids_array, $account_type);
-                
+
             }
 
 
             //loan account
             if ($request->destination_account == $loan_account_text){
-                
+
                 $destination_title = getAccountNameText($loan_account_text);
                 $destination_text = $loan_account_text;
                 $account_type = $loan_account_text;
 
-                $destination_accounts = getTransferAccountData($request, $company_ids_array, $account_type);                
+                $destination_accounts = getTransferAccountData($request, $company_ids_array, $account_type);
 
             }
 
             //dd(DB::getQueryLog());
-            
+
         } else {
 
             abort(503);
@@ -266,7 +266,7 @@ class TransferController extends Controller
         $transfer = json_decode($transfer);
         $result_message = $transfer->message;
         //dd($result_message);
-        
+
         if (!$transfer->error) {
             //$result_message = json_decode($result_message);
             //dd($result_message);

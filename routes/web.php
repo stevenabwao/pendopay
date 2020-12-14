@@ -169,6 +169,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/my-transactions/store-step3', 'Web\MyTransaction\MyTransactionController@storeStep3')->name('my-transactions.store-step3');
     Route::get('/my-transactions/{id}', 'Web\MyTransaction\MyTransactionController@show')->name('my-transactions.show');
 
+    // my transfers routes
+    Route::get('/my-transfers', 'Web\MyTransfer\MyTransferController@index')->name('my-transfers.index');
+    Route::get('/my-transfers/{id}', 'Web\MyTransfer\MyTransferController@show')->name('my-transfers.show');
+
     //payment controller
 	Route::get('/my-payments', 'Web\MyPayments\MyPaymentController@index')->name('my-payments.index');
 	Route::get('/my-payments/create', 'Web\MyPayments\MyPaymentController@create')->name('my-payments.create');

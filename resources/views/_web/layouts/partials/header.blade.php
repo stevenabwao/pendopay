@@ -34,7 +34,7 @@
                         <ul>
                             <li><a href="{{ route('my-transactions.index') }}">My Transactions</a></li>
                             <li><a href="{{ route('my-payments.index') }}">My Payments</a></li>
-                            <li><a href="{{ route('my-payments.index') }}">My Transfers</a></li>
+                            <li><a href="{{ route('my-transfers.index') }}">My Transfers</a></li>
                         </ul>
                     </li>
 

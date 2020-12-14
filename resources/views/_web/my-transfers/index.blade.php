@@ -1,7 +1,7 @@
 @extends('_web.layouts.master')
 
 @section('title')
-    My Transactions
+    My Transfers
 @endsection
 
 @section('page_title')
@@ -9,7 +9,7 @@
 @endsection
 
 @section('page_breadcrumbs')
-   {!! Breadcrumbs::render('my-transactions.index') !!}
+   {!! Breadcrumbs::render('my-transfers.index') !!}
 @endsection
 
 
@@ -18,7 +18,7 @@
     <section class="section-base section-color">
         <div class="container">
             <div class="row">
-                <div class="col-lg-5">
+                {{-- <div class="col-lg-5">
 
                     <div class="fixed-area" data-offset="80">
                         <div class="menu-innerz menu-inner-vertical boxed-area text-center equalheight">
@@ -27,9 +27,7 @@
                             <hr>
 
                             <div class="row">
-                                {{-- <div class="col-lg-3">
-                                    <i class="im-coins text-lg"></i>
-                                </div> --}}
+
                                 <div class="col-lg-12">
                                     <div class="text-lg text-amount-big">
                                         {{ formatCurrency(getUserDepositAccountBalance()) }}
@@ -40,7 +38,8 @@
                             <hr>
                             <div class="row">
                                 <div class=" walet">
-                                    <a href="{{ route('my-account.transferfund.create') }}" class="btn btn-sm btn-border full-width btn-block"><i class="fa fa-dollar"></i> Transfer Funds</a>
+                                    <a href="{{ route('my-account.transferfund.create') }}" class="btn btn-sm btn-border full-width btn-block">
+                                        <i class="fa fa-dollar"></i> Transfer Funds</a>
                                 </div>
                                 <div class="walet">
                                     <a href="{{ route('my-payments.create') }}" class="btn btn-sm btn-border full-width btn-block">
@@ -56,16 +55,16 @@
 
                     </div>
 
-                </div>
-                <div class="col-lg-7 no-guttersz" style="display:inline-block; word-break: break-word; overflow: inherit;">
+                </div> --}}
+                <div class="col-lg-12 no-guttersz" style="display:inline-block; word-break: break-word; overflow: inherit;">
 
                     <div class="grid-list equalheight" data-columns="1">
 
                         <div class="row">
-                            <div class="col-lg-6"><h3>RECENT TRANSACTIONS</h3></div>
-                            <div class="col-lg-6 no-gutters">
-                                <a href="{{ route('my-transactions.create') }}" class="btn btn-sm btn-icon full-width-sm btn-white">
-                                    <i class="fa fa-plus"></i>Create New Transaction
+                            <div class="col-lg-6"><h3>RECENT TRANSFERS</h3></div>
+                            <div class="col-lg-6 no-gutters text-right">
+                                <a href="{{ route('my-account.transferfund.create') }}" class="btn btn-sm btn-icon full-width-sm btn-white">
+                                    <i class="fa fa-plus"></i>Create New Transfer
                                 </a>
                             </div>
                         </div>
@@ -74,49 +73,53 @@
 
                         <div class="grid-box">
 
-                            @if (count($transactions))
+                            @if (count($transfers))
 
-                                @foreach ($transactions as $transaction)
+                                @foreach ($transfers as $transfer)
 
                                     <div class="grid-item">
-                                        <div class="cnt-boxz cnt-box-blog-side boxedz" data-href="{{ $transaction->url }}">
+                                        <div class="cnt-boxz cnt-box-blog-side boxedz" data-href="{{ $transfer->url }}">
                                             <div class="caption2">
-                                                <h3>{{ $transaction->title }}</h3>
+                                                <h3>{{ $transfer->title }}</h3>
                                                 <ul class="icon-list icon-list-horizontal">
                                                     <li>
                                                         <i class="icon-calendar"></i>
-                                                        <a href="{{ $transaction->url }}">
-                                                            {{ $transaction->formatted_transaction_date }}
+                                                        <a href="{{ $transfer->url }}">
+                                                            {{ $transfer->created_at }}
                                                         </a>
                                                     </li>
                                                     <li>
                                                         <i class="icon-bookmark"></i>
-                                                        <a href="{{ $transaction->url }}">
-                                                            {{ $transaction->user_transaction_role }}
+                                                        <a href="{{ $transfer->url }}">
+                                                            {{ $transfer->formatted_amount }}
                                                         </a>
                                                     </li>
                                                     <li>
                                                         <i class="icon-user"></i>
-                                                        <a href="{{ $transaction->url }}">
-                                                            {{ $transaction->formatted_transaction_balance }}
+                                                        <a href="{{ $transfer->url }}">
+                                                            {{ $transfer->destination_account_name }}
                                                         </a>
                                                     </li>
-                                                    @if(($transaction->transaction_account_no) && ($transaction->status_id == getStatusActive()))
                                                     <li>
-                                                        <i class="fa fa-dot-circle-o"></i>
-                                                        <a href="{{ $transaction->url }}">
-                                                            {{ $transaction->transaction_account_no }}
+                                                        <i class="icon-user"></i>
+                                                        <a href="{{ $transfer->url }}">
+                                                            {{ $transfer->destination_account_type }}
                                                         </a>
                                                     </li>
-                                                    @endif
                                                     <li>
+                                                        <i class="icon-user"></i>
+                                                        <a href="{{ $transfer->url }}">
+                                                            {{ $transfer->destination_account_no }}
+                                                        </a>
+                                                    </li>
+
+                                                    {{-- <li>
                                                         <i class="fa fa-thumbs-up"></i>
-                                                        {!! showStatusText($transaction->status_id) !!}
-                                                        {{-- only show below if the transaction is not active and was not created by the logged in user --}}
-                                                        @if($transaction->status_id != getStatusActive())
-                                                            ({!! showStatusText($transaction->status_id, "", "", getMyTransactionMessage($transaction)) !!})
+                                                        {!! showStatusText($transfer->status_id) !!}
+                                                        @if($transfer->status_id != getStatusActive())
+                                                            ({!! showStatusText($transfer->status_id, "", "", getMyTransactionMessage($transfer)) !!})
                                                         @endif
-                                                    </li>
+                                                    </li> --}}
                                                 </ul>
                                             </div>
                                         </div>
@@ -126,7 +129,7 @@
                                 @endforeach
 
                                 {{-- pagination --}}
-                                {{ $transactions->links() }}
+                                {{ $transfers->links() }}
 
                             @else
 

@@ -70,6 +70,34 @@ class Transfer extends BaseModel
         return $this->belongsTo(User::class, 'updated_by', 'id');
     }
 
+    /* start accessors */
+    // add accessor for trans date
+    /* public function getFormattedTransactionDateAttribute()
+    {
+        return formatDatePickerDate($this->transaction_date, 'd-M-Y');
+    } */
+
+    public function getUrlAttribute()
+    {
+
+        // link to show
+        $url = route('my-transfers.show', ['id'=>$this->id]);
+
+        return $url;
+
+    }
+
+    // add accessor for trans amount
+    public function getFormattedAmountAttribute()
+    {
+        return formatCurrency($this->amount);
+    }
+    public function getFormattedTransferAmountAttribute()
+    {
+        return formatCurrency($this->amount);
+    }
+    /* end accessors */
+
     /**
      * @param array $attributes
      * @return \Illuminate\Database\Eloquent\Model

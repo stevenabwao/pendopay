@@ -248,8 +248,8 @@ class WebTransferController extends Controller
 
             $new_id = $result_data->id;
             Session::flash('success', 'Successfully transferred funds');
-            // return redirect()->route('my-account.transferfund.show', $new_id);
-            return redirect()->route('my-transactions.index');
+            return redirect()->route('my-transfers.show', $new_id);
+            // return redirect()->route('my-transactions.index');
 
         } catch(\Exception $e) {
 
