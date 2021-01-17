@@ -38,6 +38,7 @@ class ApiPaymentController extends BaseController
 
         // get the data
         $data = $paymentIndex->getData($request);
+        // dd("data", $data);
 
         //are we in report mode?
         if (!$request->report) {

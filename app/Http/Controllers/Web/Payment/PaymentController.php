@@ -74,7 +74,7 @@ class PaymentController extends Controller
         $paymentmethods = PaymentMethod::where('status_id', '1')->get();
 
         //return view with appended url params
-        return view('payments.index', [
+        return view('_web.my-payments.index', [
             'payments' => $data,
             'mpesapaybills' => $paybills_array,
             'paymentmethods' => $paymentmethods

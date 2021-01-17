@@ -21,11 +21,11 @@ class PaymentIndex
         // get logged in user
         // $user = auth()->user();
         // dd($user);
-        $user_company_ids = "";
+        /* $user_company_ids = "";
         if (!isSuperadmin()) {
             $user_company_ids = getUserCompanyids();
             // dd($user_company_ids);
-        }
+        } */
 
         //get params
         $report = $request->report;
@@ -53,15 +53,15 @@ class PaymentIndex
         }
 
         //filter results
-        if (!isSuperadmin()) {
+        /* if (!isSuperadmin()) {
             $data = $data->whereIn('company_id', $user_company_ids);
-        }
+        } */
         if ($id) {
             $data = $data->where('id', $id);
         }
-        if ($companies) {
+        /* if ($companies) {
             $data = $data->whereIn('company_id', $companies);
-        }
+        } */
         /* if ($paybills) {
             $data = $data->whereIn('paybill_number', $paybills_num_array);
         } */
@@ -100,6 +100,7 @@ class PaymentIndex
 
         //arrange by column
         $data = $data->orderBy($order_by, $order_style);
+        // dd($data);
 
         //are we in report mode?
         //if not, set url appended params
