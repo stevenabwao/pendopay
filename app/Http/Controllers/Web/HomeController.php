@@ -62,7 +62,7 @@ class HomeController extends BaseController
 
         // dd("home eventOffers ", $eventOffers);
 
-        return view('_web\home', compact('homeSliders', 'eventOffers', 'clubOffers', 'restaurantOffers'));
+        return view('_web.home', compact('homeSliders', 'eventOffers', 'clubOffers', 'restaurantOffers'));
 
     }
 
